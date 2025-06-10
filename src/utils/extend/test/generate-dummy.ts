@@ -21,3 +21,14 @@ export function makeRandomString(anagramArray: Array<string | number>, length: n
 export function randomHexColor() {
   return '#' + new Array(6).fill('').map(() => randomNumber(1, 2 ** 4 - 1).toString(16)).join('');
 }
+
+export function randomNumericArray(length: number): number[] {
+  const result: number[] = [];
+
+  for (let i = 0; i < length; i++) {
+    // 1부터 length 사이의 임의의 숫자를 생성하여 배열에 추가
+    result.push(randomNumber(1, length));
+  }
+
+  return result;
+}

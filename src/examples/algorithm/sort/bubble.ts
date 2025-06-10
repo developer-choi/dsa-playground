@@ -1,27 +1,12 @@
-import {SortParam} from './index';
+import {SortParam, SortResult} from './index';
 
-export {};
-
-// https://www.geeksforgeeks.org/bubble-sort-algorithm
-function main() {
-  console.log(bubbleSort({
-    order: 'asc',
-    value: [5, 4, 3, 2, 1]
-  }));
-  console.log(bubbleSort({
-    order: 'desc',
-    value: [1, 2, 3, 4, 5]
-  }));
-}
-
-main();
-
-/*************************************************************************************************************
- * Algorithm
- *************************************************************************************************************/
-function bubbleSort({order, value}: SortParam): number[] {
+export default function bubbleSort({order, value}: SortParam): SortResult {
   const result: number[] = [...value];
   let swapped = false;
+
+  let comparisonCount = 0;
+  let swapCount = 0;
+  const loopHistory: number[][] = [];
 
   // Point 1. 배열에 요소가 n개면, 순회는 n-1번만 해도 됨. 제일 마지막 거는 순회 안해도 어차피 제일 왼쪽에 있을거니까.
   for (let i = 0; i < value.length - 1; i++) {
@@ -32,14 +17,16 @@ function bubbleSort({order, value}: SortParam): number[] {
       const left = result[j];
       const right = result[j + 1];
       const isTrue = order === 'desc' ? left < right : left > right;
+      comparisonCount++;
 
       if (isTrue) {
         [result[j], result[j + 1]] = [result[j + 1], result[j]];
+        swapCount++;
         swapped = true;
       }
     }
 
-    console.log(`${i} loop`, result);
+    loopHistory.push([...result]);
 
     // Best case에서 Time Complexity를 O(n)으로 최적화 하는 방법
     if (!swapped) {
@@ -47,5 +34,10 @@ function bubbleSort({order, value}: SortParam): number[] {
     }
   }
 
-  return result;
+  return {
+    value: result,
+    comparisonCount,
+    swapCount,
+    loopHistory
+  };
 }
