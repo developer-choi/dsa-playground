@@ -1,49 +1,37 @@
-import {SortParam} from './index';
+import {SortParam, SortResult} from '@/examples/algorithm/sort/index';
 
-export {};
-
-function main() {
-  console.log(selectionSort({order: 'asc', value: [5, 4, 3, 2, 1]}));
-  console.log(selectionSort({order: 'desc', value: [2, 1, 4, 5, 3]}));
-}
-
-main();
-
-/*************************************************************************************************************
- * Algorithm
- *************************************************************************************************************/
-function selectionSort({value, order}: SortParam): number[] {
+export default function selectionSort({value, order}: SortParam): SortResult {
   const result: number[] = [...value];
 
-  // Point 1. 제일 작은거 찾아서 왼쪽부터 채워나가기 때문에, 제일 마지막꺼는 굳이 안따져도 어차피 다 정렬되어있음.
+  let comparisonCount = 0;
+  let swapCount = 0;
+  const loopHistory: number[][] = [];
+
   for (let i = 0; i < value.length - 1; i++) {
-    const targetIndex = getTargetIndex(result, i, order);
+    let minIndex = i;
 
-    if (i !== targetIndex) {
-      [result[i], result[targetIndex]] = [result[targetIndex], result[i]];
+    // 최소값 찾기, i 이전에는 이미 정렬된값이라서 확인하지않음.
+    for(let j = i + 1 ; j < value.length; j++) {
+      const isTrue = order === 'asc' ? result[minIndex] > result[j] : result[minIndex] < result[j];
+
+      comparisonCount++;
+      if(isTrue) {
+        minIndex = j;
+      }
     }
 
-    console.log(`${i} loop`, result);
-  }
-
-  return result;
-}
-
-/**
- * @description order === 'asc' 이면 smallIndex를 반환하고, 'desc'면 biggestIndex를 반환함.
- */
-function getTargetIndex(value: number[], startIndex: number, order: SortParam['order']): number {
-  let targetIndex = startIndex;
-
-  for(let i = startIndex + 1 ; i < value.length; i++) {
-    const item = value[i];
-
-    const isTrue = order === 'asc' ? value[targetIndex] > item : value[targetIndex] < item;
-
-    if(isTrue) {
-      targetIndex = i;
+    if (minIndex !== i) {
+      [result[minIndex], result[i]] = [result[i], result[minIndex]];
+      swapCount++;
     }
+
+    loopHistory.push([...result]);
   }
 
-  return targetIndex;
+  return {
+    value: result,
+    loopHistory,
+    comparisonCount,
+    swapCount
+  };
 }

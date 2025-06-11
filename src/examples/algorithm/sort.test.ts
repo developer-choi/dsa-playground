@@ -3,9 +3,11 @@ import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 import {randomInArray} from '@/utils/extend/test/random';
 import {SortParam} from '@/examples/algorithm/sort';
 import {sortByNumber} from '@/utils/extend/data-type/array';
+import selectionSort from '@/examples/algorithm/sort/selection';
 
 const algorithms = [
   {name: 'Bubble Sort', fn: bubbleSort},
+  {name: 'Selection Sort', fn: selectionSort},
 ];
 
 describe.each(algorithms)('$name Algorithm', ({fn}) => {
