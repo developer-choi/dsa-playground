@@ -38,20 +38,4 @@ export default function bubbleSort({order, value}: SortParam): SortResult {
   };
 }
 
-/* Best
-console.dir(bubbleSort({
-  value: [1, 2, 3, 4, 5],
-  order: 'asc'
-}), {
-  depth: null
-});
- */
-
-/* Worst
-console.dir(bubbleSort({
-  value: [5, 4, 3, 2, 1],
-  order: 'asc'
-}), {
-  depth: null
-});
- */
+// logSortAlgorithmCases(bubbleSort);

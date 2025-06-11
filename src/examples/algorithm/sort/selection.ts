@@ -32,21 +32,4 @@ export default function selectionSort({value, order}: SortParam): SortResult {
   };
 }
 
-
-/* Best
-console.dir(selectionSort({
-  value: [1, 2, 3, 4, 5],
-  order: 'asc'
-}), {
-  depth: null
-});
- */
-
-/* Worst
-console.dir(selectionSort({
-  value: [5, 4, 3, 2, 1],
-  order: 'asc'
-}), {
-  depth: null
-});
- */
+// logSortAlgorithmCases(selectionSort);
