@@ -1,12 +1,9 @@
-import {SortParam, SortResult} from './index';
+import {SortedHistoryLogger, SortParam, SortResult} from './index';
 
 export default function bubbleSort({order, value}: SortParam): SortResult {
-  const result: number[] = [...value];
+  const logger = new SortedHistoryLogger({order, value});
+  const output: number[] = [...value];
   let swapped = false;
-
-  let comparisonCount = 0;
-  let swapCount = 0;
-  const loopHistory: number[][] = [];
 
   // Point 1. 배열에 요소가 n개면, 순회는 n-1번만 해도 됨. 제일 마지막 거는 순회 안해도 어차피 제일 왼쪽에 있을거니까.
   for (let i = 0; i < value.length - 1; i++) {
@@ -14,19 +11,19 @@ export default function bubbleSort({order, value}: SortParam): SortResult {
 
     // Point 2. 여기서 - 1을 더 해줘야, undefined가 안나옴.
     for (let j = 0; j < value.length - i - 1; j++) {
-      const left = result[j];
-      const right = result[j + 1];
+      const left = output[j];
+      const right = output[j + 1];
       const isTrue = order === 'desc' ? left < right : left > right;
 
-      comparisonCount++;
+      logger.compare();
       if (isTrue) {
-        [result[j], result[j + 1]] = [result[j + 1], result[j]];
-        swapCount++;
+        logger.onBeforeSwap(output, j, j + 1);
+        [output[j], output[j + 1]] = [output[j + 1], output[j]];
         swapped = true;
       }
     }
 
-    loopHistory.push([...result]);
+    logger.onLoopEnd(output);
 
     // Best case에서 Time Complexity를 O(n)으로 최적화 하는 방법
     if (!swapped) {
@@ -35,9 +32,7 @@ export default function bubbleSort({order, value}: SortParam): SortResult {
   }
 
   return {
-    value: result,
-    comparisonCount,
-    swapCount,
-    loopHistory
+    output,
+    logger
   };
 }

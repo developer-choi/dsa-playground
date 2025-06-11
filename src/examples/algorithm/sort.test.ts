@@ -14,12 +14,12 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
   describe('General cases', () => {
     it('should sort an array in ascending order', () => {
       const result = fn({value: [5, 4, 3, 2, 1], order: 'asc'});
-      expect(result.value).toEqual([1, 2, 3, 4, 5]);
+      expect(result.output).toEqual([1, 2, 3, 4, 5]);
     });
 
     it('should sort an array in descending order', () => {
       const result = fn({value: [1, 2, 3, 4, 5], order: 'desc'});
-      expect(result.value).toEqual([5, 4, 3, 2, 1]);
+      expect(result.output).toEqual([5, 4, 3, 2, 1]);
     });
 
     it('should ensure correctness across various cases', () => {
@@ -28,7 +28,7 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
         const order = randomInArray<SortParam['order']>(['asc', 'desc'])[0];
         const answer = sortByNumber(order, value, item => item);
         const result = fn({value, order});
-        expect(result.value).toEqual(answer);
+        expect(result.output).toEqual(answer);
       }
     });
   });
@@ -36,7 +36,7 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
   describe('Edge cases', () => {
     it('should handle an array with duplicate elements', () => {
       const result = fn({value: [5, 2, 3, 2, 5], order: 'asc'});
-      expect(result.value).toEqual([2, 2, 3, 5, 5]);
+      expect(result.output).toEqual([2, 2, 3, 5, 5]);
     });
 
     it('should not mutate the original input array', () => {
@@ -47,17 +47,17 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
 
     it('should handle an empty array', () => {
       const result = fn({value: [], order: 'asc'});
-      expect(result.value).toEqual([]);
+      expect(result.output).toEqual([]);
     });
 
     it('should handle a single-element array', () => {
       const result = fn({value: [1], order: 'asc'});
-      expect(result.value).toEqual([1]);
+      expect(result.output).toEqual([1]);
     });
 
     it('should handle an 2개 있는 array', () => {
       const result = fn({value: [1], order: 'asc'});
-      expect(result.value).toEqual([1]);
+      expect(result.output).toEqual([1]);
     });
   });
 });
