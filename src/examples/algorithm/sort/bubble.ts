@@ -1,5 +1,6 @@
 import {SortedHistoryLogger, SortParam, SortResult} from './index';
 
+// https://www.geeksforgeeks.org/bubble-sort-algorithm/
 export default function bubbleSort({order, value}: SortParam): SortResult {
   const logger = new SortedHistoryLogger({order, value});
   const output: number[] = [...value];

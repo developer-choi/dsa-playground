@@ -1,5 +1,6 @@
 import {SortedHistoryLogger, SortParam, SortResult} from '@/examples/algorithm/sort/index';
 
+// https://www.geeksforgeeks.org/selection-sort-algorithm-2/
 export default function selectionSort({value, order}: SortParam): SortResult {
   const logger = new SortedHistoryLogger({order, value});
   const output: number[] = [...value];

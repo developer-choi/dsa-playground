@@ -8,14 +8,15 @@ export interface SortResult {
   logger: SortedHistoryLogger;
 }
 
+// 사용방법 > 3개의 메소드를 반드시 sort 함수 내에서 1번씩만 호출하기. compare-swap-loop
 export class SortedHistoryLogger {
   readonly input: SortParam;
 
   // 외부에서 수정하라고 있는값은 아님.
-  swapCount = 0;
-  swapHistory: string[] = [];
   comparisonCount = 0;
   compareHistory: string[] = [];
+  swapCount = 0;
+  swapHistory: string[] = [];
   loopHistory: number[][] = [];
 
   constructor(input: SortParam) {

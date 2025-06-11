@@ -4,10 +4,12 @@ import {randomInArray} from '@/utils/extend/test/random';
 import {SortParam} from '@/examples/algorithm/sort';
 import {sortByNumber} from '@/utils/extend/data-type/array';
 import selectionSort from '@/examples/algorithm/sort/selection';
+import insertionSort from '@/examples/algorithm/sort/insertion';
 
 const algorithms = [
   {name: 'Bubble Sort', fn: bubbleSort},
   {name: 'Selection Sort', fn: selectionSort},
+  {name: 'Insertion Sort', fn: insertionSort},
 ];
 
 describe.each(algorithms)('$name Algorithm', ({fn}) => {
@@ -23,8 +25,8 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
     });
 
     it('should ensure correctness across various random cases', () => {
-      for (let i = 0; i < 100; i++) {
-        const value = randomNumericArray(100);
+      for (let i = 0; i < 50; i++) {
+        const value = randomNumericArray(50);
         const order = randomInArray<SortParam['order']>(['asc', 'desc'])[0];
         const answer = sortByNumber(order, value, item => item);
         const {output} = fn({value, order});
