@@ -11,7 +11,7 @@ export default function selectionSort({value, order}: SortParam): SortResult {
     for(let j = i + 1 ; j < value.length; j++) {
       const isTrue = order === 'asc' ? output[minIndex] > output[j] : output[minIndex] < output[j];
 
-      logger.compare();
+      logger.onBeforeCompare(output, minIndex, j);
       if(isTrue) {
         minIndex = j;
       }
@@ -30,3 +30,22 @@ export default function selectionSort({value, order}: SortParam): SortResult {
     logger
   };
 }
+
+
+/* Best
+console.dir(selectionSort({
+  value: [1, 2, 3, 4, 5],
+  order: 'asc'
+}), {
+  depth: null
+});
+ */
+
+/* Worst
+console.dir(selectionSort({
+  value: [5, 4, 3, 2, 1],
+  order: 'asc'
+}), {
+  depth: null
+});
+ */

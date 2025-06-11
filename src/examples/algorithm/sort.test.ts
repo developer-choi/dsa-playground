@@ -13,30 +13,42 @@ const algorithms = [
 describe.each(algorithms)('$name Algorithm', ({fn}) => {
   describe('General cases', () => {
     it('should sort an array in ascending order', () => {
-      const result = fn({value: [5, 4, 3, 2, 1], order: 'asc'});
-      expect(result.output).toEqual([1, 2, 3, 4, 5]);
+      const {output} = fn({value: [5, 4, 3, 2, 1], order: 'asc'});
+      expect(output).toEqual([1, 2, 3, 4, 5]);
     });
 
     it('should sort an array in descending order', () => {
-      const result = fn({value: [1, 2, 3, 4, 5], order: 'desc'});
-      expect(result.output).toEqual([5, 4, 3, 2, 1]);
+      const {output} = fn({value: [1, 2, 3, 4, 5], order: 'desc'});
+      expect(output).toEqual([5, 4, 3, 2, 1]);
     });
 
-    it('should ensure correctness across various cases', () => {
-      for(let i = 0 ; i < 100 ; i++) {
+    it('should ensure correctness across various random cases', () => {
+      for (let i = 0; i < 100; i++) {
         const value = randomNumericArray(100);
         const order = randomInArray<SortParam['order']>(['asc', 'desc'])[0];
         const answer = sortByNumber(order, value, item => item);
-        const result = fn({value, order});
-        expect(result.output).toEqual(answer);
+        const {output} = fn({value, order});
+        expect(output).toEqual(answer);
       }
     });
   });
 
   describe('Edge cases', () => {
+    it('should handle a pre-sorted ascending array', () => {
+      const sortedArray = [1, 2, 3, 4, 5];
+      const {output} = fn({value: sortedArray, order: 'asc'});
+      expect(output).toEqual(sortedArray);
+    });
+
+    it('should handle a pre-sorted descending array', () => {
+      const sortedArray = [5, 4, 3, 2, 1];
+      const {output} = fn({value: sortedArray, order: 'desc'});
+      expect(output).toEqual(sortedArray);
+    });
+
     it('should handle an array with duplicate elements', () => {
-      const result = fn({value: [5, 2, 3, 2, 5], order: 'asc'});
-      expect(result.output).toEqual([2, 2, 3, 5, 5]);
+      const {output} = fn({value: [5, 2, 3, 2, 5], order: 'asc'});
+      expect(output).toEqual([2, 2, 3, 5, 5]);
     });
 
     it('should not mutate the original input array', () => {
@@ -46,18 +58,18 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
     });
 
     it('should handle an empty array', () => {
-      const result = fn({value: [], order: 'asc'});
-      expect(result.output).toEqual([]);
+      const {output} = fn({value: [], order: 'asc'});
+      expect(output).toEqual([]);
     });
 
     it('should handle a single-element array', () => {
-      const result = fn({value: [1], order: 'asc'});
-      expect(result.output).toEqual([1]);
+      const {output} = fn({value: [42], order: 'asc'});
+      expect(output).toEqual([42]);
     });
 
-    it('should handle an 2개 있는 array', () => {
-      const result = fn({value: [1], order: 'asc'});
-      expect(result.output).toEqual([1]);
+    it('should handle a two-element array', () => {
+      const {output} = fn({value: [2, 1], order: 'asc'});
+      expect(output).toEqual([1, 2]);
     });
   });
 });

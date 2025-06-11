@@ -15,7 +15,7 @@ export default function bubbleSort({order, value}: SortParam): SortResult {
       const right = output[j + 1];
       const isTrue = order === 'desc' ? left < right : left > right;
 
-      logger.compare();
+      logger.onBeforeCompare(output, j, j+1);
       if (isTrue) {
         logger.onBeforeSwap(output, j, j + 1);
         [output[j], output[j + 1]] = [output[j + 1], output[j]];
@@ -36,3 +36,21 @@ export default function bubbleSort({order, value}: SortParam): SortResult {
     logger
   };
 }
+
+/* Best
+console.dir(bubbleSort({
+  value: [1, 2, 3, 4, 5],
+  order: 'asc'
+}), {
+  depth: null
+});
+ */
+
+/* Worst
+console.dir(bubbleSort({
+  value: [5, 4, 3, 2, 1],
+  order: 'asc'
+}), {
+  depth: null
+});
+ */
