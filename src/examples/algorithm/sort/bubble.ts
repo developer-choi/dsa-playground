@@ -16,7 +16,7 @@ export default function bubbleSort({order, value}: SortParam): SortResult {
       const right = output[j + 1];
       const isTrue = order === 'desc' ? left < right : left > right;
 
-      logger.onBeforeCompare(output, j, j+1);
+      logger.onBeforeCompare(output, j, j + 1);
       if (isTrue) {
         logger.onBeforeSwap(output, j, j + 1);
         [output[j], output[j + 1]] = [output[j + 1], output[j]];

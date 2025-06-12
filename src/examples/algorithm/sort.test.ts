@@ -5,11 +5,13 @@ import {SortParam} from '@/examples/algorithm/sort';
 import {sortByNumber} from '@/utils/extend/data-type/array';
 import selectionSort from '@/examples/algorithm/sort/selection';
 import insertionSort from '@/examples/algorithm/sort/insertion';
+import quickSort from '@/examples/algorithm/sort/quick';
 
 const algorithms = [
   {name: 'Bubble Sort', fn: bubbleSort},
   {name: 'Selection Sort', fn: selectionSort},
   {name: 'Insertion Sort', fn: insertionSort},
+  {name: 'Quick Sort', fn: quickSort},
 ];
 
 describe.each(algorithms)('$name Algorithm', ({fn}) => {
@@ -25,8 +27,9 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
     });
 
     it('should ensure correctness across various random cases', () => {
-      for (let i = 0; i < 50; i++) {
-        const value = randomNumericArray(50);
+      for (let i = 0; i < 1000; i++) {
+        const length = randomInArray([49, 50])[0];
+        const value = randomNumericArray(length);
         const order = randomInArray<SortParam['order']>(['asc', 'desc'])[0];
         const answer = sortByNumber(order, value, item => item);
         const {output} = fn({value, order});

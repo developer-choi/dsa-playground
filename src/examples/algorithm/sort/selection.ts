@@ -9,11 +9,11 @@ export default function selectionSort({value, order}: SortParam): SortResult {
     let minIndex = i;
 
     // 최소값 찾기, i 이전에는 이미 정렬된값이라서 확인하지않음.
-    for(let j = i + 1 ; j < value.length; j++) {
+    for (let j = i + 1; j < value.length; j++) {
       const isTrue = order === 'asc' ? output[minIndex] > output[j] : output[minIndex] < output[j];
 
       logger.onBeforeCompare(output, minIndex, j);
-      if(isTrue) {
+      if (isTrue) {
         minIndex = j;
       }
     }

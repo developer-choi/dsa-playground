@@ -10,7 +10,7 @@ export default function insertionSort({order, value}: SortParam): SortResult {
   // We start with the second element of the array as the first element is assumed to be sorted.
   for (let i = 1; i < value.length; i++) {
     // 역순으로 스왑해가며 자리 찾아가기
-    for(let j = i ; j > 0 ; j--) {
+    for (let j = i; j > 0; j--) {
       const isTrue = order === 'asc' ? output[j] >= output[j - 1] : output[j] <= output[j - 1];
 
       logger.onBeforeCompare(output, j, j - 1);

@@ -21,7 +21,7 @@ export class SortedHistoryLogger {
   // 외부에서 수정하라고 있는값은 아님.
   comparisonCount = 0;
   swapCount = 0;
-  loopCount = 1;
+  loopCount = 0;
   history: string[] = [];
 
   constructor(input: SortParam, options?: Partial<SortedHistoryLoggerOptions>) {
@@ -30,7 +30,13 @@ export class SortedHistoryLogger {
       disableSwapHistory: !!options?.disableSwapHistory,
       disableCompareHistory: !!options?.disableCompareHistory
     };
-    this.history.push(`### [Initial] - ${input.value.join(', ')}`);
+
+    const allOptionsIsDisabled = Object.entries(this.options).every(([, value]) => value);
+
+    if (!allOptionsIsDisabled) {
+      this.loopCount = 1;
+      this.history.push(`### [Initial] - ${input.value.join(', ')}`);
+    }
   }
 
   onBeforeCompare(array: number[], index1: number, index2: number) {
