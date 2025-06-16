@@ -5,7 +5,7 @@ export interface SortParam {
 
 export interface SortResult {
   output: number[];
-  logger: SortedHistoryLogger;
+  logger?: SortedHistoryLogger;
 }
 
 export interface SortedHistoryLoggerOptions {

@@ -1,4 +1,4 @@
-import {SortedHistoryLogger, SortParam, SortResult} from '@/examples/algorithm/sort/index';
+import {SortParam, SortResult} from '@/examples/algorithm/sort/index';
 
 interface InternalQuickSortParam extends SortParam {
   startIndex: number;
@@ -11,13 +11,6 @@ interface InternalQuickSortParam extends SortParam {
  */
 export default function quickSort({value: original, order}: SortParam): SortResult {
   const output = [...original];
-
-  // 퀵 소트는 Divide And Conquer 방식으로 동작하여, 버블 소트처럼 선형으로 반복문을 실행하는 구조가 아닙니다.
-  // 따라서 단계별 히스토리 로그는 다른 정렬처럼 직관적이지 않아 비활성화합니다.
-  const logger = new SortedHistoryLogger({value: original, order: 'asc'}, {
-    disableSwapHistory: true,
-    disableCompareHistory: true
-  });
 
   function sort({value, order, startIndex, endIndex}: InternalQuickSortParam) {
     // 재귀의 종료 조건: 부분 배열에 원소가 하나 이하로 남으면 이미 정렬된 상태로 간주합니다.
@@ -64,7 +57,6 @@ export default function quickSort({value: original, order}: SortParam): SortResu
 
   return {
     output,
-    logger
   };
 }
 
