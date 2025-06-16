@@ -18,20 +18,13 @@ numbers의 원소는 0 이상 1,000 이하입니다.
  */
 
 function solution(numbers: number[]) {
-  const MAGIC = 0;
-
   return numbers.map(number => number.toString()).sort((a, b) => {
     if (a === b) {
       return 0;
     }
 
-    const sumA = a + MAGIC;
-    const sumB = b + MAGIC;
-    const biggerLength = Number(sumA) > Number(sumB) ? sumA.length : sumB.length;
-
-    // 아이디어 1. 문제대로, 애초에 비교할 때 뒤에 뭐 아무거나 붙여서 비교하면 되지않을까? (예외상황 없겟지...)
-    // 그래서 [3, 34]는 해결됐는데 [3, 30]은 해결이 안됐음.
-    if (Number(sumA.padEnd(biggerLength, '0')) < Number(sumB.padEnd(biggerLength, '0'))) {
+    // 아이디어 > 이 방법이 문제와 더 가깝게 체크가 가능. 기존엔 임의의 수를 뒤에 붙여서 비교했지만...
+    if (Number(a + b) < Number(b + a)) {
       return 1;
     } else {
       return -1;
