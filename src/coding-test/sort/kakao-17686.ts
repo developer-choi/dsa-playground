@@ -31,11 +31,11 @@ function parseFileName(filename: string): {head: string, center: string, tail: s
   let state: 'initial' | 'wasNan' | 'endNumber' = 'initial';
 
   for (let char of filename) {
-    if (state === 'initial' && !Number.isNaN(Number(char))) {
+    if (state === 'initial' && isNumber(char)) {
       state = 'wasNan';
     }
 
-    if(state === 'wasNan'  && Number.isNaN(Number(char))) {
+    if (state === 'wasNan' && !isNumber(char)) {
       state = 'endNumber';
     }
 
@@ -59,8 +59,14 @@ function parseFileName(filename: string): {head: string, center: string, tail: s
   };
 }
 
+function isNumber(char: string) {
+  return NUMERIC_CHARS.includes(char);
+}
+
+const NUMERIC_CHARS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
 /*************************************************************************************************************
  * 입출력 예시 (문제)
  *************************************************************************************************************/
-console.log(solution(["img12.png", "img10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"]));
-console.log(solution(["F-5 Freedom Fighter", "B-50 Superfortress", "A-10 Thunderbolt II", "F-14 Tomcat"]));
+console.log(solution(['img12.png', 'img10.png', 'img02.png', 'img1.png', 'IMG01.GIF', 'img2.JPG']));
+console.log(solution(['F-5 Freedom Fighter', 'B-50 Superfortress', 'A-10 Thunderbolt II', 'F-14 Tomcat']));
