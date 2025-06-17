@@ -14,7 +14,7 @@ numbers의 원소는 0 이상 1,000 이하입니다.
  */
 
 function solution(numbers: number[]) {
-  return numbers.map(number => number.toString()).sort((a, b) => {
+  const answer = numbers.map(number => number.toString()).sort((a, b) => {
     if (a === b) {
       return 0;
     }
@@ -26,11 +26,19 @@ function solution(numbers: number[]) {
       return -1;
     }
   });
+
+  if (answer[0] === '0') {
+    return '0';
+  } else {
+    return answer;
+  }
 }
 
 /*************************************************************************************************************
  * 입출력 예시 (문제)
  *************************************************************************************************************/
 // expected: [9, 5, 34, 3, 30]
-// result: [9, 5, 34, 30, 3]
 console.log(solution([3, 30, 34, 5, 9]));
+
+// expected: [0]
+console.log(solution([0, 0, 0]));
