@@ -28,25 +28,25 @@ function parseFileName(filename: string): {head: string, center: string, tail: s
   const heads: string[] = [];
   const centers: string[] = [];
   const tails: string[] = [];
-  let state: 'initial' | 'wasNan' | 'endNumber' = 'initial';
+  let parsingStep: 'head' | 'center' | 'tail' = 'head';
 
   for (let char of filename) {
-    if (state === 'initial' && isNumber(char)) {
-      state = 'wasNan';
+    if (parsingStep === 'head' && isNumber(char)) {
+      parsingStep = 'center';
     }
 
-    if (state === 'wasNan' && !isNumber(char)) {
-      state = 'endNumber';
+    if (parsingStep === 'center' && !isNumber(char)) {
+      parsingStep = 'tail';
     }
 
-    switch (state) {
-      case 'initial':
+    switch (parsingStep) {
+      case 'head':
         heads.push(char);
         break;
-      case 'wasNan':
+      case 'center':
         centers.push(char);
         break;
-      case 'endNumber':
+      case 'tail':
         tails.push(char);
         break;
     }
