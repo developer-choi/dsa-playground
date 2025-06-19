@@ -2,11 +2,7 @@ export default function iterativeBinarySearch(array: number[], target: number): 
   let start = 0;
   let end = array.length - 1;
 
-  while (true) {
-    if (start > end) {
-      break;
-    }
-
+  while (start > end) {
     const middleIndex = Math.floor((start + end) / 2);
     const middleValue = array[middleIndex];
 
