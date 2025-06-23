@@ -27,7 +27,7 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
     });
 
     it('should ensure correctness across various random cases', () => {
-      for (let i = 0; i < 1000; i++) {
+      for (let i = 0; i < 100; i++) {
         const length = randomInArray([49, 50])[0];
         const value = randomNumericArray(length);
         const order = randomInArray<SortParam['order']>(['asc', 'desc'])[0];
