@@ -1,3 +1,4 @@
+// https://www.geeksforgeeks.org/dsa/binary-search/
 export default function recursiveBinarySearch(array: number[], target: number): number {
   return recursive(array, target, 0, array.length - 1);
 }
