@@ -48,6 +48,13 @@ describe.each(searchAlgorithms)('$name', ({fn}) => {
       it('should return -1 when the array is empty', () => {
         expect(fn([], 123)).toBe(-1);
       });
+
+      it('should find the target even if the array has duplicates', () => {
+        const array = [1, 2, 2, 3];
+        const target = 2;
+        const resultIndex = fn(array, target);
+        expect(array[resultIndex]).toBe(target);
+      });
     });
   });
 });
