@@ -1,5 +1,3 @@
-import {range} from '@/utils/extend/data-type/number';
-
 // https://www.geeksforgeeks.org/dsa/square-root-of-an-integer/
 export default function squareRootUsingBinarySearch(value: number): number {
   if (value < 0) {
@@ -10,28 +8,28 @@ export default function squareRootUsingBinarySearch(value: number): number {
     return 0;
   }
 
-  return recursiveBinarySearch(range(1, value), 0, value - 1, value) + 1;
+  return recursiveBinarySearch(0, value, value);
 }
 
-function recursiveBinarySearch(array: number[], startIndex: number, endIndex: number, target: number): number {
-  if (startIndex >= endIndex) {
-    if (array[endIndex] * array[endIndex] <= target) {
-      return endIndex;
+function recursiveBinarySearch(start: number, end: number, target: number): number {
+  if (start >= end) {
+    if (end * end <= target) {
+      return end;
     } else {
-      return endIndex - 1;
+      return end - 1;
     }
   }
 
-  const middleIndex = Math.floor((startIndex + endIndex) / 2);
-  const middleValue = array[middleIndex] * array[middleIndex];
+  const middle = Math.floor((start + end) / 2);
+  const square = middle * middle;
 
-  if (middleValue === target) {
-    return middleIndex;
+  if (square === target) {
+    return middle;
   }
 
-  if (middleValue > target) {
-    return recursiveBinarySearch(array, startIndex, middleIndex - 1, target);
+  if (square > target) {
+    return recursiveBinarySearch(start, middle - 1, target);
   } else {
-    return recursiveBinarySearch(array, middleIndex + 1, endIndex, target);
+    return recursiveBinarySearch(middle + 1, end, target);
   }
 }
