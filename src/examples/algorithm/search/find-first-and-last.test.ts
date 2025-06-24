@@ -57,6 +57,17 @@ describe('findFirstAndLast', () => {
           lastIndex: -1,
         });
       });
+
+      it('should return the same first and last index for every element in a non-duplicated array', () => {
+        const NOT_DUPLICATED_ARRAY = range(0, 20);
+
+        NOT_DUPLICATED_ARRAY.forEach((value, index) => {
+          expect(findFirstAndLast(NOT_DUPLICATED_ARRAY, value)).toEqual({
+            firstIndex: index,
+            lastIndex: index,
+          });
+        });
+      });
     });
   });
 });
