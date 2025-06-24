@@ -12,11 +12,11 @@ export default function findFirstAndLast(array: number[], target: number): {firs
   let firstIndex = index;
   let lastIndex = index;
 
-  while (array[firstIndex] === target) {
+  while (firstIndex >= 0 && array[firstIndex] === target) {
     firstIndex--;
   }
 
-  while (array[lastIndex] === target) {
+  while (lastIndex <= array.length - 1 && array[lastIndex] === target) {
     lastIndex++;
   }
 
