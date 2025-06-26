@@ -1,4 +1,7 @@
-// https://www.geeksforgeeks.org/dsa/find-first-and-last-positions-of-an-element-in-a-sorted-array/
+/**
+ * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0
+ * Official: https://www.geeksforgeeks.org/dsa/find-first-and-last-positions-of-an-element-in-a-sorted-array/
+ */
 export default function findFirstAndLast(array: number[], target: number): {firstIndex: number, lastIndex: number} {
   const firstIndex = binarySearch(array, 0, array.length - 1, target, 'first');
   const lastIndex = binarySearch(array, 0, array.length - 1, target, 'last');

@@ -1,6 +1,9 @@
 import {SortedHistoryLogger, SortParam, SortResult} from './index';
 
-// https://www.geeksforgeeks.org/insertion-sort-algorithm/
+/**
+ * Doc: https://docs.google.com/document/d/1uUJcHrpaSY0dRU2gHYX9jVB07WA2n-dCZhQsEie21fo/edit?tab=t.0#heading=h.7j039rgq82wk
+ * Official: https://www.geeksforgeeks.org/insertion-sort-algorithm/
+ */
 export default function insertionSort({order, value}: SortParam): SortResult {
   const logger = new SortedHistoryLogger({order, value});
   let output = [...value];

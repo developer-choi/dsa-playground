@@ -1,4 +1,7 @@
-// https://www.geeksforgeeks.org/dsa/square-root-of-an-integer/
+/**
+ * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0
+ * Official: https://www.geeksforgeeks.org/dsa/square-root-of-an-integer/
+ */
 export default function squareRootUsingBinarySearch(value: number): number {
   if (value < 0) {
     throw new TypeError('Value cannot be negative.');

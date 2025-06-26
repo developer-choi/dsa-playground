@@ -5,9 +5,9 @@ interface InternalQuickSortParam extends SortParam {
   endIndex: number;
 }
 
-/**
- * https://www.geeksforgeeks.org/quick-sort-algorithm/
- * Lomuto Partition 방식
+/** Lomuto Partition 방식
+ * Doc: https://docs.google.com/document/d/13g6Mgo9XKMkbhkPIWQVgrnxReukWf-ggSdCWMnoSxjA/edit?tab=t.0#heading=h.cysj7jhcq4td
+ * Official: https://www.geeksforgeeks.org/quick-sort-algorithm/
  */
 export default function quickSort({value: original, order}: SortParam): SortResult {
   const output = [...original];

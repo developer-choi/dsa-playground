@@ -1,4 +1,7 @@
-// https://www.geeksforgeeks.org/dsa/find-minimum-element-in-a-sorted-and-rotated-array/
+/**
+ * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0
+ * Official: https://www.geeksforgeeks.org/dsa/find-minimum-element-in-a-sorted-and-rotated-array/
+ */
 export default function findMinRotatedArray(array: number[]) {
   if (array.length === 0) {
     return null;
