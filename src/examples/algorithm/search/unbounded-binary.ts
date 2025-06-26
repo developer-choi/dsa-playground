@@ -22,27 +22,29 @@ export default function unboundedBinarySearch(f: Callback) {
   return recursive(f, index / 2, index);
 }
 
-function recursive(f: Callback, start: number, end: number) {
+function recursive(f: Callback, start: number, end: number): number {
   if (start >= end) {
     return end;
   }
 
-  /**
-   * start값은 체크하지않고 start + 1값 부터 체크함.
-   *
-   * 예시)
-   * 512 ~ 1024 범위에 양수로 바뀌는 지점이 있어서 이 함수가 호출됐을 꺼고,
-   * 그럼 512는 음수인데 1024는 양수인거니까 이 함수가 호출됐을거니까.
-   */
-  if (f(start + 1) > 0) {
-    return start + 1;
+  const middle = Math.floor((start + end) / 2);
+
+  if (f(middle) > 0) {
+    /** 주제 1. start는 start로 전달해야하는가? vs start + 1로 전달해야하는가?
+     *
+     * start는 이미 위에서 음수라고 판단되었음. ==> start + 1 전달해야한다? (X)
+     * 그건 recursive()가 처음 호출되었을 때 얘기고, recursive() 안에서 또 recursive() 호출 시 아래 else 로직에 의해 start가 양수일 수 있음.
+     * 그래서 start + 1이 아닌 start를 전달해야함.
+     */
+
+    /** 주제 2. end는 middle을 전달해야하는가? 아님 middle - 1을 전달해야하는가?
+     *
+     *  middle은 이미 양수임. 체크해봐야 의미있음? 하면서 middle - 1을 end에 전달한다? (X)
+     *  그 middle이 제일 처음 양수로 바뀐 지점일지 누가앎?
+     */
+    return recursive(f, start, middle);
+  } else {
+    // 위와 같은 논리로 start, end에 +1을 하거나 안하거나 했음.
+    return recursive(f, middle + 1, end);
   }
-
-  let additionalIndex = 2;
-
-  while (f(additionalIndex + start) <= 0) {
-    additionalIndex *= 2;
-  }
-
-  return recursive(f, start + additionalIndex / 2, start + additionalIndex);
 }
