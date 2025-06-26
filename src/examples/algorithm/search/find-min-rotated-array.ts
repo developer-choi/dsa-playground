@@ -1,4 +1,9 @@
+// https://www.geeksforgeeks.org/dsa/find-minimum-element-in-a-sorted-and-rotated-array/
 export default function findMinRotatedArray(array: number[]) {
+  if (array.length === 0) {
+    return null;
+  }
+
   return recursive(array, 0, array.length - 1);
 }
 
@@ -10,11 +15,8 @@ function recursive(array: number[], startIndex: number, endIndex: number): numbe
   const middleIndex = Math.floor((startIndex + endIndex) / 2);
 
   if (array[middleIndex] < array[endIndex]) {
-    return recursive(array, middleIndex + 1, endIndex);
+    return recursive(array, startIndex, middleIndex);
   } else {
-    return recursive(array, startIndex, middleIndex - 1);
+    return recursive(array, middleIndex + 1, endIndex);
   }
 }
-
-console.log(findMinRotatedArray([2, 3, 1]));
-console.log(findMinRotatedArray([3, 4, 1, 2]));
