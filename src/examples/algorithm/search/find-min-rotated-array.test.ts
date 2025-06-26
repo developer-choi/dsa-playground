@@ -25,5 +25,9 @@ describe('findMinRotatedArray()', () => {
       expect(findMinRotatedArray([2, 1])).toBe(1);
       expect(findMinRotatedArray([1, 2])).toBe(1);
     });
+
+    it('should find the minimum value in an array with duplicate elements', () => {
+      expect(findMinRotatedArray([3, 3, 4, 4, 5, 5, 1, 1, 2, 2])).toBe(1);
+    });
   });
 });
