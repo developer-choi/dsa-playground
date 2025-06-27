@@ -5,7 +5,7 @@ import bruteForceAggressiveCows from '@/examples/algorithm/search/aggressive-cow
 
 describe('bruteForceAggressiveCows()', () => {
   describe('General cases', () => {
-    it('랜덤테스트를 통과해야한다.', () => {
+    it('should pass randomized tests', () => {
       for (let i = 0; i < 50; i++) {
         const array = removeDuplicatedItems(randomNumericArray(100)).toSorted((a, b) => a - b).map(value => value * randomNumber(2, 5));
         const cowsCount = randomNumber(3, array.length);
@@ -15,11 +15,22 @@ describe('bruteForceAggressiveCows()', () => {
   });
 
   describe('Boundary cases', () => {
-    // cows count랑 stalls 갯수가 똑같은 케이스 체크
+    it('should return the minimum distance between adjacent stalls when the number of cows is equal to the number of stalls', () => {
+      const stalls = [1, 2, 4, 8, 13]; // Gaps are 1, 2, 4, 5. The minimum gap is 1.
+      expect(bruteForceAggressiveCows(stalls, stalls.length)).toBe(1);
+    });
   });
 
   describe('Edge cases', () => {
-    // Type Error 던져지는 케이스 2개에서 TypeError가 던져지는지 체크
+    it('should throw a TypeError if the number of cows is greater than the number of stalls', () => {
+      const stalls = [1, 2, 3];
+      expect(() => bruteForceAggressiveCows(stalls, stalls.length + 1)).toThrow(TypeError);
+    });
+
+    it('should throw a TypeError if the number of stalls is less than 2', () => {
+      expect(() => bruteForceAggressiveCows([10], 1)).toThrow(TypeError);
+      expect(() => bruteForceAggressiveCows([], 0)).toThrow(TypeError);
+    });
   });
 });
 
@@ -41,7 +52,6 @@ function check(stalls: number[], k: number, dist: number) {
 }
 
 function solution(stalls: number[], k: number) {
-
   stalls.sort((a, b) => a - b);
   let res = null;
 
