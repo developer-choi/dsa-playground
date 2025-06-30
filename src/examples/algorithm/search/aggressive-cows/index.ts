@@ -1,6 +1,6 @@
 export function checkAllCowsCanPlace(stalls: number[], cowsCount: number, distance: number): boolean {
   /**
-   * 첫 마굿간에 소 하나 넣고 (고정) ==> stalledCowIndexes = [0]
+   * 첫 마굿간에 소 하나 넣고 (고정) ==> stalledCowIndexes = 1
    *
    * 다음 마굿간에 소 넣을 수 있는지 체크
    * 넣을 수 있으면 진행
@@ -10,21 +10,22 @@ export function checkAllCowsCanPlace(stalls: number[], cowsCount: number, distan
    * 2. 더 이상 소를 넣을 다음 마굿간이 없는 경우 반복문 종료
    */
 
-  const stalledCowIndexes = [0];
-  let stallingCowIndex = 1;
+  let stalledCowsCount = 1;
+  let lastStalledCowIndex = 0;
+  let index = 1;
 
-  while (stalledCowIndexes.length < cowsCount && stallingCowIndex < stalls.length) {
-    const lastStalledCowIndex = stalledCowIndexes[stalledCowIndexes.length - 1];
-    const checkingDistance = stalls[stallingCowIndex] - stalls[lastStalledCowIndex];
+  while (stalledCowsCount < cowsCount && index < stalls.length) {
+    const diff = stalls[index] - stalls[lastStalledCowIndex];
 
-    if (checkingDistance >= distance) {
-      stalledCowIndexes.push(stallingCowIndex);
+    if (diff >= distance) {
+      stalledCowsCount++;
+      lastStalledCowIndex = index;
     }
 
-    stallingCowIndex++;
+    index++;
   }
 
-  return stalledCowIndexes.length === cowsCount;
+  return stalledCowsCount === cowsCount;
 }
 
 export function validateAggressiveCows(stalls: number[], cowsCount: number) {

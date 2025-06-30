@@ -15,7 +15,20 @@ describe.each(aggressiveCowsAlgorithms)('$name', ({fn}) => {
       for (let i = 0; i < 50; i++) {
         const array = removeDuplicatedItems(randomNumericArray(100)).toSorted((a, b) => a - b).map(value => value * randomNumber(2, 5));
         const cowsCount = randomNumber(3, array.length);
-        expect(fn(array, cowsCount)).toBe(solution(array, cowsCount));
+        let actual = fn(array, cowsCount);
+        let expected = solution(array, cowsCount);
+
+        try {
+          expect(actual).toBe(expected);
+        } catch (error) {
+          console.error({
+            array,
+            cowsCount,
+            actual,
+            expected
+          });
+          throw error;
+        }
       }
     });
   });
