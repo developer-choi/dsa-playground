@@ -2,14 +2,20 @@ import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 import {removeDuplicatedItems} from '@/utils/extend/data-type/array';
 import {randomNumber} from '@/utils/extend/test/random';
 import bruteForceAggressiveCows from '@/examples/algorithm/search/aggressive-cows/brute-force';
+import binarySearchAggressiveCows from '@/examples/algorithm/search/aggressive-cows/binary';
 
-describe('bruteForceAggressiveCows()', () => {
+const aggressiveCowsAlgorithms = [
+  {name: 'bruteForceAggressiveCows', fn: bruteForceAggressiveCows},
+  {name: 'binarySearchAggressiveCows', fn: binarySearchAggressiveCows},
+];
+
+describe.each(aggressiveCowsAlgorithms)('$name', ({fn}) => {
   describe('General cases', () => {
     it('should pass randomized tests', () => {
       for (let i = 0; i < 50; i++) {
         const array = removeDuplicatedItems(randomNumericArray(100)).toSorted((a, b) => a - b).map(value => value * randomNumber(2, 5));
         const cowsCount = randomNumber(3, array.length);
-        expect(bruteForceAggressiveCows(array, cowsCount)).toBe(solution(array, cowsCount));
+        expect(fn(array, cowsCount)).toBe(solution(array, cowsCount));
       }
     });
   });
@@ -17,19 +23,19 @@ describe('bruteForceAggressiveCows()', () => {
   describe('Boundary cases', () => {
     it('should return the minimum distance between adjacent stalls when the number of cows is equal to the number of stalls', () => {
       const stalls = [1, 2, 4, 8, 13]; // Gaps are 1, 2, 4, 5. The minimum gap is 1.
-      expect(bruteForceAggressiveCows(stalls, stalls.length)).toBe(1);
+      expect(fn(stalls, stalls.length)).toBe(1);
     });
   });
 
   describe('Edge cases', () => {
     it('should throw a TypeError if the number of cows is greater than the number of stalls', () => {
       const stalls = [1, 2, 3];
-      expect(() => bruteForceAggressiveCows(stalls, stalls.length + 1)).toThrow(TypeError);
+      expect(() => fn(stalls, stalls.length + 1)).toThrow(TypeError);
     });
 
     it('should throw a TypeError if the number of stalls is less than 2', () => {
-      expect(() => bruteForceAggressiveCows([10], 1)).toThrow(TypeError);
-      expect(() => bruteForceAggressiveCows([], 0)).toThrow(TypeError);
+      expect(() => fn([10], 1)).toThrow(TypeError);
+      expect(() => fn([], 0)).toThrow(TypeError);
     });
   });
 });
