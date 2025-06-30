@@ -1,6 +1,9 @@
 export {};
 
-// https://school.programmers.co.kr/learn/courses/30/lessons/43238?language=javascript
+/**
+ * URL: https://school.programmers.co.kr/learn/courses/30/lessons/43238?language=javascript
+ * 왜 정확도 4번에서 런타임 에러가 나는지 모르겠음...
+ */
 function solution(personCount: number, simsaTimes: number[]) {
   if (simsaTimes.length >= personCount) {
     return calcMinSimsaTime(personCount, simsaTimes);
@@ -8,8 +11,8 @@ function solution(personCount: number, simsaTimes: number[]) {
 
   const rate = personCount / simsaTimes.length;
 
-  let minTime = 0; // TODO 모든 사람이 심사 받는데 필요한 최소 시간, 더 키울 수는 없나...?
-  let maxTime = simsaTimes.reduce((a, b) => a + b * Math.ceil(rate), 0); // TODO 이거 구하다가 O(n) 나오는데...?
+  let minTime = 0;
+  let maxTime = simsaTimes.reduce((a, b) => a + b * Math.ceil(rate), 0);
   let result = 0;
 
   while (minTime <= maxTime) {
@@ -32,7 +35,6 @@ function solution(personCount: number, simsaTimes: number[]) {
   return result;
 }
 
-// TODO 이거 따지다가 O(n) 나오는데...
 function checkAllPassengersCanSimSa(totalTime: number, simsaTimes: number[], personCount: number): boolean {
   let accPersonCount = 0;
 
@@ -49,7 +51,7 @@ function checkAllPassengersCanSimSa(totalTime: number, simsaTimes: number[], per
 }
 
 function calcMinSimsaTime(personCount: number, simsaTimes: number[]) {
-  const sortedSimsaTimes = simsaTimes.toSorted((a, b) => a - b); // TODO 배열길이 다 필요없는데 필요한만큼만 정렬해도 되는데... 그치만 O(n^2)는 좀...
+  const sortedSimsaTimes = simsaTimes.toSorted((a, b) => a - b);
   return sortedSimsaTimes[personCount - 1];
 }
 
