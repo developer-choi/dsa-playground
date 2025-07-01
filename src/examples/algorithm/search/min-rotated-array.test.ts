@@ -1,5 +1,5 @@
 import {randomRotatedNumberArray} from '@/utils/extend/test/generate-dummy';
-import findMinRotatedArray from '@/examples/algorithm/search/find-min-rotated-array';
+import findMinRotatedArray from '@/examples/algorithm/search/min-rotated-array';
 
 describe('findMinRotatedArray()', () => {
   describe('General cases', () => {

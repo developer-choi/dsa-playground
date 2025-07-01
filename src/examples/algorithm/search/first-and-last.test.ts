@@ -1,4 +1,4 @@
-import findFirstAndLast from './find-first-and-last'; // 실제 파일 경로에 맞게 수정해주세요.
+import findFirstAndLast from './first-and-last'; // 실제 파일 경로에 맞게 수정해주세요.
 import {range} from '@/utils/extend/data-type/number';
 
 const SORTED_ODD_ARRAY = range(0, 20).concat(range(0, 21)).sort((a, b) => a - b);
