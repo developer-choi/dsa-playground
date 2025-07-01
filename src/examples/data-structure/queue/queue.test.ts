@@ -4,12 +4,15 @@ import CircularQueue from '@/examples/data-structure/queue/CircularQueue';
 const CAPACITY = 3;
 
 const queues = [
-  {name: 'SimplestQueue Queue', instance: new SimplestQueue()},
-  {name: 'CircularQueue', instance: new CircularQueue(CAPACITY)},
+  {name: 'SimplestQueue Queue', createInstance: () => new SimplestQueue()},
+  {name: 'CircularQueue', createInstance: () => new CircularQueue(CAPACITY)},
 ];
 
-describe.each(queues)('$name Algorithm', ({instance}) => {
-  it('1회차에 넣을 때 잘 들어가야한다.', () => {
+describe.each(queues)('$name Algorithm', ({createInstance}) => {
+  it('enqueue / dequeue를 반복하더라도 잘 동작해야한다.', () => {
+    const instance = createInstance();
+
+    // 1회차 enqueue
     instance.enqueue(1);
     expect(instance.getFront()).toBe(1);
     expect(instance.getRear()).toBe(1);
@@ -21,9 +24,8 @@ describe.each(queues)('$name Algorithm', ({instance}) => {
     instance.enqueue(3);
     expect(instance.getFront()).toBe(1);
     expect(instance.getRear()).toBe(3);
-  });
 
-  it('1회차에 제거할 때 잘 빠져야한다.', () => {
+    // 1회차 dequeue
     expect(instance.dequeue()).toBe(1);
     expect(instance.getFront()).toBe(2);
     expect(instance.getRear()).toBe(3);
@@ -31,9 +33,8 @@ describe.each(queues)('$name Algorithm', ({instance}) => {
     expect(instance.dequeue()).toBe(2);
     expect(instance.getFront()).toBe(3);
     expect(instance.getRear()).toBe(3);
-  });
 
-  it('2회차에 넣을 때 잘 들어가야한다.', () => {
+    // 2회차 enqueue
     instance.enqueue(4);
     expect(instance.getFront()).toBe(3);
     expect(instance.getRear()).toBe(4);
@@ -41,9 +42,8 @@ describe.each(queues)('$name Algorithm', ({instance}) => {
     instance.enqueue(5);
     expect(instance.getFront()).toBe(3);
     expect(instance.getRear()).toBe(5);
-  });
 
-  it('2회차에 제거할 때 잘 빠져야한다.', () => {
+    // 2회차 dequeue
     expect(instance.dequeue()).toBe(3);
     expect(instance.getFront()).toBe(4);
     expect(instance.getRear()).toBe(5);
