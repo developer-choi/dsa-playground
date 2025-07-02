@@ -29,6 +29,27 @@ export default class SinglyLinkedList {
     tail.next = new Node(data);
   }
 
+  /**
+   * https://www.geeksforgeeks.org/dsa/traversal-of-singly-linked-list/
+   * Time Complexity: O(n), where n is the number of nodes in the linked list.
+   */
+  get(index: number): number | undefined {
+    let i = 0;
+    let pointer = this.head;
+
+    while (i < index && pointer) {
+      i++;
+      pointer = pointer.next;
+    }
+
+    if (i !== index || pointer === undefined) {
+      return undefined;
+
+    } else {
+      return pointer.data;
+    }
+  }
+
   private getTail(): Node | undefined {
     if (!this.head) {
       return undefined;
@@ -51,4 +72,8 @@ export default class SinglyLinkedList {
 const list = new SinglyLinkedList();
 list.push(1);
 list.push(2);
-console.log(list);
+list.push(3);
+console.log(list.get(0));
+console.log(list.get(1));
+console.log(list.get(2));
+console.log(list.get(3));
