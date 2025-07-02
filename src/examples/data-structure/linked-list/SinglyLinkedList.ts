@@ -61,46 +61,30 @@ export default class SinglyLinkedList {
    * Time Complexity: O(N) where N is the length of the linked list
    */
   insertAt(index: number, data: number) {
-    let currentIndex = 0;
-    let beforeLinkedListNode: SinglyNode | undefined = undefined;
+    const newNode = new SinglyNode(data);
 
-    for (const node of this) {
-      if (currentIndex === index) {
-        let type: LinkedListNodeType;
+    // head에 삽입해야하는 경우
+    if (index === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+      return;
+    }
 
-        if (node === this.head) {
-          type = 'head';
-        } else if (node.next) {
-          type = 'between';
-        } else {
-          type = 'tail';
-        }
+    const beforeNode = this.getBeforeNode(index);
 
-        const newLinkedListNode = new SinglyNode(data);
+    if (!beforeNode) {
+      return;
+    }
 
-        switch (type) {
-          case 'head': {
-            this.head = newLinkedListNode;
-            this.head.next = node;
-            break;
-          }
+    // tail에 삽입해야하는 경우
+    if (!beforeNode.next) {
+      (this.tail as SinglyNode).next = newNode;
+      this.tail = newNode;
 
-          case 'between': {
-            (beforeLinkedListNode as SinglyNode).next = newLinkedListNode;
-            newLinkedListNode.next = node;
-            break;
-          }
-
-          case 'tail':
-            (this.tail as SinglyNode).next = newLinkedListNode;
-            this.tail = newLinkedListNode;
-            break;
-        }
-        return; // 추가 후 종료
-      }
-
-      currentIndex++;
-      beforeLinkedListNode = node;
+      // 중간에 삽입해야하는 경우
+    } else {
+      newNode.next = beforeNode.next;
+      beforeNode.next = newNode;
     }
   }
 
@@ -138,25 +122,22 @@ export default class SinglyLinkedList {
 
   // 헤더 vs 중간 vs 마지막 삭제하는 로직은 insertAt()와 동일함.
   deleteAt(index: number) {
-    let currentIndex = 0;
-    let beforeNode: SinglyNode | undefined = undefined;
+    if (index === 0) {
+      this.head = this.head?.next;
+      return;
+    }
 
-    for (const node of this) {
-      if (currentIndex === index) {
-        if (node === this.head) {
-          this.head = this.head?.next;
-        } else if (node === this.tail) {
-          (beforeNode as SinglyNode).next = undefined;
-          this.tail = beforeNode;
-        } else {
-          // 이 노드가 중간노드여도, 마지막 노드여도, 상관없이 이 코드라인 하나로 대응이 가능함.
-          (beforeNode as SinglyNode).next = node.next;
-        }
-        return; // 삭제 후 종료
-      }
+    let beforeNode = this.getBeforeNode(index);
 
-      currentIndex++;
-      beforeNode = node;
+    if (!beforeNode) {
+      return;
+    }
+
+    if (beforeNode.next === this.tail) {
+      beforeNode.next = undefined;
+      this.tail = beforeNode;
+    } else {
+      beforeNode.next = beforeNode.next?.next;
     }
   }
 
@@ -201,6 +182,31 @@ export default class SinglyLinkedList {
     return array.join(',');
   }
 
+  /**
+   * index의 직전 노드를 반환합니다.
+   * 경우는 index가 0이거나 리스트의 범위를 넘어섰을 때 undefined를 반환합니다.
+   */
+  private getBeforeNode(index: number): SinglyNode | undefined {
+    if (index === 0) {
+      return undefined;
+    }
+
+    let nextIndex = 1;
+    let beforeNode: SinglyNode = this.head as SinglyNode;
+
+    while (beforeNode.next && nextIndex < index) {
+      beforeNode = beforeNode.next;
+      nextIndex++;
+    }
+
+    // 배열 길이보다 index가 큰 경우
+    if (nextIndex !== index) {
+      return undefined;
+    }
+
+    return beforeNode;
+  }
+
   public* [Symbol.iterator]() {
     let pointer = this.head;
     while (pointer) {
@@ -210,23 +216,28 @@ export default class SinglyLinkedList {
   }
 }
 
-type LinkedListNodeType = 'head' | 'between' | 'tail';
-
+// TODO 테스트 코드 짤 때 toString()이랑 head, tail이 올바른위치에 있는지랑 테스트코드 돌리자 아 시발 불편해죽겠네
+// TODO 테스트 케이스는 특히 긱포긱 지켜야하고, 내 과거 커밋에서 간단하게 테스트했던 코드도 지켜야함.
 const list = new SinglyLinkedList();
 list.push(1);
 list.push(3);
-list.push(4);
-console.log(list.toString()); // 1, 3, 4
+list.push(5);
+console.log(list.toString()); // 1, 3, 5
 list.insertAt(0, 0);
+console.log(list.toString()); // 0, 1, 3, 5
 list.insertAt(2, 2);
-list.insertAt(4, 5);
+console.log(list.toString()); // 0, 1, 2, 3, 5
+list.insertAt(4, 4);
 console.log(list.toString()); // 0, 1, 2, 3, 4, 5
+list.insertAt(6, 6);
+console.log(list.toString()); // 0, 1, 2, 3, 4, 5, 6
 list.deleteAt(0);
-console.log(list.toString()); // 1, 2, 3, 4, 5
+console.log(list.toString()); // 1, 2, 3, 4, 5, 6
 list.deleteAt(2);
-console.log(list.toString()); // 1, 2, 4, 5
+console.log(list.toString()); // 1, 2, 4, 5, 6
 list.deleteAt(3);
-console.log(list.toString()); // 1, 2, 4
+console.log(list.toString()); // 1, 2, 4, 6
+list.deleteAt(0);
 list.deleteAt(0);
 list.deleteAt(0);
 list.deleteAt(0);
