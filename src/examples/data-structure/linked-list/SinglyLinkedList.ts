@@ -50,6 +50,35 @@ export default class SinglyLinkedList {
     }
   }
 
+  /**
+   * https://www.geeksforgeeks.org/dsa/search-an-element-in-a-linked-list-iterative-and-recursive/
+   * Time Complexity: O(n), where n is the number of nodes in the linked list.
+   */
+  findIndex(data: number): number {
+    if (!this.head) {
+      return -1;
+    }
+
+    // TODO 순회하는 코드만 따로 분리가 가능할것같음
+    let index = 0;
+    let pointer: Node = this.head;
+
+    while (true) {
+      if (data === pointer.data) {
+        return index;
+      }
+
+      if (pointer.next) {
+        pointer = pointer.next;
+        index++;
+      } else {
+        break;
+      }
+    }
+
+    return -1;
+  }
+
   private getTail(): Node | undefined {
     if (!this.head) {
       return undefined;
@@ -73,7 +102,8 @@ const list = new SinglyLinkedList();
 list.push(1);
 list.push(2);
 list.push(3);
-console.log(list.get(0));
-console.log(list.get(1));
-console.log(list.get(2));
-console.log(list.get(3));
+console.log(list.findIndex(0));
+console.log(list.findIndex(1));
+console.log(list.findIndex(2));
+console.log(list.findIndex(3));
+console.log(list.findIndex(4));
