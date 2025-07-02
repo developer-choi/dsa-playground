@@ -84,6 +84,7 @@ export default class SinglyLinkedList {
             this.head.next = node;
             break;
           }
+
           case 'between': {
             (beforeNode as Node).next = newNode;
             newNode.next = node;
