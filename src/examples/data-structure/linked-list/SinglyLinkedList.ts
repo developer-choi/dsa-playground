@@ -110,31 +110,11 @@ export default class SinglyLinkedList {
 
     for (const node of this) {
       if (currentIndex === index) {
-        let type: NodeType;
-
         if (node === this.head) {
-          type = 'head';
-        } else if (node.next) {
-          type = 'between';
+          this.head = this.head?.next;
         } else {
-          type = 'tail';
-        }
-
-        switch (type) {
-          case 'head': {
-            this.head = this.head?.next;
-            break;
-          }
-
-          case 'between': {
-            (beforeNode as Node).next = node.next;
-            // node.next = undefined; 삭제될 중간노드를 가리키는 노드가 사라져서 GC가 수거해가기때문에, 이 라인은 작성하지않아도 됨.
-            break;
-          }
-
-          case 'tail':
-            (beforeNode as Node).next = undefined;
-            break;
+          // 이 노드가 중간노드여도, 마지막 노드여도, 상관없이 이 코드라인 하나로 대응이 가능함.
+          (beforeNode as Node).next = node.next;
         }
         return; // 삭제 후 종료
       }
