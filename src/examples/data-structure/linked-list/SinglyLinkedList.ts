@@ -102,6 +102,46 @@ export default class SinglyLinkedList {
     }
   }
 
+  // 헤더 vs 중간 vs 마지막 삭제하는 로직은 insertAt()와 동일함.
+  deleteAt(index: number) {
+    let currentIndex = 0;
+    let beforeNode: Node | undefined = undefined;
+
+    for (const node of this) {
+      if (currentIndex === index) {
+        let type: NodeType;
+
+        if (node === this.head) {
+          type = 'head';
+        } else if (node.next) {
+          type = 'between';
+        } else {
+          type = 'tail';
+        }
+
+        switch (type) {
+          case 'head': {
+            this.head = this.head?.next;
+            break;
+          }
+
+          case 'between': {
+            (beforeNode as Node).next = node.next;
+            node.next = undefined;
+            break;
+          }
+
+          case 'tail':
+            (beforeNode as Node).next = undefined;
+            break;
+        }
+      }
+
+      currentIndex++;
+      beforeNode = node;
+    }
+  }
+
   /**
    * https://www.geeksforgeeks.org/dsa/search-an-element-in-a-linked-list-iterative-and-recursive/
    * Time Complexity: O(n), where n is the number of nodes in the linked list.
@@ -171,3 +211,10 @@ list.push(4);
 list.insertAt(0, 0);
 list.insertAt(2, 2);
 list.insertAt(4, 5);
+console.log(list.toString()); // 0, 1, 2, 3, 4, 5
+list.deleteAt(0);
+console.log(list.toString()); // 1, 2, 3, 4, 5
+list.deleteAt(2);
+console.log(list.toString()); // 1, 2, 4, 5
+list.deleteAt(3);
+console.log(list.toString()); // 1, 2, 4
