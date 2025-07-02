@@ -147,6 +147,7 @@ export default class SinglyLinkedList {
           this.head = this.head?.next;
         } else if (node === this.tail) {
           (beforeNode as SinglyNode).next = undefined;
+          this.tail = beforeNode;
         } else {
           // 이 노드가 중간노드여도, 마지막 노드여도, 상관없이 이 코드라인 하나로 대응이 가능함.
           (beforeNode as SinglyNode).next = node.next;
@@ -226,3 +227,7 @@ list.deleteAt(2);
 console.log(list.toString()); // 1, 2, 4, 5
 list.deleteAt(3);
 console.log(list.toString()); // 1, 2, 4
+list.deleteAt(0);
+list.deleteAt(0);
+list.deleteAt(0);
+console.log(list.toString() === '' ? 'empty string' : list.toString()); // empty string
