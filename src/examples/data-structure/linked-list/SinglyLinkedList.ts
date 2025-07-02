@@ -6,20 +6,28 @@ import {SinglyNode} from '@/examples/data-structure/linked-list';
  */
 export default class SinglyLinkedList {
   private head: SinglyNode | undefined;
+  private tail: SinglyNode | undefined;
 
   constructor() {
     this.head = undefined;
+    this.tail = undefined;
   }
 
-  // Time Complexity: O(n), where n is the number of nodes in the linked list.
+  /** Time Complexity
+   * 1. head pointer 하나만 쓰는 경우 > O(n), where n is the number of nodes in the linked list.
+   * 2. tail pointer도 같이 쓰는 경우 > O(1)
+   */
   push(data: number) {
-    if (!this.head) {
-      this.head = new SinglyNode(data);
-      return;
-    }
+    const newNode = new SinglyNode(data);
 
-    const tail = this.getTail() as SinglyNode;
-    tail.next = new SinglyNode(data);
+    // 실제로는, tail이 있다면 head가 반드시 있지만 else에서 Type Guard 때문에 이렇게 조건을 잡았음.
+    if (!this.head || !this.tail) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
   }
 
   /**
@@ -84,7 +92,8 @@ export default class SinglyLinkedList {
           }
 
           case 'tail':
-            node.next = newLinkedListNode;
+            (this.tail as SinglyNode).next = newLinkedListNode;
+            this.tail = newLinkedListNode;
             break;
         }
         return; // 추가 후 종료
@@ -130,21 +139,23 @@ export default class SinglyLinkedList {
   // 헤더 vs 중간 vs 마지막 삭제하는 로직은 insertAt()와 동일함.
   deleteAt(index: number) {
     let currentIndex = 0;
-    let beforeLinkedListNode: SinglyNode | undefined = undefined;
+    let beforeNode: SinglyNode | undefined = undefined;
 
     for (const node of this) {
       if (currentIndex === index) {
         if (node === this.head) {
           this.head = this.head?.next;
+        } else if (node === this.tail) {
+          (beforeNode as SinglyNode).next = undefined;
         } else {
           // 이 노드가 중간노드여도, 마지막 노드여도, 상관없이 이 코드라인 하나로 대응이 가능함.
-          (beforeLinkedListNode as SinglyNode).next = node.next;
+          (beforeNode as SinglyNode).next = node.next;
         }
         return; // 삭제 후 종료
       }
 
       currentIndex++;
-      beforeLinkedListNode = node;
+      beforeNode = node;
     }
   }
 
@@ -189,16 +200,6 @@ export default class SinglyLinkedList {
     return array.join(',');
   }
 
-  private getTail(): SinglyNode | undefined {
-    let pointer: SinglyNode | undefined;
-
-    for (const node of this) {
-      pointer = node;
-    }
-
-    return pointer;
-  }
-
   public* [Symbol.iterator]() {
     let pointer = this.head;
     while (pointer) {
@@ -214,6 +215,7 @@ const list = new SinglyLinkedList();
 list.push(1);
 list.push(3);
 list.push(4);
+console.log(list.toString()); // 1, 3, 4
 list.insertAt(0, 0);
 list.insertAt(2, 2);
 list.insertAt(4, 5);
