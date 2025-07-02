@@ -55,6 +55,7 @@ export default class SinglyLinkedList {
    * Time Complexity: O(n), where n is the number of nodes in the linked list.
    */
   findIndex(data: number): number {
+    // TODO 이거 체크하는 코드도 밑에 반복문으로 대체할 수 있을지도?
     if (!this.head) {
       return -1;
     }
@@ -79,6 +80,31 @@ export default class SinglyLinkedList {
     return -1;
   }
 
+  /**
+   * https://www.geeksforgeeks.org/dsa/find-length-of-a-linked-list-iterative-and-recursive/
+   * Time complexity: O(n), Where n is the size of the linked list
+   */
+  length(): number {
+    // TODO 순회하는 코드만 따로 분리가 가능할것같음
+    let length = 0;
+    let pointer: Node | undefined = this.head;
+
+    if (pointer) {
+      length++;
+    }
+
+    while (true) {
+      if (pointer?.next) {
+        pointer = pointer.next;
+        length++;
+      } else {
+        break;
+      }
+    }
+
+    return length;
+  }
+
   private getTail(): Node | undefined {
     if (!this.head) {
       return undefined;
@@ -99,11 +125,10 @@ export default class SinglyLinkedList {
 }
 
 const list = new SinglyLinkedList();
+console.log(list.length());
 list.push(1);
+console.log(list.length());
 list.push(2);
+console.log(list.length());
 list.push(3);
-console.log(list.findIndex(0));
-console.log(list.findIndex(1));
-console.log(list.findIndex(2));
-console.log(list.findIndex(3));
-console.log(list.findIndex(4));
+console.log(list.length());
