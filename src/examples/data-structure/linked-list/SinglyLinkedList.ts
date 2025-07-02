@@ -1,19 +1,11 @@
-class Node {
-  data: number;
-  next: Node | undefined;
-
-  constructor(data: number) {
-    this.data = data;
-    this.next = undefined;
-  }
-}
+import {SinglyNode} from '@/examples/data-structure/linked-list';
 
 /**
  * URL: https://www.geeksforgeeks.org/singly-linked-list-tutorial/
  * Doc: https://docs.google.com/document/d/1RxLj_q7xhg6wS1HpJrTftnBI7jshw5Mf24vpKDi2EUQ/edit?tab=t.0
  */
 export default class SinglyLinkedList {
-  private head: Node | undefined;
+  private head: SinglyNode | undefined;
 
   constructor() {
     this.head = undefined;
@@ -22,12 +14,12 @@ export default class SinglyLinkedList {
   // Time Complexity: O(n), where n is the number of nodes in the linked list.
   push(data: number) {
     if (!this.head) {
-      this.head = new Node(data);
+      this.head = new SinglyNode(data);
       return;
     }
 
-    const tail = this.getTail() as Node;
-    tail.next = new Node(data);
+    const tail = this.getTail() as SinglyNode;
+    tail.next = new SinglyNode(data);
   }
 
   /**
@@ -62,11 +54,11 @@ export default class SinglyLinkedList {
    */
   insertAt(index: number, data: number) {
     let currentIndex = 0;
-    let beforeNode: Node | undefined = undefined;
+    let beforeLinkedListNode: SinglyNode | undefined = undefined;
 
     for (const node of this) {
       if (currentIndex === index) {
-        let type: NodeType;
+        let type: LinkedListNodeType;
 
         if (node === this.head) {
           type = 'head';
@@ -76,30 +68,30 @@ export default class SinglyLinkedList {
           type = 'tail';
         }
 
-        const newNode = new Node(data);
+        const newLinkedListNode = new SinglyNode(data);
 
         switch (type) {
           case 'head': {
-            this.head = newNode;
+            this.head = newLinkedListNode;
             this.head.next = node;
             break;
           }
 
           case 'between': {
-            (beforeNode as Node).next = newNode;
-            newNode.next = node;
+            (beforeLinkedListNode as SinglyNode).next = newLinkedListNode;
+            newLinkedListNode.next = node;
             break;
           }
 
           case 'tail':
-            node.next = newNode;
+            node.next = newLinkedListNode;
             break;
         }
         return; // 추가 후 종료
       }
 
       currentIndex++;
-      beforeNode = node;
+      beforeLinkedListNode = node;
     }
   }
 
@@ -138,7 +130,7 @@ export default class SinglyLinkedList {
   // 헤더 vs 중간 vs 마지막 삭제하는 로직은 insertAt()와 동일함.
   deleteAt(index: number) {
     let currentIndex = 0;
-    let beforeNode: Node | undefined = undefined;
+    let beforeLinkedListNode: SinglyNode | undefined = undefined;
 
     for (const node of this) {
       if (currentIndex === index) {
@@ -146,13 +138,13 @@ export default class SinglyLinkedList {
           this.head = this.head?.next;
         } else {
           // 이 노드가 중간노드여도, 마지막 노드여도, 상관없이 이 코드라인 하나로 대응이 가능함.
-          (beforeNode as Node).next = node.next;
+          (beforeLinkedListNode as SinglyNode).next = node.next;
         }
         return; // 삭제 후 종료
       }
 
       currentIndex++;
-      beforeNode = node;
+      beforeLinkedListNode = node;
     }
   }
 
@@ -197,8 +189,8 @@ export default class SinglyLinkedList {
     return array.join(',');
   }
 
-  private getTail(): Node | undefined {
-    let pointer: Node | undefined;
+  private getTail(): SinglyNode | undefined {
+    let pointer: SinglyNode | undefined;
 
     for (const node of this) {
       pointer = node;
@@ -216,7 +208,7 @@ export default class SinglyLinkedList {
   }
 }
 
-type NodeType = 'head' | 'between' | 'tail';
+type LinkedListNodeType = 'head' | 'between' | 'tail';
 
 const list = new SinglyLinkedList();
 list.push(1);
