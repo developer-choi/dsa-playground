@@ -55,29 +55,19 @@ export default class SinglyLinkedList {
    * Time Complexity: O(n), where n is the number of nodes in the linked list.
    */
   findIndex(data: number): number {
-    // TODO 이거 체크하는 코드도 밑에 반복문으로 대체할 수 있을지도?
-    if (!this.head) {
-      return -1;
-    }
+    let index = -1;
 
-    // TODO 순회하는 코드만 따로 분리가 가능할것같음
-    let index = 0;
-    let pointer: Node = this.head;
-
-    while (true) {
-      if (data === pointer.data) {
-        return index;
-      }
-
-      if (pointer.next) {
-        pointer = pointer.next;
+    this.traverse({
+      onLoop: node => {
         index++;
-      } else {
-        break;
+        return node.data === data;
+      },
+      onLoopEnd: () => {
+        index = -1;
       }
-    }
+    });
 
-    return -1;
+    return index;
   }
 
   /**
@@ -85,34 +75,40 @@ export default class SinglyLinkedList {
    * Time complexity: O(n), Where n is the size of the linked list
    */
   length(): number {
-    // TODO 순회하는 코드만 따로 분리가 가능할것같음
     let length = 0;
-    let pointer: Node | undefined = this.head;
 
-    if (pointer) {
-      length++;
-    }
-
-    while (true) {
-      if (pointer?.next) {
-        pointer = pointer.next;
+    this.traverse({
+      onLoop: (node) => {
         length++;
-      } else {
-        break;
-      }
-    }
+        return !node.next;
+      },
+    });
 
     return length;
   }
 
   private getTail(): Node | undefined {
-    if (!this.head) {
-      return undefined;
-    }
+    let pointer: Node | undefined;
 
-    let pointer: Node = this.head;
+    this.traverse({
+      onLoopEnd: tail => {
+        pointer = tail;
+      }
+    });
 
-    while (true) {
+    return pointer;
+  }
+
+  private traverse({onLoop, onLoopEnd}: TraverseParameter) {
+    let pointer: Node | undefined = this.head;
+
+    while (pointer) {
+      const needToReturn = onLoop?.(pointer);
+
+      if (needToReturn) {
+        return;
+      }
+
       if (pointer.next) {
         pointer = pointer.next;
       } else {
@@ -120,15 +116,20 @@ export default class SinglyLinkedList {
       }
     }
 
-    return pointer;
+    onLoopEnd?.(pointer);
   }
 }
 
+interface TraverseParameter {
+  onLoop?: (node: Node) => boolean; // head부터 tail까지 1번씩 실행됨.
+  onLoopEnd?: (tail: Node | undefined) => void; // head조차 없으면 undefined일 수 있음.
+}
+
 const list = new SinglyLinkedList();
-console.log(list.length());
 list.push(1);
-console.log(list.length());
 list.push(2);
-console.log(list.length());
 list.push(3);
-console.log(list.length());
+console.log(list.get(0));
+console.log(list.get(1));
+console.log(list.get(2));
+console.log(list.get(3));
