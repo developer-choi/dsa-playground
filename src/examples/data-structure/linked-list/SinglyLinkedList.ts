@@ -95,6 +95,7 @@ export default class SinglyLinkedList {
             node.next = newNode;
             break;
         }
+        return; // 추가 후 종료
       }
 
       currentIndex++;
@@ -127,7 +128,7 @@ export default class SinglyLinkedList {
 
           case 'between': {
             (beforeNode as Node).next = node.next;
-            node.next = undefined;
+            // node.next = undefined; 삭제될 중간노드를 가리키는 노드가 사라져서 GC가 수거해가기때문에, 이 라인은 작성하지않아도 됨.
             break;
           }
 
@@ -135,6 +136,7 @@ export default class SinglyLinkedList {
             (beforeNode as Node).next = undefined;
             break;
         }
+        return; // 삭제 후 종료
       }
 
       currentIndex++;
