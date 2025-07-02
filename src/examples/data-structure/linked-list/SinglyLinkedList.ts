@@ -19,6 +19,7 @@ export default class SinglyLinkedList {
     this.head = undefined;
   }
 
+  // Time Complexity: O(n), where n is the number of nodes in the linked list.
   push(data: number) {
     if (!this.head) {
       this.head = new Node(data);
@@ -35,19 +36,15 @@ export default class SinglyLinkedList {
    */
   get(index: number): number | undefined {
     let i = 0;
-    let pointer = this.head;
 
-    while (i < index && pointer) {
+    for (const node of this) {
+      if (i === index) {
+        return node.data;
+      }
       i++;
-      pointer = pointer.next;
     }
 
-    if (i !== index || pointer === undefined) {
-      return undefined;
-
-    } else {
-      return pointer.data;
-    }
+    return undefined;
   }
 
   /**
@@ -65,35 +62,43 @@ export default class SinglyLinkedList {
    */
   insertAt(index: number, data: number) {
     let currentIndex = 0;
+    let beforeNode: Node | undefined = undefined;
 
-    this.traverse({
-      onLoop: (meta) => {
-        if (currentIndex === index) {
-          const newNode = new Node(data);
+    for (const node of this) {
+      if (currentIndex === index) {
+        let type: NodeType;
 
-          switch (meta.type) {
-            case 'head': {
-              this.head = newNode;
-              this.head.next = meta.node;
-              break;
-            }
-            case 'between': {
-              meta.beforeNode.next = newNode;
-              newNode.next = meta.node;
-              break;
-            }
-
-            case 'tail':
-              meta.node.next = newNode;
-              break;
-          }
-          return true;
+        if (node === this.head) {
+          type = 'head';
+        } else if (node.next) {
+          type = 'between';
         } else {
-          currentIndex++;
-          return false;
+          type = 'tail';
+        }
+
+        const newNode = new Node(data);
+
+        switch (type) {
+          case 'head': {
+            this.head = newNode;
+            this.head.next = node;
+            break;
+          }
+          case 'between': {
+            (beforeNode as Node).next = newNode;
+            newNode.next = node;
+            break;
+          }
+
+          case 'tail':
+            node.next = newNode;
+            break;
         }
       }
-    });
+
+      currentIndex++;
+      beforeNode = node;
+    }
   }
 
   /**
@@ -101,19 +106,16 @@ export default class SinglyLinkedList {
    * Time Complexity: O(n), where n is the number of nodes in the linked list.
    */
   findIndex(data: number): number {
-    let index = -1;
+    let index = 0;
 
-    this.traverse({
-      onLoop: ({node}) => {
-        index++;
-        return node.data === data;
-      },
-      onLoopEnd: () => {
-        index = -1;
+    for (const node of this) {
+      if (node.data === data) {
+        return index;
       }
-    });
+      index++;
+    }
 
-    return index;
+    return -1;
   }
 
   /**
@@ -123,12 +125,9 @@ export default class SinglyLinkedList {
   length(): number {
     let length = 0;
 
-    this.traverse({
-      onLoop: ({node}) => {
-        length++;
-        return !node.next;
-      },
-    });
+    for (const {} of this) {
+      length++;
+    }
 
     return length;
   }
@@ -136,12 +135,9 @@ export default class SinglyLinkedList {
   toString(): string {
     const array: number[] = [];
 
-    this.traverse({
-      onLoop: ({node}) => {
-        array.push(node.data);
-        return false;
-      }
-    });
+    for (const node of this) {
+      array.push(node.data);
+    }
 
     return array.join(',');
   }
@@ -149,52 +145,20 @@ export default class SinglyLinkedList {
   private getTail(): Node | undefined {
     let pointer: Node | undefined;
 
-    this.traverse({
-      onLoopEnd: tail => {
-        pointer = tail;
-      }
-    });
+    for (const node of this) {
+      pointer = node;
+    }
 
     return pointer;
   }
 
-  private traverse({onLoop, onLoopEnd}: TraverseParameter) {
-    let pointer: Node | undefined = this.head;
-    let beforeNode: Node | undefined = undefined;
-
+  public* [Symbol.iterator]() {
+    let pointer = this.head;
     while (pointer) {
-      const type: NodeType = pointer === this.head ? 'head' : pointer.next ? 'between' : 'tail';
-      const needToReturn = onLoop?.({node: pointer, beforeNode: beforeNode as any, type});
-
-      if (needToReturn) {
-        return;
-      }
-
-      if (pointer.next) {
-        beforeNode = pointer;
-        pointer = pointer.next;
-      } else {
-        break;
-      }
+      yield pointer;
+      pointer = pointer.next;
     }
-
-    onLoopEnd?.(pointer);
   }
-}
-
-type TraversingMeta =  {
-  node: Node;
-  beforeNode: Node | undefined;
-  type: Extract<NodeType, 'head'>;
-} | {
-  node: Node;
-  beforeNode: Node;
-  type: Exclude<NodeType, 'head'>;
-}
-
-interface TraverseParameter {
-  onLoop?: (meta: TraversingMeta) => boolean; // head부터 tail까지 1번씩 실행됨.
-  onLoopEnd?: (tail: Node | undefined) => void; // head조차 없으면 undefined일 수 있음.
 }
 
 type NodeType = 'head' | 'between' | 'tail';
