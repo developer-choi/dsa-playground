@@ -129,14 +129,14 @@ describe.each(linkedListImplementations)('$name', ({Constructor}) => {
     });
 
     it('should delete a node from the beginning', () => {
-      list.deleteAt(0);
+      expect(list.deleteAt(0)).toBe(10);
       expect(list.length()).toBe(3);
       expect(list.getHead()).toBe(20);
       expect(list.toString()).toBe('20,30,40');
     });
 
     it('should delete a node from the middle', () => {
-      list.deleteAt(1); // 20을 삭제
+      expect(list.deleteAt(1)).toBe(20);
       expect(list.length()).toBe(3);
       expect(list.getHead()).toBe(10);
       expect(list.getTail()).toBe(40);
@@ -144,24 +144,23 @@ describe.each(linkedListImplementations)('$name', ({Constructor}) => {
     });
 
     it('should delete a node from the end', () => {
-      list.deleteAt(3); // 40을 삭제
+      expect(list.deleteAt(3)).toBe(40);
       expect(list.length()).toBe(3);
       expect(list.getTail()).toBe(30);
       expect(list.toString()).toBe('10,20,30');
     });
 
     it('should handle deletion until the list is empty', () => {
-      // 10, 20, 30, 40
-      list.deleteAt(0); // 20, 30, 40
+      expect(list.deleteAt(0)).toBe(10);
       expect(list.toString()).toBe('20,30,40');
-      list.deleteAt(1); // 20, 40
+      expect(list.deleteAt(1)).toBe(30); // 20, 40
       expect(list.toString()).toBe('20,40');
-      list.deleteAt(1); // 20
+      expect(list.deleteAt(1)).toBe(40);
       expect(list.toString()).toBe('20');
       expect(list.getHead()).toBe(20);
       expect(list.getTail()).toBe(20);
 
-      list.deleteAt(0); // empty
+      expect(list.deleteAt(0)).toBe(20);
       expect(list.toString()).toBe('');
       expect(list.getHead()).toBeUndefined();
       expect(list.getTail()).toBeUndefined();
@@ -171,7 +170,7 @@ describe.each(linkedListImplementations)('$name', ({Constructor}) => {
     it('should make the list empty if the only element is deleted', () => {
       const singleItemList = new Constructor();
       singleItemList.push(100);
-      singleItemList.deleteAt(0);
+      expect(singleItemList.deleteAt(0)).toBe(100);
 
       expect(singleItemList.length()).toBe(0);
       expect(singleItemList.getHead()).toBeUndefined();
@@ -179,7 +178,7 @@ describe.each(linkedListImplementations)('$name', ({Constructor}) => {
     });
 
     it('should not change the list for out-of-bounds indices', () => {
-      list.deleteAt(10);
+      expect(list.deleteAt(10)).toBeUndefined();
       expect(list.length()).toBe(4);
       expect(list.toString()).toBe('10,20,30,40');
     });

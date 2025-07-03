@@ -138,6 +138,8 @@ export default class SinglyLinkedList extends LinkedList {
   // 헤더 vs 중간 vs 마지막 삭제하는 로직은 insertAt()와 동일함.
   deleteAt(index: number) {
     if (index === 0) {
+      const deletedData = this.head?.data;
+
       this.head = this.head?.next;
 
       // List의 길이가 0이 되버린 경우
@@ -145,14 +147,16 @@ export default class SinglyLinkedList extends LinkedList {
         this.tail = undefined;
       }
 
-      return;
+      return deletedData;
     }
 
     let beforeNode = this.getBeforeNode(index);
 
     if (!beforeNode) {
-      return;
+      return undefined;
     }
+
+    let deletedData = beforeNode.next?.data;
 
     if (beforeNode.next === this.tail) {
       beforeNode.next = undefined;
@@ -160,6 +164,8 @@ export default class SinglyLinkedList extends LinkedList {
     } else {
       beforeNode.next = beforeNode.next?.next;
     }
+
+    return deletedData;
   }
 
   /**

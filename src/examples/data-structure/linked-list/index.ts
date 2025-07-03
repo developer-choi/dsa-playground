@@ -2,7 +2,7 @@ export default abstract class LinkedList {
   abstract push(data: number): void;
   abstract get(index: number): number | undefined;
   abstract insertAt(index: number, data: number): void;
-  abstract deleteAt(index: number): void;
+  abstract deleteAt(index: number): number | undefined;
   abstract findIndex(index: number): number;
   abstract length(): number;
   abstract toString(): string;
