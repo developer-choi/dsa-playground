@@ -67,6 +67,12 @@ export default class SinglyLinkedList {
     if (index === 0) {
       newNode.next = this.head;
       this.head = newNode;
+
+      // List에 요소가 1개밖에 없는 경우
+      if (!this.head.next) {
+        this.tail = this.head;
+      }
+
       return;
     }
 
@@ -124,6 +130,12 @@ export default class SinglyLinkedList {
   deleteAt(index: number) {
     if (index === 0) {
       this.head = this.head?.next;
+
+      // List의 길이가 0이 되버린 경우
+      if (!this.head) {
+        this.tail = undefined;
+      }
+
       return;
     }
 
