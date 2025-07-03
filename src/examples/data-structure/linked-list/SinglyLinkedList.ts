@@ -1,14 +1,15 @@
-import {SinglyNode} from '@/examples/data-structure/linked-list';
+import LinkedList, {SinglyNode} from '@/examples/data-structure/linked-list';
 
 /**
  * URL: https://www.geeksforgeeks.org/singly-linked-list-tutorial/
  * Doc: https://docs.google.com/document/d/1RxLj_q7xhg6wS1HpJrTftnBI7jshw5Mf24vpKDi2EUQ/edit?tab=t.0
  */
-export default class SinglyLinkedList {
+export default class SinglyLinkedList extends LinkedList {
   private head: SinglyNode | undefined;
   private tail: SinglyNode | undefined;
 
   constructor() {
+    super();
     this.head = undefined;
     this.tail = undefined;
   }
@@ -45,6 +46,14 @@ export default class SinglyLinkedList {
     }
 
     return undefined;
+  }
+
+  getHead(): number | undefined {
+    return this.head?.data;
+  }
+
+  getTail(): number | undefined {
+    return this.tail?.data;
   }
 
   /**
