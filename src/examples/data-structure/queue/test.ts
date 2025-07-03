@@ -1,11 +1,13 @@
 import SimplestQueue from '@/examples/data-structure/queue/SimplestQueue';
 import CircularQueue from '@/examples/data-structure/queue/CircularQueue';
+import LinkedListQueue from '@/examples/data-structure/queue/LinkedListQueue';
 
 const CAPACITY = 3;
 
 const queues = [
   {name: 'SimplestQueue Queue', createInstance: () => new SimplestQueue()},
   {name: 'CircularQueue', createInstance: () => new CircularQueue(CAPACITY)},
+  {name: 'LinkedListQueue', createInstance: () => new LinkedListQueue()},
 ];
 
 describe.each(queues)('$name Algorithm', ({createInstance}) => {
