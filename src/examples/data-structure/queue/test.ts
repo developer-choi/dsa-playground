@@ -5,12 +5,12 @@ import LinkedListQueue from '@/examples/data-structure/queue/LinkedListQueue';
 const CAPACITY = 3;
 
 const queues = [
-  {name: 'SimplestQueue Queue', createInstance: () => new SimplestQueue()},
+  {name: 'SimplestQueue', createInstance: () => new SimplestQueue()},
   {name: 'CircularQueue', createInstance: () => new CircularQueue(CAPACITY)},
   {name: 'LinkedListQueue', createInstance: () => new LinkedListQueue()},
 ];
 
-describe.each(queues)('$name Algorithm', ({createInstance}) => {
+describe.each(queues)('Data Structure > $name', ({createInstance}) => {
   it('enqueue / dequeue를 반복하더라도 잘 동작해야한다.', () => {
     const instance = createInstance();
 
