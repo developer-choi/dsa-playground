@@ -5,7 +5,7 @@ const linkedListImplementations = [
   {name: 'SinglyLinkedList', Constructor: SinglyLinkedList},
 ];
 
-describe.each(linkedListImplementations)('$name', ({Constructor}) => {
+describe.each(linkedListImplementations)('Data Structure > $name', ({Constructor}) => {
   let list: LinkedList;
 
   beforeEach(() => {
