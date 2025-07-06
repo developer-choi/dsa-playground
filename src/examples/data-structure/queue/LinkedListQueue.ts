@@ -1,6 +1,10 @@
 import Queue from '@/examples/data-structure/queue/index';
 import SinglyLinkedList from '@/examples/data-structure/linked-list/SinglyLinkedList';
 
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/queue-linked-list-implementation/
+ * Doc: https://docs.google.com/document/d/1wgKMP81FqWcW2bWlXtkmmBwoDo3QFQOmByRfcBACIkA/edit?tab=t.0
+ */
 export default class LinkedListQueue extends Queue {
   private readonly list: SinglyLinkedList;
 
