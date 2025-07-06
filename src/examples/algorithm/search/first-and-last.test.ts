@@ -4,6 +4,7 @@ import {range} from '@/utils/extend/data-type/number';
 const SORTED_ODD_ARRAY = range(0, 20).concat(range(0, 21)).sort((a, b) => a - b);
 const SORTED_EVEN_ARRAY = SORTED_ODD_ARRAY.concat(22);
 
+// yarn test src/examples/algorithm/search/first-and-last.test.ts
 const arrayTestCases = [
   {type: 'an odd-length', array: SORTED_ODD_ARRAY},
   {type: 'an even-length', array: SORTED_EVEN_ARRAY},

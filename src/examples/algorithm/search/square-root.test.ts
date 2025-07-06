@@ -2,6 +2,7 @@ import {range} from '@/utils/extend/data-type/number';
 import squareRootUsingLoop from '@/examples/algorithm/search/square-root/loop';
 import squareRootUsingBinarySearch from '@/examples/algorithm/search/square-root/binary-search';
 
+// yarn test src/examples/algorithm/search/square-root.test.ts
 const algorithms = [
   {name: 'squareRootUsingLoop', fn: squareRootUsingLoop},
   {name: 'squareRootUsingBinarySearch', fn: squareRootUsingBinarySearch},

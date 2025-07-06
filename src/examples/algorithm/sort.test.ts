@@ -7,6 +7,7 @@ import selectionSort from '@/examples/algorithm/sort/selection';
 import insertionSort from '@/examples/algorithm/sort/insertion';
 import quickSort from '@/examples/algorithm/sort/quick';
 
+// yarn test src/examples/algorithm/sort.test.ts
 const algorithms = [
   {name: 'Bubble Sort', fn: bubbleSort},
   {name: 'Selection Sort', fn: selectionSort},

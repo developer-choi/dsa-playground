@@ -1,6 +1,7 @@
 import LinkedList from './index';
 import SinglyLinkedList from './SinglyLinkedList';
 
+// yarn test src/examples/data-structure/linked-list/test.ts
 const linkedListImplementations = [
   {name: 'SinglyLinkedList', Constructor: SinglyLinkedList},
 ];

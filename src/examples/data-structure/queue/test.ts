@@ -4,6 +4,7 @@ import LinkedListQueue from '@/examples/data-structure/queue/LinkedListQueue';
 
 const CAPACITY = 3;
 
+// yarn test src/examples/data-structure/queue/test.ts
 const queues = [
   {name: 'SimplestQueue', createInstance: () => new SimplestQueue()},
   {name: 'CircularQueue', createInstance: () => new CircularQueue(CAPACITY)},

@@ -2,6 +2,7 @@ import iterativeBinarySearch from '@/examples/algorithm/search/iterative-binary'
 import recursiveBinarySearch from '@/examples/algorithm/search/recursive-binary';
 import {range} from '@/utils/extend/data-type/number';
 
+// yarn test src/examples/algorithm/binary-search.test.ts
 const searchAlgorithms = [
   {name: 'Iterative Binary Search', fn: iterativeBinarySearch},
   {name: 'Recursive Binary Search', fn: recursiveBinarySearch},

@@ -1,5 +1,6 @@
 import unboundedBinarySearch from '@/examples/algorithm/search/unbounded-binary';
 
+// yarn test src/examples/algorithm/search/unbounded-binary.test.ts
 describe('unboundedBinarySearch()', () => {
   describe('General cases', () => {
     it('should find the first positive point in a general case', () => {

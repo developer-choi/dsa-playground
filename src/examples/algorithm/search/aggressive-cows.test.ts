@@ -4,6 +4,7 @@ import {randomNumber} from '@/utils/extend/test/random';
 import bruteForceAggressiveCows from '@/examples/algorithm/search/aggressive-cows/brute-force';
 import binarySearchAggressiveCows from '@/examples/algorithm/search/aggressive-cows/binary';
 
+// yarn test src/examples/algorithm/search/aggressive-cows.test.ts
 const aggressiveCowsAlgorithms = [
   {name: 'bruteForceAggressiveCows', fn: bruteForceAggressiveCows},
   {name: 'binarySearchAggressiveCows', fn: binarySearchAggressiveCows},

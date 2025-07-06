@@ -1,6 +1,7 @@
 import {randomRotatedNumberArray} from '@/utils/extend/test/generate-dummy';
 import findMinRotatedArray from '@/examples/algorithm/search/min-rotated-array';
 
+// yarn test src/examples/algorithm/search/min-rotated-array.test.ts
 describe('findMinRotatedArray()', () => {
   describe('General cases', () => {
     it('should find the minimum value in a randomly rotated sorted array', () => {
