@@ -11,12 +11,12 @@ export default class StackUsingArray {
     this.capacity = capacity;
   }
 
-  push(value: number) {
+  push(data: number) {
     if (this.array.length >= this.capacity) {
       throw new RangeError('Stack overflow');
     }
 
-    this.array.push(value);
+    this.array.push(data);
   }
 
   pop() {

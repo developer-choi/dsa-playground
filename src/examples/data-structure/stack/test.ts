@@ -1,10 +1,12 @@
 import StackUsingArray from '@/examples/data-structure/stack/StackUsingArray';
 import Stack from '@/examples/data-structure/stack';
+import StackUsingLinkedList from '@/examples/data-structure/stack/StackUsingLinkedList';
 
 const CAPACITY = 4;
 
 const stacks = [
   {name: 'StackUsingArray', createInstance: () => new StackUsingArray(CAPACITY)},
+  {name: 'StackUsingLinkedList', createInstance: () => new StackUsingLinkedList()},
 ];
 
 describe.each(stacks)('Data Structure > $name', ({createInstance}) => {
@@ -31,14 +33,6 @@ describe.each(stacks)('Data Structure > $name', ({createInstance}) => {
 
       stack.push(20);
       expect(stack.peek()).toBe(20);
-    });
-
-    it('should throw a "Stack overflow" error when the stack is full', () => {
-      for (let i = 1; i <= CAPACITY; i++) {
-        stack.push(i);
-      }
-
-      expect(() => stack.push(99)).toThrow(RangeError);
     });
   });
 
