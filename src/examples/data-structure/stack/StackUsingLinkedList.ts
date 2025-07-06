@@ -3,7 +3,7 @@ import SinglyLinkedList from '../linked-list/SinglyLinkedList';
 import Stack from '@/examples/data-structure/stack';
 
 /**
- * URL: https://www.geeksforgeeks.org/dsa/implement-stack-using-array/
+ * URL: https://www.geeksforgeeks.org/dsa/implement-a-stack-using-singly-linked-list/
  * Doc: https://docs.google.com/document/d/11a-3VHMgXMuZQSidzpQUkyJ0fz3JEVDSBwlg8KZS_Hg/edit?tab=t.0#heading=h.ika3ybx2u5yu
  */
 export default class StackUsingLinkedList extends Stack {
