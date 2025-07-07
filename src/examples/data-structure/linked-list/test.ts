@@ -7,7 +7,7 @@ const linkedListImplementations = [
 ];
 
 describe.each(linkedListImplementations)('Data Structure > $name', ({Constructor}) => {
-  let list: LinkedList;
+  let list: LinkedList<number>;
 
   beforeEach(() => {
     list = new Constructor();

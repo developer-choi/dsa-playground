@@ -1,16 +1,16 @@
-export default abstract class Stack {
+export default abstract class Stack<D> {
   /**
    * @throws {RangeError} Stack overflow
    */
-  abstract push(value: number): void;
+  abstract push(data: D): void;
 
   /**
    * @throws {RangeError} Stack underflow
    */
-  abstract pop(): number;
+  abstract pop(): D;
 
   /**
    * @return undefined Stack is empty
    */
-  abstract peek(): number | undefined;
+  abstract peek(): D | undefined;
 }

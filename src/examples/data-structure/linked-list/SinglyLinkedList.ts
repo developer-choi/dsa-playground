@@ -4,9 +4,9 @@ import LinkedList, {SinglyNode} from '@/examples/data-structure/linked-list';
  * URL: https://www.geeksforgeeks.org/singly-linked-list-tutorial/
  * Doc: https://docs.google.com/document/d/1RxLj_q7xhg6wS1HpJrTftnBI7jshw5Mf24vpKDi2EUQ/edit?tab=t.0
  */
-export default class SinglyLinkedList extends LinkedList {
-  private head: SinglyNode | undefined;
-  private tail: SinglyNode | undefined;
+export default class SinglyLinkedList<D> extends LinkedList<D> {
+  private head: SinglyNode<D> | undefined;
+  private tail: SinglyNode<D> | undefined;
 
   constructor() {
     super();
@@ -18,7 +18,7 @@ export default class SinglyLinkedList extends LinkedList {
    * 1. head pointer 하나만 쓰는 경우 > O(n), where n is the number of nodes in the linked list.
    * 2. tail pointer도 같이 쓰는 경우 > O(1)
    */
-  push(data: number) {
+  push(data: D) {
     const newNode = new SinglyNode(data);
 
     // 실제로는, tail이 있다면 head가 반드시 있지만 else에서 Type Guard 때문에 이렇게 조건을 잡았음.
@@ -35,7 +35,7 @@ export default class SinglyLinkedList extends LinkedList {
    * https://www.geeksforgeeks.org/dsa/traversal-of-singly-linked-list/
    * Time Complexity: O(n), where n is the number of nodes in the linked list.
    */
-  get(index: number): number | undefined {
+  get(index: number): D | undefined {
     let i = 0;
 
     for (const node of this) {
@@ -48,11 +48,11 @@ export default class SinglyLinkedList extends LinkedList {
     return undefined;
   }
 
-  getHead(): number | undefined {
+  getHead(): D | undefined {
     return this.head?.data;
   }
 
-  getTail(): number | undefined {
+  getTail(): D | undefined {
     return this.tail?.data;
   }
 
@@ -69,7 +69,7 @@ export default class SinglyLinkedList extends LinkedList {
    * URL: https://www.geeksforgeeks.org/insert-node-at-the-end-of-a-linked-list/
    * Time Complexity: O(N) where N is the length of the linked list
    */
-  insertAt(index: number, data: number) {
+  insertAt(index: number, data: D) {
     const newNode = new SinglyNode(data);
 
     // head에 삽입해야하는 경우
@@ -93,7 +93,7 @@ export default class SinglyLinkedList extends LinkedList {
 
     // tail에 삽입해야하는 경우
     if (!beforeNode.next) {
-      (this.tail as SinglyNode).next = newNode;
+      (this.tail as SinglyNode<D>).next = newNode;
       this.tail = newNode;
 
       // 중간에 삽입해야하는 경우
@@ -172,7 +172,7 @@ export default class SinglyLinkedList extends LinkedList {
    * https://www.geeksforgeeks.org/dsa/search-an-element-in-a-linked-list-iterative-and-recursive/
    * Time Complexity: O(n), where n is the number of nodes in the linked list.
    */
-  findIndex(data: number): number {
+  findIndex(data: D): number {
     let index = 0;
 
     for (const node of this) {
@@ -200,7 +200,7 @@ export default class SinglyLinkedList extends LinkedList {
   }
 
   toString(): string {
-    const array: number[] = [];
+    const array: D[] = [];
 
     for (const node of this) {
       array.push(node.data);
@@ -213,13 +213,13 @@ export default class SinglyLinkedList extends LinkedList {
    * index의 직전 노드를 반환합니다.
    * 경우는 index가 0이거나 리스트의 범위를 넘어섰을 때 undefined를 반환합니다.
    */
-  private getBeforeNode(index: number): SinglyNode | undefined {
+  private getBeforeNode(index: number): SinglyNode<D> | undefined {
     if (index === 0) {
       return undefined;
     }
 
     let nextIndex = 1;
-    let beforeNode: SinglyNode = this.head as SinglyNode;
+    let beforeNode: SinglyNode<D> = this.head as SinglyNode<D>;
 
     while (beforeNode.next && nextIndex < index) {
       beforeNode = beforeNode.next;
@@ -242,30 +242,3 @@ export default class SinglyLinkedList extends LinkedList {
     }
   }
 }
-
-// TODO 테스트 코드 짤 때 toString()이랑 head, tail이 올바른위치에 있는지랑 테스트코드 돌리자 아 시발 불편해죽겠네
-// TODO 테스트 케이스는 특히 긱포긱 지켜야하고, 내 과거 커밋에서 간단하게 테스트했던 코드도 지켜야함.
-const list = new SinglyLinkedList();
-list.push(1);
-list.push(3);
-list.push(5);
-console.log(list.toString()); // 1, 3, 5
-list.insertAt(0, 0);
-console.log(list.toString()); // 0, 1, 3, 5
-list.insertAt(2, 2);
-console.log(list.toString()); // 0, 1, 2, 3, 5
-list.insertAt(4, 4);
-console.log(list.toString()); // 0, 1, 2, 3, 4, 5
-list.insertAt(6, 6);
-console.log(list.toString()); // 0, 1, 2, 3, 4, 5, 6
-list.deleteAt(0);
-console.log(list.toString()); // 1, 2, 3, 4, 5, 6
-list.deleteAt(2);
-console.log(list.toString()); // 1, 2, 4, 5, 6
-list.deleteAt(3);
-console.log(list.toString()); // 1, 2, 4, 6
-list.deleteAt(0);
-list.deleteAt(0);
-list.deleteAt(0);
-list.deleteAt(0);
-console.log(list.toString() === '' ? 'empty string' : list.toString()); // empty string

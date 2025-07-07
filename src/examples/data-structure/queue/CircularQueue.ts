@@ -12,8 +12,8 @@ import Queue from '@/examples/data-structure/queue/index';
  * dequeue() ==> this.front를 우측으로 한칸 옮겨야함 근데 계속 우측으로 한칸 옮기면? capacity 벗어남. 그래서 다시 0부터 가리키게 함.
  * enqueue() ==> Linear + Contiguous 배열의 제일 끝에 추가해야함. ==> this.front가 한 중간쯤에 있음 ==> 그럼 capacity보다 절반 벗어남 ==> 순환해서 다시 0부터 절반까지로 데이터 집어넣음.
  */
-export default class CircularQueue extends Queue {
-  private readonly array: number[];
+export default class CircularQueue<D> extends Queue<D> {
+  private readonly array: D[];
   private readonly capacity: number;
   private size: number;
   private frontIndex: number;
@@ -26,7 +26,7 @@ export default class CircularQueue extends Queue {
     this.frontIndex = 0;
   }
 
-  getFront(): number | undefined {
+  getFront(): D | undefined {
     if (this.size === 0) {
       return undefined;
     }
@@ -34,7 +34,7 @@ export default class CircularQueue extends Queue {
     return this.array[this.frontIndex];
   }
 
-  getRear(): number | undefined {
+  getRear(): D | undefined {
     if (this.size === 0) {
       return undefined;
     }
@@ -47,7 +47,7 @@ export default class CircularQueue extends Queue {
    * 1. 실행 후 frontIndex는 그대로 있어야함
    * 2. 배열 제일 끝에 새로운 아이템을 추가해야함.
    */
-  enqueue(data: number): void {
+  enqueue(data: D): void {
     if (this.size === this.capacity) {
       return;
     }
@@ -73,7 +73,7 @@ export default class CircularQueue extends Queue {
    *
    * SimplestQueue와 달리, dequeue()의 Time Complexity가 O(1)임.
    */
-  dequeue(): number | undefined {
+  dequeue(): D | undefined {
     if (this.size === 0) {
       return undefined;
     }

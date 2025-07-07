@@ -1,6 +1,6 @@
-export default abstract class Queue {
-  abstract getFront(): number | undefined;
-  abstract getRear(): number | undefined;
-  abstract enqueue(data: number): void;
-  abstract dequeue(): number | undefined;
+export default abstract class Queue<D> {
+  abstract getFront(): D | undefined;
+  abstract getRear(): D | undefined;
+  abstract enqueue(data: D): void;
+  abstract dequeue(): D | undefined;
 }

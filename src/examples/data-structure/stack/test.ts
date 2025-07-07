@@ -6,12 +6,12 @@ const CAPACITY = 4;
 
 // yarn test src/examples/data-structure/stack/test.ts
 const stacks = [
-  {name: 'StackUsingArray', createInstance: () => new StackUsingArray(CAPACITY)},
-  {name: 'StackUsingLinkedList', createInstance: () => new StackUsingLinkedList()},
+  {name: 'StackUsingArray', createInstance: () => new StackUsingArray<number>(CAPACITY)},
+  {name: 'StackUsingLinkedList', createInstance: () => new StackUsingLinkedList<number>()},
 ];
 
 describe.each(stacks)('Data Structure > $name', ({createInstance}) => {
-  let stack: Stack;
+  let stack: Stack<number>;
 
   beforeEach(() => {
     stack = createInstance();

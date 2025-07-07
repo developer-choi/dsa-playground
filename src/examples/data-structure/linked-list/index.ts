@@ -1,31 +1,31 @@
-export default abstract class LinkedList {
-  abstract push(data: number): void;
-  abstract get(index: number): number | undefined;
-  abstract insertAt(index: number, data: number): void;
-  abstract deleteAt(index: number): number | undefined;
-  abstract findIndex(index: number): number;
+export default abstract class LinkedList<D> {
+  abstract push(data: D): void;
+  abstract get(index: number): D | undefined;
+  abstract insertAt(index: number, data: D): void;
+  abstract deleteAt(index: number): D | undefined;
+  abstract findIndex(data: D): number;
   abstract length(): number;
   abstract toString(): string;
-  abstract getHead(): number | undefined;
-  abstract getTail(): number | undefined;
+  abstract getHead(): D | undefined;
+  abstract getTail(): D | undefined;
 }
 
-export class SinglyNode {
-  data: number;
-  next: SinglyNode | undefined;
+export class SinglyNode<D> {
+  data: D;
+  next: SinglyNode<D> | undefined;
 
-  constructor(data: number) {
+  constructor(data: D) {
     this.data = data;
     this.next = undefined;
   }
 }
 
-export class DoublyNode {
-  data: number;
-  previous: DoublyNode | undefined;
-  next: DoublyNode | undefined;
+export class DoublyNode<D> {
+  data: D;
+  previous: DoublyNode<D> | undefined;
+  next: DoublyNode<D> | undefined;
 
-  constructor(data: number) {
+  constructor(data: D) {
     this.data = data;
     this.next = undefined;
     this.previous = undefined;
