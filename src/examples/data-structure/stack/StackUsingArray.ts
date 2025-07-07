@@ -14,6 +14,10 @@ export default class StackUsingArray<D> extends Stack<D> {
     this.capacity = capacity;
   }
 
+  get length(): number {
+    return this.array.length;
+  }
+
   push(data: D) {
     if (this.array.length >= this.capacity) {
       throw new RangeError('Stack overflow');

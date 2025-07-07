@@ -1,4 +1,6 @@
 export default abstract class Stack<D> {
+  abstract get length(): number;
+
   /**
    * @throws {RangeError} Stack overflow
    */

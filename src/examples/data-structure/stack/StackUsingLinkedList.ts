@@ -8,14 +8,21 @@ import Stack from '@/examples/data-structure/stack';
  */
 export default class StackUsingLinkedList<D> extends Stack<D> {
   private readonly linkedList: LinkedList<D>;
+  private _length: number;
 
   constructor() {
     super();
     this.linkedList = new SinglyLinkedList();
+    this._length = 0;
+  }
+
+  get length(): number {
+    return this._length;
   }
 
   push(data: D) {
     this.linkedList.insertAt(0, data);
+    this._length++;
   }
 
   pop() {
@@ -26,6 +33,7 @@ export default class StackUsingLinkedList<D> extends Stack<D> {
     }
 
     this.linkedList.deleteAt(0);
+    this._length--;
     return headData;
   }
 
