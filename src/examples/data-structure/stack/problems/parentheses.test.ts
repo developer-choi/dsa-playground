@@ -3,7 +3,7 @@ import parenthesesUsingStack from '@/examples/data-structure/stack/problems/pare
 // yarn test src/examples/data-structure/stack/problems/parentheses.test.ts
 describe('parenthesesUsingStack()', () => {
   describe('General cases', () => {
-    it('같아야함', () => {
+    it('should return true for balanced expressions and false otherwise', () => {
       expect(parenthesesUsingStack('[{()}]')).toBeTruthy();
       expect(parenthesesUsingStack('[()()]{}')).toBeTruthy();
       expect(parenthesesUsingStack('([]')).toBeFalsy();
@@ -12,11 +12,11 @@ describe('parenthesesUsingStack()', () => {
   });
 
   describe('Edge cases', () => {
-    it('괄호가 없어도 true', () => {
+    it('should return true for strings with no brackets', () => {
       expect(parenthesesUsingStack('abc')).toBeTruthy();
     });
 
-    it('빈문자열이면 true', () => {
+    it('should return true for an empty string', () => {
       expect(parenthesesUsingStack('')).toBeTruthy();
     });
   });
