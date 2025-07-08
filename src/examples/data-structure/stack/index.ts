@@ -15,4 +15,6 @@ export default abstract class Stack<D> {
    * @return undefined Stack is empty
    */
   abstract peek(): D | undefined;
+
+  abstract toArray(): D[];
 }

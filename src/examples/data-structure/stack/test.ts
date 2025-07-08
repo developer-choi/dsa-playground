@@ -69,4 +69,17 @@ describe.each(stacks)('Data Structure > $name', ({createInstance}) => {
       expect(() => stack.pop()).toThrow(RangeError);
     });
   });
+
+  // 테스트용 메소드여서 간단하게 테스트
+  describe('toArray() operation', () => {
+    it('should correctly convert the stack to an array', () => {
+      const array = [1, 2, 3];
+
+      array.forEach(data => {
+        stack.push(data);
+      });
+
+      expect(stack.toArray()).toEqual(array);
+    });
+  });
 });

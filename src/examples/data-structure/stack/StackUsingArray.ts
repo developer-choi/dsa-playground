@@ -37,4 +37,8 @@ export default class StackUsingArray<D> extends Stack<D> {
   peek() {
     return this.array[this.array.length - 1];
   }
+
+  toArray(): D[] {
+    return this.array;
+  }
 }

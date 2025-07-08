@@ -1,4 +1,3 @@
-import LinkedList from '../linked-list';
 import SinglyLinkedList from '../linked-list/SinglyLinkedList';
 import Stack from '@/examples/data-structure/stack';
 
@@ -7,12 +6,12 @@ import Stack from '@/examples/data-structure/stack';
  * Doc: https://docs.google.com/document/d/11a-3VHMgXMuZQSidzpQUkyJ0fz3JEVDSBwlg8KZS_Hg/edit?tab=t.0#heading=h.ika3ybx2u5yu
  */
 export default class StackUsingLinkedList<D> extends Stack<D> {
-  private readonly linkedList: LinkedList<D>;
+  private readonly linkedList: SinglyLinkedList<D>;
   private _length: number;
 
   constructor() {
     super();
-    this.linkedList = new SinglyLinkedList();
+    this.linkedList = new SinglyLinkedList<D>();
     this._length = 0;
   }
 
@@ -39,5 +38,15 @@ export default class StackUsingLinkedList<D> extends Stack<D> {
 
   peek() {
     return this.linkedList.getHead();
+  }
+
+  toArray(): D[] {
+    const array: D[] = [];
+
+    for (let node of this.linkedList) {
+      array.unshift(node.data);
+    }
+
+    return array;
   }
 }
