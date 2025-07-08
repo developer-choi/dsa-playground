@@ -25,3 +25,17 @@ export function reverseStackUsingRecursive(stack: Stack<number>): Stack<number> 
 
   return newStack;
 }
+
+export function recursiveStackUsingRecursiveWithoutAuxiliary(stack: Stack<number>) {
+  if (stack.length === 0) {
+    return;
+  }
+
+  const data = stack.pop();
+  insertAtBottom(stack, data);
+}
+
+function insertAtBottom(stack: Stack<number>, data: number) {
+  if (stack.length === 0) {
+  }
+}

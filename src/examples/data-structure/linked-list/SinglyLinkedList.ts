@@ -103,36 +103,27 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
     }
   }
 
-  /** TODO
-   * URL: https://www.geeksforgeeks.org/dsa/reverse-a-linked-list/
-   * 정답 안보고 풀어보려다 막혔음.
-   *
-   * 1==>2==>3==>4 에서
-   * 1,2,3,4 순회하면서
-   * 1<==2<==3<==4로 만들려고 했음.
-   * 단, 중간에 next를 계속 역순으로 바꾸지만 1==>4 방향으로 계속 가긴 가야해서
-   * temporary 변수를 여러개 선언했었는데 복잡한 감이 있는듯.
-   *
-   * 미래에는 아이디어 안떠오르면 그냥 긱포긱에서 reverse() 어케 하는지 지문 보고 코드 보기 전에 그 지문대로 직접 구현해보면 될듯
-   * @deprecated
-   */
   reverse() {
-    let originalPointer = this.head;
-    let newTailPointer = originalPointer;
-
-    while (originalPointer) {
-      let originalPointerNext = originalPointer.next;
-
-      if (newTailPointer !== originalPointer) {
-        let temp = newTailPointer;
-        newTailPointer = originalPointer;
-        newTailPointer.next = temp;
-      }
-
-      originalPointer = originalPointerNext;
+    if (!this.head || !this.head.next) {
+      return;
     }
 
-    this.head = newTailPointer;
+    this.tail = this.head;
+    let beforeNode = this.head;
+    let currentNode: SinglyNode<D> | undefined = this.head.next;
+    beforeNode.next = undefined;
+
+    while (currentNode) {
+      const originalNextNode: SinglyNode<D> | undefined = currentNode.next;
+
+      if (!originalNextNode) {
+        this.head = currentNode;
+      }
+
+      currentNode.next = beforeNode;
+      beforeNode = currentNode;
+      currentNode = originalNextNode;
+    }
   }
 
   // 헤더 vs 중간 vs 마지막 삭제하는 로직은 insertAt()와 동일함.
@@ -242,3 +233,11 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
     }
   }
 }
+
+const list = new SinglyLinkedList();
+list.push(1);
+list.push(2);
+list.push(3);
+console.log(list.toString(), list.getHead(), list.getTail());
+list.reverse();
+console.log(list.toString(), list.getHead(), list.getTail());
