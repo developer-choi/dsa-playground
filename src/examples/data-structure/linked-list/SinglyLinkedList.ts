@@ -103,27 +103,23 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
     }
   }
 
+  /**
+   * URL: https://www.geeksforgeeks.org/dsa/reverse-a-linked-list/
+   * Time Complexity: O(n)
+   */
   reverse() {
-    if (!this.head || !this.head.next) {
-      return;
-    }
-
-    this.tail = this.head;
-    let beforeNode = this.head;
-    let currentNode: SinglyNode<D> | undefined = this.head.next;
-    beforeNode.next = undefined;
+    let beforeNode: SinglyNode<D> | undefined = undefined;
+    let currentNode: SinglyNode<D> | undefined = this.head;
 
     while (currentNode) {
       const originalNextNode: SinglyNode<D> | undefined = currentNode.next;
-
-      if (!originalNextNode) {
-        this.head = currentNode;
-      }
-
-      currentNode.next = beforeNode;
+      currentNode.next = beforeNode; // 첨에 여기서 head의 next도 같이 사라짐
       beforeNode = currentNode;
       currentNode = originalNextNode;
     }
+
+    // https://www.geeksforgeeks.org/dsa/reverse-a-linked-list/ 에는 별도 linked list 인스턴스가 따로 있는게 아니어서 아래 코드가 추가로 필요함.
+    [this.head, this.tail] = [this.tail, this.head];
   }
 
   // 헤더 vs 중간 vs 마지막 삭제하는 로직은 insertAt()와 동일함.
