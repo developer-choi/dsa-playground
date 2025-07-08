@@ -1,6 +1,7 @@
 export default abstract class LinkedList<D> {
   abstract push(data: D): void;
   abstract get(index: number): D | undefined;
+  abstract reverse(): void;
   abstract insertAt(index: number, data: D): void;
   abstract deleteAt(index: number): D | undefined;
   abstract findIndex(data: D): number;

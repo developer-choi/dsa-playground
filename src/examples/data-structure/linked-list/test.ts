@@ -75,6 +75,21 @@ describe.each(linkedListImplementations)('Data Structure > $name', ({Constructor
     });
   });
 
+  describe('reverse()', () => {
+    it('should reverse the list correctly', () => {
+      const initial = [1, 2, 3];
+      const expected = initial.toReversed().join(',');
+
+      initial.forEach(value => {
+        list.push(value);
+      });
+
+      list.reverse();
+
+      expect(list.toString()).toBe(expected);
+    })
+  });
+
   describe('insertAt()', () => {
     it('should insert a node at the beginning of an empty list', () => {
       list.insertAt(0, 5);
