@@ -6,6 +6,7 @@ import {sortByNumber} from '@/utils/extend/data-type/array';
 import selectionSort from '@/examples/algorithm/sort/selection';
 import insertionSort from '@/examples/algorithm/sort/insertion';
 import quickSort from '@/examples/algorithm/sort/quick';
+import sortUsingStack from '@/examples/data-structure/stack/problems/sort';
 
 // yarn test src/examples/algorithm/sort.test.ts
 const algorithms = [
@@ -13,6 +14,7 @@ const algorithms = [
   {name: 'Selection Sort', fn: selectionSort},
   {name: 'Insertion Sort', fn: insertionSort},
   {name: 'Quick Sort', fn: quickSort},
+  {name: 'Sort using stack', fn: sortUsingStack},
 ];
 
 describe.each(algorithms)('$name Algorithm', ({fn}) => {
