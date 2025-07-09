@@ -27,7 +27,11 @@ export default class StackUsingLinkedList<D> extends Stack<D> {
   pop() {
     const headData = this.linkedList.getHead();
 
-    if (!headData) {
+    /**
+     * 여기서 !headData로 체크하면 큰일남.
+     * headData기 빈문자열, 0 이런 데이터를 가리키고있어도 falsy로 체크됨.
+     */
+    if (headData === undefined) {
       throw new RangeError('Stack underflow');
     }
 
