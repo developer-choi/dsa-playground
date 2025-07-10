@@ -19,6 +19,11 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
    * 2. tail pointer도 같이 쓰는 경우 > O(1)
    */
   push(data: D) {
+    // TODO 추후 D 제네릭 타입에 undefined가 올 수 없도록 추가하고, 모든 자료구조에 undefined 막을 에정
+    if (data === undefined) {
+      throw new TypeError('undefined인 data를 push()할 수 없습니다.');
+    }
+
     const newNode = new SinglyNode(data);
 
     // 실제로는, tail이 있다면 head가 반드시 있지만 else에서 Type Guard 때문에 이렇게 조건을 잡았음.
@@ -194,6 +199,16 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
 
   getTail(): D | undefined {
     return this.tail?.data;
+  }
+
+  toArray(): D[] {
+    const result: D[] = [];
+
+    for (const data of this) {
+      result.push(data.data);
+    }
+
+    return result;
   }
 
   /**

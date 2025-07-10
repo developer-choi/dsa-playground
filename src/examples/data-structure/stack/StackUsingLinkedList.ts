@@ -44,13 +44,8 @@ export default class StackUsingLinkedList<D> extends Stack<D> {
     return this.linkedList.getHead();
   }
 
+  // 테스트 목적으로 추가한 메소드이며 성능상 안좋은게 맞습니다.
   toArray(): D[] {
-    const array: D[] = [];
-
-    for (let node of this.linkedList) {
-      array.unshift(node.data);
-    }
-
-    return array;
+    return this.linkedList.toArray().toReversed();
   }
 }
