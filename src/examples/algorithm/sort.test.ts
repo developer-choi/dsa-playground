@@ -36,7 +36,17 @@ describe.each(algorithms)('$name Algorithm', ({fn}) => {
         const order = randomInArray<SortParam['order']>(['asc', 'desc'])[0];
         const answer = sortByNumber(order, value, item => item);
         const {output} = fn({value, order});
-        expect(output).toEqual(answer);
+
+        try {
+          expect(output).toEqual(answer);
+        } catch (error) {
+          console.error({
+            input: {value, order},
+            output,
+            expected: answer
+          });
+          throw error;
+        }
       }
     });
   });

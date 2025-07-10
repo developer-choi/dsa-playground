@@ -14,7 +14,19 @@ describe('findNearestSmallerNumberOnLeftSide()', () => {
       for (let i = 0; i < 100; i++) {
         const length = randomInArray([49, 50])[0];
         const array = randomNumericArray(length);
-        expect(findNearestSmallerNumberOnLeftSide(array)).toEqual(officialAnswer(array));
+        const output = findNearestSmallerNumberOnLeftSide(array);
+        const expected = officialAnswer(array);
+
+        try {
+          expect(output).toEqual(expected);
+        } catch (error) {
+          console.error({
+            input: array,
+            output,
+            expected
+          });
+          throw error;
+        }
       }
     });
   });
