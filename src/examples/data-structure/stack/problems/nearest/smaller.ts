@@ -13,7 +13,7 @@ export default function findNearestSmallerNumberOnLeftSide(input: number[]): num
 
     /** Point 2. pop() 한 값이, 조건에 안맞으면 걍 버려도 됨. (else 문 따로 없음)
      * 1. target 보다 우측에 있는 놈들의 가장 가깝게 작은놈이 "최소 target임"
-     * 2. 지금 pop() 했는데 target 보다 크다면, 후보조차 될 수 없음. target이 되면 됐지.
+     * 2. pop() 했는데 target 보다 크다면, 후보조차 될 수 없음. target이 되면 됐지.
      */
     while (candidates.length && (candidates.peek() as number) >= target) {
       candidates.pop();
