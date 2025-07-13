@@ -1,4 +1,4 @@
-import parenthesesUsingStack from '@/examples/data-structure/stack/problems/parentheses';
+import parenthesesUsingStack from '@/coding-test/stack/level2/parentheses';
 
 // yarn test src/examples/data-structure/stack/problems/parentheses.test.ts
 describe('parenthesesUsingStack()', () => {
@@ -18,6 +18,10 @@ describe('parenthesesUsingStack()', () => {
 
     it('should return true for an empty string', () => {
       expect(parenthesesUsingStack('')).toBeTruthy();
+    });
+
+    it('should return false if closing parentheses outnumber opening parentheses', () => {
+      expect(parenthesesUsingStack(')')).toBeFalsy();
     });
   });
 });
