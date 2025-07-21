@@ -17,7 +17,7 @@ const algorithms = [
   {name: 'Sort using stack', fn: sortUsingStack},
 ];
 
-describe.each(algorithms)('$name Algorithm', ({fn}) => {
+describe.each(algorithms)('Sorting Algorithm > $name', ({fn}) => {
   describe('General cases', () => {
     it('should sort an array in ascending order', () => {
       const {output} = fn({value: [5, 4, 3, 2, 1], order: 'asc'});
