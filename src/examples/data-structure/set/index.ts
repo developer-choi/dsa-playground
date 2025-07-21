@@ -16,3 +16,13 @@ export function intersection<T>(a: Set<T>, b: Set<T>): Set<T> {
 
   return resultSet;
 }
+
+export function union<T>(a: Set<T>, b: Set<T>): Set<T> {
+  const resultSet = new Set<T>(b);
+
+  for (const data of a) {
+    resultSet.add(data);
+  }
+
+  return resultSet;
+}
