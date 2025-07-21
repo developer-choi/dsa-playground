@@ -22,7 +22,7 @@ export function bruteForceTwoSum(array: number[], target: number): boolean {
 /**
  * URL: https://www.geeksforgeeks.org/dsa/check-if-pair-with-given-sum-exists-in-array/#better-approach2-sorting-and-twopointer-technique-onlogn-time-and-o1-space
  * Doc: https://docs.google.com/document/d/1FrE5Wok8hZ8ZqvwemWIDszaLQREG5uIXviMe67464-g/edit?tab=t.0
- * TODO Time Complexity 이게 O(nlogn) + 좌우포인터 총 순회 수는 n 안넘어가니 n + nlogn 해서 nlogn 나오는건지...?
+ * Time Complexity: O(nlogn) > 정렬하는데 nlogn, 순회하는데 n (양쪽 포인터가 중앙에서 만나는데, 총 순회 합은 n을 넘어갈 수 없음)
  */
 export function twoPointersTwoSum(array: number[], target: number): boolean {
   let leftIndex = 0;
