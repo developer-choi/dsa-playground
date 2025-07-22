@@ -3,8 +3,13 @@ export function groupWords(words: string[]): string[][] {
 
   for (const word of words) {
     const key = getKey(word);
-    const group = map.get(key) ?? [];
-    map.set(key, group.concat(word));
+    const group = map.get(key);
+
+    if (group) {
+      group.push(word);
+    } else {
+      map.set(key, [word]);
+    }
   }
 
   return [...map.values()];
