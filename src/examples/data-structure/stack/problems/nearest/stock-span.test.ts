@@ -1,5 +1,5 @@
 import {stockSpanUsingLoop, stockSpanUsingStack} from '@/examples/data-structure/stack/problems/nearest/stock-span';
-import {randomInArray} from '@/utils/extend/test/random';
+import {randomInArray, testRandomCase} from '@/utils/extend/test/random';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 
 const stockSpanAlgorithms = [
@@ -16,23 +16,15 @@ describe.each(stockSpanAlgorithms)('Stock Span Using $name', ({fn}) => {
     });
 
     it('should ensure correctness across various random cases', () => {
-      for (let i = 0; i < 100; i++) {
-        const length = randomInArray([49, 50])[0];
-        const value = randomNumericArray(length);
-        const output = fn(value);
-        const answer = officialAnswer(value);
-
-        try {
-          expect(output).toEqual(answer);
-        } catch (error) {
-          console.error({
-            input: value,
-            output,
-            expected: answer
-          });
-          throw error;
+      testRandomCase({
+        compare: fn,
+        answer: officialAnswer,
+        generateInput: () => {
+          const length = randomInArray([49, 50])[0];
+          const value = randomNumericArray(length);
+          return [value] as const;
         }
-      }
+      });
     });
   });
 

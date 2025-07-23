@@ -1,5 +1,5 @@
 import findNearestSmallerNumberOnLeftSide from '@/examples/data-structure/stack/problems/nearest/smaller';
-import {randomInArray} from '@/utils/extend/test/random';
+import {randomInArray, testRandomCase} from '@/utils/extend/test/random';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 
 // yarn test src/examples/data-structure/stack/problems/nearest/smaller.test.ts
@@ -11,23 +11,14 @@ describe('findNearestSmallerNumberOnLeftSide()', () => {
     });
 
     it('should ensure correctness across various random cases', () => {
-      for (let i = 0; i < 100; i++) {
-        const length = randomInArray([49, 50])[0];
-        const array = randomNumericArray(length);
-        const output = findNearestSmallerNumberOnLeftSide(array);
-        const expected = officialAnswer(array);
-
-        try {
-          expect(output).toEqual(expected);
-        } catch (error) {
-          console.error({
-            input: array,
-            output,
-            expected
-          });
-          throw error;
+      testRandomCase({
+        compare: findNearestSmallerNumberOnLeftSide,
+        answer: officialAnswer,
+        generateInput: () => {
+          const length = randomInArray([49, 50])[0];
+          return [randomNumericArray(length)] as const;
         }
-      }
+      });
     });
   });
 

@@ -1,6 +1,6 @@
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 import {removeDuplicatedItems} from '@/utils/extend/data-type/array';
-import {randomNumber} from '@/utils/extend/test/random';
+import {randomNumber, testRandomCase} from '@/utils/extend/test/random';
 import bruteForceAggressiveCows from '@/examples/algorithm/search/aggressive-cows/brute-force';
 import binarySearchAggressiveCows from '@/examples/algorithm/search/aggressive-cows/binary';
 
@@ -13,24 +13,15 @@ const aggressiveCowsAlgorithms = [
 describe.each(aggressiveCowsAlgorithms)('$name', ({fn}) => {
   describe('General cases', () => {
     it('should pass randomized tests', () => {
-      for (let i = 0; i < 50; i++) {
-        const array = removeDuplicatedItems(randomNumericArray(100)).toSorted((a, b) => a - b).map(value => value * randomNumber(2, 5));
-        const cowsCount = randomNumber(3, array.length);
-        let actual = fn(array, cowsCount);
-        let expected = solution(array, cowsCount);
-
-        try {
-          expect(actual).toBe(expected);
-        } catch (error) {
-          console.error({
-            array,
-            cowsCount,
-            actual,
-            expected
-          });
-          throw error;
+      testRandomCase({
+        compare: fn,
+        answer: solution,
+        generateInput: () => {
+          const array = removeDuplicatedItems(randomNumericArray(100)).toSorted((a, b) => a - b).map(value => value * randomNumber(2, 5));
+          const cowsCount = randomNumber(3, array.length);
+          return [array, cowsCount] as const;
         }
-      }
+      });
     });
   });
 

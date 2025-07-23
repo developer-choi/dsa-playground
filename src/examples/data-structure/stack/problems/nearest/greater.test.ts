@@ -1,5 +1,5 @@
 import findNearestGreaterNumberOnRightSide from '@/examples/data-structure/stack/problems/nearest/greater';
-import {randomInArray} from '@/utils/extend/test/random';
+import {randomInArray, testRandomCase} from '@/utils/extend/test/random';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 
 // yarn test src/examples/data-structure/stack/problems/nearest/greater.test.ts
@@ -12,22 +12,14 @@ describe('findNearestGreaterNumberOnRightSide()', () => {
     });
 
     it('should ensure correctness across various random cases', () => {
-      for (let i = 0; i < 100; i++) {
-        const length = randomInArray([25, 26])[0];
-        const array = randomNumericArray(length);
-        const output = findNearestGreaterNumberOnRightSide(array);
-        const expected = officialAnswer(array);
-        try {
-          expect(output).toEqual(expected);
-        } catch (error) {
-          console.error({
-            input: array,
-            output,
-            expected
-          });
-          throw error;
+      testRandomCase({
+        compare: findNearestGreaterNumberOnRightSide,
+        answer: officialAnswer,
+        generateInput: () => {
+          const length = randomInArray([25, 26])[0];
+          return [randomNumericArray(length)] as const;
         }
-      }
+      });
     });
   });
 });

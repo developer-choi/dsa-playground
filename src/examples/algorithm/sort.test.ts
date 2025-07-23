@@ -1,6 +1,6 @@
 import bubbleSort from '@/examples/algorithm/sort/bubble';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {randomInArray} from '@/utils/extend/test/random';
+import {randomInArray, testRandomCase} from '@/utils/extend/test/random';
 import {SortParam} from '@/examples/algorithm/sort';
 import {sortByNumber} from '@/utils/extend/data-type/array';
 import selectionSort from '@/examples/algorithm/sort/selection';
@@ -30,24 +30,18 @@ describe.each(algorithms)('Sorting Algorithm > $name', ({fn}) => {
     });
 
     it('should ensure correctness across various random cases', () => {
-      for (let i = 0; i < 100; i++) {
-        const length = randomInArray([49, 50])[0];
-        const value = randomNumericArray(length);
-        const order = randomInArray<SortParam['order']>(['asc', 'desc'])[0];
-        const answer = sortByNumber(order, value, item => item);
-        const {output} = fn({value, order});
-
-        try {
-          expect(output).toEqual(answer);
-        } catch (error) {
-          console.error({
-            input: {value, order},
-            output,
-            expected: answer
-          });
-          throw error;
+      testRandomCase({
+        compare: (param) => fn(param).output,
+        answer: ({value, order}: SortParam) => {
+          return sortByNumber(order, value, item => item);
+        },
+        generateInput: () => {
+          const length = randomInArray([49, 50])[0];
+          const value = randomNumericArray(length);
+          const order = randomInArray<SortParam['order']>(['asc', 'desc'])[0];
+          return [{value, order}] as const;
         }
-      }
+      });
     });
   });
 
