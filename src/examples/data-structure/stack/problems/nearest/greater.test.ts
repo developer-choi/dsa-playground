@@ -11,7 +11,7 @@ describe('findNearestGreaterNumberOnRightSide()', () => {
       expect(findNearestGreaterNumberOnRightSide([50, 40, 30, 10])).toEqual([-1, -1, -1, -1]);
     });
 
-    it('should ensure correctness across various random cases', () => {
+    it('should produce the correct output for random inputs', () => {
       testRandomCase({
         compare: findNearestGreaterNumberOnRightSide,
         answer: officialAnswer,

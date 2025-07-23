@@ -10,7 +10,7 @@ describe('findNearestSmallerNumberOnLeftSide()', () => {
       expect(findNearestSmallerNumberOnLeftSide([1, 5, 0, 3, 4, 5])).toEqual([-1, 1, -1, 0, 3, 4]);
     });
 
-    it('should ensure correctness across various random cases', () => {
+    it('should produce the correct output for random inputs', () => {
       testRandomCase({
         compare: findNearestSmallerNumberOnLeftSide,
         answer: officialAnswer,

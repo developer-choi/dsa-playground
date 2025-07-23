@@ -15,7 +15,7 @@ describe.each(stockSpanAlgorithms)('Stock Span Using $name', ({fn}) => {
       expect(fn([10, 4, 5, 90, 120, 80])).toEqual([1, 1, 2, 4, 5, 1]);
     });
 
-    it('should ensure correctness across various random cases', () => {
+    it('should produce the correct output for random inputs', () => {
       testRandomCase({
         compare: fn,
         answer: officialAnswer,

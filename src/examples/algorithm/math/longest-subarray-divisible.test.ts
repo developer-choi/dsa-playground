@@ -19,7 +19,7 @@ describe.each(algorithms)('Longest Subarray Divisible Algorithm > $name', ({fn})
       expect(fn([1, 2, -2], 5)).toBe(2);
     });
 
-    it('should produce the same result as the brute-force method on random arrays', () => {
+    it('should produce the correct output for random inputs', () => {
       testRandomCase({
         compare: fn,
         answer: bruteForceLongestSubarrayDivisible,

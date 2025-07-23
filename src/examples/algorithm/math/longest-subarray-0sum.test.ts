@@ -8,16 +8,34 @@ const algorithms = [
 // yarn test src/examples/algorithm/math/longest-subarray-0sum.test.ts
 describe.each(algorithms)('Longest Subarray 0 Sum Algorithm > $name', ({fn}) => {
   describe('General cases', () => {
-    it('예제 정도는 만족해야한다.', () => {
+    it('should return the correct length for the provided example', () => {
       expect(fn([15, -2, 2, -8, 1, 7, 10])).toBe(5);
+    });
+
+    it('should return 0 if no subarray with sum 0 exists', () => {
       expect(fn([1, 2, 3])).toBe(0);
+    });
+
+    it('should return 1 for an array containing a single zero', () => {
       expect(fn([1, 0, 3])).toBe(1);
     });
   });
 
   describe('Edge cases', () => {
-    it('빈배열이면 길이가 0이어야 한다.', () => {
+    it('should return 0 for an empty array', () => {
       expect(fn([])).toBe(0);
+    });
+
+    it('should handle cases where the entire array sums to zero', () => {
+      expect(fn([2, 3, -5, 1, -1])).toBe(5);
+    });
+
+    it('should handle an array containing only zeros', () => {
+      expect(fn([0, 0, 0, 0])).toBe(4);
+    });
+
+    it('should find the longest among multiple zero-sum subarrays', () => {
+      expect(fn([1, -1, 3, -5, 5, 0])).toBe(3);
     });
   });
 });

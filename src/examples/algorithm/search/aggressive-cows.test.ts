@@ -12,7 +12,7 @@ const aggressiveCowsAlgorithms = [
 
 describe.each(aggressiveCowsAlgorithms)('$name', ({fn}) => {
   describe('General cases', () => {
-    it('should pass randomized tests', () => {
+    it('should produce the correct output for random inputs', () => {
       testRandomCase({
         compare: fn,
         answer: solution,

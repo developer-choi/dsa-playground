@@ -29,7 +29,7 @@ describe.each(algorithms)('Sorting Algorithm > $name', ({fn}) => {
       expect(output).toEqual([5, 4, 3, 2, 1]);
     });
 
-    it('should ensure correctness across various random cases', () => {
+    it('should produce the correct output for random inputs', () => {
       testRandomCase({
         compare: (param) => fn(param).output,
         answer: ({value, order}: SortParam) => {
