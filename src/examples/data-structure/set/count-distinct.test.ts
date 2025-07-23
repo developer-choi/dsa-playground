@@ -1,8 +1,13 @@
-import {betterCountDistinct, bruteForceCountDistinct} from '@/examples/data-structure/set/count-distinct';
+import {
+  bestCountDistinct,
+  betterCountDistinct,
+  bruteForceCountDistinct
+} from '@/examples/data-structure/set/count-distinct';
 
 const algorithms = [
   {name: 'Brute Force', fn: bruteForceCountDistinct},
   {name: 'Better', fn: betterCountDistinct},
+  {name: 'Best', fn: bestCountDistinct},
 ];
 
 // yarn test src/examples/data-structure/set/count-distinct.test.ts
