@@ -2,7 +2,7 @@ import {
   bestCountDistinct,
   betterCountDistinct,
   bruteForceCountDistinct
-} from '@/examples/data-structure/set/count-distinct';
+} from '@/examples/data-structure/map/count-distinct';
 
 const algorithms = [
   {name: 'Brute Force', fn: bruteForceCountDistinct},
@@ -10,7 +10,7 @@ const algorithms = [
   {name: 'Best', fn: bestCountDistinct},
 ];
 
-// yarn test src/examples/data-structure/set/count-distinct.test.ts
+// yarn test src/examples/data-structure/map/count-distinct.test.ts
 describe.each(algorithms)('Count Distinct Algorithm > $name', ({fn}) => {
   describe('General cases', () => {
     it('should return the correct counts for a general case', () => {
