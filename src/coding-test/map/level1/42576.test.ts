@@ -1,11 +1,11 @@
-import {bruteForceProgrammers42576} from '@/coding-test/map/level1/42576';
+import {bruteForceProgrammers42576, mapSolutionProgrammers42576} from '@/coding-test/map/level1/42576';
 import {randomNumber} from '@/utils/extend/test/random';
 import {makeRandomString} from '@/utils/extend/test/generate-dummy';
 import {range} from '@/utils/extend/data-type/number';
 
 const algorithms = [
   {name: 'Brute force', fn: bruteForceProgrammers42576},
-  // {name: 'Map', fn: mapSolutionProgrammers42576},
+  {name: 'Map', fn: mapSolutionProgrammers42576},
 ];
 
 // yarn test src/coding-test/map/level1/42576.test.ts
