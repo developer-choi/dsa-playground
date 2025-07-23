@@ -44,7 +44,7 @@ export function compareFunctionsWithRandomInputs<P extends unknown[], R>(options
 
   for (let i = 0; i < iterationCount; i++) {
     const inputs = generateInput();
-    const expected = typeof answerFunction !== 'function' ? answerFunction : (answerFunction as CompareFunctionsOptions<P, R>['targetFunction'])(...inputs);
+    const expected = answerFunction(...inputs);
     const output = targetFunction(...inputs);
 
     try {
