@@ -48,10 +48,10 @@ export function bestLongestSubarrayDivisible(array: number[], divide: number): n
       continue;
     }
 
-    const candidate = i - sameModIndex;
+    const difference = i - sameModIndex;
 
-    if (candidate > maxLength) {
-      maxLength = candidate;
+    if (difference > maxLength) {
+      maxLength = difference;
     }
   }
 
