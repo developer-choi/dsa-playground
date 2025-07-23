@@ -70,7 +70,7 @@ export function betterCountDistinct(array: number[], size: number): number[] {
  * URL: https://www.geeksforgeeks.org/dsa/count-distinct-elements-in-every-window-of-size-k/#expected-approach-sliding-window-technique-on-time-and-on-space
  * Doc: https://docs.google.com/document/d/1FrE5Wok8hZ8ZqvwemWIDszaLQREG5uIXviMe67464-g/edit?tab=t.0
  *
- * Time Complexity: O((n-size) * size) 합 2중루프가 여전함. new Set() 하는거 떄문에. 뭔가 아직 슬라이딩 윈도우가 어색함.
+ * Time Complexity: O(n)
  */
 export function bestCountDistinct(array: number[], size: number): number[] {
   if (array.length < size) {
@@ -78,17 +78,29 @@ export function bestCountDistinct(array: number[], size: number): number[] {
   }
 
   const result: number[] = [];
-  const window: number[] = [];
+  // key = 값, value = 그 값의 갯수
+  const window = new Map<number, number>();
+  let windowSize = 0;
 
   // 여기서 O(n)
   for (let i = 0; i < array.length; i++) {
-    window.push(array[i]);
+    window.set(array[i], (window.get(array[i]) ?? 0) + 1);
+    windowSize++;
 
-    if (window.length === size) {
-      result.push(new Set(window).size);
-    } else if(window.length > size) {
-      window.shift();
-      result.push(new Set(window).size);
+    if (windowSize === size) {
+      result.push(window.size);
+    } else if(windowSize > size) {
+      const recent = array[i - size];
+      const count = (window.get(recent) as number) - 1;
+
+      if (count > 0) {
+        window.set(recent, count);
+      } else {
+        // Point: map에 갯수 저장 시 0개되면 삭제하는 로직이 있어야함.
+        window.delete(recent);
+      }
+      windowSize--;
+      result.push(window.size);
     }
   }
 
