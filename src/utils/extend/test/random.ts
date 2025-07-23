@@ -72,35 +72,6 @@ export function shuffleArray<T>(array: T[]): T[] {
   return result;
 }
 
-
-interface RandomConfig<P extends unknown[], R> {
-  compare: (...args: P) => R;
-  answer: (...args: P) => R;
-  generateInput: () => P;
-}
-
-export function testRandomCase<P extends unknown[], R>(options: RandomConfig<P, R>) {
-  const {compare, answer, generateInput} = options;
-  const iterationCount = 50;
-
-  for (let i = 0; i < iterationCount; i++) {
-    const inputs = generateInput();
-    const expected = typeof answer !== 'function' ? answer : (answer as RandomConfig<P, R>['compare'])(...inputs);
-    const output = compare(...inputs);
-
-    try {
-      expect(output).toEqual(expected);
-    } catch (error) {
-      console.error({
-        input: JSON.stringify(inputs),
-        expected: JSON.stringify(expected),
-        output: JSON.stringify(output)
-      });
-      throw error;
-    }
-  }
-}
-
 /*************************************************************************************************************
  * Non Export
  *************************************************************************************************************/

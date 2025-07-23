@@ -1,8 +1,9 @@
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 import {removeDuplicatedItems} from '@/utils/extend/data-type/array';
-import {randomNumber, testRandomCase} from '@/utils/extend/test/random';
+import {randomNumber} from '@/utils/extend/test/random';
 import bruteForceAggressiveCows from '@/examples/algorithm/search/aggressive-cows/brute-force';
 import binarySearchAggressiveCows from '@/examples/algorithm/search/aggressive-cows/binary';
+import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
 
 // yarn test src/examples/algorithm/search/aggressive-cows.test.ts
 const aggressiveCowsAlgorithms = [
@@ -13,9 +14,9 @@ const aggressiveCowsAlgorithms = [
 describe.each(aggressiveCowsAlgorithms)('$name', ({fn}) => {
   describe('General cases', () => {
     it('should produce the correct output for random inputs', () => {
-      testRandomCase({
-        compare: fn,
-        answer: solution,
+      compareFunctionsWithRandomInputs({
+        targetFunction: fn,
+        answerFunction: solution,
         generateInput: () => {
           const array = removeDuplicatedItems(randomNumericArray(100)).toSorted((a, b) => a - b).map(value => value * randomNumber(2, 5));
           const cowsCount = randomNumber(3, array.length);

@@ -3,7 +3,8 @@ import {
   bruteForceLongestSubarrayDivisible
 } from '@/examples/algorithm/math/longest-subarray-divisible';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {testRandomCase, randomInArray} from '@/utils/extend/test/random';
+import {randomInArray} from '@/utils/extend/test/random';
+import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
 
 const algorithms = [
   {name: 'Brute Force', fn: bruteForceLongestSubarrayDivisible},
@@ -20,9 +21,9 @@ describe.each(algorithms)('Longest Subarray Divisible Algorithm > $name', ({fn})
     });
 
     it('should produce the correct output for random inputs', () => {
-      testRandomCase({
-        compare: fn,
-        answer: bruteForceLongestSubarrayDivisible,
+      compareFunctionsWithRandomInputs({
+        targetFunction: fn,
+        answerFunction: bruteForceLongestSubarrayDivisible,
         generateInput: () => {
           const param1 = randomNumericArray(50);
           const param2 = randomInArray([2, 3, 5, 7])[0];

@@ -1,6 +1,7 @@
 import findNearestSmallerNumberOnLeftSide from '@/examples/data-structure/stack/problems/nearest/smaller';
-import {randomInArray, testRandomCase} from '@/utils/extend/test/random';
+import {randomInArray} from '@/utils/extend/test/random';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
+import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
 
 // yarn test src/examples/data-structure/stack/problems/nearest/smaller.test.ts
 describe('findNearestSmallerNumberOnLeftSide()', () => {
@@ -11,9 +12,9 @@ describe('findNearestSmallerNumberOnLeftSide()', () => {
     });
 
     it('should produce the correct output for random inputs', () => {
-      testRandomCase({
-        compare: findNearestSmallerNumberOnLeftSide,
-        answer: officialAnswer,
+      compareFunctionsWithRandomInputs({
+        targetFunction: findNearestSmallerNumberOnLeftSide,
+        answerFunction: officialAnswer,
         generateInput: () => {
           const length = randomInArray([49, 50])[0];
           return [randomNumericArray(length)] as const;

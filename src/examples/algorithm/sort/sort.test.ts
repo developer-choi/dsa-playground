@@ -1,12 +1,13 @@
 import bubbleSort from '@/examples/algorithm/sort/bubble';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {randomInArray, testRandomCase} from '@/utils/extend/test/random';
+import {randomInArray} from '@/utils/extend/test/random';
 import {SortParam} from '@/examples/algorithm/sort/index';
 import {sortByNumber} from '@/utils/extend/data-type/array';
 import selectionSort from '@/examples/algorithm/sort/selection';
 import insertionSort from '@/examples/algorithm/sort/insertion';
 import quickSort from '@/examples/algorithm/sort/quick';
 import sortUsingStack from '@/examples/data-structure/stack/problems/sort';
+import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
 
 // yarn test src/examples/algorithm/sort/sort.test.ts
 const algorithms = [
@@ -30,9 +31,9 @@ describe.each(algorithms)('Sorting Algorithm > $name', ({fn}) => {
     });
 
     it('should produce the correct output for random inputs', () => {
-      testRandomCase({
-        compare: (param) => fn(param).output,
-        answer: ({value, order}: SortParam) => {
+      compareFunctionsWithRandomInputs({
+        targetFunction: (param) => fn(param).output,
+        answerFunction: ({value, order}: SortParam) => {
           return sortByNumber(order, value, item => item);
         },
         generateInput: () => {

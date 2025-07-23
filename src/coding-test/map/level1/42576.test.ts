@@ -2,6 +2,7 @@ import {bruteForceProgrammers42576, mapSolutionProgrammers42576} from '@/coding-
 import {randomNumber} from '@/utils/extend/test/random';
 import {makeRandomString} from '@/utils/extend/test/generate-dummy';
 import {range} from '@/utils/extend/data-type/number';
+import {testWithRandomCases} from '@/utils/extend/test/jest';
 
 const algorithms = [
   {name: 'Brute force', fn: bruteForceProgrammers42576},
@@ -10,33 +11,28 @@ const algorithms = [
 
 // yarn test src/coding-test/map/level1/42576.test.ts
 describe.each(algorithms)('coding-test 42576 > $name', ({fn}) => {
-  test('동명이인이 없는 케이스', () => {
+  it('should handle cases without duplicate names', () => {
     expect(fn(['leo', 'kiki', 'eden'], ['eden', 'kiki'])).toBe('leo');
   });
 
-  test('동명이인이 있는 케이스', () => {
+  it('should handle cases with duplicate names', () => {
     expect(fn(['mislav', 'stanko', 'mislav', 'ana'], ['stanko', 'ana', 'mislav'])).toBe('mislav');
   });
 
-  test('랜덤 테스트', () => {
-    for (let i = 0; i < 100; i++) {
-      const param1 = range(1, 50).map(() => makeRandomString(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], 6));
-      const randomIndex = randomNumber(0, param1.length - 1);
-      const param2 = param1.filter((_, index) => index !== randomIndex);
-      const expected = param1[randomIndex];
-      const output = fn(param1, param2);
+  it('should produce the correct output for random inputs', () => {
+    testWithRandomCases({
+      targetFunction: fn,
+      generateCase: () => {
+        const param1 = range(1, 50).map(() => makeRandomString(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], 6));
+        const randomIndex = randomNumber(0, param1.length - 1);
+        const param2 = param1.filter((_, index) => index !== randomIndex);
+        const expected = param1[randomIndex];
 
-      try {
-        expect(output).toEqual(expected);
-      } catch (error) {
-        console.error({
-          param1: JSON.stringify(param1),
-          param2: JSON.stringify(param2),
-          expected: JSON.stringify(expected),
-          output: JSON.stringify(output)
-        });
-        throw error;
+        return {
+          inputs: [param1, param2] as const,
+          expected
+        };
       }
-    }
+    });
   });
 });

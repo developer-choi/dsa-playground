@@ -1,6 +1,7 @@
 import {stockSpanUsingLoop, stockSpanUsingStack} from '@/examples/data-structure/stack/problems/nearest/stock-span';
-import {randomInArray, testRandomCase} from '@/utils/extend/test/random';
+import {randomInArray} from '@/utils/extend/test/random';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
+import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
 
 const stockSpanAlgorithms = [
   {name: 'Loop', fn: stockSpanUsingLoop},
@@ -16,9 +17,9 @@ describe.each(stockSpanAlgorithms)('Stock Span Using $name', ({fn}) => {
     });
 
     it('should produce the correct output for random inputs', () => {
-      testRandomCase({
-        compare: fn,
-        answer: officialAnswer,
+      compareFunctionsWithRandomInputs({
+        targetFunction: fn,
+        answerFunction: officialAnswer,
         generateInput: () => {
           const length = randomInArray([49, 50])[0];
           const value = randomNumericArray(length);

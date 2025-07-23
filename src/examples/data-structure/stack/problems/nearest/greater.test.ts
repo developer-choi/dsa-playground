@@ -1,6 +1,7 @@
 import findNearestGreaterNumberOnRightSide from '@/examples/data-structure/stack/problems/nearest/greater';
-import {randomInArray, testRandomCase} from '@/utils/extend/test/random';
+import {randomInArray} from '@/utils/extend/test/random';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
+import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
 
 // yarn test src/examples/data-structure/stack/problems/nearest/greater.test.ts
 describe('findNearestGreaterNumberOnRightSide()', () => {
@@ -12,9 +13,9 @@ describe('findNearestGreaterNumberOnRightSide()', () => {
     });
 
     it('should produce the correct output for random inputs', () => {
-      testRandomCase({
-        compare: findNearestGreaterNumberOnRightSide,
-        answer: officialAnswer,
+      compareFunctionsWithRandomInputs({
+        targetFunction: findNearestGreaterNumberOnRightSide,
+        answerFunction: officialAnswer,
         generateInput: () => {
           const length = randomInArray([25, 26])[0];
           return [randomNumericArray(length)] as const;
