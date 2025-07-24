@@ -23,7 +23,7 @@ describe.each(algorithms)('coding-test 42576 > $name', ({fn}) => {
     testWithRandomCases({
       targetFunction: fn,
       generateCase: () => {
-        const param1 = range(1, 50).map(() => makeRandomString(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], 6));
+        const param1 = range(1, 50).map(() => makeRandomString('ALPHABET', 6));
         const randomIndex = randomNumber(0, param1.length - 1);
         const param2 = param1.filter((_, index) => index !== randomIndex);
         const expected = param1[randomIndex];

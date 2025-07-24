@@ -1,5 +1,7 @@
-import {randomNumber} from '@/utils/extend/test/random';
+import {randomIndex, randomNumber} from '@/utils/extend/test/random';
 import {range} from '@/utils/extend/data-type/number';
+
+export type RandomCharType = (string | number)[] | 'ALPHABET' | 'NUMBER' | 'ALPHABET_AND_NUMBER';
 
 /**
  * @param anagramArray 랜덤한 문자열을 만들 때 들어갈 요소들
@@ -7,20 +9,39 @@ import {range} from '@/utils/extend/data-type/number';
  *
  * @example (['a', 'b', 'c'], 5) ==> return 'aabac'
  */
-export function makeRandomString(anagramArray: Array<string | number>, length: number): string {
-  const result = new Array<string>(length);
+export function makeRandomString(anagramArray: RandomCharType, length: number): string {
+  if (anagramArray instanceof Array && anagramArray.length <= 0) {
+    throw new TypeError('anagramArray.length는 0 보다 커야합니다.');
+  }
+
+  const result = new Array<string>();
+  let array: (string | number)[] = [];
+
+  if (anagramArray instanceof Array) {
+    array = anagramArray;
+
+  } else {
+    switch (anagramArray) {
+      case 'ALPHABET':
+        array = ALPHABET_LOWER.concat(ALPHABET_UPPER);
+        break;
+
+      case 'NUMBER':
+        array = NUMBER;
+        break;
+
+      case 'ALPHABET_AND_NUMBER':
+        array = ALPHABET_LOWER.concat(ALPHABET_UPPER, NUMBER);
+        break;
+    }
+  }
 
   for (let i = 0; i < length; i++) {
-
-    const randomIndex = randomNumber(0, anagramArray.length - 1);
-    result.push(String(anagramArray[randomIndex]));
+    const index = randomIndex(array);
+    result.push(String(array[index]));
   }
 
   return result.join('');
-}
-
-export function randomHexColor() {
-  return '#' + new Array(6).fill('').map(() => randomNumber(1, 2 ** 4 - 1).toString(16)).join('');
 }
 
 export function randomNumericArray(length: number): number[] {
@@ -45,3 +66,7 @@ export function randomRotatedNumberArray(length: number, sort: 'asc' | 'desc' = 
   const remainingPart = initialArray.slice(rotateAmount);
   return remainingPart.concat(partToMove);
 }
+
+const ALPHABET_LOWER = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+const ALPHABET_UPPER = ALPHABET_LOWER.map(value => value.toUpperCase());
+const NUMBER = range(0, 9).map(value => value.toString());

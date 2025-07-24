@@ -72,9 +72,6 @@ export function shuffleArray<T>(array: T[]): T[] {
   return result;
 }
 
-/*************************************************************************************************************
- * Non Export
- *************************************************************************************************************/
-function randomIndex(array: any[]): number {
+export function randomIndex<T>(array: T[]): number {
   return randomNumber(0, array.length - 1);
 }
