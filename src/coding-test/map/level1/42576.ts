@@ -1,4 +1,7 @@
-// https://school.programmers.co.kr/learn/courses/30/lessons/42576
+/**
+ * URL: https://school.programmers.co.kr/learn/courses/30/lessons/42576
+ * Doc: https://docs.google.com/document/d/1FrE5Wok8hZ8ZqvwemWIDszaLQREG5uIXviMe67464-g/edit?tab=t.0
+ */
 export function bruteForceProgrammers42576(participants: string[], completions: string[]) {
   let result = [...participants];
 
@@ -34,4 +37,3 @@ export function mapSolutionProgrammers42576(participants: string[], completions:
 
   return [...map][0][0];
 }
-42576
