@@ -1,11 +1,15 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree';
-import {recursiveBreadthFirstTraversalTree} from '@/examples/data-structure/tree/traversal/breadth-first';
+import {
+  loopBreadthFirstTraversalTree,
+  recursiveBreadthFirstTraversalTree
+} from '@/examples/data-structure/tree/traversal/breadth-first';
 
 const algorithms = [
   {name: 'Recursive', fn: recursiveBreadthFirstTraversalTree},
+  {name: 'Loop', fn: loopBreadthFirstTraversalTree},
 ];
 
-// yarn test src/examples/data-structure/tree/traversal/depth-first.test.ts
+// yarn test src/examples/data-structure/tree/traversal/breadth-first.test.ts
 describe.each(algorithms)('Breadth First Traversal > $name', ({fn}) => {
   const root = new BinaryTreeNode<number>(5);
   root.left = new BinaryTreeNode<number>(12);
