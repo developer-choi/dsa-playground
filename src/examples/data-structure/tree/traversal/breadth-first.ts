@@ -36,16 +36,16 @@ export function recursiveBreadthFirstTraversalTree<D>(root: BinaryTreeNode<D>): 
  */
 export function iterativeBreadthFirstTraversalTree<D>(root: BinaryTreeNode<D>): D[][] {
   // 탐색해야하는 노드들
-  let toSearchQueue: BinaryTreeNode<D>[] = [root];
+  let nextSearchQueue: BinaryTreeNode<D>[] = [root];
   let level = 0;
   const result: D[][] = [];
 
-  while (toSearchQueue.length > 0) {
+  while (nextSearchQueue.length > 0) {
     result.push([]);
-    let nextSearchQueue: BinaryTreeNode<D>[] = [];
+    const iterativeCount = nextSearchQueue.length;
 
-    for (let i = 0; i < toSearchQueue.length; i++) {
-      const node = toSearchQueue[i];
+    for (let i = 0; i < iterativeCount; i++) {
+      const node = nextSearchQueue.shift() as BinaryTreeNode<D>;
 
       // 탐색 됐으니 반환할 배열에 추가하고
       result[level].push(node.data);
@@ -59,7 +59,6 @@ export function iterativeBreadthFirstTraversalTree<D>(root: BinaryTreeNode<D>): 
         nextSearchQueue.push(node.right);
       }
     }
-    toSearchQueue = nextSearchQueue;
     level++;
   }
 
