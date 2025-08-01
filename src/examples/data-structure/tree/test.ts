@@ -27,4 +27,21 @@ describe('Complete Binary Tree', () => {
 
     expect(tree.toArray()).toEqual([[5], [12, 13], [7, 14, 2], [17, 23, 27, 3, 8, 11]]);
   });
+
+  it('add로 추가한 노드의 순서가 Complete Binary Tree의 순서와 맞아야한다.', () => {
+    const tree = new CompleteBinaryTree<number>();
+    tree.add(1);
+    tree.add(2);
+    tree.add(3);
+    tree.add(4);
+
+    //@ts-ignore
+    expect(tree.root.data).toBe(1);
+    //@ts-ignore
+    expect(tree.root.left.data).toBe(2);
+    //@ts-ignore
+    expect(tree.root.right.data).toBe(3);
+    //@ts-ignore
+    expect(tree.root.left.left.data).toBe(4);
+  })
 });

@@ -20,6 +20,25 @@ export class CompleteBinaryTree<D> {
     return this._length;
   }
 
+  add(data: D) {
+    if (!this.root) {
+      this.root = new BinaryTreeNode<D>(data);
+      return;
+    }
+
+    for (const {node} of this.traverse()) {
+      const newNode = new BinaryTreeNode<D>(data);
+
+      if (!node.left) {
+        node.left = newNode;
+        return;
+      } else if (!node.right) {
+        node.right = newNode;
+        return;
+      }
+    }
+  }
+
   toArray(): D[][] {
     const result: D[][] = [];
 
