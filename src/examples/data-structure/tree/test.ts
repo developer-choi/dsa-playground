@@ -28,7 +28,7 @@ describe('Complete Binary Tree', () => {
     expect(tree.toArray()).toEqual([[5], [12, 13], [7, 14, 2], [17, 23, 27, 3, 8, 11]]);
   });
 
-  it('add로 추가한 노드의 순서가 Complete Binary Tree의 순서와 맞아야한다.', () => {
+  it('should maintain the complete binary tree structure upon adding new nodes', () => {
     const tree = new CompleteBinaryTree<number>();
     tree.add(1);
     tree.add(2);

@@ -20,20 +20,27 @@ export class CompleteBinaryTree<D> {
     return this._length;
   }
 
+  /**
+   * URL: https://www.geeksforgeeks.org/dsa/insertion-in-a-binary-tree-in-level-order/
+   * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
+   *
+   * Time Complexity: O(n), 최악의 경우 제일 우측 제일 하단 노드에 추가할 때 까지 순회를 해야하니까.
+   * Auxiliary Space: O(n), 사유는 아래 traversal 주석 참고.
+   */
   add(data: D) {
+    this._length++;
+
     if (!this.root) {
       this.root = new BinaryTreeNode<D>(data);
       return;
     }
 
     for (const {node} of this.traverse()) {
-      const newNode = new BinaryTreeNode<D>(data);
-
       if (!node.left) {
-        node.left = newNode;
+        node.left = new BinaryTreeNode<D>(data);
         return;
       } else if (!node.right) {
-        node.right = newNode;
+        node.right = new BinaryTreeNode<D>(data);
         return;
       }
     }
