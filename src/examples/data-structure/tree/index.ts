@@ -9,7 +9,7 @@ export class BinaryTreeNode<D> {
 }
 
 export abstract class BinaryTree<D> {
-  protected _length: number;
+  private _length: number;
 
   constructor() {
     this._length = 0;
