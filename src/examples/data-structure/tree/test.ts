@@ -1,8 +1,9 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/index';
 import {LinkedListBinaryTree} from '@/examples/data-structure/tree/linked-list';
+import {ArrayBinaryTree} from '@/examples/data-structure/tree/array';
 
 // yarn test src/examples/data-structure/tree/test.ts
-describe('Complete Binary Tree', () => {
+describe('Linked List Binary Tree', () => {
   it('should visit nodes in breadth-first sequence', () => {
     const root = new BinaryTreeNode<number>(5);
     root.left = new BinaryTreeNode<number>(12);
@@ -44,5 +45,27 @@ describe('Complete Binary Tree', () => {
     expect(tree.root.right.data).toBe(3);
     //@ts-ignore
     expect(tree.root.left.left.data).toBe(4);
-  })
+  });
+});
+
+const implementations = [
+  {name: 'Linked List', fn: LinkedListBinaryTree},
+  {name: 'Array', fn: ArrayBinaryTree},
+];
+
+describe.each(implementations)('Tree Implementation > $name', ({fn}) => {
+  describe('General cases', () => {
+    it('add() 하면 잘 추가되야한다.', () => {
+      const tree = new fn<number>();
+      tree.add(1);
+      tree.add(2);
+      tree.add(3);
+      tree.add(4);
+      tree.add(5);
+      tree.add(6);
+      tree.add(7);
+      tree.add(8);
+      expect(tree.toArray()).toEqual([[1], [2, 3], [4, 5, 6, 7], [8]])
+    });
+  });
 });
