@@ -1,4 +1,5 @@
-import {BinaryTreeNode, CompleteBinaryTree} from '@/examples/data-structure/tree/index';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/index';
+import {LinkedListBinaryTree} from '@/examples/data-structure/tree/linked-list';
 
 // yarn test src/examples/data-structure/tree/test.ts
 describe('Complete Binary Tree', () => {
@@ -21,7 +22,7 @@ describe('Complete Binary Tree', () => {
     root.right.right.left = new BinaryTreeNode<number>(8);
     root.right.right.right = new BinaryTreeNode<number>(11);
 
-    const tree = new CompleteBinaryTree<number>();
+    const tree = new LinkedListBinaryTree<number>();
     //@ts-ignore
     tree.root = root;
 
@@ -29,7 +30,7 @@ describe('Complete Binary Tree', () => {
   });
 
   it('should maintain the complete binary tree structure upon adding new nodes', () => {
-    const tree = new CompleteBinaryTree<number>();
+    const tree = new LinkedListBinaryTree<number>();
     tree.add(1);
     tree.add(2);
     tree.add(3);
