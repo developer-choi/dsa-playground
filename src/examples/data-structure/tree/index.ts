@@ -26,7 +26,20 @@ export abstract class BinaryTree<D> {
   }
 
   protected abstract _add(data: D): void;
-  abstract toArray(): D[][];
+
+  toArray(): D[][] {
+    const result: D[][] = [];
+
+    for (const {data, level} of this) {
+      if (!result[level]) {
+        result[level] = [data];
+      } else {
+        result[level].push(data);
+      }
+    }
+
+    return result;
+  }
 
   public abstract [Symbol.iterator](): Generator<{data: D, level: number}, void, undefined>;
 }

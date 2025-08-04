@@ -27,20 +27,6 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
     }
   }
 
-  toArray(): D[][] {
-    const result: D[][] = [];
-
-    for (const {data, level} of this) {
-      if (!result[level]) {
-        result[level] = [data];
-      } else {
-        result[level].push(data);
-      }
-    }
-
-    return result;
-  }
-
   /**
    * URL: https://www.geeksforgeeks.org/dsa/level-order-tree-traversal/#approach-1-using-queue-iterarive-on-time-and-on-space
    * Doc: https://docs.google.com/document/d/1MzkBVNfFktmMl-0uR1oO31fDxC7LM47cI0Q8Kv6PWxU/edit?tab=t.0
