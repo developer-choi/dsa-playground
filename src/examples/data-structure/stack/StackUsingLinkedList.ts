@@ -46,6 +46,6 @@ export default class StackUsingLinkedList<D> extends Stack<D> {
 
   // 테스트 목적으로 추가한 메소드이며 성능상 안좋은게 맞습니다.
   toArray(): D[] {
-    return this.linkedList.toArray().toReversed();
+    return Array.from(this.linkedList).toReversed();
   }
 }

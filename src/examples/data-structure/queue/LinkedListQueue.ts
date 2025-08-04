@@ -61,8 +61,4 @@ export default class LinkedListQueue<D> extends Queue<D> {
     this._length--;
     return this.list.deleteAt(0);
   }
-
-  toArray(): D[] {
-    return this.list.toArray();
-  }
 }

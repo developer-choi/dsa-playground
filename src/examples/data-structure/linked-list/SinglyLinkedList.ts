@@ -43,7 +43,7 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
   get(index: number): D | undefined {
     let i = 0;
 
-    for (const node of this) {
+    for (const node of this.traverse()) {
       if (i === index) {
         return node.data;
       }
@@ -159,7 +159,7 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
   findIndex(data: D): number {
     let index = 0;
 
-    for (const node of this) {
+    for (const node of this.traverse()) {
       if (node.data === data) {
         return index;
       }
@@ -186,7 +186,7 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
   toString(): string {
     const array: D[] = [];
 
-    for (const node of this) {
+    for (const node of this.traverse()) {
       array.push(node.data);
     }
 
@@ -199,16 +199,6 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
 
   getTail(): D | undefined {
     return this.tail?.data;
-  }
-
-  toArray(): D[] {
-    const result: D[] = [];
-
-    for (const data of this) {
-      result.push(data.data);
-    }
-
-    return result;
   }
 
   /**
@@ -236,11 +226,17 @@ export default class SinglyLinkedList<D> extends LinkedList<D> {
     return beforeNode;
   }
 
-  public* [Symbol.iterator]() {
+  private* traverse(): Generator<SinglyNode<D>, void, undefined> {
     let pointer = this.head;
     while (pointer) {
       yield pointer;
       pointer = pointer.next;
+    }
+  }
+
+  public* [Symbol.iterator]() {
+    for (const node of this.traverse()) {
+      yield node.data;
     }
   }
 }

@@ -9,7 +9,7 @@ export default abstract class LinkedList<D> {
   abstract toString(): string;
   abstract getHead(): D | undefined;
   abstract getTail(): D | undefined;
-  abstract toArray(): D[]; // 테스트 목적으로 추가
+  abstract [Symbol.iterator](): Generator<D, void, undefined>;
 }
 
 export class SinglyNode<D> {
