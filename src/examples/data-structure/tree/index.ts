@@ -19,7 +19,13 @@ export abstract class BinaryTree<D> {
     return this._length;
   }
 
-  abstract add(data: D): void;
+  add(data: D) {
+    this._length++;
+
+    this._add(data);
+  }
+
+  protected abstract _add(data: D): void;
   abstract toArray(): D[][];
 
   public abstract [Symbol.iterator](): Generator<{data: D, level: number}, void, undefined>;

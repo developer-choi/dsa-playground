@@ -10,9 +10,7 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
    * Time Complexity: O(n), 최악의 경우 제일 우측 제일 하단 노드에 추가할 때 까지 순회를 해야하니까.
    * Auxiliary Space: O(n), 사유는 아래 traversal 주석 참고.
    */
-  add(data: D) {
-    this._length++;
-
+  protected _add(data: D) {
     if (!this.root) {
       this.root = new BinaryTreeNode<D>(data);
       return;
