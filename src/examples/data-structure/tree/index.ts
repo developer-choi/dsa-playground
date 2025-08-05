@@ -41,5 +41,21 @@ export abstract class BinaryTree<D> {
     return result;
   }
 
+  /**
+   * @description BFS로 순회하면서 제일 먼저 발견되는 노드 1개만 삭제
+   * @return {undefined} 같은 data로 된 노드가 없는 경우
+   */
+  delete(data: D): D | undefined {
+    const deletedData = this._delete(data);
+
+    if (deletedData) {
+      this._length--;
+    }
+
+    return deletedData;
+  }
+
+  protected abstract _delete(data: D): D | undefined;
+
   public abstract [Symbol.iterator](): Generator<{data: D, level: number, index: number}, void, undefined>;
 }

@@ -27,6 +27,38 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
     }
   }
 
+  protected _delete(data: D): D | undefined {
+    let lastIndex = this.length - 1;
+    let deletedNode: BinaryTreeNode<D> | undefined;
+    let lastIterationItem: InternalInterationItem<D> | undefined;
+
+    for (const item of this.traverse()) {
+      // 최초로 데이터가 똑같은 경우에만 할당
+      if (item.node.data === data && !deletedNode) {
+        deletedNode = item.node;
+      }
+
+      if (item.index === lastIndex) {
+        lastIterationItem = item;
+      }
+    }
+
+    const result = deletedNode?.data;
+
+    if (deletedNode && lastIterationItem) {
+      deletedNode.data = lastIterationItem.node.data;
+
+      if (lastIterationItem.parent) {
+        lastIterationItem.parent.node[lastIterationItem.parent.direction] = undefined;
+
+      } else {
+        this.root = undefined;
+      }
+    }
+
+    return result;
+  }
+
   /**
    * URL: https://www.geeksforgeeks.org/dsa/level-order-tree-traversal/#approach-1-using-queue-iterarive-on-time-and-on-space
    * Doc: https://docs.google.com/document/d/1MzkBVNfFktmMl-0uR1oO31fDxC7LM47cI0Q8Kv6PWxU/edit?tab=t.0
