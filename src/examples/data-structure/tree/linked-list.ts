@@ -34,7 +34,7 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
    * Time Complexity: O(n) ==> 모든 노드 1번씩 순회하는데 전부 1번씩만 순회했음.
    * Auxiliary Space: O(n/2) ==> O(n), 가장 메모리가 클 때는 Complete Binary Tree에서 가장 마지막 레벨 순회할 때, 이 때 노드갯수는 전체갯수의 약 1/2 임.
    */
-  private* traverse(): Generator<{node: BinaryTreeNode<D>, level: number}, void, undefined> {
+  private* traverse(): Generator<{node: BinaryTreeNode<D>, level: number, index: number}, void, undefined> {
     if (!this.root) {
       return;
     }
@@ -42,6 +42,7 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
     // 탐색해야하는 노드들
     const nextSearchQueue: BinaryTreeNode<D>[] = [this.root];
     let level = 0;
+    let index = 0;
 
     while (nextSearchQueue.length > 0) {
       const iterativeCount = nextSearchQueue.length;
@@ -49,7 +50,8 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
       for (let i = 0; i < iterativeCount; i++) {
         const node = nextSearchQueue.shift() as BinaryTreeNode<D>;
 
-        yield {node, level};
+        yield {node, level, index};
+        index++;
 
         // 다음 라벨에 또 순회해야하니 다음 레벨 노드들 저장
         if (node.left) {
@@ -64,9 +66,9 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
     }
   }
 
-  public* [Symbol.iterator](): Generator<{data: D, level: number}, void, undefined> {
-    for (const {node, level} of this.traverse()) {
-      yield {data: node.data, level};
+  public* [Symbol.iterator](): Generator<{data: D, level: number, index: number}, void, undefined> {
+    for (const {node, level, index} of this.traverse()) {
+      yield {data: node.data, level, index};
     }
   }
 }

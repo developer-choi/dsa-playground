@@ -41,5 +41,5 @@ export abstract class BinaryTree<D> {
     return result;
   }
 
-  public abstract [Symbol.iterator](): Generator<{data: D, level: number}, void, undefined>;
+  public abstract [Symbol.iterator](): Generator<{data: D, level: number, index: number}, void, undefined>;
 }

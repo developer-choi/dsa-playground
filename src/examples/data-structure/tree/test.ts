@@ -23,9 +23,16 @@ describe.each(implementations)('Tree Implementation > $name', ({fn}) => {
       tree.add(8);
       expect(tree.toArray()).toEqual([[1], [2, 3], [4, 5, 6, 7], [8]])
     });
+
+    it('should provide the correct index for each item upon iteration', () => {
+      const tree = new fn<number>();
+      tree.add(1);
+      tree.add(2);
+      expect(Array.from(tree)).toEqual([{data: 1, index: 0, level: 0}, {data: 2, index: 1, level: 1}]);
+    });
   });
 
-  describe('Boundary Case', () => {
+  describe('Boundary cases', () => {
     it('should handle an empty tree correctly', () => {
       const tree = new fn<number>();
       expect(tree.length).toBe(0);
