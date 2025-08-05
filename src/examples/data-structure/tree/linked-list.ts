@@ -1,11 +1,11 @@
 import {BinaryTree, BinaryTreeNode} from './index';
 
+// Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
 export class LinkedListBinaryTree<D> extends BinaryTree<D> {
   private root: BinaryTreeNode<D> | undefined;
 
   /**
    * URL: https://www.geeksforgeeks.org/dsa/insertion-in-a-binary-tree-in-level-order/
-   * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
    *
    * Time Complexity: O(n), 최악의 경우 제일 우측 제일 하단 노드에 추가할 때 까지 순회를 해야하니까.
    * Auxiliary Space: O(n), 사유는 아래 traversal 주석 참고.
@@ -27,6 +27,7 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
     }
   }
 
+  // URL: https://www.geeksforgeeks.org/dsa/deletion-binary-tree/
   protected _delete(data: D): D | undefined {
     let lastIndex = this.length - 1;
     let deletedNode: BinaryTreeNode<D> | undefined;

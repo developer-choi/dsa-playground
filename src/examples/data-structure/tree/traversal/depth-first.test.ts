@@ -30,6 +30,8 @@ describe.each(algorithms)('Depth First Traversal > $name', ({fn}) => {
   root.right.right = new BinaryTreeNode<number>(6);
 
   it.each(traversalCases)('should return nodes in $mode order', ({mode, expected}) => {
-    expect(fn(root, mode)).toEqual(expected);
+    const result = fn(root, mode);
+    expect(result.array).toEqual(expected);
+    expect(result.maxHeight).toEqual(2);
   });
 });

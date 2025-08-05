@@ -56,6 +56,27 @@ describe.each(implementations)('Tree Implementation > $name', ({fn}) => {
       expect(tree.length).toBe(0);
       expect(tree.toArray()).toEqual([]);
     });
+
+    it('Tree의 height값이 정확히 구해져야한다.', () => {
+      const tree = new fn<number>();
+      expect(tree.height).toBe(-1);
+      tree.add(1);
+      expect(tree.height).toBe(0);
+      tree.add(2);
+      expect(tree.height).toBe(1);
+      tree.add(3);
+      expect(tree.height).toBe(1);
+      tree.add(4);
+      expect(tree.height).toBe(2);
+      tree.add(5);
+      expect(tree.height).toBe(2);
+      tree.add(6);
+      expect(tree.height).toBe(2);
+      tree.add(7);
+      expect(tree.height).toBe(2);
+      tree.add(8);
+      expect(tree.height).toBe(3);
+    });
   });
 
   describe('Boundary cases', () => {

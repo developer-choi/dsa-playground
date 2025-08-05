@@ -8,6 +8,9 @@ export class BinaryTreeNode<D> {
   }
 }
 
+/**
+ * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0#heading=h.tv71ehud6a1w
+ */
 export abstract class BinaryTree<D> {
   private _length: number;
 
@@ -17,6 +20,15 @@ export abstract class BinaryTree<D> {
 
   get length(): number {
     return this._length;
+  }
+
+  // URL: https://www.geeksforgeeks.org/dsa/find-the-maximum-depth-or-height-of-a-tree/
+  get height(): number | -1 {
+    if (this._length === 0) {
+      return -1;
+    }
+
+    return Math.floor(Math.log2(this._length));
   }
 
   add(data: D) {
