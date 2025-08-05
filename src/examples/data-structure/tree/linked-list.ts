@@ -1,5 +1,5 @@
 import {BinaryTree, BinaryTreeNode} from './index';
-import {breadthFirstTraversal, InternalInterationItem} from '@/examples/data-structure/tree/traversal';
+import {breadthFirstTraversal, InternalIterationItem} from '@/examples/data-structure/tree/traversal';
 
 // Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
 export class LinkedListBinaryTree<D> extends BinaryTree<D> {
@@ -32,7 +32,7 @@ export class LinkedListBinaryTree<D> extends BinaryTree<D> {
   protected _delete(data: D): D | undefined {
     let lastIndex = this.length - 1;
     let deletedNode: BinaryTreeNode<D> | undefined;
-    let lastIterationItem: InternalInterationItem<D> | undefined;
+    let lastIterationItem: InternalIterationItem<D> | undefined;
 
     for (const item of breadthFirstTraversal(this.root)) {
       // 최초로 데이터가 똑같은 경우에만 할당

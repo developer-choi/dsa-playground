@@ -89,7 +89,7 @@ export function depthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined, trav
  */
 export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): Generator<{
   node: BinaryTreeNode<D>,
-  parent: InternalInterationItem<D>['parent'],
+  parent: InternalIterationItem<D>['parent'],
   level: number,
   index: number
 }, void, undefined> {
@@ -98,7 +98,7 @@ export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): 
   }
 
   // 탐색해야하는 노드들
-  const nextSearchQueue: InternalInterationItem<D>[] = [{node: root, parent: undefined}];
+  const nextSearchQueue: InternalIterationItem<D>[] = [{node: root, parent: undefined}];
   let level = 0;
   let index = 0;
 
@@ -106,7 +106,7 @@ export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): 
     const iterativeCount = nextSearchQueue.length;
 
     for (let i = 0; i < iterativeCount; i++) {
-      const {node, parent} = nextSearchQueue.shift() as InternalInterationItem<D>;
+      const {node, parent} = nextSearchQueue.shift() as InternalIterationItem<D>;
 
       yield {node, parent, level, index};
       index++;
@@ -124,7 +124,7 @@ export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): 
   }
 }
 
-export interface InternalInterationItem<D> {
+export interface InternalIterationItem<D> {
   node: BinaryTreeNode<D>,
   parent: undefined | {
     node: BinaryTreeNode<D>;

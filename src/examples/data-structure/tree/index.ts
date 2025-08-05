@@ -31,10 +31,10 @@ export abstract class BinaryTree<D> {
     return Math.floor(Math.log2(this._length));
   }
 
+  // Template Method Pattern
   add(data: D) {
-    this._length++;
-
-    this._add(data);
+    this._length++; // 메소드마다 공통되는 기능은 상위 클래스에서 작성
+    this._add(data); // 메소드마다 달라지는 기능은 하위 클래스에서 구현
   }
 
   protected abstract _add(data: D): void;
