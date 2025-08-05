@@ -1,8 +1,8 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree';
-import {recursiveDepthFirstTraversalTree} from '@/examples/data-structure/tree/traversal/depth-first';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/index';
+import {depthFirstTraversal} from '@/examples/data-structure/tree/traversal';
 
 const algorithms = [
-  {name: 'Recursive', fn: recursiveDepthFirstTraversalTree},
+  {name: 'DFS', fn: depthFirstTraversal},
 ];
 
 const traversalCases = [
@@ -20,7 +20,7 @@ const traversalCases = [
   },
 ];
 
-// yarn test src/examples/data-structure/tree/traversal/depth-first.test.ts
+// yarn test src/examples/data-structure/tree/traversal.test.ts
 describe.each(algorithms)('Depth First Traversal > $name', ({fn}) => {
   const root = new BinaryTreeNode<number>(1);
   root.left = new BinaryTreeNode<number>(2);
