@@ -42,7 +42,7 @@ export function iterativeInsertBST(root: BinaryTreeNode<number> | undefined, dat
     return new BinaryTreeNode(data);
   }
 
-  let nextSearchNode: BinaryTreeNode<number> | undefined = root;
+  let nextSearchNode: BinaryTreeNode<number> = root;
 
   while (true) {
     const direction: 'left' | 'right' = nextSearchNode.data > data ? 'left' : 'right';

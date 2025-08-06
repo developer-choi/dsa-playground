@@ -9,7 +9,7 @@ const algorithms = [
 
 // yarn test src/examples/data-structure/tree/binary-search/operation/insertion.test.ts
 describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
-  it('예제는 만족해야한다.', () => {
+  it('should insert multiple nodes to form a balanced tree', () => {
     const root = new BinaryTreeNode<number>(50);
     fn(root, 30);
     fn(root, 20);
@@ -34,7 +34,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
     ]);
   });
 
-  it('없는 root 노드에 추가하려고 하면 루트노드로 추가되야한다.', () => {
+  it('should create a new root node when inserting into an empty tree', () => {
     const root = fn(undefined, 30);
 
     const result = [...breadthFirstTraversal(root)].map(({node, level}) => ({
@@ -47,7 +47,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
     ]);
   });
 
-  it('Skewed Tree가 되도록 추가하더라도 잘 동작해야한다.', () => {
+  it('should correctly form a right-skewed tree', () => {
     const root = new BinaryTreeNode<number>(10);
     fn(root, 20);
     fn(root, 30);
