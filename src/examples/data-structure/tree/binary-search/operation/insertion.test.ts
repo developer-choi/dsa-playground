@@ -1,6 +1,6 @@
 import {iterativeInsertBST, recursiveInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {breadthFirstTraversal} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
+import {summarizeBinaryTree} from '@/utils/extend/test/jest';
 
 const algorithms = [
   {name: 'Recursive', fn: recursiveInsertBST},
@@ -18,12 +18,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
     fn(root, 60);
     fn(root, 80);
 
-    const result = [...breadthFirstTraversal(root)].map(({node, level}) => ({
-      level,
-      data: node.data,
-    }));
-
-    expect(result).toEqual([
+    expect(summarizeBinaryTree(root)).toEqual([
       {level: 0, data: 50},
       {level: 1, data: 30},
       {level: 1, data: 70},
@@ -37,12 +32,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
   it('should create a new root node when inserting into an empty tree', () => {
     const root = fn(undefined, 30);
 
-    const result = [...breadthFirstTraversal(root)].map(({node, level}) => ({
-      level,
-      data: node.data,
-    }));
-
-    expect(result).toEqual([
+    expect(summarizeBinaryTree(root)).toEqual([
       {level: 0, data: 30},
     ]);
   });
@@ -53,12 +43,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
     fn(root, 30);
     fn(root, 40);
 
-    const result = [...breadthFirstTraversal(root)].map(({node, level}) => ({
-      level,
-      data: node.data,
-    }));
-
-    expect(result).toEqual([
+    expect(summarizeBinaryTree(root)).toEqual([
       {level: 0, data: 10},
       {level: 1, data: 20},
       {level: 2, data: 30},

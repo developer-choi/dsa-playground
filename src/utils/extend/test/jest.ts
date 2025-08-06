@@ -1,3 +1,5 @@
+import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {breadthFirstTraversal} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
 
 export interface RandomCase<P extends unknown[], R> {
   inputs: P;
@@ -58,4 +60,15 @@ export function compareFunctionsWithRandomInputs<P extends unknown[], R>(options
       throw error;
     }
   }
+}
+
+/**
+ * @description 테스트코드에서 쓰기 위해 level, data만 따로 요약하는 함수
+ * @return BFS 기준으로 순회해서 배열을 만들어서 level, data만 따로 추출하여 반환
+ */
+export function summarizeBinaryTree<D>(root: BinaryTreeNode<D>): {level: number, data: D}[] {
+  return [...breadthFirstTraversal(root)].map(({node, level}) => ({
+    level,
+    data: node.data,
+  }));
 }
