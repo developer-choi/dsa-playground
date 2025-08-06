@@ -46,4 +46,23 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
       {level: 0, data: 30},
     ]);
   });
+
+  it('Skewed Tree가 되도록 추가하더라도 잘 동작해야한다.', () => {
+    const root = new BinaryTreeNode<number>(10);
+    fn(root, 20);
+    fn(root, 30);
+    fn(root, 40);
+
+    const result = [...breadthFirstTraversal(root)].map(({node, level}) => ({
+      level,
+      data: node.data,
+    }));
+
+    expect(result).toEqual([
+      {level: 0, data: 10},
+      {level: 1, data: 20},
+      {level: 2, data: 30},
+      {level: 3, data: 40},
+    ]);
+  });
 });
