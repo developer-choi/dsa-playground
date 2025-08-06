@@ -1,7 +1,6 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeDirection} from '@/examples/data-structure/tree';
 
-export type BSTDirection = 'left' | 'right';
-
-export function determineBstDirection(node: BinaryTreeNode<number>, data: number): BSTDirection {
+export function determineBstDirection(node: BinaryTreeNode<number>, data: number): BinaryTreeDirection {
   return node.data > data ? 'left' : 'right';
 }

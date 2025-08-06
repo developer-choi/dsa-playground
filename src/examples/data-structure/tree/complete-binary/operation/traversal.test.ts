@@ -55,18 +55,18 @@ describe('Binary Tree Traversal', () => {
       root.right.right.right = new BinaryTreeNode<number>(11);
 
       expect(summarizeBinaryTree(root)).toEqual([
-        {level: 0, data: 5},
-        {level: 1, data: 12},
-        {level: 1, data: 13},
-        {level: 2, data: 7},
-        {level: 2, data: 14},
-        {level: 2, data: 2},
-        {level: 3, data: 17},
-        {level: 3, data: 23},
-        {level: 3, data: 27},
-        {level: 3, data: 3},
-        {level: 3, data: 8},
-        {level: 3, data: 11},
+        {level: 0, data: 5, direction: undefined},
+        {level: 1, data: 12, direction: 'left'},
+        {level: 1, data: 13, direction: 'right'},
+        {level: 2, data: 7, direction: 'left'},
+        {level: 2, data: 14, direction: 'right'},
+        {level: 2, data: 2, direction: 'right'},
+        {level: 3, data: 17, direction: 'left'},
+        {level: 3, data: 23, direction: 'right'},
+        {level: 3, data: 27, direction: 'left'},
+        {level: 3, data: 3, direction: 'right'},
+        {level: 3, data: 8, direction: 'left'},
+        {level: 3, data: 11, direction: 'right'},
       ]);
     });
   });

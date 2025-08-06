@@ -1,4 +1,5 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeDirection} from '@/examples/data-structure/tree';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/inorder-traversal-of-binary-tree/
@@ -128,6 +129,6 @@ export interface InternalIterationItem<D> {
   node: BinaryTreeNode<D>,
   parent: undefined | {
     node: BinaryTreeNode<D>;
-    direction: 'left' | 'right';
+    direction: BinaryTreeDirection;
   };
 }

@@ -19,13 +19,13 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
     fn(root, 80);
 
     expect(summarizeBinaryTree(root)).toEqual([
-      {level: 0, data: 50},
-      {level: 1, data: 30},
-      {level: 1, data: 70},
-      {level: 2, data: 20},
-      {level: 2, data: 40},
-      {level: 2, data: 60},
-      {level: 2, data: 80},
+      {level: 0, data: 50, direction: undefined},
+      {level: 1, data: 30, direction: 'left'},
+      {level: 1, data: 70, direction: 'right'},
+      {level: 2, data: 20, direction: 'left'},
+      {level: 2, data: 40, direction: 'right'},
+      {level: 2, data: 60, direction: 'left'},
+      {level: 2, data: 80, direction: 'right'},
     ]);
   });
 
@@ -33,7 +33,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
     const root = fn(undefined, 30);
 
     expect(summarizeBinaryTree(root)).toEqual([
-      {level: 0, data: 30},
+      {level: 0, data: 30, direction: undefined},
     ]);
   });
 
@@ -44,10 +44,10 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
     fn(root, 40);
 
     expect(summarizeBinaryTree(root)).toEqual([
-      {level: 0, data: 10},
-      {level: 1, data: 20},
-      {level: 2, data: 30},
-      {level: 3, data: 40},
+      {level: 0, data: 10, direction: undefined},
+      {level: 1, data: 20, direction: 'right'},
+      {level: 2, data: 30, direction: 'right'},
+      {level: 3, data: 40, direction: 'right'},
     ]);
   });
 });
