@@ -2,7 +2,7 @@ import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
 
 /**
- * URL: https://www.geeksforgeeks.org/dsa/insertion-in-binary-search-tree/
+ * URL: https://www.geeksforgeeks.org/dsa/binary-search-tree-set-1-search-and-insertion/
  * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
  *
  * Time Complexity
@@ -11,50 +11,53 @@ import {determineBstDirection} from '@/examples/data-structure/tree/binary-searc
  *
  * Auxiliary Space: 위와 동일, h만큼 재귀스택이 생기기 때문.
  */
-export function recursiveInsertBST(root: BinaryTreeNode<number> | undefined, data: number): BinaryTreeNode<number> {
+export function recursiveSearchBST(root: BinaryTreeNode<number> | undefined, data: number): boolean {
   if (root === undefined) {
-    return new BinaryTreeNode(data);
+    return false;
   }
 
-  function recursive(node: BinaryTreeNode<number>) {
+  function recursive(node: BinaryTreeNode<number>): boolean {
+    if (node.data === data) {
+      return true;
+    }
+
     const direction = determineBstDirection(node, data);
 
-    if (node[direction]) {
-      recursive(node[direction]);
+    if (!node[direction]) {
+      return false;
     } else {
-      node[direction] = new BinaryTreeNode(data);
+      return recursive(node[direction]);
     }
   }
 
-  recursive(root);
-
-  return root;
+  return recursive(root);
 }
 
 /**
- * URL: https://www.geeksforgeeks.org/dsa/insertion-in-binary-search-tree/
+ * URL: https://www.geeksforgeeks.org/dsa/binary-search-tree-set-1-search-and-insertion/
  * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
  *
  * Time Complexity: 위의 재귀방식과 동일
  * Auxiliary Space: O(1)
  */
-export function iterativeInsertBST(root: BinaryTreeNode<number> | undefined, data: number): BinaryTreeNode<number> {
+export function iterativeSearchBST(root: BinaryTreeNode<number> | undefined, data: number): boolean {
   if (root === undefined) {
-    return new BinaryTreeNode(data);
+    return false;
   }
 
   let nextSearchNode: BinaryTreeNode<number> = root;
 
   while (true) {
+    if (nextSearchNode.data === data) {
+      return true;
+    }
+
     const direction = determineBstDirection(nextSearchNode, data);
 
-    if (!nextSearchNode[direction]) {
-      nextSearchNode[direction] = new BinaryTreeNode(data);
-      break;
-    } else {
+    if (nextSearchNode[direction]) {
       nextSearchNode = nextSearchNode[direction];
+    } else {
+      return false;
     }
   }
-
-  return root;
 }
