@@ -33,4 +33,17 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
       {level: 2, data: 80},
     ]);
   });
+
+  it('없는 root 노드에 추가하려고 하면 루트노드로 추가되야한다.', () => {
+    const root = fn(undefined, 30);
+
+    const result = [...breadthFirstTraversal(root)].map(({node, level}) => ({
+      level,
+      data: node.data,
+    }));
+
+    expect(result).toEqual([
+      {level: 0, data: 30},
+    ]);
+  });
 });

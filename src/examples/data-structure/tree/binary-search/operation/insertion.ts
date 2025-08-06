@@ -10,7 +10,11 @@ import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
  *
  * Auxiliary Space: 위와 동일, h만큼 재귀스택이 생기기 때문.
  */
-export function recursiveInsertBST(root: BinaryTreeNode<number>, data: number) {
+export function recursiveInsertBST(root: BinaryTreeNode<number> | undefined, data: number): BinaryTreeNode<number> {
+  if (root === undefined) {
+    return new BinaryTreeNode(data);
+  }
+
   function recursive(node: BinaryTreeNode<number>) {
     const direction: 'left' | 'right' = node.data > data ? 'left' : 'right';
 
@@ -22,6 +26,8 @@ export function recursiveInsertBST(root: BinaryTreeNode<number>, data: number) {
   }
 
   recursive(root);
+
+  return root;
 }
 
 /**
@@ -31,7 +37,11 @@ export function recursiveInsertBST(root: BinaryTreeNode<number>, data: number) {
  * Time Complexity: 위의 재귀방식과 동일
  * Auxiliary Space: O(1)
  */
-export function iterativeInsertBST(root: BinaryTreeNode<number>, data: number) {
+export function iterativeInsertBST(root: BinaryTreeNode<number> | undefined, data: number): BinaryTreeNode<number> {
+  if (root === undefined) {
+    return new BinaryTreeNode(data);
+  }
+
   let nextSearchNode: BinaryTreeNode<number> | undefined = root;
 
   while (true) {
@@ -44,4 +54,6 @@ export function iterativeInsertBST(root: BinaryTreeNode<number>, data: number) {
       nextSearchNode = nextSearchNode[direction];
     }
   }
+
+  return root;
 }
