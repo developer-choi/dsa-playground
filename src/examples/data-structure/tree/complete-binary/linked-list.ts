@@ -1,5 +1,5 @@
 import {BinaryTree, BinaryTreeNode} from './index';
-import {breadthFirstTraversal, InternalIterationItem} from '@/examples/data-structure/tree/traversal';
+import {breadthFirstTraversal, InternalIterationItem} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
 
 // Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
 export class LinkedListBinaryTree<D> extends BinaryTree<D> {

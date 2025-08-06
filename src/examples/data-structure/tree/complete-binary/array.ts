@@ -1,4 +1,4 @@
-import {BinaryTree} from '@/examples/data-structure/tree/index';
+import {BinaryTree} from '@/examples/data-structure/tree/complete-binary/index';
 
 export class ArrayBinaryTree<D> extends BinaryTree<D> {
   readonly array: D[];

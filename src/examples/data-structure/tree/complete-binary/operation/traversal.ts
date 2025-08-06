@@ -1,4 +1,4 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/index';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/inorder-traversal-of-binary-tree/

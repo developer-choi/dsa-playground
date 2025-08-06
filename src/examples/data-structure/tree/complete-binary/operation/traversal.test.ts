@@ -1,5 +1,5 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/index';
-import {depthFirstTraversal} from '@/examples/data-structure/tree/traversal';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {depthFirstTraversal} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
 
 const algorithms = [
   {name: 'DFS', fn: depthFirstTraversal},
@@ -20,7 +20,7 @@ const traversalCases = [
   },
 ];
 
-// yarn test src/examples/data-structure/tree/traversal.test.ts
+// yarn test src/examples/data-structure/tree/complete-binary/operation/traversal.test.ts
 describe.each(algorithms)('Depth First Traversal > $name', ({fn}) => {
   const root = new BinaryTreeNode<number>(1);
   root.left = new BinaryTreeNode<number>(2);

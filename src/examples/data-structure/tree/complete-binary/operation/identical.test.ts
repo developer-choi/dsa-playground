@@ -1,12 +1,12 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/index';
-import {areTreesIdenticalWithBFS, areTreesIdenticalWithDFS} from '@/examples/data-structure/tree/identical';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {areTreesIdenticalWithBFS, areTreesIdenticalWithDFS} from '@/examples/data-structure/tree/complete-binary/operation/identical';
 
 const algorithms = [
   {name: 'DFS', fn: areTreesIdenticalWithDFS},
   {name: 'BFS', fn: areTreesIdenticalWithBFS},
 ];
 
-// yarn test src/examples/data-structure/tree/identical.test.ts
+// yarn test src/examples/data-structure/tree/complete-binary/operation/identical.test.ts
 describe.each(algorithms)('Depth First Traversal > $name', ({fn}) => {
   const root1 = new BinaryTreeNode<number>(1);
   const root2 = new BinaryTreeNode<number>(1);
