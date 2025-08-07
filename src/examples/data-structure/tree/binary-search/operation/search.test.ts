@@ -31,7 +31,7 @@ describe.each(algorithms)('Search BST > $name', ({fn}) => {
   });
 
   it('should work correctly with a right-skewed tree', () => {
-    const root = new BinaryTreeNode<number>(10);
+    const root = new BinaryTreeNode(10);
     iterativeInsertBST(root, 20);
     iterativeInsertBST(root, 30);
     iterativeInsertBST(root, 40);

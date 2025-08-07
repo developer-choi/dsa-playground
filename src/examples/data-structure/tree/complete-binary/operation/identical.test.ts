@@ -8,21 +8,21 @@ const algorithms = [
 
 // yarn test src/examples/data-structure/tree/complete-binary/operation/identical.test.ts
 describe.each(algorithms)('Depth First Traversal > $name', ({fn}) => {
-  const root1 = new BinaryTreeNode<number>(1);
-  const root2 = new BinaryTreeNode<number>(1);
+  const root1 = new BinaryTreeNode(1);
+  const root2 = new BinaryTreeNode(1);
 
   beforeEach(() => {
-    root1.left = new BinaryTreeNode<number>(2);
-    root1.right = new BinaryTreeNode<number>(3);
-    root1.left.left = new BinaryTreeNode<number>(4);
-    root1.left.right = new BinaryTreeNode<number>(5);
-    root1.right.right = new BinaryTreeNode<number>(6);
+    root1.left = new BinaryTreeNode(2);
+    root1.right = new BinaryTreeNode(3);
+    root1.left.left = new BinaryTreeNode(4);
+    root1.left.right = new BinaryTreeNode(5);
+    root1.right.right = new BinaryTreeNode(6);
 
-    root2.left = new BinaryTreeNode<number>(2);
-    root2.right = new BinaryTreeNode<number>(3);
-    root2.left.left = new BinaryTreeNode<number>(4);
-    root2.left.right = new BinaryTreeNode<number>(5);
-    root2.right.right = new BinaryTreeNode<number>(6);
+    root2.left = new BinaryTreeNode(2);
+    root2.right = new BinaryTreeNode(3);
+    root2.left.left = new BinaryTreeNode(4);
+    root2.left.right = new BinaryTreeNode(5);
+    root2.right.right = new BinaryTreeNode(6);
   });
 
   it('should return true for identical trees', () => {

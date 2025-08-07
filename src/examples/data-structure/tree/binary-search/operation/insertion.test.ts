@@ -10,7 +10,7 @@ const algorithms = [
 // yarn test src/examples/data-structure/tree/binary-search/operation/insertion.test.ts
 describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
   it('should insert multiple nodes to form a balanced tree', () => {
-    const root = new BinaryTreeNode<number>(50);
+    const root = new BinaryTreeNode(50);
     fn(root, 30);
     fn(root, 20);
     fn(root, 40);
@@ -38,7 +38,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
   });
 
   it('should correctly form a right-skewed tree', () => {
-    const root = new BinaryTreeNode<number>(10);
+    const root = new BinaryTreeNode(10);
     fn(root, 20);
     fn(root, 30);
     fn(root, 40);
