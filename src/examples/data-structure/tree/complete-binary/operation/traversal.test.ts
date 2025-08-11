@@ -55,18 +55,18 @@ describe('Binary Tree Traversal', () => {
       root.right.right.right = new BinaryTreeNode(11);
 
       expect(summarizeBinaryTree(root)).toEqual([
-        {level: 0, data: 5, direction: undefined},
-        {level: 1, data: 12, direction: 'left'},
-        {level: 1, data: 13, direction: 'right'},
-        {level: 2, data: 7, direction: 'left'},
-        {level: 2, data: 14, direction: 'right'},
-        {level: 2, data: 2, direction: 'right'},
-        {level: 3, data: 17, direction: 'left'},
-        {level: 3, data: 23, direction: 'right'},
-        {level: 3, data: 27, direction: 'left'},
-        {level: 3, data: 3, direction: 'right'},
-        {level: 3, data: 8, direction: 'left'},
-        {level: 3, data: 11, direction: 'right'},
+        {level: 0, data: 5, direction: undefined, parent: undefined},
+        {level: 1, data: 12, direction: 'left', parent: 5},
+        {level: 1, data: 13, direction: 'right', parent: 5},
+        {level: 2, data: 7, direction: 'left', parent: 12},
+        {level: 2, data: 14, direction: 'right', parent: 12},
+        {level: 2, data: 2, direction: 'right', parent: 13},
+        {level: 3, data: 17, direction: 'left', parent: 7},
+        {level: 3, data: 23, direction: 'right', parent: 7},
+        {level: 3, data: 27, direction: 'left', parent: 14},
+        {level: 3, data: 3, direction: 'right', parent: 14},
+        {level: 3, data: 8, direction: 'left', parent: 2},
+        {level: 3, data: 11, direction: 'right', parent: 2},
       ]);
     });
   });

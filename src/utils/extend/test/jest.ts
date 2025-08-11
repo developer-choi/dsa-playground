@@ -70,6 +70,7 @@ export function summarizeBinaryTree<D>(root: BinaryTreeNode<D>): {level: number,
   return [...breadthFirstTraversal(root)].map(({node, level, parent}) => ({
     level,
     data: node.data,
-    direction: parent?.direction
+    direction: parent?.direction,
+    parent: parent?.node.data
   }));
 }
