@@ -1,10 +1,10 @@
-import {officialDeleteBST} from '@/examples/data-structure/tree/binary-search/operation/deletion';
+import {officialDeleteBST, recursiveDeleteBST} from '@/examples/data-structure/tree/binary-search/operation/deletion';
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {summarizeBinaryTree} from '@/utils/extend/test/jest';
 
 const algorithms = [
-  // {name: 'Mine', fn: recursiveDeleteBST},
   {name: 'Official', fn: officialDeleteBST},
+  {name: 'Mine', fn: recursiveDeleteBST},
 ];
 
 // yarn test src/examples/data-structure/tree/binary-search/operation/deletion.test.ts
@@ -60,6 +60,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
       {level: 5, data: 74, direction: 'right', parent: 73},
     ]);
   });
+
   it('삭제할 노드가 자식은 있는데 손자가 없는 경우에도 잘 삭제되야함.', () => {
     fn(root, 85);
     expect(summarizeBinaryTree(root)).toEqual([
@@ -79,6 +80,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
       {level: 5, data: 74, direction: 'right', parent: 73},
     ]);
   });
+
   it('삭제할 노드가 손자이상이 있는 경우에도 잘 삭제되야함.', () => {
     fn(root, 80);
     expect(summarizeBinaryTree(root)).toEqual([
@@ -98,6 +100,7 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
       {level: 5, data: 74, direction: 'right', parent: 73},
     ]);
   });
+
   it('삭제할 노드가 손자도 있고, 대체할 노드에도 자식이 있는 경우에도 잘 삭제되야함.', () => {
     fn(root, 70);
     expect(summarizeBinaryTree(root)).toEqual([

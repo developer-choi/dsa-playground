@@ -4,8 +4,33 @@ import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
  * URL: https://www.geeksforgeeks.org/dsa/deletion-in-binary-search-tree/
  * Doc: https://docs.google.com/document/d/1HSv9Uc35vDZQ08D4xQoZ8rH_u5Cek-MjqvFRlGO0rds/edit?tab=t.0
  */
-export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined) {
+export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, target: number): BinaryTreeNode<number> | undefined {
+  if (!root) {
+    return root;
+  }
 
+  function recursive(node: BinaryTreeNode<number> | undefined): BinaryTreeNode<number> | undefined {
+    if (!node) {
+      return undefined;
+    }
+
+    // Point 1. 삭제할 노드를 찾으면 undefined를 반환해서
+    if (node.data === target) {
+      return undefined;
+    }
+
+    const direction = node.data > target ? 'left' : 'right';
+
+    // Point 2. 여기서 삭제할 노드의 부모 노드에서는 자식노드가 삭제되도록 한다.
+    node[direction] = recursive(node[direction]);
+
+    // Point 3. 삭제할 노드의 부모노드가 아닌 경우 기존 노드가 유지되야하낟.
+    return node;
+  }
+
+  recursive(root);
+
+  return root;
 }
 
 /*************************************************************************************************************
