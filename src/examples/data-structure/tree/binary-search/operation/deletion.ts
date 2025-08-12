@@ -21,6 +21,7 @@ export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, tar
       return node;
     }
 
+    // TODO 이걸 한번 더 재귀로 안돌리면 엄청 큰 BST에서 문제가 될거같은데...
     const successor = getSuccessor(node);
     
     // 삭제할 노드가 자식이 없는 경우 (Leaf)

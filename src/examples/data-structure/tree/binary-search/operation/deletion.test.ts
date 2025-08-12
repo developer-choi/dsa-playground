@@ -120,4 +120,9 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
       {level: 4, data: 86, direction: 'right', parent: 85},
     ]);
   });
+
+  // TODO 이 노드에서 30 삭제하면 20으로 대체해 40으로 대체해? 둘 다 BST 되긴 하는데...
+  // TODO 86이 없다고 가정하고 85 삭제하면 어떻게해?
+  // TODO 또 내가 못찾은 케이스 있을 수 있으니 랜덤으로 삽입해서 랜덤으로 삭제해보자.
+  // TODO 처음부터 끝까지 다 삭제하자.
 });
