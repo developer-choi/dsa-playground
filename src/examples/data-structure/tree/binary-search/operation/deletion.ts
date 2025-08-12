@@ -1,4 +1,5 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeDirection} from '@/examples/data-structure/tree';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/deletion-in-binary-search-tree/
@@ -27,9 +28,7 @@ export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, tar
       return undefined;
       
     } else {
-      // 삭제할 노드가 오른쪽에 자식이 있는 경우
       node.data = successor.data;
-      node.right = undefined;
       return node;
     }
   }
@@ -40,8 +39,10 @@ export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, tar
 }
 
 /**
- * @description 제공된 노드보다 큰 노드들 중 가장 작은 노드를 반환합니다.
- * @return 자식이 없으면 undefined 입니다.
+ * @return 제공된 노드보다 큰 노드들 중 가장 작은 노드를 반환합니다. or 자식이 없으면 undefined 입니다.
+ * @description
+ * 1. successor의 부모노드에서 연결을 해제합니다. => 이걸 여기서 안하면 할 수 있는 곳이 없어서.
+ * 2. 반환되는 successor의 left에는 노드가 없음을 보장합니다.
  */
 function getSuccessor(node: BinaryTreeNode<number>): BinaryTreeNode<number> | undefined {
   if (!node.right) {
@@ -49,15 +50,20 @@ function getSuccessor(node: BinaryTreeNode<number>): BinaryTreeNode<number> | un
   }
 
   let current = node.right;
+  let previousNode = node;
+  let previousDirection: BinaryTreeDirection = 'right';
 
   while (true) {
     if (current.left) {
+      previousDirection = 'left';
+      previousNode = current;
       current = current.left;
     } else {
       break;
     }
   }
 
+  previousNode[previousDirection] = undefined;
   return current;
 }
 
