@@ -121,9 +121,28 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
         {level: 4, data: 86, direction: 'right', parent: 85},
       ]);
     });
+
+    it('삭제 할 노드가 오른쪽에 자식이 없고 왼쪽에는 있는 경우에도 잘 삭제되야한다.', () => {
+      fn(root, 86); // 86이 없는 상태를 셋팅해놓고
+      fn(root, 85); // 그러고나서 85를 삭제한 경우 삭제할 85 노드가 83으로 대체되는지 체크
+      expect(summarizeBinaryTree(root)).toEqual([
+        {level: 0, data: 50, direction: undefined, parent: undefined},
+        {level: 1, data: 30, direction: 'left', parent: 50},
+        {level: 1, data: 70, direction: 'right', parent: 50},
+        {level: 2, data: 20, direction: 'left', parent: 30},
+        {level: 2, data: 40, direction: 'right', parent: 30},
+        {level: 2, data: 60, direction: 'left', parent: 70},
+        {level: 2, data: 80, direction: 'right', parent: 70},
+        {level: 3, data: 59, direction: 'left', parent: 60},
+        {level: 3, data: 61, direction: 'right', parent: 60},
+        {level: 3, data: 75, direction: 'left', parent: 80},
+        {level: 3, data: 83, direction: 'right', parent: 80},
+        {level: 4, data: 73, direction: 'left', parent: 75},
+        {level: 5, data: 74, direction: 'right', parent: 73},
+      ]);
+    });
   });
 
-  // TODO 86이 없다고 가정하고 85 삭제하면 어떻게해?
   // TODO 또 내가 못찾은 케이스 있을 수 있으니 랜덤으로 삽입해서 랜덤으로 삭제해보자.
   // TODO 처음부터 끝까지 다 삭제하자.
   describe('root 노드 기준 왼쪽 노드 삭제하기', () => {

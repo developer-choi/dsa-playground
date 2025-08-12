@@ -22,7 +22,7 @@ export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, tar
     }
 
     // TODO 이걸 한번 더 재귀로 안돌리면 엄청 큰 BST에서 문제가 될거같은데...
-    const successor = getSuccessor(node);
+    const successor = calculateReplacedNode(node);
     
     // 삭제할 노드가 자식이 없는 경우 (Leaf)
     if (!successor) {
@@ -40,14 +40,20 @@ export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, tar
 }
 
 /**
- * @return 제공된 노드보다 큰 노드들 중 가장 작은 노드를 반환합니다. or 자식이 없으면 undefined 입니다.
+ * @return 대체할 노드를 반환합니다. 대체할 수 있는 노드가 없으면 (= 자식이 없으면) undefined를 반환합니다.
  * @description
  * 1. successor의 부모노드에서 연결을 해제합니다. => 이걸 여기서 안하면 할 수 있는 곳이 없어서.
  * 2. 반환되는 successor의 left에는 노드가 없음을 보장합니다.
  */
-function getSuccessor(node: BinaryTreeNode<number>): BinaryTreeNode<number> | undefined {
+function calculateReplacedNode(node: BinaryTreeNode<number>): BinaryTreeNode<number> | undefined {
   if (!node.right) {
-    return undefined;
+    if (node.left) {
+      const replaced = node.left;
+      node.left = undefined;
+      return replaced;
+    } else {
+      return undefined;
+    }
   }
 
   let current = node.right;
