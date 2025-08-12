@@ -9,9 +9,11 @@ const algorithms = [
 
 // yarn test src/examples/data-structure/tree/binary-search/operation/deletion.test.ts
 describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
-  const root = new BinaryTreeNode(50);
+  let root: BinaryTreeNode<number> | undefined;
 
   beforeEach(() => {
+    root = new BinaryTreeNode(50);
+
     // level 1
     root.left = new BinaryTreeNode(30);
     root.right = new BinaryTreeNode(70);
@@ -37,8 +39,28 @@ describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
     root.right.right.left.left.right = new BinaryTreeNode(74);
   });
 
+  it('루트 노드를 삭제해도 잘 삭제되야한다.', () => {
+    fn(root, 50);
+    expect(summarizeBinaryTree(root)).toEqual([
+      {level: 0, data: 59, direction: undefined, parent: undefined},
+      {level: 1, data: 30, direction: 'left', parent: 59},
+      {level: 1, data: 70, direction: 'right', parent: 59},
+      {level: 2, data: 20, direction: 'left', parent: 30},
+      {level: 2, data: 40, direction: 'right', parent: 30},
+      {level: 2, data: 60, direction: 'left', parent: 70},
+      {level: 2, data: 80, direction: 'right', parent: 70},
+      {level: 3, data: 61, direction: 'right', parent: 60},
+      {level: 3, data: 75, direction: 'left', parent: 80},
+      {level: 3, data: 85, direction: 'right', parent: 80},
+      {level: 4, data: 73, direction: 'left', parent: 75},
+      {level: 4, data: 83, direction: 'left', parent: 85},
+      {level: 4, data: 86, direction: 'right', parent: 85},
+      {level: 5, data: 74, direction: 'right', parent: 73},
+    ]);
+  });
+
   describe('root 노드 기준 오른쪽 노드 삭제하기', () => {
-    it('삭제를 성공하면 루트 노드를 반황해야한다.', () => {
+    it('삭제를 성공하면 루트 노드를 반환해야한다.', () => {
       expect(fn(root, 86)?.data).toBe(50);
     });
 
