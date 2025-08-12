@@ -63,7 +63,11 @@ function getSuccessor(node: BinaryTreeNode<number>): BinaryTreeNode<number> | un
     }
   }
 
-  previousNode[previousDirection] = undefined;
+  /**
+   * Case 1 대체할 노드에 자식이 없는 경우
+   * Case 2. 대체할 노드에 오른쪽 자식이 있는 경우
+   */
+  previousNode[previousDirection] = current.right;
   return current;
 }
 
