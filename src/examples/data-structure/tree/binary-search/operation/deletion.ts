@@ -14,23 +14,51 @@ export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, tar
       return undefined;
     }
 
-    // Point 1. 삭제할 노드를 찾으면 undefined를 반환해서
-    if (node.data === target) {
-      return undefined;
+    if (node.data !== target) {
+      const direction = node.data > target ? 'left' : 'right';
+      node[direction] = recursive(node[direction]);
+      return node;
     }
 
-    const direction = node.data > target ? 'left' : 'right';
-
-    // Point 2. 여기서 삭제할 노드의 부모 노드에서는 자식노드가 삭제되도록 한다.
-    node[direction] = recursive(node[direction]);
-
-    // Point 3. 삭제할 노드의 부모노드가 아닌 경우 기존 노드가 유지되야하낟.
-    return node;
+    const successor = getSuccessor(node);
+    
+    // 삭제할 노드가 자식이 없는 경우 (Leaf)
+    if (!successor) {
+      return undefined;
+      
+    } else {
+      // 삭제할 노드가 오른쪽에 자식이 있는 경우
+      node.data = successor.data;
+      node.right = undefined;
+      return node;
+    }
   }
 
   recursive(root);
 
   return root;
+}
+
+/**
+ * @description 제공된 노드보다 큰 노드들 중 가장 작은 노드를 반환합니다.
+ * @return 자식이 없으면 undefined 입니다.
+ */
+function getSuccessor(node: BinaryTreeNode<number>): BinaryTreeNode<number> | undefined {
+  if (!node.right) {
+    return undefined;
+  }
+
+  let current = node.right;
+
+  while (true) {
+    if (current.left) {
+      current = current.left;
+    } else {
+      break;
+    }
+  }
+
+  return current;
 }
 
 /*************************************************************************************************************
@@ -41,7 +69,7 @@ export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, tar
 // function. It mainly works when the right child
 // is not empty, which is  the case we need in BST
 // delete.
-function getSuccessor(curr: BinaryTreeNode<number>) {
+function officialGetSuccessor(curr: BinaryTreeNode<number>) {
   // 애초에 자식이 있는 경우에만 이 함수 호출됨.
   let node = curr.right as BinaryTreeNode<number>;
   while (node !== undefined && node.left !== undefined) {
@@ -77,7 +105,7 @@ export function officialDeleteBST(root: BinaryTreeNode<number> | undefined, x: n
       return root.left;
 
     // When both children are present
-    let succ = getSuccessor(root);
+    let succ = officialGetSuccessor(root);
     root.data = succ.data;
     root.right = officialDeleteBST(root.right, succ.data);
   }
