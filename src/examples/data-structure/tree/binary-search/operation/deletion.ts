@@ -10,71 +10,70 @@ export function recursiveDeleteBST(root: BinaryTreeNode<number> | undefined, tar
     return root;
   }
 
+  // 노드를 반환해야하는 이유는, 삭제할 노드의 부모노드에서 연결을 끊어버릴 방법이 없음.
   function recursive(node: BinaryTreeNode<number> | undefined): BinaryTreeNode<number> | undefined {
     if (!node) {
       return undefined;
     }
 
     if (node.data !== target) {
-      const direction = node.data > target ? 'left' : 'right';
+      const direction: BinaryTreeDirection = node.data > target ? 'left' : 'right';
       node[direction] = recursive(node[direction]);
-      return node;
+      return node; // 리턴을 안하면 가장 마지막 재귀함수 부터 전부 다 undefined가 반환되서 노드 다없어져버림.
     }
 
-    // TODO 이걸 한번 더 재귀로 안돌리면 엄청 큰 BST에서 문제가 될거같은데...
-    const successor = calculateReplacedNode(node);
-    
-    // 삭제할 노드가 자식이 없는 경우 (Leaf)
-    if (!successor) {
+    // Case 1. Node is leaf
+    if (!node.left && !node.right) {
       return undefined;
-      
-    } else {
+    }
+
+    // Case 3. Node have two nodes
+    if (node.left && node.right) {
+      const successor = getSuccessor(node) as BinaryTreeNode<number>; // 항상 우측노드가 있으니까 assertion
       node.data = successor.data;
       return node;
     }
+
+    // Case 2. Node have a node
+    return node.left ?? node.right;
   }
 
-  recursive(root);
-
-  return root;
+  return recursive(root);
 }
 
 /**
- * @return 대체할 노드를 반환합니다. 대체할 수 있는 노드가 없으면 (= 자식이 없으면) undefined를 반환합니다.
- * @description
- * 1. successor의 부모노드에서 연결을 해제합니다. => 이걸 여기서 안하면 할 수 있는 곳이 없어서.
- * 2. 반환되는 successor의 left에는 노드가 없음을 보장합니다.
+ * 1. 대체할 노드 (Successor) 반환
+ * 2. 대체할 노드의 자식은 대체할 노드의 부모로 바로 이어주는 예외처리 함.
+ * 3. 우측자식이 없으면 undefined 반환함.
  */
-function calculateReplacedNode(node: BinaryTreeNode<number>): BinaryTreeNode<number> | undefined {
+function getSuccessor(node: BinaryTreeNode<number>): BinaryTreeNode<number> | undefined {
   if (!node.right) {
-    if (node.left) {
-      const replaced = node.left;
-      node.left = undefined;
-      return replaced;
-    } else {
-      return undefined;
-    }
+    return undefined;
   }
 
   let current = node.right;
-  let previousNode = node;
-  let previousDirection: BinaryTreeDirection = 'right';
+  let previous = node;
 
   while (true) {
-    if (current.left) {
-      previousDirection = 'left';
-      previousNode = current;
-      current = current.left;
-    } else {
+    if (!current.left) {
       break;
     }
+
+    previous = current;
+    current = current.left;
   }
 
   /**
-   * Case 1 대체할 노드에 자식이 없는 경우
-   * Case 2. 대체할 노드에 오른쪽 자식이 있는 경우
+   * 삭제 할 노드 (current)의 직전 노드와, current의 자식노드를 이어줘야 하는 상황인데,
+   * if 조건에 걸렸다는것은 current.left가 없다는 뜻이 되므로 current.right 자식으로 이어줌.
+   * else 조건도 왼쪽 끝까지 갔다는 뜻이 되기 때문에 결국 current.left가 없다는 뜻이 되므로 (이하 생략)
    */
-  previousNode[previousDirection] = current.right;
+  if (previous === node) {
+    previous.right = current.right;
+  } else {
+    previous.left = current.right;
+  }
+
   return current;
 }
 

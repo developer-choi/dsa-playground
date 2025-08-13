@@ -90,20 +90,15 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
     ]);
   });
 
-  it('기타 > 루트 노드를 삭제해도 잘 삭제되야한다.', () => {
-    const root = new BinaryTreeNode(50);
-    root.left = new BinaryTreeNode(40);
-    root.right = new BinaryTreeNode(60);
-    expect(fn(root, 50)?.data).toBe(60);
-    expect(summarizeBinaryTree(root)).toEqual([
-      {level: 0, data: 60, direction: undefined, parent: undefined},
-      {level: 1, data: 40, direction: 'left', parent: 60},
-    ]);
+  it('기타 > 한개 남은 노드를 삭제해도 잘 삭제되야한다.', () => {
+    let root: BinaryTreeNode<number> | undefined = new BinaryTreeNode(50);
+    root = fn(root, 50);
+    expect(root).toBe(undefined);
+    expect(summarizeBinaryTree(root)).toEqual([]);
   });
 });
 
 // TODO 또 내가 못찾은 케이스 있을 수 있으니 랜덤으로 삽입해서 랜덤으로 삭제해보자.
-// TODO 처음부터 끝까지 다 삭제하자.
 
 function createDeepBST() {
   const root = new BinaryTreeNode(50);

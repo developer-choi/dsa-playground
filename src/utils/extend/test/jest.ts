@@ -66,7 +66,11 @@ export function compareFunctionsWithRandomInputs<P extends unknown[], R>(options
  * @description 테스트코드에서 쓰기 위해 level, data만 따로 요약하는 함수
  * @return BFS 기준으로 순회해서 배열을 만들어서 level, data만 따로 추출하여 반환
  */
-export function summarizeBinaryTree<D>(root: BinaryTreeNode<D>): {level: number, data: D}[] {
+export function summarizeBinaryTree<D>(root: BinaryTreeNode<D> | undefined): {level: number, data: D}[] {
+  if (!root) {
+    return [];
+  }
+
   return [...breadthFirstTraversal(root)].map(({node, level, parent}) => ({
     level,
     data: node.data,
