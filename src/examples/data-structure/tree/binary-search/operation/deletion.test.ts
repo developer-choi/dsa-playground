@@ -1,6 +1,9 @@
 import {officialDeleteBST, recursiveDeleteBST} from '@/examples/data-structure/tree/binary-search/operation/deletion';
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {summarizeBinaryTree} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/extend/test/jest';
+import {randomInArray} from '@/utils/extend/test/random';
+import {iterativeInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
+import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 
 const algorithms = [
   {name: 'Official', fn: officialDeleteBST},
@@ -98,7 +101,26 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
   });
 });
 
-// TODO 또 내가 못찾은 케이스 있을 수 있으니 랜덤으로 삽입해서 랜덤으로 삭제해보자.
+describe('recursiveDeleteBST()', () => {
+  it('랜덤하게 삭제해도 동일한 결과가 나와야 한다.', () => {
+    compareFunctionsWithRandomInputs({
+      targetFunction: recursiveDeleteBST,
+      answerFunction: officialDeleteBST,
+      generateInput: () => {
+        const randomArray = randomNumericArray(20);
+        return [arrayToBST(randomArray), randomInArray(randomArray)[0]] as const;
+      },
+      handleError: ({input: [root, target], output, expected}) => {
+        console.error({
+          deleteTarget: target,
+          root: summarizeBinaryTree(root),
+          output: summarizeBinaryTree(output),
+          expected: summarizeBinaryTree(expected)
+        });
+      }
+    });
+  });
+});
 
 function createDeepBST() {
   const root = new BinaryTreeNode(50);
@@ -126,6 +148,16 @@ function createDeepBST() {
 
   // level5
   root.right.right.left.left.right = new BinaryTreeNode(74);
+
+  return root;
+}
+
+function arrayToBST([first, ...rest]: number[]) {
+  const root = new BinaryTreeNode(first);
+
+  for (const data of rest) {
+    iterativeInsertBST(root, data);
+  }
 
   return root;
 }

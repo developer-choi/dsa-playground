@@ -37,26 +37,27 @@ export interface CompareFunctionsOptions<P extends unknown[], R> {
   targetFunction: (...args: P) => R;
   answerFunction: (...args: P) => R;
   generateInput: () => P;
+  iterationCount?: number;
+  handleError?: (param: {input: P, output: R, expected: R}) => void;
 }
 
 // 함수와 정답함수가 서로 아웃풋이 같은지 비교하는 함수
 export function compareFunctionsWithRandomInputs<P extends unknown[], R>(options: CompareFunctionsOptions<P, R>) {
-  const {targetFunction, answerFunction, generateInput} = options;
-  const iterationCount = 50;
+  const {targetFunction, answerFunction, generateInput, handleError, iterationCount = 500} = options;
 
   for (let i = 0; i < iterationCount; i++) {
-    const inputs = generateInput();
-    const expected = answerFunction(...inputs);
-    const output = targetFunction(...inputs);
+    const input = generateInput();
+    const output = targetFunction(...input);
+    const expected = answerFunction(...input);
 
     try {
       expect(output).toEqual(expected);
     } catch (error) {
-      console.error({
-        input: JSON.stringify(inputs),
-        expected: JSON.stringify(expected),
-        output: JSON.stringify(output)
-      });
+      if (handleError) {
+        handleError({input, output, expected});
+      } else {
+        console.dir({input, output, expected}, {depth: 10});
+      }
       throw error;
     }
   }
