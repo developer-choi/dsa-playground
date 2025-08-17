@@ -131,6 +131,13 @@ describe('recursiveDeleteBST()', () => {
       }
     });
   });
+
+  it('should not change the tree when the target value to delete is not found', () => {
+    const original = createDeepBST();
+    const result = createDeepBST();
+    recursiveDeleteBST(result, 99999);
+    expect(original).toEqual(result);
+  });
 });
 
 function createDeepBST() {
