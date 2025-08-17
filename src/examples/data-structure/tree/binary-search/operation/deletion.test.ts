@@ -12,6 +12,17 @@ const algorithms = [
 
 // yarn test src/examples/data-structure/tree/binary-search/operation/deletion.test.ts
 describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $name', ({fn}) => {
+  test('재미나이가 제보한 오류 제보 테스트', () => {
+    const root = new BinaryTreeNode(20);
+    root.left = new BinaryTreeNode(10);
+    root.right = new BinaryTreeNode(30);
+    fn(root, 20);
+    expect(summarizeBinaryTree(root)).toEqual([
+      {level: 0, data: 30, direction: undefined, parent: undefined},
+      {level: 1, data: 10, direction: 'left', parent: 30},
+    ]);
+  });
+
   it('Case 1. 삭제할 노드가 리프노드여도 삭제가 잘 되야함', () => {
     const root = new BinaryTreeNode(50);
     root.left = new BinaryTreeNode(40);
