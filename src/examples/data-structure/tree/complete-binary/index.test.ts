@@ -6,7 +6,7 @@ const implementations = [
   {name: 'Array', fn: ArrayBinaryTree},
 ];
 
-// yarn test src/examples/data-structure/tree/complete-binary/test.ts
+// yarn test src/examples/data-structure/tree/complete-binary/index.test.ts
 describe.each(implementations)('Tree Implementation > $name', ({fn}) => {
   describe('General cases', () => {
     it('should add items correctly and maintain the tree structure', () => {

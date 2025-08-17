@@ -4,7 +4,7 @@ import StackUsingLinkedList from '@/examples/data-structure/stack/StackUsingLink
 
 const CAPACITY = 4;
 
-// yarn test src/examples/data-structure/stack/test.ts
+// yarn test src/examples/data-structure/stack/index.test.ts
 const stacks = [
   {name: 'StackUsingArray', createInstance: () => new StackUsingArray<number>(CAPACITY)},
   {name: 'StackUsingLinkedList', createInstance: () => new StackUsingLinkedList<number>()},
