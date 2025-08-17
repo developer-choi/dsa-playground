@@ -42,14 +42,12 @@ export class BinarySearchTree {
       return undefined;
     }
 
-    let result;
     let current: BinaryTreeNode<number> | undefined = this.root;
 
-    while (current) {
-      result = current.data;
+    while (current[direction]) {
       current = current[direction];
     }
 
-    return result;
+    return current.data;
   }
 }
