@@ -118,7 +118,7 @@ describe('recursiveDeleteBST()', () => {
       targetFunction: recursiveDeleteBST,
       answerFunction: officialDeleteBST,
       generateInput: () => {
-        const randomArray = randomNumericArray(20);
+        const randomArray = randomNumericArray(40);
         return [arrayToBST(randomArray), randomInArray(randomArray)[0]] as const;
       },
       handleError: ({input: [root, target], output, expected}) => {
