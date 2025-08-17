@@ -4,8 +4,11 @@ import {recursiveDeleteBST} from '@/examples/data-structure/tree/binary-search/o
 import {iterativeInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
 import {iterativeSearchBST} from '@/examples/data-structure/tree/binary-search/operation/search';
 
-export function determineBstDirection(node: BinaryTreeNode<number>, data: number): BinaryTreeDirection {
-  return node.data > data ? 'left' : 'right';
+/**
+ * @description node의 데이터와 target을 비교해서 왼쪽 / 오른쪽 노드중 어디로 탐색해야하는지 방향값을 반환합니다.
+ */
+export function determineBstDirection(node: BinaryTreeNode<number>, target: number): BinaryTreeDirection {
+  return node.data > target ? 'left' : 'right';
 }
 
 export class BinarySearchTree {

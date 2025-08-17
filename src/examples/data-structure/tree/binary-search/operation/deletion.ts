@@ -1,5 +1,6 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {BinaryTreeDirection} from '@/examples/data-structure/tree';
+import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/deletion-in-binary-search-tree/
@@ -11,7 +12,7 @@ export function recursiveDeleteBST(node: BinaryTreeNode<number> | undefined, tar
   }
 
   if (node.data !== target) {
-    const direction: BinaryTreeDirection = node.data > target ? 'left' : 'right';
+    const direction: BinaryTreeDirection = determineBstDirection(node, target);
     node[direction] = recursiveDeleteBST(node[direction], target);
     return node; // 리턴을 안하면 가장 마지막 재귀함수 부터 전부 다 undefined가 반환되서 노드 다없어져버림.
   }
