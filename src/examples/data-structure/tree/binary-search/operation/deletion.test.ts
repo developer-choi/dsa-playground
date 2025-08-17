@@ -11,8 +11,8 @@ const algorithms = [
 ];
 
 // yarn test src/examples/data-structure/tree/binary-search/operation/deletion.test.ts
-describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $name', ({fn}) => {
-  test('재미나이가 제보한 오류 제보 테스트', () => {
+describe.each(algorithms)('BST Deletion Cases from Official Docs > $name', ({fn}) => {
+  it('should correctly delete the root node with two children (Gemini\'s test case)', () => {
     const root = new BinaryTreeNode(20);
     root.left = new BinaryTreeNode(10);
     root.right = new BinaryTreeNode(30);
@@ -23,7 +23,7 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
     ]);
   });
 
-  it('Case 1. 삭제할 노드가 리프노드여도 삭제가 잘 되야함', () => {
+  it('Case 1: should correctly delete a leaf node', () => {
     const root = new BinaryTreeNode(50);
     root.left = new BinaryTreeNode(40);
     root.right = new BinaryTreeNode(60);
@@ -34,7 +34,7 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
     ]);
   });
 
-  it('Case 2-1. 삭제할 노드의 자식이 1개 이면서, 대체할 노드에도 자식이 있는 경우 대체할 노드의 자식의 연결방향이 잘 유지되야한다.', () => {
+  it('Case 2: should correctly delete a node with one child', () => {
     const root = new BinaryTreeNode(50);
     root.right = new BinaryTreeNode(60);
     root.right.right = new BinaryTreeNode(70);
@@ -45,7 +45,7 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
     ]);
   });
 
-  it('Case 2-2. 삭제할 노드의 자식이 1개 이면서, 대체할 노드에도 자식이 있는 경우 대체할 노드의 자식의 연결방향이 잘 유지되야한다.', () => {
+  it('Case 2: should correctly delete a node with one child, preserving the child\'s subtree', () => {
     const root = new BinaryTreeNode(50);
     root.right = new BinaryTreeNode(60);
     root.right.right = new BinaryTreeNode(70);
@@ -60,7 +60,7 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
     ]);
   });
 
-  it('Case 3-1. 삭제할 노드의 자식이 2개 이면서, 대체할 노드에 자식이 없는 경우 삭제가 잘 되야한다.', () => {
+  it('Case 3: should handle a node with two children (successor is a leaf)', () => {
     const root = createDeepBST();
 
     fn(root, 80);
@@ -82,7 +82,7 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
     ]);
   });
 
-  it('Case 3-2. 삭제할 노드의 자식이 2개 이면서, 대체할 노드에 자식이 있는 경우 삭제가 잘 되야한다.', () => {
+  it('Case 3: should handle a node with two children (successor has a right child)', () => {
     const root = createDeepBST();
 
     fn(root, 70);
@@ -104,7 +104,7 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
     ]);
   });
 
-  it('기타 > 한개 남은 노드를 삭제해도 잘 삭제되야한다.', () => {
+  it('Edge Case: should return undefined when deleting the last node', () => {
     let root: BinaryTreeNode<number> | undefined = new BinaryTreeNode(50);
     root = fn(root, 50);
     expect(root).toBe(undefined);
@@ -113,7 +113,7 @@ describe.each(algorithms)('공식문서에서 제시한 Deletion BST Cases > $na
 });
 
 describe('recursiveDeleteBST()', () => {
-  it('랜덤하게 삭제해도 동일한 결과가 나와야 한다.', () => {
+  it('should produce the same result as the official function for random trees', () => {
     compareFunctionsWithRandomInputs({
       targetFunction: recursiveDeleteBST,
       answerFunction: officialDeleteBST,
