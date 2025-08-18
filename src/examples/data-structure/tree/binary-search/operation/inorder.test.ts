@@ -58,6 +58,7 @@ describe.each(algorithms)('In-order Successor in BST using $name implementation'
 
     it('should return undefined if the target does not exist in the tree', () => {
       expect(fn(root, 99)).toBe(undefined);
+      expect(fn(root, -99)).toBe(undefined);
     });
   });
 });
