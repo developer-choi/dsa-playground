@@ -12,22 +12,23 @@ export function recursiveFloorBST(root: BinaryTreeNode<number>, target: number):
 
   function recursive(node: BinaryTreeNode<number> | undefined) {
     if (!node) {
-      return result;
-    }
-
-    if (node.data === target) {
-      return node.data;
+      return;
     }
 
     if (node.data <= target) {
       result = node.data;
     }
 
+    if (node.data === target) {
+      return;
+    }
+
     const direction = determineBstDirection(node, target);
     return recursive(node[direction]);
   }
 
-  return recursive(root);
+  recursive(root);
+  return result;
 }
 
 /**
