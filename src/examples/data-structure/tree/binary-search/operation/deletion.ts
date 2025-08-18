@@ -1,6 +1,6 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {BinaryTreeDirection} from '@/examples/data-structure/tree';
-import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
+import {determineBstDirection, getSuccessor} from '@/examples/data-structure/tree/binary-search';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/deletion-in-binary-search-tree/
@@ -31,7 +31,7 @@ export function recursiveDeleteBST(node: BinaryTreeNode<number> | undefined, tar
      * 중간에 Successor를 없애고 부모노드 - 손자노드를 바로 이어줘야했으니까.
      * 하지만 이젠 그럴필요가 없어졌음. 어차피 Successor는 항상 노드기준 우측이기 때문에,
      */
-    const successor = getSuccessor(node) as BinaryTreeNode<number>;
+    const successor = getSuccessor(node);
     node.data = successor.data;
     node.right = recursiveDeleteBST(node.right, successor.data);
     return node;
@@ -39,27 +39,6 @@ export function recursiveDeleteBST(node: BinaryTreeNode<number> | undefined, tar
 
   // Case 2. Node have a node
   return node.left ?? node.right;
-}
-
-/**
- * @return 대체할 노드 (Successor)를 반환함. 우측자식이 없으면 undefined 반환함.
- */
-function getSuccessor(node: BinaryTreeNode<number>): undefined | BinaryTreeNode<number> {
-  if (!node.right) {
-    return undefined;
-  }
-
-  let current = node.right;
-
-  while (true) {
-    if (!current.left) {
-      break;
-    }
-
-    current = current.left;
-  }
-
-  return current;
 }
 
 /*************************************************************************************************************
