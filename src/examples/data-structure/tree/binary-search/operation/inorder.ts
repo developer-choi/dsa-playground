@@ -1,5 +1,5 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {determineBstDirection, getSuccessor} from '@/examples/data-structure/tree/binary-search';
+import {BinaryTreeNode, findFarthestNode} from '@/examples/data-structure/tree/complete-binary';
+import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
@@ -30,7 +30,7 @@ export function recursiveInorderSuccessorBST(root: BinaryTreeNode<number> | unde
 
     // Case 1. node.right 가 있는 경우
     if (node.right !== undefined) {
-      return getSuccessor(node).data;
+      return findFarthestNode(node.right, 'left').data;
       // Case 2. node.right가 없는 경우
     } else {
       return potentialSuccessor;
@@ -74,7 +74,7 @@ export function iterativeInorderSuccessorBST(root: BinaryTreeNode<number> | unde
 
   // Case 1. target 노드 오른쪽에 다른 노드가 있는 경우
   if (current.right) {
-    return getSuccessor(current).data;
+    return findFarthestNode(current.right, 'left').data;
   }
 
   // Case 2. 노드 오른쪽에 다른 노드가 없는 경우 그냥 종료하고 최근에 저장해둔 potentialSuccessor 반환

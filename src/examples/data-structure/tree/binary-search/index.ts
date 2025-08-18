@@ -18,27 +18,6 @@ export function determineBstDirection(node: BinaryTreeNode<number>, target: numb
   return node.data > target ? 'left' : 'right';
 }
 
-/**
- * @return 대체할 노드 (Successor)를 반환함
- */
-export function getSuccessor(node: BinaryTreeNode<number>): BinaryTreeNode<number> {
-  if (node.right === undefined) {
-    throw new TypeError('전달된 node의 right에 자식이 반드시 존재해야합니다.');
-  }
-
-  let current = node.right as BinaryTreeNode<number>;
-
-  while (true) {
-    if (!current.left) {
-      break;
-    }
-
-    current = current.left;
-  }
-
-  return current;
-}
-
 export class BinarySearchTree {
   private root: BinaryTreeNode<number> | undefined;
 
