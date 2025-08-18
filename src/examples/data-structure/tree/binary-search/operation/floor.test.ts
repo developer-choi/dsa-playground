@@ -21,27 +21,52 @@ describe.each(algorithms)('Floor Operation in BST > $name', ({fn}) => {
   root.right.left.left = new BinaryTreeNode(55);
   root.right.left.right = new BinaryTreeNode(65);
 
-  it('should return the correct floor for a value between two nodes', () => {
-    expect(fn(root, 58)).toBe(55);
+  describe('General Cases', () => {
+    it('should return the correct floor for a value between two nodes', () => {
+      expect(fn(root, 58)).toBe(55);
+    });
+
+    it('should return the node value when the target is an exact match', () => {
+      expect(fn(root, 60)).toBe(60);
+    });
+
+    it('should return the correct floor for a target smaller than the root', () => {
+      expect(fn(root, 45)).toBe(40);
+    });
+
+    it('should return the root value when it is the correct floor', () => {
+      expect(fn(root, 52)).toBe(50);
+    });
+
+    it('should return -1 when the target is smaller than the smallest node', () => {
+      expect(fn(root, 10)).toBe(-1);
+    });
+
+    it('should return the maximum value when the target is larger than the largest node', () => {
+      expect(fn(root, 100)).toBe(80);
+    });
   });
 
-  it('should return the node value when the target is an exact match', () => {
-    expect(fn(root, 60)).toBe(60);
+  describe('Boundary Cases', () => {
+    it('should return the node value when the target is the smallest node', () => {
+      expect(fn(root, 20)).toBe(20);
+    });
+
+    it('should return the node value when the target is the largest node', () => {
+      expect(fn(root, 80)).toBe(80);
+    });
   });
 
-  it('should return the correct floor for a target smaller than the root', () => {
-    expect(fn(root, 45)).toBe(40);
-  });
+  describe('Edge Cases', () => {
+    it('should return -1 for an empty tree', () => {
+      expect(fn(undefined, 40)).toBe(-1);
+    });
 
-  it('should return the root value when it is the correct floor', () => {
-    expect(fn(root, 52)).toBe(50);
-  });
-
-  it('should return -1 when the target is smaller than the smallest node', () => {
-    expect(fn(root, 10)).toBe(-1);
-  });
-
-  it('should return the maximum value when the target is larger than the largest node', () => {
-    expect(fn(root, 100)).toBe(80);
+    it('should work correctly for a tree with only one node', () => {
+      const singleNode = new BinaryTreeNode(50);
+      expect(fn(singleNode, 50)).toBe(50);
+      expect(fn(singleNode, 100)).toBe(50);
+      expect(fn(singleNode, 10)).toBe(-1);
+    });
   });
 });
