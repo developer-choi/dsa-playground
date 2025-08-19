@@ -1,8 +1,12 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {
+  officialIsBST,
   recursiveInorderIsBST,
   recursiveMinMaxIsBST
 } from '@/examples/data-structure/tree/binary-search/operation/is-bst';
+import {compareFunctionsWithRandomInputs, updateRandomNodeData} from '@/utils/extend/test/jest';
+import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
+import {iterativeInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
 
 const algorithms = [
   {name: 'Min Max', fn: recursiveMinMaxIsBST},
@@ -38,5 +42,22 @@ describe.each(algorithms)('Check the tree is BST > $name', ({fn}) => {
     root.right.right = new BinaryTreeNode(25);
 
     expect(fn(root)).toBe(true);
+  });
+
+  it('should produce the correct output for random inputs', () => {
+    compareFunctionsWithRandomInputs({
+      targetFunction: fn,
+      answerFunction: officialIsBST,
+      generateInput: () => {
+        const [first, ...rest] = randomNumericArray(50);
+        const root = new BinaryTreeNode(first);
+        for (const data of rest) {
+          iterativeInsertBST(root, data);
+        }
+
+        updateRandomNodeData(root, 999);
+        return [root] as const;
+      }
+    });
   });
 });

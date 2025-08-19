@@ -1,5 +1,6 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {breadthFirstTraversal} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
+import {randomInArray} from '@/utils/extend/test/random';
 
 export interface RandomCase<P extends unknown[], R> {
   inputs: P;
@@ -78,4 +79,22 @@ export function summarizeBinaryTree<D>(root: BinaryTreeNode<D> | undefined): {le
     direction: parent?.direction,
     parent: parent?.node.data
   }));
+}
+
+/**
+ * @description root로 접근해서 임의의 node.data를 data로 수정하는 함수
+ */
+export function updateRandomNodeData(root: BinaryTreeNode<number>, newData: number) {
+  let current: BinaryTreeNode<number> = root;
+
+  while (true) {
+    const direction = randomInArray(['left', 'left', 'right', 'right', 'current'] as const)[0];
+
+    if (direction === 'current' || !current[direction]) {
+      current.data = newData;
+      return;
+    }
+
+    current = current[direction];
+  }
 }

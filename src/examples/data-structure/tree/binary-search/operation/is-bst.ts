@@ -61,4 +61,54 @@ export function recursiveInorderIsBST(root: BinaryTreeNode<number>): boolean {
   return recursive(root);
 }
 
+// https://www.geeksforgeeks.org/dsa/a-program-to-check-if-a-binary-tree-is-bst-or-not/#expected-approach-using-morris-traversal-on-time-and-o1-space
+export function officialIsBST(root: BinaryTreeNode<number>) {
+  let curr: BinaryTreeNode<number> | undefined = root;
+  let prevValue = -Infinity;
+
+  while (curr !== undefined) {
+    if (curr.left === undefined) {
+
+      // Process curr node
+      if (curr.data <= prevValue) {
+
+        // Not in ascending order
+        return false;
+      }
+      prevValue = curr.data;
+      curr = curr.right;
+    } else {
+
+      // Find the inorder predecessor of curr
+      let pre = curr.left;
+      while (pre.right !== undefined && pre.right !== curr) {
+        pre = pre.right;
+      }
+
+      if (pre.right === undefined) {
+
+        // Create a temporary thread to the curr node
+        pre.right = curr;
+        curr = curr.left;
+      } else {
+
+        // Remove the temporary thread
+        pre.right = undefined;
+
+        // Process the curr node
+        if (curr.data <= prevValue) {
+
+          // Not in ascending order
+          return false;
+        }
+        prevValue = curr.data;
+        curr = curr.right;
+      }
+    }
+  }
+
+  return true;
+}
+
+
 // TODO [Morris Traversal] https://www.geeksforgeeks.org/dsa/a-program-to-check-if-a-binary-tree-is-bst-or-not/
