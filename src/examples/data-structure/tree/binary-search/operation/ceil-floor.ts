@@ -1,5 +1,6 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
+import {traversalBST} from '@/examples/data-structure/tree/binary-search/operation/traversal';
 
 /**
  * ceil() URL: https://www.geeksforgeeks.org/dsa/floor-and-ceil-from-a-bst/
@@ -50,20 +51,16 @@ export function recursiveCeilOrFloorBST(mode: CeilOrFloorMode, root: BinaryTreeN
  * Auxiliary Space: O(1)
  */
 export function iterativeCeilOrFloorBST(mode: CeilOrFloorMode, root: BinaryTreeNode<number> | undefined, target: number): number | undefined {
-  let current: BinaryTreeNode<number> | undefined = root;
   let candidate: number | undefined = undefined;
 
-  while (current) {
-    if (isCandidate(mode, current, target)) {
-      candidate = current.data;
+  for(const {node} of traversalBST(root, target)) {
+    if (isCandidate(mode, node, target)) {
+      candidate = node.data;
     }
 
-    if (current.data === target) {
+    if (node.data === target) {
       break;
     }
-
-    const direction = determineBstDirection(current, target);
-    current = current[direction];
   }
 
   return candidate;

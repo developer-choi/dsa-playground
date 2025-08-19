@@ -1,6 +1,7 @@
 import {BinaryTreeNode, findFarthestNode} from '@/examples/data-structure/tree/complete-binary';
 import {determineBstDirection, invertDirection} from '@/examples/data-structure/tree/binary-search';
 import {BinaryTreeDirection} from '@/examples/data-structure/tree';
+import {traversalBST} from '@/examples/data-structure/tree/binary-search/operation/traversal';
 
 /**
  * successor URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
@@ -47,15 +48,14 @@ export function iterativeGetSuccessorOrPredecessorBST(mode: SuccessorOrPredecess
    * 1. target과 값이 동일한 노드가 나올 때 까지 순회를 하며,
    * 2. potentialSuccessor를 꾸준히 업데이트
    */
-  while (current) {
-    if (isPotential(mode, current, target)) {
-      potential = current.data;
+  for (const {node} of traversalBST(root, target)) {
+    current = node;
+
+    if (isPotential(mode, node, target)) {
+      potential = node.data;
     }
 
-    if (current.data !== target) {
-      const direction = determineBstDirection(current, target);
-      current = current[direction];
-    } else {
+    if (node.data === target) {
       break;
     }
   }

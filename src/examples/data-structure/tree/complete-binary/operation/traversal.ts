@@ -88,12 +88,7 @@ export function depthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined, trav
  * Time Complexity: O(n) ==> 모든 노드 1번씩 순회하는데 전부 1번씩만 순회했음.
  * Auxiliary Space: O(n/2) ==> O(n), 가장 메모리를 많이 쓸 때는 Complete Binary Tree에서 가장 마지막 레벨 순회할 때, 이 때 노드갯수는 전체갯수의 약 1/2 임.
  */
-export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): Generator<{
-  node: BinaryTreeNode<D>,
-  parent: InternalIterationItem<D>['parent'],
-  level: number,
-  index: number
-}, void, undefined> {
+export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): Generator<BinaryTreeTraversalItem<D>, void, undefined> {
   if (!root) {
     return;
   }
@@ -123,6 +118,13 @@ export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): 
     }
     level++;
   }
+}
+
+export interface BinaryTreeTraversalItem<D> {
+  node: BinaryTreeNode<D>,
+  parent: InternalIterationItem<D>['parent'],
+  level: number,
+  index: number
 }
 
 export interface InternalIterationItem<D> {

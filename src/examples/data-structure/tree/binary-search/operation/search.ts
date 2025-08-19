@@ -1,5 +1,6 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
+import {traversalBST} from '@/examples/data-structure/tree/binary-search/operation/traversal';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/binary-search-tree-set-1-search-and-insertion/
@@ -45,19 +46,11 @@ export function iterativeSearchBST(root: BinaryTreeNode<number> | undefined, dat
     return false;
   }
 
-  let nextSearchNode: BinaryTreeNode<number> = root;
-
-  while (true) {
-    if (nextSearchNode.data === data) {
+  for (const {node} of traversalBST(root, data)) {
+    if (node.data === data) {
       return true;
     }
-
-    const direction = determineBstDirection(nextSearchNode, data);
-
-    if (nextSearchNode[direction]) {
-      nextSearchNode = nextSearchNode[direction];
-    } else {
-      return false;
-    }
   }
+
+  return false;
 }
