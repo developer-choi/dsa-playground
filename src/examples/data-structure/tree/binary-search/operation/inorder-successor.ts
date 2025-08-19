@@ -28,11 +28,11 @@ export function recursiveInorderSuccessorBST(root: BinaryTreeNode<number> | unde
       return recursive(node[direction]);
     }
 
-    // Case 1. node.right 가 있는 경우
+    // Case 1. target 노드 오른쪽에 노드가 있는 경우
     if (node.right !== undefined) {
       return findFarthestNode(node.right, 'left').data;
-      // Case 2. node.right가 없는 경우
     } else {
+      // Case 2. 노드 오른쪽에 노드가 없는 경우 최근에 저장해둔 potentialSuccessor 반환
       return potentialSuccessor;
     }
   }
@@ -67,16 +67,16 @@ export function iterativeInorderSuccessorBST(root: BinaryTreeNode<number> | unde
     }
   }
 
-  // target과 동일한 노드를 못찾은 경우 무조건 undefined 반환. potentialSuccessor는 이 경ㅇ 무시되야함.
+  // target과 동일한 노드를 못찾은 경우 무조건 undefined 반환. potentialSuccessor는 이 경우 무시되야함.
   if (current?.data !== target) {
     return undefined;
   }
 
-  // Case 1. target 노드 오른쪽에 다른 노드가 있는 경우
+  // Case 1. target 노드 오른쪽에 노드가 있는 경우
   if (current.right) {
     return findFarthestNode(current.right, 'left').data;
   }
 
-  // Case 2. 노드 오른쪽에 다른 노드가 없는 경우 그냥 종료하고 최근에 저장해둔 potentialSuccessor 반환
+  // Case 2. 노드 오른쪽에 노드가 없는 경우 최근에 저장해둔 potentialSuccessor 반환
   return potentialSuccessor;
 }

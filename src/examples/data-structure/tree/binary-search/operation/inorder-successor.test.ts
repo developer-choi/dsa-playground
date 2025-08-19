@@ -3,10 +3,19 @@ import {
   iterativeInorderSuccessorBST,
   recursiveInorderSuccessorBST,
 } from './inorder-successor';
+import {
+  iterativeInorderPredecessorBST,
+  recursiveInorderPredecessorBST,
+} from './inorder-predecessor';
 
 const successorAlgorithms = [
   {name: 'Recursive', fn: recursiveInorderSuccessorBST},
   {name: 'Iterative', fn: iterativeInorderSuccessorBST},
+];
+
+const predecessorAlgorithms = [
+  {name: 'Recursive', fn: recursiveInorderPredecessorBST},
+  {name: 'Iterative', fn: iterativeInorderPredecessorBST},
 ];
 
 const mainRoot = new BinaryTreeNode(20);
@@ -41,5 +50,11 @@ const allTestCases = [
 describe.each(successorAlgorithms)('In-order Successor in BST > $name', ({fn}) => {
   test.each(allTestCases)('$description', ({tree, input, expected}) => {
     expect(fn(tree, input)).toBe(expected.successor);
+  });
+});
+
+describe.each(predecessorAlgorithms)('In-order Predecessor in BST > $name', ({fn}) => {
+  test.each(allTestCases)('$description', ({tree, input, expected}) => {
+    expect(fn(tree, input)).toBe(expected.predecessor);
   });
 });
