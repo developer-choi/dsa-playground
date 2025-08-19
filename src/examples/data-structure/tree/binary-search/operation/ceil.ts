@@ -7,8 +7,8 @@ import {determineBstDirection} from '@/examples/data-structure/tree/binary-searc
  * Time Complexity: O(h)
  * Auxiliary Space: O(h)
  */
-export function recursiveCeilBST(root: BinaryTreeNode<number> | undefined, target: number): number | -1 {
-  let result = -1;
+export function recursiveCeilBST(root: BinaryTreeNode<number> | undefined, target: number): number | undefined {
+  let result: number | undefined = undefined;
 
   function recursive(node: BinaryTreeNode<number> | undefined) {
     if (node === undefined) {
@@ -38,9 +38,9 @@ export function recursiveCeilBST(root: BinaryTreeNode<number> | undefined, targe
  * Time Complexity: O(h)
  * Auxiliary Space: O(1)
  */
-export function iterativeCeilBST(root: BinaryTreeNode<number> | undefined, target: number): number | -1 {
+export function iterativeCeilBST(root: BinaryTreeNode<number> | undefined, target: number): number | undefined {
   let current: BinaryTreeNode<number> | undefined = root;
-  let result = -1;
+  let result: number | undefined = undefined;
 
   while (current) {
     if (current.data >= target) {
