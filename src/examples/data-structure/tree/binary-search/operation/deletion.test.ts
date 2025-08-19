@@ -34,7 +34,7 @@ describe.each(algorithms)('BST Deletion Cases from Official Docs > $name', ({fn}
     ]);
   });
 
-  it('Case 2: should correctly delete a node with one child', () => {
+  it('Case 2-1: should correctly delete a node with one child', () => {
     const root = new BinaryTreeNode(50);
     root.right = new BinaryTreeNode(60);
     root.right.right = new BinaryTreeNode(70);
@@ -45,7 +45,7 @@ describe.each(algorithms)('BST Deletion Cases from Official Docs > $name', ({fn}
     ]);
   });
 
-  it('Case 2: should correctly delete a node with one child, preserving the child\'s subtree', () => {
+  it('Case 2-2: should correctly delete a node with one child, preserving the child\'s subtree', () => {
     const root = new BinaryTreeNode(50);
     root.right = new BinaryTreeNode(60);
     root.right.right = new BinaryTreeNode(70);
@@ -60,7 +60,7 @@ describe.each(algorithms)('BST Deletion Cases from Official Docs > $name', ({fn}
     ]);
   });
 
-  it('Case 3: should handle a node with two children (successor is a leaf)', () => {
+  it('Case 3-1: should handle a node with two children (successor is a leaf)', () => {
     const root = createDeepBST();
 
     fn(root, 80);
@@ -82,7 +82,7 @@ describe.each(algorithms)('BST Deletion Cases from Official Docs > $name', ({fn}
     ]);
   });
 
-  it('Case 3: should handle a node with two children (successor has a right child)', () => {
+  it('Case 3-2: should handle a node with two children (successor has a right child)', () => {
     const root = createDeepBST();
 
     fn(root, 70);
