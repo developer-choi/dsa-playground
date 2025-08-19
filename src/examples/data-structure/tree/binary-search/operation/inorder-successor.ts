@@ -12,7 +12,7 @@ export function recursiveInorderSuccessorBST(root: BinaryTreeNode<number> | unde
 
   function recursive(node: BinaryTreeNode<number> | undefined) {
     if (!node) {
-      return undefined;
+      return undefined; // 만약 node.data과 동일한 target을 못찾은 경우에도 여기를 통해 결과적으로 undefined가 반환됨.
     }
 
     /**
