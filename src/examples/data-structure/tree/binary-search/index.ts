@@ -3,8 +3,7 @@ import {BinaryTreeDirection} from '@/examples/data-structure/tree';
 import {recursiveDeleteBST} from '@/examples/data-structure/tree/binary-search/operation/deletion';
 import {iterativeInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
 import {iterativeSearchBST} from '@/examples/data-structure/tree/binary-search/operation/search';
-import {iterativeFloorBST} from '@/examples/data-structure/tree/binary-search/operation/floor';
-import {iterativeCeilBST} from '@/examples/data-structure/tree/binary-search/operation/ceil';
+import {iterativeCeilOrFloorBST} from '@/examples/data-structure/tree/binary-search/operation/ceil-floor';
 
 /**
  * @description node의 데이터와 target을 비교해서 왼쪽 / 오른쪽 노드중 어디로 탐색해야하는지 방향값을 반환합니다.
@@ -42,11 +41,11 @@ export class BinarySearchTree {
   }
 
   floor(target: number) {
-    return iterativeFloorBST(this.root, target);
+    return iterativeCeilOrFloorBST('floor', this.root, target);
   }
 
   ceil(target: number) {
-    return iterativeCeilBST(this.root, target);
+    return iterativeCeilOrFloorBST('ceil', this.root, target);
   }
 
   /**

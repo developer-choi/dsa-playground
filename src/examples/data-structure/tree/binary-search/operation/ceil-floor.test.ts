@@ -1,15 +1,11 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {iterativeFloorBST, recursiveFloorBST} from './floor';
-import {iterativeCeilBST, recursiveCeilBST} from './ceil';
+import {CeilOrFloorMode, iterativeCeilOrFloorBST, recursiveCeilOrFloorBST} from './ceil-floor';
 
-const floorAlgorithms = [
-  {name: 'Recursive', fn: recursiveFloorBST},
-  {name: 'Iterative', fn: iterativeFloorBST},
-];
+const modes: CeilOrFloorMode[] = ['ceil', 'floor'];
 
-const ceilAlgorithms = [
-  {name: 'Recursive', fn: recursiveCeilBST},
-  {name: 'Iterative', fn: iterativeCeilBST},
+const algorithms = [
+  {name: 'Recursive', fn: recursiveCeilOrFloorBST},
+  {name: 'Iterative', fn: iterativeCeilOrFloorBST},
 ];
 
 const generalRoot = new BinaryTreeNode(50);
@@ -43,14 +39,10 @@ const allTestCases = [
 ];
 
 // yarn test src/examples/data-structure/tree/binary-search/operation/ceil-floor.test.ts
-describe.each(floorAlgorithms)('Floor Operation in BST > $name', ({fn}) => {
-  test.each(allTestCases)('$description', ({tree, input, expected}) => {
-    expect(fn(tree, input)).toBe(expected.floor);
-  });
-});
-
-describe.each(ceilAlgorithms)('Ceil Operation in BST > $name', ({fn}) => {
-  test.each(allTestCases)('$description', ({tree, input, expected}) => {
-    expect(fn(tree, input)).toBe(expected.ceil);
+describe.each(modes)('%s Operation in BST', (mode) => {
+  describe.each(algorithms)('> $name implementation', ({fn}) => {
+    it.each(allTestCases)('$description', ({tree, input, expected}) => {
+      expect(fn(mode, tree, input)).toBe(expected[mode]);
+    });
   });
 });
