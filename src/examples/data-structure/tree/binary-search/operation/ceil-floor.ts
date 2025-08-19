@@ -4,7 +4,7 @@ import {determineBstDirection} from '@/examples/data-structure/tree/binary-searc
 /**
  * ceil() URL: https://www.geeksforgeeks.org/dsa/floor-and-ceil-from-a-bst/
  * floor() URL: https://www.geeksforgeeks.org/dsa/floor-in-binary-search-tree-bst/#expected-approach-1-using-recursion-oh-time-and-oh-space
- * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
+ * Doc: https://docs.google.com/document/d/1jCfMEmybcdEaWi0f__mAV1kNolpttWlrBn2q-pjf9E4/edit?tab=t.0
  * Time Complexity: O(h)
  * Auxiliary Space: O(h)
  */
@@ -45,7 +45,7 @@ export function recursiveCeilOrFloorBST(mode: CeilOrFloorMode, root: BinaryTreeN
 /**
  * ceil() URL: https://www.geeksforgeeks.org/dsa/floor-and-ceil-from-a-bst/
  * floor() URL: https://www.geeksforgeeks.org/dsa/floor-in-binary-search-tree-bst/#expected-approach-1-using-recursion-oh-time-and-oh-space
- * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
+ * Doc: https://docs.google.com/document/d/1jCfMEmybcdEaWi0f__mAV1kNolpttWlrBn2q-pjf9E4/edit?tab=t.0
  * Time Complexity: O(h)
  * Auxiliary Space: O(1)
  */

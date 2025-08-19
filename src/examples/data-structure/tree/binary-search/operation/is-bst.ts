@@ -2,7 +2,7 @@ import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/a-program-to-check-if-a-binary-tree-is-bst-or-not/#approach-1-using-specified-range-of-min-and-max-values-on-time-and-oh-space
- * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
+ * Doc: https://docs.google.com/document/d/1jCfMEmybcdEaWi0f__mAV1kNolpttWlrBn2q-pjf9E4/edit?tab=t.0
  *
  * Time Complexity: O(n), 다 체크 해야하니까.
  * Auxiliary Space: O(h), 재귀스택은 높이만큼만 생기니까.
@@ -25,7 +25,7 @@ export function recursiveMinMaxIsBST(root: BinaryTreeNode<number>): boolean {
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/a-program-to-check-if-a-binary-tree-is-bst-or-not/#optimal-approach-using-inorder-traversal-on-time-and-on-space
- * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
+ * Doc: https://docs.google.com/document/d/1jCfMEmybcdEaWi0f__mAV1kNolpttWlrBn2q-pjf9E4/edit?tab=t.0
  *
  * Time Complexity: 위와 같음
  * Auxiliary Space: 위와 같음

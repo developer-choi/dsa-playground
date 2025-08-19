@@ -3,7 +3,7 @@ import {determineBstDirection} from '@/examples/data-structure/tree/binary-searc
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/binary-search-tree-set-1-search-and-insertion/
- * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
+ * Doc: https://docs.google.com/document/d/1jCfMEmybcdEaWi0f__mAV1kNolpttWlrBn2q-pjf9E4/edit?tab=t.0
  *
  * Time Complexity
  * 1. O(h) - BST인 경우
@@ -35,7 +35,7 @@ export function recursiveSearchBST(root: BinaryTreeNode<number> | undefined, dat
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/binary-search-tree-set-1-search-and-insertion/
- * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
+ * Doc: https://docs.google.com/document/d/1jCfMEmybcdEaWi0f__mAV1kNolpttWlrBn2q-pjf9E4/edit?tab=t.0
  *
  * Time Complexity: 위의 재귀방식과 동일
  * Auxiliary Space: O(1)

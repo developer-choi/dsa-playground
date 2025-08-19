@@ -5,7 +5,7 @@ import {BinaryTreeDirection} from '@/examples/data-structure/tree';
 /**
  * successor URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
  * predecessor URL: https://www.geeksforgeeks.org/dsa/inorder-predecessor-in-binary-search-tree/
- * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
+ * Doc: https://docs.google.com/document/d/1jCfMEmybcdEaWi0f__mAV1kNolpttWlrBn2q-pjf9E4/edit?tab=t.0
  * Time Complexity: O(h)
  * Auxiliary Space: O(h)
  */
@@ -35,7 +35,7 @@ export function recursiveGetSuccessorOrPredecessorBST(mode: SuccessorOrPredecess
 /**
  * successor URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
  * predecessor URL: https://www.geeksforgeeks.org/dsa/inorder-predecessor-in-binary-search-tree/
- * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
+ * Doc: https://docs.google.com/document/d/1jCfMEmybcdEaWi0f__mAV1kNolpttWlrBn2q-pjf9E4/edit?tab=t.0
  * Time Complexity: O(h)
  * Auxiliary Space: O(1)
  */
