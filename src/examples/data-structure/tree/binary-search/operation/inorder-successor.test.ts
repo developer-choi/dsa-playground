@@ -1,21 +1,14 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {
-  iterativeInorderSuccessorBST,
-  recursiveInorderSuccessorBST,
+  iterativeGetSuccessorOrPredecessorBST,
+  recursiveGetSuccessorOrPredecessorBST, SuccessorOrPredecessorMode,
 } from './inorder-successor';
-import {
-  iterativeInorderPredecessorBST,
-  recursiveInorderPredecessorBST,
-} from './inorder-predecessor';
 
-const successorAlgorithms = [
-  {name: 'Recursive', fn: recursiveInorderSuccessorBST},
-  {name: 'Iterative', fn: iterativeInorderSuccessorBST},
-];
+const modes: SuccessorOrPredecessorMode[] = ['successor', 'predecessor'];
 
-const predecessorAlgorithms = [
-  {name: 'Recursive', fn: recursiveInorderPredecessorBST},
-  {name: 'Iterative', fn: iterativeInorderPredecessorBST},
+const algorithms = [
+  {name: 'Recursive', fn: recursiveGetSuccessorOrPredecessorBST},
+  {name: 'Iterative', fn: iterativeGetSuccessorOrPredecessorBST},
 ];
 
 const mainRoot = new BinaryTreeNode(20);
@@ -47,14 +40,10 @@ const allTestCases = [
 ];
 
 // yarn test src/examples/data-structure/tree/binary-search/operation/inorder-successor.test.ts
-describe.each(successorAlgorithms)('In-order Successor in BST > $name', ({fn}) => {
-  test.each(allTestCases)('$description', ({tree, input, expected}) => {
-    expect(fn(tree, input)).toBe(expected.successor);
-  });
-});
-
-describe.each(predecessorAlgorithms)('In-order Predecessor in BST > $name', ({fn}) => {
-  test.each(allTestCases)('$description', ({tree, input, expected}) => {
-    expect(fn(tree, input)).toBe(expected.predecessor);
+describe.each(modes)('In-order %s in BST', (mode) => {
+  describe.each(algorithms)('> $name implementation', ({ fn }) => {
+    test.each(allTestCases)('$description', ({ tree, input, expected }) => {
+      expect(fn(mode, tree, input)).toBe(expected[mode]);
+    });
   });
 });

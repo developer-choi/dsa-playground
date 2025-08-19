@@ -1,26 +1,24 @@
 import {BinaryTreeNode, findFarthestNode} from '@/examples/data-structure/tree/complete-binary';
-import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
+import {determineBstDirection, invertDirection} from '@/examples/data-structure/tree/binary-search';
+import {BinaryTreeDirection} from '@/examples/data-structure/tree';
 
 /**
- * URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
+ * successor URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
+ * predecessor URL: https://www.geeksforgeeks.org/dsa/inorder-predecessor-in-binary-search-tree/
  * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
  * Time Complexity: O(h)
  * Auxiliary Space: O(h)
  */
-export function recursiveInorderSuccessorBST(root: BinaryTreeNode<number> | undefined, target: number): number | undefined {
-  let potentialSuccessor: number | undefined = undefined;
+export function recursiveGetSuccessorOrPredecessorBST(mode: SuccessorOrPredecessorMode, root: BinaryTreeNode<number> | undefined, target: number): number | undefined {
+  let potential: number | undefined = undefined;
 
   function recursive(node: BinaryTreeNode<number> | undefined) {
     if (!node) {
       return undefined; // 만약 node.data과 동일한 target을 못찾은 경우에도 여기를 통해 결과적으로 undefined가 반환됨.
     }
 
-    /**
-     * If current node is greater , then it is a potential successor, we mark it as successor and proceed to left
-     * 공식문서에서 이 부분에 대한 코드
-     */
-    if (node.data > target) {
-      potentialSuccessor = node.data;
+    if (isPotential(mode, node, target)) {
+      potential = node.data;
     }
 
     if (node.data !== target) {
@@ -28,35 +26,30 @@ export function recursiveInorderSuccessorBST(root: BinaryTreeNode<number> | unde
       return recursive(node[direction]);
     }
 
-    // Case 1. target 노드 오른쪽에 노드가 있는 경우
-    if (node.right !== undefined) {
-      return findFarthestNode(node.right, 'left').data;
-    } else {
-      // Case 2. 노드 오른쪽에 노드가 없는 경우 최근에 저장해둔 potentialSuccessor 반환
-      return potentialSuccessor;
-    }
+    return determineFinalResult(mode, node, potential);
   }
 
   return recursive(root);
 }
 
 /**
- * URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
+ * successor URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
+ * predecessor URL: https://www.geeksforgeeks.org/dsa/inorder-predecessor-in-binary-search-tree/
  * Doc: https://docs.google.com/document/d/1m-20HfhQLC125fren7qysz80xt9lyJdtKUhqGmLR9_g/edit?tab=t.0
  * Time Complexity: O(h)
  * Auxiliary Space: O(1)
  */
-export function iterativeInorderSuccessorBST(root: BinaryTreeNode<number> | undefined, target: number): number | undefined {
+export function iterativeGetSuccessorOrPredecessorBST(mode: SuccessorOrPredecessorMode, root: BinaryTreeNode<number> | undefined, target: number): number | undefined {
   let current: BinaryTreeNode<number> | undefined = root;
-  let potentialSuccessor: number | undefined = undefined;
+  let potential: number | undefined = undefined;
 
   /**
    * 1. target과 값이 동일한 노드가 나올 때 까지 순회를 하며,
    * 2. potentialSuccessor를 꾸준히 업데이트
    */
   while (current) {
-    if (current.data > target) {
-      potentialSuccessor = current.data;
+    if (isPotential(mode, current, target)) {
+      potential = current.data;
     }
 
     if (current.data !== target) {
@@ -72,11 +65,44 @@ export function iterativeInorderSuccessorBST(root: BinaryTreeNode<number> | unde
     return undefined;
   }
 
-  // Case 1. target 노드 오른쪽에 노드가 있는 경우
-  if (current.right) {
-    return findFarthestNode(current.right, 'left').data;
-  }
+  return determineFinalResult(mode, current, potential);
+}
 
-  // Case 2. 노드 오른쪽에 노드가 없는 경우 최근에 저장해둔 potentialSuccessor 반환
-  return potentialSuccessor;
+export type SuccessorOrPredecessorMode = 'successor' | 'predecessor';
+
+/**
+ * successor = target보다 큰 노드들 중 제일 작은 값
+ * predecessor = target보다 작은 노드들 중 제일 큰 값
+ */
+function isPotential(mode: SuccessorOrPredecessorMode, node: BinaryTreeNode<number>, target: number) {
+  if (mode === 'successor') {
+    /**
+     * If current node is greater , then it is a potential successor, we mark it as successor and proceed to left
+     * 공식문서에서 이 부분에 대한 코드
+     */
+    return node.data > target;
+  } else {
+
+    /**
+     * If target > current node value, current node is potential predecessor - update predecessor and move right.
+     * 공식문서에서 이 부분에 대한 코드
+     */
+    return node.data < target;
+  }
+}
+
+function determineFinalResult(mode: SuccessorOrPredecessorMode, targetNode: BinaryTreeNode<number>, potential: number | undefined) {
+  /** (GFG 공식문서 설명 참고)
+   * successor의 경우, target 노드의 "오른쪽"에 자식이 있냐 없냐에 따라 처리가 달라지고,
+   * predecessor의 경우, "왼쪽"임.
+   */
+  const checkDirection: BinaryTreeDirection = mode === 'successor' ? 'right' : 'left'
+
+  // Case 1. 찾는 방향으로 자식노드가 있는 경우
+  if (targetNode[checkDirection] !== undefined) {
+    return findFarthestNode(targetNode[checkDirection], invertDirection(checkDirection)).data;
+  } else {
+    // Case 2. 없는 경우 최근에 저장해둔 potential 반환
+    return potential;
+  }
 }

@@ -17,6 +17,16 @@ export function determineBstDirection(node: BinaryTreeNode<number>, target: numb
   return node.data > target ? 'left' : 'right';
 }
 
+export function invertDirection(direction: BinaryTreeDirection): BinaryTreeDirection {
+  switch (direction) {
+    case 'left':
+      return 'right';
+
+    case 'right':
+      return 'left';
+  }
+}
+
 export class BinarySearchTree {
   private root: BinaryTreeNode<number> | undefined;
 
