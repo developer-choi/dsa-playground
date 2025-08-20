@@ -1,84 +1,58 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
 import {BinaryTreeDirection} from '@/examples/data-structure/tree';
 
+export type TraversalTreeType = DepthFirstTraversalType | 'breadth-first';
+
+export function* traverseTree<D>(node: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType): Generator<TraversalContext<D>, void, undefined> {
+  if (traversal === 'breadth-first') {
+    yield* breadthFirstTraversal(node);
+  } else {
+    yield* depthFirstTraversal(node, traversal);
+  }
+}
+
+export type DepthFirstTraversalType = 'inorder' | 'preorder' | 'postorder';
+
 /**
  * URL: https://www.geeksforgeeks.org/dsa/inorder-traversal-of-binary-tree/
  * URL: https://www.geeksforgeeks.org/dsa/preorder-traversal-of-binary-tree/
- * URL: https://www.geeksforgeeks.org/dsa/find-the-maximum-depth-or-height-of-a-tree/
  * URL: https://www.geeksforgeeks.org/dsa/postorder-traversal-of-binary-tree/
  * Doc: https://docs.google.com/document/d/1MzkBVNfFktmMl-0uR1oO31fDxC7LM47cI0Q8Kv6PWxU/edit?tab=t.0
  *
  * Time Complexity: O(n) ==> n개 노드 순회하는데 O(n)이 걸림.
  * Auxiliary Space: O(h) ==> 재귀라서 레벨 h 만큼의 스택이 생기기 때문. 최악은 O(n). skewed tree
+ *
+ * @description inorder라고 해서 진짜 inorder 순으로 노드를 방문하는건 아님. 처음에 root에서 제일 작은노드로 찾아가는 과정은 당연히 있음;
  */
-export function depthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined, traversal: 'inorder' | 'preorder' | 'postorder') {
-  if (!root) {
-    return {
-      array: [],
-      maxHeight: -1
-    };
-  }
+export function* depthFirstTraversal<D>(node: BinaryTreeNode<D> | undefined, traversal: DepthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
+  let index = 0;
 
-  const array: D[] = [];
-
-  // traversal 로직 하나로 이만큼의 추가정보를 알아낼 수 있다는 뜻
-  let maxHeight = 0;
-  // let length, 순회하면서 하나씩 더하면 전체 노드의 갯수 알아낼 수 있고, > https://www.geeksforgeeks.org/dsa/write-a-c-program-to-calculate-size-of-a-tree/
-  // n보다 크거나 작거나 같은 탐색도 순회하면서 할 수 있고 > https://www.geeksforgeeks.org/dsa/find-maximum-or-minimum-in-binary-tree/
-  // let sum = 0; 노드 총합 다 더하는것도 당연히 가능하고 > https://www.geeksforgeeks.org/dsa/check-if-a-given-binary-tree-is-sumtree/
-
-  function inorder(current: BinaryTreeNode<D>, height: number) {
-    maxHeight = Math.max(height, maxHeight);
-
-    if (current.left) {
-      inorder(current.left, height + 1);
+  function* recursive(node: BinaryTreeNode<D> | undefined, level: number, parent: InternalIterationItem<D>['parent']): Generator<TraversalContext<D>, void, undefined> {
+    if (!node) {
+      return node;
     }
 
-    array.push(current.data);
+    if (traversal === 'preorder') {
+      yield {node, level, index, parent};
+      index++;
+    }
 
-    if (current.right) {
-      inorder(current.right, height + 1);
+    yield* recursive(node.left, level + 1, {node, direction: 'left'});
+
+    if (traversal === 'inorder') {
+      yield {node, level, index, parent};
+      index++;
+    }
+
+    yield* recursive(node.right, level + 1, {node, direction: 'right'});
+
+    if (traversal === 'postorder') {
+      yield {node, level, index, parent};
+      index++;
     }
   }
 
-  function preorder(current: BinaryTreeNode<D>, height: number) {
-    maxHeight = Math.max(height, maxHeight);
-    array.push(current.data);
-
-    if (current.left) {
-      preorder(current.left, height + 1);
-    }
-
-    if (current.right) {
-      preorder(current.right, height + 1);
-    }
-  }
-
-  function postorder(current: BinaryTreeNode<D>, height: number) {
-    maxHeight = Math.max(height, maxHeight);
-    if (current.left) {
-      postorder(current.left, height + 1);
-    }
-
-    if (current.right) {
-      postorder(current.right, height + 1);
-    }
-
-    array.push(current.data);
-  }
-
-  const map = {
-    inorder,
-    preorder,
-    postorder
-  };
-
-  map[traversal](root, 0);
-
-  return {
-    array,
-    maxHeight
-  };
+  yield* recursive(node, 0, undefined);
 }
 
 /**
@@ -88,7 +62,7 @@ export function depthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined, trav
  * Time Complexity: O(n) ==> 모든 노드 1번씩 순회하는데 전부 1번씩만 순회했음.
  * Auxiliary Space: O(n/2) ==> O(n), 가장 메모리를 많이 쓸 때는 Complete Binary Tree에서 가장 마지막 레벨 순회할 때, 이 때 노드갯수는 전체갯수의 약 1/2 임.
  */
-export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): Generator<BinaryTreeTraversalItem<D>, void, undefined> {
+export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): Generator<TraversalContext<D>, void, undefined> {
   if (!root) {
     return;
   }
@@ -120,17 +94,20 @@ export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): 
   }
 }
 
-export interface BinaryTreeTraversalItem<D> {
-  node: BinaryTreeNode<D>,
-  parent: InternalIterationItem<D>['parent'],
+export interface TraversalContext<D> {
+  parent: undefined | {
+    node: BinaryTreeNode<D>;
+    direction: BinaryTreeDirection;
+  };
+  node: BinaryTreeNode<D>;
   level: number,
   index: number
 }
 
 export interface InternalIterationItem<D> {
-  node: BinaryTreeNode<D>,
   parent: undefined | {
     node: BinaryTreeNode<D>;
     direction: BinaryTreeDirection;
   };
+  node: BinaryTreeNode<D>;
 }
