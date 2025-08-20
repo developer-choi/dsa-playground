@@ -22,7 +22,14 @@ export function getMaxDepthInTree<D>(root: BinaryTreeNode<D> | undefined, traver
  * Doc: https://docs.google.com/document/d/1MzkBVNfFktmMl-0uR1oO31fDxC7LM47cI0Q8Kv6PWxU/edit?tab=t.0
  */
 export function getLengthInTree(root: BinaryTreeNode<any>, traversal: TraversalTreeType): number {
-  return [...traverseTree(root, traversal)].length;
+  // return [...traverseTree(root, traversal)].length; 이렇게 하면 Auxiliary Space가 O(n)이 됨.
+  let count = 0;
+
+  for (const _ of traverseTree(root, traversal)) {
+    count++;
+  }
+
+  return count;
 }
 
 /**
