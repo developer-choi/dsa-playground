@@ -1,5 +1,5 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {BinaryTreeDirection} from '@/examples/data-structure/tree';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
+import {BinaryTreeDirection} from '@/examples/data-structure/tree/binary/index';
 
 export type TraversalTreeType = DepthFirstTraversalType | 'breadth-first';
 

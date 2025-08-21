@@ -1,5 +1,5 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {TraversalTreeType, traverseTree} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
+import {TraversalTreeType, traverseTree} from '@/examples/data-structure/tree/binary/traversal';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/find-the-maximum-depth-or-height-of-a-tree/
@@ -21,7 +21,7 @@ export function getMaxDepthInTree<D>(root: BinaryTreeNode<D> | undefined, traver
  * URL: https://www.geeksforgeeks.org/dsa/write-a-c-program-to-calculate-size-of-a-tree/
  * Doc: https://docs.google.com/document/d/1MzkBVNfFktmMl-0uR1oO31fDxC7LM47cI0Q8Kv6PWxU/edit?tab=t.0
  */
-export function getLengthInTree(root: BinaryTreeNode<any>, traversal: TraversalTreeType): number {
+export function getNodeCount(root: BinaryTreeNode<any>, traversal: TraversalTreeType): number {
   // return [...traverseTree(root, traversal)].length; 이렇게 하면 Auxiliary Space가 O(n)이 됨.
   let count = 0;
 

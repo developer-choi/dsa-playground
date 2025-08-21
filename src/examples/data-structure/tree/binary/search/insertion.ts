@@ -1,6 +1,6 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
-import {traversalBST} from '@/examples/data-structure/tree/binary-search/operation/traversal';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
+import {traverseBST} from '@/examples/data-structure/tree/binary/search/traversal';
+import {determineBstDirection} from '@/examples/data-structure/tree/binary/search/index';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/insertion-in-binary-search-tree/
@@ -47,7 +47,7 @@ export function iterativeInsertBST(root: BinaryTreeNode<number> | undefined, dat
     return new BinaryTreeNode(data);
   }
 
-  for (const {node} of traversalBST(root, data)) {
+  for (const {node} of traverseBST(root, data)) {
     const nextDirection = determineBstDirection(node, data);
     // 이 코드라인에 대한 주석은 recursiveInsertBST() 동일 코드라인 참고
     if (!node[nextDirection]) {

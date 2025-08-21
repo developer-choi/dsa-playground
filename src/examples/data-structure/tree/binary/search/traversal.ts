@@ -1,10 +1,8 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {
-  TraversalContext, InternalIterationItem,
-} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
-import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
+import {InternalIterationItem, TraversalContext,} from '@/examples/data-structure/tree/binary/traversal';
+import {determineBstDirection} from '@/examples/data-structure/tree/binary/search/index';
 
-export function* traversalBST(root: BinaryTreeNode<number> | undefined, target: number): Generator<TraversalContext<number>> {
+export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: number): Generator<TraversalContext<number>> {
   if (!root) {
     return;
   }

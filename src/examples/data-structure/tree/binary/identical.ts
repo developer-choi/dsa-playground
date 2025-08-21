@@ -1,4 +1,4 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/write-c-code-to-determine-if-two-trees-are-identical/

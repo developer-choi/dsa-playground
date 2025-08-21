@@ -1,8 +1,8 @@
-import {officialDeleteBST, recursiveDeleteBST} from '@/examples/data-structure/tree/binary-search/operation/deletion';
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {officialDeleteBST, recursiveDeleteBST} from '@/examples/data-structure/tree/binary/search/deletion';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 import {compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/extend/test/jest';
 import {randomInArray} from '@/utils/extend/test/random';
-import {iterativeInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
+import {iterativeInsertBST} from '@/examples/data-structure/tree/binary/search/insertion';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 
 const algorithms = [
@@ -10,7 +10,7 @@ const algorithms = [
   {name: 'Mine', fn: recursiveDeleteBST},
 ];
 
-// yarn test src/examples/data-structure/tree/binary-search/operation/deletion.test.ts
+// yarn test src/examples/data-structure/tree/binary/search/deletion.test.ts
 describe.each(algorithms)('BST Deletion Cases from Official Docs > $name', ({fn}) => {
   it('should correctly delete the root node with two children (Gemini\'s test case)', () => {
     const root = new BinaryTreeNode(20);

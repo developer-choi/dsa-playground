@@ -1,19 +1,19 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 import {
   officialIsBST,
   recursiveInorderIsBST,
   recursiveMinMaxIsBST
-} from '@/examples/data-structure/tree/binary-search/operation/is-bst';
+} from '@/examples/data-structure/tree/binary/search/is-bst';
 import {compareFunctionsWithRandomInputs, updateRandomNodeData} from '@/utils/extend/test/jest';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {iterativeInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
+import {iterativeInsertBST} from '@/examples/data-structure/tree/binary/search/insertion';
 
 const algorithms = [
   {name: 'Min Max', fn: recursiveMinMaxIsBST},
   {name: 'Inorder', fn: recursiveInorderIsBST},
 ];
 
-// yarn test src/examples/data-structure/tree/binary-search/operation/is-bst.test.ts
+// yarn test src/examples/data-structure/tree/binary/search/is-bst.test.ts
 describe.each(algorithms)('Check the tree is BST > $name', ({fn}) => {
   it('should return false for an invalid BST (right subtree violation)', () => {
     const root = new BinaryTreeNode(10);

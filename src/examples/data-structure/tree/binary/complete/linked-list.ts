@@ -1,8 +1,9 @@
-import {BinaryTree, BinaryTreeNode} from './index';
-import {breadthFirstTraversal, InternalIterationItem} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
+import {BinaryTreeNode} from '../index';
+import {breadthFirstTraversal, InternalIterationItem} from '@/examples/data-structure/tree/binary/traversal';
+import {CompleteBinaryTree} from '@/examples/data-structure/tree/binary/complete/index';
 
 // Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
-export class LinkedListBinaryTree<D> extends BinaryTree<D> {
+export class LinkedListBinaryTree<D> extends CompleteBinaryTree<D> {
   private root: BinaryTreeNode<D> | undefined;
 
   /**

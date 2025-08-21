@@ -1,4 +1,4 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 import {CeilOrFloorMode, iterativeCeilOrFloorBST, recursiveCeilOrFloorBST} from './ceil-floor';
 
 const modes: CeilOrFloorMode[] = ['ceil', 'floor'];
@@ -38,7 +38,7 @@ const allTestCases = [
   {description: 'a single node tree (target is smaller)', tree: singleRoot, input: 10, expected: {floor: undefined, ceil: 50}},
 ];
 
-// yarn test src/examples/data-structure/tree/binary-search/operation/ceil-floor.test.ts
+// yarn test src/examples/data-structure/tree/binary/search/ceil-floor.test.ts
 describe.each(modes)('%s Operation in BST', (mode) => {
   describe.each(algorithms)('> $name implementation', ({fn}) => {
     it.each(allTestCases)('$description', ({tree, input, expected}) => {

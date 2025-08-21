@@ -1,9 +1,9 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
 import {
   getBoundary,
-  getLengthInTree,
+  getNodeCount,
   getMaxDepthInTree, isSumTree
-} from '@/examples/data-structure/tree/complete-binary/operation/application';
+} from '@/examples/data-structure/tree/binary/application';
 
 const algorithms = [
   {name: 'Breadth First', traversal: 'breadth-first'},
@@ -12,7 +12,7 @@ const algorithms = [
   {name: 'Depth First (postorder)', traversal: 'postorder'},
 ] as const;
 
-// yarn test src/examples/data-structure/tree/complete-binary/operation/application.test.ts
+// yarn test src/examples/data-structure/tree/binary/application.test.ts
 describe.each(algorithms)('Traverse Tree Algorithm > $name', ({traversal}) => {
   describe('getMaxDepthInTree()', () => {
     it('should return the correct depth for example 1', () => {
@@ -36,7 +36,7 @@ describe.each(algorithms)('Traverse Tree Algorithm > $name', ({traversal}) => {
     });
   });
 
-  describe('getLengthInTree()', () => {
+  describe('getNodeCount()', () => {
     it('should return the correct number of nodes', () => {
       const root = new BinaryTreeNode(5);
       root.left = new BinaryTreeNode(1);
@@ -44,7 +44,7 @@ describe.each(algorithms)('Traverse Tree Algorithm > $name', ({traversal}) => {
       root.left.left = new BinaryTreeNode(3);
       root.right.left = new BinaryTreeNode(7);
       root.right.right = new BinaryTreeNode(4);
-      expect(getLengthInTree(root, traversal)).toBe(6);
+      expect(getNodeCount(root, traversal)).toBe(6);
     });
   });
 

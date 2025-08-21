@@ -1,14 +1,14 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 import {summarizeBinaryTree} from '@/utils/extend/test/jest';
-import {iterativeSearchBST, recursiveSearchBST} from '@/examples/data-structure/tree/binary-search/operation/search';
-import {iterativeInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
+import {iterativeSearchBST, recursiveSearchBST} from '@/examples/data-structure/tree/binary/search/search';
+import {iterativeInsertBST} from '@/examples/data-structure/tree/binary/search/insertion';
 
 const algorithms = [
   {name: 'Recursive', fn: recursiveSearchBST},
   {name: 'Iterative', fn: iterativeSearchBST},
 ];
 
-// yarn test src/examples/data-structure/tree/binary-search/operation/search.test.ts
+// yarn test src/examples/data-structure/tree/binary/search/search.test.ts
 describe.each(algorithms)('Search BST > $name', ({fn}) => {
   it('should return true for existing values and false for non-existing values', () => {
     let root = new BinaryTreeNode(50);

@@ -1,7 +1,7 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
-import {breadthFirstTraversal} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
+import {breadthFirstTraversal} from '@/examples/data-structure/tree/binary/traversal';
 import {randomInArray} from '@/utils/extend/test/random';
-import {BinaryTreeDirection} from '@/examples/data-structure/tree';
+import {BinaryTreeDirection} from '@/examples/data-structure/tree/binary';
 
 export interface RandomCase<P extends unknown[], R> {
   inputs: P;

@@ -1,6 +1,6 @@
-import {BinarySearchTree} from '@/examples/data-structure/tree/binary-search/index';
+import {BinarySearchTree} from '@/examples/data-structure/tree/binary/search/BinarySearchTree';
 
-// yarn test src/examples/data-structure/tree/binary-search/index.test.ts
+// yarn test src/examples/data-structure/tree/binary/search/BinarySearchTree.test.ts
 describe('BinarySearchTree', () => {
   describe('General cases', () => {
     it('should be able to find the minimum and maximum values in the tree', () => {

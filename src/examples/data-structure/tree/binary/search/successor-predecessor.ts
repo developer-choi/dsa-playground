@@ -1,7 +1,8 @@
-import {BinaryTreeNode, findFarthestNode} from '@/examples/data-structure/tree/complete-binary';
-import {determineBstDirection, invertDirection} from '@/examples/data-structure/tree/binary-search';
-import {BinaryTreeDirection} from '@/examples/data-structure/tree';
-import {traversalBST} from '@/examples/data-structure/tree/binary-search/operation/traversal';
+import {BinaryTreeNode, findLastNodeInDirection} from '@/examples/data-structure/tree/binary';
+import {invertDirection} from '@/examples/data-structure/tree/binary';
+import {BinaryTreeDirection} from '@/examples/data-structure/tree/binary';
+import {traverseBST} from '@/examples/data-structure/tree/binary/search/traversal';
+import {determineBstDirection} from '@/examples/data-structure/tree/binary/search/index';
 
 /**
  * successor URL: https://www.geeksforgeeks.org/dsa/inorder-successor-in-binary-search-tree/
@@ -48,7 +49,7 @@ export function iterativeGetSuccessorOrPredecessorBST(mode: SuccessorOrPredecess
    * 1. target과 값이 동일한 노드가 나올 때 까지 순회를 하며,
    * 2. potentialSuccessor를 꾸준히 업데이트
    */
-  for (const {node} of traversalBST(root, target)) {
+  for (const {node} of traverseBST(root, target)) {
     current = node;
 
     if (isPotential(mode, node, target)) {
@@ -100,7 +101,7 @@ function determineFinalResult(mode: SuccessorOrPredecessorMode, targetNode: Bina
 
   // Case 1. 찾는 방향으로 자식노드가 있는 경우
   if (targetNode[checkDirection] !== undefined) {
-    return findFarthestNode(targetNode[checkDirection], invertDirection(checkDirection)).data;
+    return findLastNodeInDirection(targetNode[checkDirection], invertDirection(checkDirection)).data;
   } else {
     // Case 2. 없는 경우 최근에 저장해둔 potential 반환
     return potential;

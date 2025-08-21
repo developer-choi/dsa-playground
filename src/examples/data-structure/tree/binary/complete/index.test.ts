@@ -1,12 +1,12 @@
-import {LinkedListBinaryTree} from '@/examples/data-structure/tree/complete-binary/linked-list';
-import {ArrayBinaryTree} from '@/examples/data-structure/tree/complete-binary/array';
+import {LinkedListBinaryTree} from '@/examples/data-structure/tree/binary/complete/linked-list';
+import {ArrayBinaryTree} from '@/examples/data-structure/tree/binary/complete/array';
 
 const implementations = [
   {name: 'Linked List', fn: LinkedListBinaryTree},
   {name: 'Array', fn: ArrayBinaryTree},
 ];
 
-// yarn test src/examples/data-structure/tree/complete-binary/index.test.ts
+// yarn test src/examples/data-structure/tree/binary/complete/index.test.ts
 describe.each(implementations)('Tree Implementation > $name', ({fn}) => {
   describe('General cases', () => {
     it('should add items correctly and maintain the tree structure', () => {

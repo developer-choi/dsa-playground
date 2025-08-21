@@ -1,35 +1,7 @@
-import {BinaryTreeDirection} from '@/examples/data-structure/tree';
-
-export class BinaryTreeNode<D> {
-  left: BinaryTreeNode<D> | undefined;
-  right: BinaryTreeNode<D> | undefined;
-  data: D;
-
-  constructor(data: D) {
-    this.data = data;
-  }
-}
-
-
-/**
- * @return 노드의 direction 방향의 끝에 있는 노드를 반환
- */
-export function findFarthestNode(node: BinaryTreeNode<number>, direction: BinaryTreeDirection): BinaryTreeNode<number> {
-  let current = node;
-
-  while (true) {
-    if (!current[direction]) {
-      return current;
-    }
-
-    current = current[direction];
-  }
-}
-
 /**
  * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0#heading=h.tv71ehud6a1w
  */
-export abstract class BinaryTree<D> {
+export abstract class CompleteBinaryTree<D> {
   private _length: number;
 
   constructor() {

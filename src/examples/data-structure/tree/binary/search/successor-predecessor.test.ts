@@ -1,4 +1,4 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 import {
   iterativeGetSuccessorOrPredecessorBST,
   recursiveGetSuccessorOrPredecessorBST, SuccessorOrPredecessorMode,
@@ -39,7 +39,7 @@ const allTestCases = [
   {description: 'for a non-existent target (smaller than all nodes)', tree: mainRoot, input: -99, expected: {successor: undefined, predecessor: undefined}},
 ];
 
-// yarn test src/examples/data-structure/tree/binary-search/operation/successor-predecessor.test.ts
+// yarn test src/examples/data-structure/tree/binary/search/successor-predecessor.test.ts
 describe.each(modes)('In-order %s in BST', (mode) => {
   describe.each(algorithms)('> $name implementation', ({ fn }) => {
     test.each(allTestCases)('$description', ({ tree, input, expected }) => {

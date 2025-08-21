@@ -1,6 +1,6 @@
-import {BinaryTreeNode, findFarthestNode} from '@/examples/data-structure/tree/complete-binary';
-import {BinaryTreeDirection} from '@/examples/data-structure/tree';
-import {determineBstDirection} from '@/examples/data-structure/tree/binary-search';
+import {BinaryTreeNode, findLastNodeInDirection} from '@/examples/data-structure/tree/binary';
+import {BinaryTreeDirection} from '@/examples/data-structure/tree/binary';
+import {determineBstDirection} from '@/examples/data-structure/tree/binary/search/index';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/deletion-in-binary-search-tree/
@@ -31,7 +31,7 @@ export function recursiveDeleteBST(node: BinaryTreeNode<number> | undefined, tar
      * 중간에 Successor를 없애고 부모노드 - 손자노드를 바로 이어줘야했으니까.
      * 하지만 이젠 그럴필요가 없어졌음. 어차피 Successor는 항상 노드기준 우측이기 때문에,
      */
-    const successor = findFarthestNode(node.right, 'left');
+    const successor = findLastNodeInDirection(node.right, 'left');
     node.data = successor.data;
     node.right = recursiveDeleteBST(node.right, successor.data);
     return node;

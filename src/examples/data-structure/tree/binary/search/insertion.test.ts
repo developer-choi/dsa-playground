@@ -1,5 +1,5 @@
-import {iterativeInsertBST, recursiveInsertBST} from '@/examples/data-structure/tree/binary-search/operation/insertion';
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {iterativeInsertBST, recursiveInsertBST} from '@/examples/data-structure/tree/binary/search/insertion';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 import {summarizeBinaryTree} from '@/utils/extend/test/jest';
 
 const algorithms = [
@@ -7,7 +7,7 @@ const algorithms = [
   {name: 'Iterative', fn: iterativeInsertBST},
 ];
 
-// yarn test src/examples/data-structure/tree/binary-search/operation/insertion.test.ts
+// yarn test src/examples/data-structure/tree/binary/search/insertion.test.ts
 describe.each(algorithms)('Insertion BST > $name', ({fn}) => {
   it('should insert multiple nodes to form a balanced tree', () => {
     const root = new BinaryTreeNode(50);

@@ -1,5 +1,5 @@
-import {traverseTree} from '@/examples/data-structure/tree/complete-binary/operation/traversal';
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {traverseTree} from '@/examples/data-structure/tree/binary/traversal';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
 import {SummaryBinaryTree} from '@/utils/extend/test/jest';
 
 const root = new BinaryTreeNode(5);
@@ -28,7 +28,7 @@ const NODE_8: SummaryBinaryTree<number> = {level: 3, data: 8, direction: 'left',
 const NODE_2: SummaryBinaryTree<number> = {level: 2, data: 2, direction: 'right', parent: 13};
 const NODE_11: SummaryBinaryTree<number> = {level: 3, data: 11, direction: 'right', parent: 2};
 
-// yarn test src/examples/data-structure/tree/complete-binary/operation/traversal.test.ts
+// yarn test src/examples/data-structure/tree/binary/traversal.test.ts
 describe('traversalTree', () => {
   const traversalCases = [
     {

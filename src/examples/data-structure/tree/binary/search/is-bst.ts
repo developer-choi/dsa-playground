@@ -1,4 +1,4 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/complete-binary';
+import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/a-program-to-check-if-a-binary-tree-is-bst-or-not/#approach-1-using-specified-range-of-min-and-max-values-on-time-and-oh-space
