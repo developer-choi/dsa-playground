@@ -8,16 +8,18 @@ const algorithms = [
 
 // yarn test src/examples/data-structure/tree/binary/identical.test.ts
 describe.each(algorithms)('Depth First Traversal > $name', ({fn}) => {
-  const root1 = new BinaryTreeNode(1);
-  const root2 = new BinaryTreeNode(1);
+  let root1: BinaryTreeNode<number>;
+  let root2: BinaryTreeNode<number>;
 
   beforeEach(() => {
+    root1 = new BinaryTreeNode(1);
     root1.left = new BinaryTreeNode(2);
     root1.right = new BinaryTreeNode(3);
     root1.left.left = new BinaryTreeNode(4);
     root1.left.right = new BinaryTreeNode(5);
     root1.right.right = new BinaryTreeNode(6);
 
+    root2 = new BinaryTreeNode(1);
     root2.left = new BinaryTreeNode(2);
     root2.right = new BinaryTreeNode(3);
     root2.left.left = new BinaryTreeNode(4);
