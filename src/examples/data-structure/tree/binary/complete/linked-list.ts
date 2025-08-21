@@ -1,5 +1,5 @@
 import {BinaryTreeNode} from '../index';
-import {breadthFirstTraversal, InternalIterationItem} from '@/examples/data-structure/tree/binary/traversal';
+import {InternalIterationItem, traverseAllNodes} from '@/examples/data-structure/tree/binary/traversal';
 import {CompleteBinaryTree} from '@/examples/data-structure/tree/binary/complete/index';
 
 // Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
@@ -18,7 +18,7 @@ export class LinkedListBinaryTree<D> extends CompleteBinaryTree<D> {
       return;
     }
 
-    for (const {node} of breadthFirstTraversal(this.root)) {
+    for (const {node} of traverseAllNodes(this.root, 'breadth-first')) {
       if (!node.left) {
         node.left = new BinaryTreeNode<D>(data);
         return;
@@ -35,7 +35,7 @@ export class LinkedListBinaryTree<D> extends CompleteBinaryTree<D> {
     let deletedNode: BinaryTreeNode<D> | undefined;
     let lastIterationItem: InternalIterationItem<D> | undefined;
 
-    for (const item of breadthFirstTraversal(this.root)) {
+    for (const item of traverseAllNodes(this.root, 'breadth-first')) {
       // 최초로 데이터가 똑같은 경우에만 할당
       if (item.node.data === data && !deletedNode) {
         deletedNode = item.node;
@@ -63,7 +63,7 @@ export class LinkedListBinaryTree<D> extends CompleteBinaryTree<D> {
   }
 
   public* [Symbol.iterator](): Generator<{data: D, level: number, index: number}, void, undefined> {
-    for (const {node, level, index} of breadthFirstTraversal(this.root)) {
+    for (const {node, level, index} of traverseAllNodes(this.root, 'breadth-first')) {
       yield {data: node.data, level, index};
     }
   }

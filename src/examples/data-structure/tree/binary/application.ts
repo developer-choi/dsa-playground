@@ -1,5 +1,5 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
-import {TraversalTreeType, traverseTree} from '@/examples/data-structure/tree/binary/traversal';
+import {TraversalTreeType, traverseAllNodes} from '@/examples/data-structure/tree/binary/traversal';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/find-the-maximum-depth-or-height-of-a-tree/
@@ -8,7 +8,7 @@ import {TraversalTreeType, traverseTree} from '@/examples/data-structure/tree/bi
 export function getMaxDepthInTree<D>(root: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType): number | -1 {
   let maxDepth = -1;
 
-  for (const {level} of traverseTree(root, traversal)) {
+  for (const {level} of traverseAllNodes(root, traversal)) {
     if (maxDepth < level) {
       maxDepth = level;
     }
@@ -25,7 +25,7 @@ export function getNodeCount(root: BinaryTreeNode<any>, traversal: TraversalTree
   // return [...traverseTree(root, traversal)].length; 이렇게 하면 Auxiliary Space가 O(n)이 됨.
   let count = 0;
 
-  for (const _ of traverseTree(root, traversal)) {
+  for (const _ of traverseAllNodes(root, traversal)) {
     count++;
   }
 
@@ -47,7 +47,7 @@ export function getBoundary(root: BinaryTreeNode<number> | undefined, traversal:
   let min = Infinity;
   let max = -Infinity;
 
-  for (const {node: {data}} of traverseTree(root, traversal)) {
+  for (const {node: {data}} of traverseAllNodes(root, traversal)) {
     max = Math.max(data, max);
     min = Math.min(data, min);
   }
@@ -64,7 +64,7 @@ export function getBoundary(root: BinaryTreeNode<number> | undefined, traversal:
 export function isSumTree(root: BinaryTreeNode<number>, traversal: TraversalTreeType): boolean {
   let sum = 0;
 
-  for (const {node: {data}} of traverseTree(root, traversal)) {
+  for (const {node: {data}} of traverseAllNodes(root, traversal)) {
     sum += data;
   }
 

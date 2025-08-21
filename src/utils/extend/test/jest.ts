@@ -1,7 +1,7 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
-import {breadthFirstTraversal} from '@/examples/data-structure/tree/binary/traversal';
 import {randomInArray} from '@/utils/extend/test/random';
 import {BinaryTreeDirection} from '@/examples/data-structure/tree/binary';
+import {traverseAllNodes} from '@/examples/data-structure/tree/binary/traversal';
 
 export interface RandomCase<P extends unknown[], R> {
   inputs: P;
@@ -81,7 +81,7 @@ export function summarizeBinaryTree<D>(root: BinaryTreeNode<D> | undefined): Sum
     return [];
   }
 
-  return [...breadthFirstTraversal(root)].map(({node, level, parent}) => ({
+  return [...traverseAllNodes(root, 'breadth-first')].map(({node, level, parent}) => ({
     level,
     data: node.data,
     direction: parent?.direction,

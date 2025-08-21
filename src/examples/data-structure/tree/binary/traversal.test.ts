@@ -1,4 +1,4 @@
-import {traverseTree} from '@/examples/data-structure/tree/binary/traversal';
+import {traverseAllNodes} from '@/examples/data-structure/tree/binary/traversal';
 import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
 import {SummaryBinaryTree} from '@/utils/extend/test/jest';
 
@@ -50,7 +50,7 @@ describe('traversalTree', () => {
   ];
 
   it.each(traversalCases)('should return nodes in $mode order', ({mode, expected}) => {
-    const result = [...traverseTree(root, mode)].map(
+    const result = [...traverseAllNodes(root, mode)].map(
       ({level, node, parent}) => ({
         level,
         data: node.data,

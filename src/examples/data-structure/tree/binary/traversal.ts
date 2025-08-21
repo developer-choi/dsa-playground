@@ -2,17 +2,42 @@ import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
 import {BinaryTreeDirection} from '@/examples/data-structure/tree/binary/index';
 
 export type TraversalTreeType = DepthFirstTraversalType | 'breadth-first';
+export type DepthFirstTraversalType = 'inorder' | 'preorder' | 'postorder';
 
-export function* traverseTree<D>(node: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType): Generator<TraversalContext<D>, void, undefined> {
+export interface TraversalContext<D> {
+  parent: undefined | {
+    node: BinaryTreeNode<D>;
+    direction: BinaryTreeDirection;
+  };
+  node: BinaryTreeNode<D>;
+  level: number,
+  index: number
+}
+
+export interface InternalIterationItem<D> {
+  parent: undefined | {
+    node: BinaryTreeNode<D>;
+    direction: BinaryTreeDirection;
+  };
+  node: BinaryTreeNode<D>;
+}
+
+/**
+ * @description Binary Tree의 모든 노드를 순회합니다.
+ * @param node 순회할 노드들의 루트노드
+ * @param traversal 순회 방법 (DFS, BFS)
+ */
+export function* traverseAllNodes<D>(node: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType): Generator<TraversalContext<D>, void, undefined> {
   if (traversal === 'breadth-first') {
-    yield* breadthFirstTraversal(node);
+    yield* traverseBreadthFirst(node);
   } else {
-    yield* depthFirstTraversal(node, traversal);
+    yield* traverseDepthFirst(node, traversal);
   }
 }
 
-export type DepthFirstTraversalType = 'inorder' | 'preorder' | 'postorder';
-
+/*************************************************************************************************************
+ * Non Export
+ *************************************************************************************************************/
 /**
  * URL: https://www.geeksforgeeks.org/dsa/inorder-traversal-of-binary-tree/
  * URL: https://www.geeksforgeeks.org/dsa/preorder-traversal-of-binary-tree/
@@ -24,7 +49,7 @@ export type DepthFirstTraversalType = 'inorder' | 'preorder' | 'postorder';
  *
  * @description inorder라고 해서 진짜 inorder 순으로 노드를 방문하는건 아님. 처음에 root에서 제일 작은노드로 찾아가는 과정은 당연히 있음;
  */
-export function* depthFirstTraversal<D>(node: BinaryTreeNode<D> | undefined, traversal: DepthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
+function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: DepthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
   let index = 0;
 
   function* recursive(node: BinaryTreeNode<D> | undefined, level: number, parent: InternalIterationItem<D>['parent']): Generator<TraversalContext<D>, void, undefined> {
@@ -62,7 +87,7 @@ export function* depthFirstTraversal<D>(node: BinaryTreeNode<D> | undefined, tra
  * Time Complexity: O(n) ==> 모든 노드 1번씩 순회하는데 전부 1번씩만 순회했음.
  * Auxiliary Space: O(n/2) ==> O(n), 가장 메모리를 많이 쓸 때는 Complete Binary Tree에서 가장 마지막 레벨 순회할 때, 이 때 노드갯수는 전체갯수의 약 1/2 임.
  */
-export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): Generator<TraversalContext<D>, void, undefined> {
+function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined): Generator<TraversalContext<D>, void, undefined> {
   if (!root) {
     return;
   }
@@ -92,22 +117,4 @@ export function* breadthFirstTraversal<D>(root: BinaryTreeNode<D> | undefined): 
     }
     level++;
   }
-}
-
-export interface TraversalContext<D> {
-  parent: undefined | {
-    node: BinaryTreeNode<D>;
-    direction: BinaryTreeDirection;
-  };
-  node: BinaryTreeNode<D>;
-  level: number,
-  index: number
-}
-
-export interface InternalIterationItem<D> {
-  parent: undefined | {
-    node: BinaryTreeNode<D>;
-    direction: BinaryTreeDirection;
-  };
-  node: BinaryTreeNode<D>;
 }
