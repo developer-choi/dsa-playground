@@ -36,7 +36,14 @@ export function getNodeCount(root: BinaryTreeNode<any>, traversal: TraversalTree
  * URL: https://www.geeksforgeeks.org/dsa/find-maximum-or-minimum-in-binary-tree/
  * Doc: https://docs.google.com/document/d/1MzkBVNfFktmMl-0uR1oO31fDxC7LM47cI0Q8Kv6PWxU/edit?tab=t.0
  */
-export function getBoundary(root: BinaryTreeNode<number>, traversal: TraversalTreeType) {
+export function getBoundary(root: BinaryTreeNode<number> | undefined, traversal: TraversalTreeType) {
+  if (root === undefined) {
+    return {
+      min: undefined,
+      max: undefined
+    };
+  }
+
   let min = Infinity;
   let max = -Infinity;
 

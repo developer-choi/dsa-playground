@@ -3,10 +3,12 @@ import {BinaryTreeDirection, BinaryTreeNode} from '@/examples/data-structure/tre
 /**
  * https://www.geeksforgeeks.org/dsa/find-the-minimum-element-in-a-binary-search-tree/#expected-approach-iterative-approach-on-time-and-o1-space
  * https://www.geeksforgeeks.org/dsa/find-the-node-with-maximum-value-in-a-binary-search-tree/#expected-approach-iterative-approach-on-time-and-o1-space
+ * 테스트 코드는 ./binary/application.test.ts에 통합되어있음.
+ *
  * Time Complexity: O(h)
  * Auxiliary Space: O(1)
  */
-export function getBoundary(root: BinaryTreeNode<number> | undefined, boundary: 'min' | 'max'): number | undefined {
+export function iterativeBoundaryBST(root: BinaryTreeNode<number> | undefined, boundary: 'min' | 'max'): number | undefined {
   if (!root) {
     return undefined;
   }
