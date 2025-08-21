@@ -15,7 +15,7 @@ export function areTreesIdenticalWithDFS<D>(root1: BinaryTreeNode<D> | undefined
     }
 
     // Point 여기서 === 연산자 쓰면 안되고, && 써야함. 둘 다 true여야하기 때문.
-    return recursive(node1?.left, node2?.left) && recursive(node1?.left, node2?.left)
+    return recursive(node1?.left, node2?.left) && recursive(node1?.right, node2?.right)
   }
 
   return recursive(root1, root2);
@@ -56,8 +56,10 @@ export function areTreesIdenticalWithBFS<D>(root1: BinaryTreeNode<D> | undefined
 }
 
 /**
- * 데이터는 같아야하고,
- * left / right는 없을거면 다같이없고, 있을거면 다같이 있어야함.
+ * @description 노드 2개가 서로 동일한지 확인
+ * 1. node.data 동일
+ * 2. node.left의 유무 동일 (유무만 체크하며, 동일한 노드 (reference)를 가리키는지 까지는 체크하지않음)
+ * 3. node.right의 유무 동일 (이하 동일)
  */
 function areNodesIdentical<D>(node1: BinaryTreeNode<D> | undefined, node2: BinaryTreeNode<D> | undefined) {
   if (node1 === undefined && node2 === undefined) {

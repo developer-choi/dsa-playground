@@ -49,4 +49,9 @@ describe.each(algorithms)('Depth First Traversal > $name', ({fn}) => {
     target1.data = target2.data + 1;
     expect(fn(root1, root2)).toBe(false);
   });
+
+  it('should return false if only the right subtrees differ', () => {
+    (root1.right as BinaryTreeNode<number>).left = new BinaryTreeNode(99);
+    expect(fn(root1, root2)).toBe(false);
+  });
 });
