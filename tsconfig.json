@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "module": "esnext",
     "target": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -8,8 +8,20 @@ const config: Config = {
   testEnvironment: 'node',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@forworkchoe/core/utils$': '<rootDir>/node_modules/@forworkchoe/core/dist/utils.js',
   },
-  verbose: true
+  verbose: true,
+  transform: {
+    '^.+\\.[tj]sx?$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!@forworkchoe/core)',
+  ],
 };
 
 export default config;
