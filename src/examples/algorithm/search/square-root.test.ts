@@ -1,4 +1,4 @@
-import {range} from '@/utils/extend/data-type/number';
+import {range} from '@forworkchoe/core/utils';
 import squareRootUsingLoop from '@/examples/algorithm/search/square-root/loop';
 import squareRootUsingBinarySearch from '@/examples/algorithm/search/square-root/binary-search';
 

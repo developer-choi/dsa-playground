@@ -1,5 +1,5 @@
 import findFirstAndLast from './first-and-last'; // 실제 파일 경로에 맞게 수정해주세요.
-import {range} from '@/utils/extend/data-type/number';
+import {range} from '@forworkchoe/core/utils';
 
 const SORTED_ODD_ARRAY = range(0, 20).concat(range(0, 21)).sort((a, b) => a - b);
 const SORTED_EVEN_ARRAY = SORTED_ODD_ARRAY.concat(22);

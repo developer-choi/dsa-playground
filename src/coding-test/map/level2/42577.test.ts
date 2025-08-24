@@ -1,5 +1,5 @@
 import {testWithRandomCases} from '@/utils/extend/test/jest';
-import {range} from '@/utils/extend/data-type/number';
+import {range} from '@forworkchoe/core/utils';
 import {makeRandomString} from '@/utils/extend/test/generate-dummy';
 import {shuffleArray} from '@/utils/extend/test/random';
 import {solution42577} from '@/coding-test/map/level2/42577';

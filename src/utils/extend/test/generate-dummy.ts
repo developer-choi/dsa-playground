@@ -1,5 +1,5 @@
 import {randomIndex, randomNumber, shuffleArray} from '@/utils/extend/test/random';
-import {range} from '@/utils/extend/data-type/number';
+import {range} from '@forworkchoe/core/utils';
 
 export type RandomCharType = (string | number)[] | 'ALPHABET' | 'NUMBER' | 'ALPHABET_AND_NUMBER';
 

@@ -2,7 +2,7 @@ import bubbleSort from '@/examples/algorithm/sort/bubble';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 import {randomInArray} from '@/utils/extend/test/random';
 import {SortParam} from '@/examples/algorithm/sort/index';
-import {sortByNumber} from '@/utils/extend/data-type/array';
+import {sortByNumber} from '@forworkchoe/core/utils';
 import selectionSort from '@/examples/algorithm/sort/selection';
 import insertionSort from '@/examples/algorithm/sort/insertion';
 import quickSort from '@/examples/algorithm/sort/quick';

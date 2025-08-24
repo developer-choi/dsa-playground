@@ -1,5 +1,5 @@
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {removeDuplicatedItems} from '@/utils/extend/data-type/array';
+import {removeDuplicatedItems} from '@forworkchoe/core/utils';
 import {randomNumber} from '@/utils/extend/test/random';
 import bruteForceAggressiveCows from '@/examples/algorithm/search/aggressive-cows/brute-force';
 import binarySearchAggressiveCows from '@/examples/algorithm/search/aggressive-cows/binary';
