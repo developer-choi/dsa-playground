@@ -1,8 +1,7 @@
 import {officialDeleteBST, recursiveDeleteBST} from '@/examples/data-structure/tree/binary/search/deletion';
 import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
-import {compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/extend/test/jest';
+import {arrayToBST, compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/extend/test/jest';
 import {randomInArray} from '@/utils/extend/test/random';
-import {iterativeInsertBST} from '@/examples/data-structure/tree/binary/search/insertion';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 
 const algorithms = [
@@ -166,16 +165,6 @@ function createDeepBST() {
 
   // level5
   root.right.right.left.left.right = new BinaryTreeNode(74);
-
-  return root;
-}
-
-function arrayToBST([first, ...rest]: number[]) {
-  const root = new BinaryTreeNode(first);
-
-  for (const data of rest) {
-    iterativeInsertBST(root, data);
-  }
 
   return root;
 }

@@ -70,3 +70,26 @@ export function isSumTree(root: BinaryTreeNode<number>, traversal: TraversalTree
 
   return root.data * 2 === sum;
 }
+
+export function getRangeBinaryTree(root: BinaryTreeNode<number> | undefined, range?: {max?: number, min?: number}): number[] {
+  const max = range?.max ?? Infinity;
+  const min = range?.min ?? -Infinity;
+  const result: number[] = [];
+
+  if (min > max) {
+    console.error('최소값이 최대값 보다 크면 안됩니다.');
+    return [];
+  }
+
+  for (const {node: {data}} of traverseAllNodes(root, 'inorder')) {
+    if (min <= data && data <= max) {
+      result.push(data);
+    }
+
+    if (data > max) {
+      break;
+    }
+  }
+
+  return result;
+}

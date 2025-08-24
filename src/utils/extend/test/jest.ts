@@ -1,7 +1,7 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
+import {BinaryTreeDirection, BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 import {randomInArray} from '@/utils/extend/test/random';
-import {BinaryTreeDirection} from '@/examples/data-structure/tree/binary';
 import {traverseAllNodes} from '@/examples/data-structure/tree/binary/traversal';
+import {iterativeInsertBST} from '@/examples/data-structure/tree/binary/search/insertion';
 
 export interface RandomCase<P extends unknown[], R> {
   inputs: P;
@@ -105,4 +105,14 @@ export function updateRandomNodeData(root: BinaryTreeNode<number>, newData: numb
 
     current = current[direction];
   }
+}
+
+export function arrayToBST([first, ...rest]: number[]) {
+  const root = new BinaryTreeNode(first);
+
+  for (const data of rest) {
+    iterativeInsertBST(root, data);
+  }
+
+  return root;
 }
