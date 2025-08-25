@@ -6,7 +6,7 @@ import {BinaryTreeDirection, BinaryTreeNode} from '@/examples/data-structure/tre
  */
 export function determineBstDirection(node: BinaryTreeNode<number>, target: number): BinaryTreeDirection {
   if (node.data === target) {
-    throw new TypeError('node의 data와 target이 서로 동일합니다.');
+    throw new TypeError('중복 노드를 지원하지 않는 BST 입니다.');
   }
 
   return node.data > target ? 'left' : 'right';

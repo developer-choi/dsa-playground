@@ -4,16 +4,12 @@ import {
   traverseAllNodes
 } from '@/examples/data-structure/tree/binary/traversal';
 import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
-import {
-  arrayToBST,
-  compareFunctionsWithRandomInputs,
-  summarizeBinaryTree,
-  SummaryBinaryTree
-} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs, summarizeBinaryTree, SummaryBinaryTree} from '@/utils/extend/test/jest';
 import {getRangeBinaryTree} from '@/examples/data-structure/tree/binary/application';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 import {randomNumber} from '@/utils/extend/test/random';
 import {traverseBstInRange} from '@/examples/data-structure/tree/binary/search/traversal';
+import {recursiveArrayToBST} from '@/examples/data-structure/tree/binary/search/array-to-bst';
 
 // yarn test src/examples/data-structure/tree/binary/traversal.test.ts
 describe('traversalTree', () => {
@@ -127,7 +123,7 @@ describe('traverse Binary Search Tree', () => {
           const randomArray = randomNumericArray(40);
           const min = randomNumber(Math.min(...randomArray), 20);
           const max = randomNumber(21, Math.max(...randomArray));
-          return [arrayToBST(randomArray), {min, max}] as const;
+          return [recursiveArrayToBST(randomArray), {min, max}] as const;
         },
         handleError: ({input: [root, target], output, expected}) => {
           console.error({

@@ -1,7 +1,7 @@
 import {
   iterativeArrayToBalancedTree,
   recursiveArrayToBalancedTree
-} from '@/examples/data-structure/tree/binary/array-to-tree';
+} from '@/examples/data-structure/tree/binary/array-to-balanced-tree';
 import {summarizeBinaryTree} from '@/utils/extend/test/jest';
 import {recursiveInorderIsBST} from '@/examples/data-structure/tree/binary/search/is-bst';
 import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
@@ -11,7 +11,7 @@ const algorithms = [
   {name: 'Iterative', fn: iterativeArrayToBalancedTree},
 ];
 
-// yarn test src/examples/data-structure/tree/binary/array-to-tree.test.ts
+// yarn test src/examples/data-structure/tree/binary/array-to-balanced-tree.test.ts
 describe.each(algorithms)('Array to Balanced Tree > $name', ({fn}) => {
   describe('General cases', () => {
     it('홀수개의 정렬된 값을 전달하면 BST가 되야한다.', () => {

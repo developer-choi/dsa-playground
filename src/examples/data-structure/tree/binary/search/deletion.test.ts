@@ -1,8 +1,9 @@
 import {officialDeleteBST, recursiveDeleteBST} from '@/examples/data-structure/tree/binary/search/deletion';
 import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
-import {arrayToBST, compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/extend/test/jest';
 import {randomInArray} from '@/utils/extend/test/random';
 import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
+import {recursiveArrayToBST} from '@/examples/data-structure/tree/binary/search/array-to-bst';
 
 const algorithms = [
   {name: 'Official', fn: officialDeleteBST},
@@ -118,7 +119,7 @@ describe('recursiveDeleteBST()', () => {
       answerFunction: officialDeleteBST,
       generateInput: () => {
         const randomArray = randomNumericArray(40);
-        return [arrayToBST(randomArray), randomInArray(randomArray)[0]] as const;
+        return [recursiveArrayToBST(randomArray), randomInArray(randomArray)[0]] as const;
       },
       handleError: ({input: [root, target], output, expected}) => {
         console.error({
