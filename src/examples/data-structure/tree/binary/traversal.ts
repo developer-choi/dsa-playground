@@ -35,6 +35,25 @@ export function* traverseAllNodes<D>(node: BinaryTreeNode<D> | undefined, traver
   }
 }
 
+export function* reverseInorderTraverseAllNodes<D>(node: BinaryTreeNode<D> | undefined): Generator<TraversalContext<D>, void, undefined> {
+  let index = 0;
+
+  function* recursive(node: BinaryTreeNode<D> | undefined, level: number, parent: InternalIterationItem<D>['parent']): Generator<TraversalContext<D>, void, undefined> {
+    if (!node) {
+      return node;
+    }
+
+    yield* recursive(node.right, level + 1, {node, direction: 'right'});
+
+    yield {node, level, index, parent};
+    index++;
+
+    yield* recursive(node.left, level + 1, {node, direction: 'left'});
+  }
+
+  yield* recursive(node, 0, undefined);
+}
+
 /*************************************************************************************************************
  * Non Export
  *************************************************************************************************************/
