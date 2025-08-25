@@ -1,3 +1,5 @@
+import {getMiddleIndex} from '@/utils/extend/browser/math';
+
 /**
  * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0
  * Official: https://www.geeksforgeeks.org/dsa/find-first-and-last-positions-of-an-element-in-a-sorted-array/
@@ -21,7 +23,7 @@ function binarySearch(array: number[], startIndex: number, endIndex: number, tar
     }
   }
 
-  const middleIndex = Math.floor((startIndex + endIndex) / 2);
+  const middleIndex = getMiddleIndex(startIndex, endIndex);
   const middleValue = array[middleIndex];
 
   // 중복된 수가 없는 배열에서의 이진탐색 처럼 탐색

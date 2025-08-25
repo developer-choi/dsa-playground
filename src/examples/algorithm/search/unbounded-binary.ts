@@ -1,3 +1,5 @@
+import {getMiddleIndex} from '@/utils/extend/browser/math';
+
 export type Callback = (value: number) => number;
 
 /**
@@ -27,7 +29,7 @@ function recursive(f: Callback, start: number, end: number): number {
     return end;
   }
 
-  const middle = Math.floor((start + end) / 2);
+  const middle = getMiddleIndex(start, end);
 
   if (f(middle) > 0) {
     /** 주제 1. start는 start로 전달해야하는가? vs start + 1로 전달해야하는가?

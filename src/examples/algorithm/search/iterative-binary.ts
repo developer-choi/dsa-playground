@@ -1,3 +1,5 @@
+import {getMiddleIndex} from '@/utils/extend/browser/math';
+
 /**
  * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0
  * Official: https://www.geeksforgeeks.org/dsa/binary-search/
@@ -7,7 +9,7 @@ export default function iterativeBinarySearch(array: number[], target: number): 
   let end = array.length - 1;
 
   while (start <= end) {
-    const middleIndex = Math.floor((start + end) / 2);
+    const middleIndex = getMiddleIndex(start, end);
     const middleValue = array[middleIndex];
 
     if (middleValue === target) {

@@ -1,3 +1,5 @@
+import {getMiddleIndex} from '@/utils/extend/browser/math';
+
 /**
  * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0
  * Official: https://www.geeksforgeeks.org/dsa/find-minimum-element-in-a-sorted-and-rotated-array/
@@ -15,7 +17,7 @@ function recursive(array: number[], startIndex: number, endIndex: number): numbe
     return array[endIndex];
   }
 
-  const middleIndex = Math.floor((startIndex + endIndex) / 2);
+  const middleIndex = getMiddleIndex(startIndex, endIndex);
 
   if (array[middleIndex] < array[endIndex]) {
     return recursive(array, startIndex, middleIndex);

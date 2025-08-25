@@ -1,4 +1,5 @@
 import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
+import {getMiddleIndex, getMiddleItemOfArray} from '@/utils/extend/browser/math';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/sorted-array-to-balanced-bst/
@@ -15,7 +16,7 @@ export function recursiveArrayToBalancedTree<D>(array: D[]): BinaryTreeNode<D> |
       return undefined;
     }
 
-    const middleIndex = Math.floor((startIndex + endIndex) / 2);
+    const middleIndex = getMiddleIndex(startIndex, endIndex);
     const root = new BinaryTreeNode(array[middleIndex]);
     root.left = recursive(startIndex, middleIndex - 1);
     root.right = recursive(middleIndex + 1, endIndex);
@@ -40,7 +41,7 @@ export function iterativeArrayToBalancedTree<D>(array: D[]): BinaryTreeNode<D> |
     return undefined;
   }
 
-  const root = new BinaryTreeNode(array[Math.floor((array.length - 1) / 2)]);
+  const root = new BinaryTreeNode(getMiddleItemOfArray(array));
 
   /**
    * 다음에 순회 할
@@ -54,10 +55,10 @@ export function iterativeArrayToBalancedTree<D>(array: D[]): BinaryTreeNode<D> |
 
     for (let i = 0; i < iterativeCount; i++) {
       const {node, startIndex, endIndex} = nextSubRoot.shift() as Exclude<typeof nextSubRoot[0], undefined>;
-      const middleIndex = Math.floor((startIndex + endIndex) / 2);
+      const middleIndex = getMiddleIndex(startIndex, endIndex);
 
       if (startIndex <= middleIndex - 1) {
-        const leftMiddleIndex = Math.floor((startIndex + middleIndex - 1) / 2);
+        const leftMiddleIndex = getMiddleIndex(startIndex, middleIndex - 1);
         const children = new BinaryTreeNode(array[leftMiddleIndex]);
         node.left = children;
 
@@ -69,7 +70,7 @@ export function iterativeArrayToBalancedTree<D>(array: D[]): BinaryTreeNode<D> |
       }
 
       if (middleIndex + 1 <= endIndex) {
-        const rightMiddleIndex = Math.floor((middleIndex + 1 + endIndex) / 2);
+        const rightMiddleIndex = getMiddleIndex(middleIndex + 1, endIndex);
         const children = new BinaryTreeNode(array[rightMiddleIndex]);
         node.right = children;
 

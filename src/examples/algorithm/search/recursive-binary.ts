@@ -1,3 +1,5 @@
+import {getMiddleIndex} from '@/utils/extend/browser/math';
+
 /**
  * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0
  * Official: https://www.geeksforgeeks.org/dsa/binary-search/
@@ -11,7 +13,7 @@ function recursive(array: number[], target: number, start: number, end: number):
     return -1;
   }
 
-  const middleIndex = Math.floor((start + end) / 2);
+  const middleIndex = getMiddleIndex(start, end);
 
   if (array[middleIndex] === target) {
     return middleIndex;

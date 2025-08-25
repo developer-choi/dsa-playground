@@ -1,3 +1,5 @@
+import {getMiddleIndex} from '@/utils/extend/browser/math';
+
 /**
  * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0
  * Official: https://www.geeksforgeeks.org/dsa/square-root-of-an-integer/
@@ -23,7 +25,7 @@ function recursiveBinarySearch(start: number, end: number, target: number): numb
     }
   }
 
-  const middle = Math.floor((start + end) / 2);
+  const middle = getMiddleIndex(start, end);
   const square = middle * middle;
 
   if (square === target) {
