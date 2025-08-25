@@ -7,7 +7,11 @@ import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
  * Time Complexity: O(n), 다 체크 해야하니까.
  * Auxiliary Space: O(h), 재귀스택은 높이만큼만 생기니까.
  */
-export function recursiveMinMaxIsBST(root: BinaryTreeNode<number>): boolean {
+export function recursiveMinMaxIsBST(root: BinaryTreeNode<number> | undefined): boolean {
+  if (root === undefined) {
+    return false;
+  }
+
   function recursive(node: BinaryTreeNode<number> | undefined, min: number, max: number): boolean {
     if (node === undefined) {
       return true;
@@ -30,7 +34,11 @@ export function recursiveMinMaxIsBST(root: BinaryTreeNode<number>): boolean {
  * Time Complexity: 위와 같음
  * Auxiliary Space: 위와 같음
  */
-export function recursiveInorderIsBST(root: BinaryTreeNode<number>): boolean {
+export function recursiveInorderIsBST(root: BinaryTreeNode<number> | undefined): boolean {
+  if (root === undefined) {
+    return false;
+  }
+
   let previous = -Infinity;
 
   function recursive(node: BinaryTreeNode<number> | undefined): boolean {

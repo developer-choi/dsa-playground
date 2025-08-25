@@ -4,7 +4,6 @@ import {
 } from '@/examples/data-structure/tree/binary/array-to-balanced-tree';
 import {summarizeBinaryTree} from '@/utils/extend/test/jest';
 import {recursiveInorderIsBST} from '@/examples/data-structure/tree/binary/search/is-bst';
-import {BinaryTreeNode} from '@/examples/data-structure/tree/binary/index';
 
 const algorithms = [
   {name: 'Recursive', fn: recursiveArrayToBalancedTree},
@@ -15,7 +14,7 @@ const algorithms = [
 describe.each(algorithms)('Array to Balanced Tree > $name', ({fn}) => {
   describe('General cases', () => {
     it('홀수개의 정렬된 값을 전달하면 BST가 되야한다.', () => {
-      const root = fn([1, 2, 3, 4, 5, 6, 7]) as BinaryTreeNode<number>;
+      const root = fn([1, 2, 3, 4, 5, 6, 7]);
       expect(recursiveInorderIsBST(root)).toBe(true);
       expect(summarizeBinaryTree(root)).toEqual([
         {level: 0, data: 4, parent: undefined, direction: undefined},
@@ -29,7 +28,7 @@ describe.each(algorithms)('Array to Balanced Tree > $name', ({fn}) => {
     });
 
     it('짝수개의 정렬된 값을 전달하면 BST가 되야한다.', () => {
-      const root = fn([1, 2, 3, 4, 5, 6]) as BinaryTreeNode<number>;
+      const root = fn([1, 2, 3, 4, 5, 6]);
       expect(recursiveInorderIsBST(root)).toBe(true);
       expect(summarizeBinaryTree(root)).toEqual([
         {level: 0, data: 3, direction: undefined, parent: undefined},
