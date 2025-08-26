@@ -1,11 +1,22 @@
-import {BinaryTreeNode} from '@/examples/data-structure/tree/binary';
+import {BinaryTreeDirection, BinaryTreeNode} from '@/examples/data-structure/tree/binary';
 import {InternalIterationItem, TraversalContext,} from '@/examples/data-structure/tree/binary/traversal';
 import {determineBstDirection} from '@/examples/data-structure/tree/binary/search/index';
+import {removeDuplicatedItems} from '@forworkchoe/core/utils';
+import {recursiveInorderIsBST} from '@/examples/data-structure/tree/binary/search/is-bst';
 
-export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: number): Generator<TraversalContext<number>> {
-  if (!root) {
+/**
+ * @description BST의 속성을 이용해 특정 값(들)이 위치한 경로를 따라 순회하는 제너레이터 함수입니다.
+ * LCA(최소 공통 조상)를 찾는 데 활용될 수 있습니다.
+ * @param root BST의 루트 노드.
+ * @param target 찾아갈 값. 배열로 여러 값을 전달할 경우, 값들의 경로가 갈라지는 지점(LCA)까지만 순회합니다.
+ */
+export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: number | number[]): Generator<TraversalContext<number>> {
+  if (!recursiveInorderIsBST(root)) {
+    console.warn('BST이어야만 순회할 수 있습니다.');
     return;
   }
+
+  const targets = target instanceof Array ? target : [target];
 
   let nextSearchNode: BinaryTreeNode<number> = root;
   let parent: InternalIterationItem<number>['parent'] = undefined;
@@ -16,11 +27,17 @@ export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: n
     yield {node: nextSearchNode, level, parent, index};
     index++;
 
-    if (nextSearchNode.data === target) {
+    if (targets.includes(nextSearchNode.data)) {
       break;
     }
 
-    const direction: 'left' | 'right' = determineBstDirection(nextSearchNode, target);
+    const directions: BinaryTreeDirection[] = targets.map(target => determineBstDirection(nextSearchNode, target));
+
+    if (removeDuplicatedItems(directions).length > 1) {
+      break;
+    }
+
+    const direction = directions[0];
 
     if (!nextSearchNode[direction]) {
       break;

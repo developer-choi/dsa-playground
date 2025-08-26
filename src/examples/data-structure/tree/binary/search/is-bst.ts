@@ -34,7 +34,7 @@ export function recursiveMinMaxIsBST(root: BinaryTreeNode<number> | undefined): 
  * Time Complexity: 위와 같음
  * Auxiliary Space: 위와 같음
  */
-export function recursiveInorderIsBST(root: BinaryTreeNode<number> | undefined): boolean {
+export function recursiveInorderIsBST(root: BinaryTreeNode<number> | undefined): root is BinaryTreeNode<number> {
   if (root === undefined) {
     return false;
   }
