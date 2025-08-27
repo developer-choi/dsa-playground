@@ -1,4 +1,4 @@
-import {bruteForceTwoSum, hashTwoSum, twoPointersTwoSum} from '@/examples/data-structure/set/two-sum';
+import {bruteForceTwoSum, hashTwoSum, twoPointersTwoSum} from '@/examples/algorithm/two-sum';
 
 const algorithms = [
   {name: 'Brute Force', fn: bruteForceTwoSum},
