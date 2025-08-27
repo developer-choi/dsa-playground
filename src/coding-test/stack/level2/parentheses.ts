@@ -1,4 +1,4 @@
-import StackUsingLinkedList from '@/examples/data-structure/stack/StackUsingLinkedList';
+import StackUsingLinkedList from '@/data-structure/stack/StackUsingLinkedList';
 
 // https://school.programmers.co.kr/learn/courses/30/lessons/12909
 function solution(input: string){
