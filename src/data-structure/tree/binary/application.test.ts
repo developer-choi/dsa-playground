@@ -8,7 +8,7 @@ import {iterativeBoundaryBST} from '@/data-structure/tree/binary/search/applicat
 import {iterativeInsertBST} from '@/data-structure/tree/binary/search/insertion';
 
 const algorithms = [
-  {type: 'general', name: 'Breadth First', traversal: 'breadth-first'},
+  {type: 'general', name: 'Breadth First', traversal: 'level-order'},
   {type: 'general', name: 'Depth First (preorder)', traversal: 'preorder'},
   {type: 'general', name: 'Depth First (inorder)', traversal: 'inorder'},
   {type: 'general', name: 'Depth First (postorder)', traversal: 'postorder'},

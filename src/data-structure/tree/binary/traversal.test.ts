@@ -55,9 +55,13 @@ describe('traversalTree', () => {
       expected: [NODE_17, NODE_23, NODE_7, NODE_27, NODE_3, NODE_14, NODE_12, NODE_8, NODE_11, NODE_2, NODE_13, NODE_5],
     },
     {
-      mode: 'breadth-first' as const,
+      mode: 'level-order' as const,
       expected: [NODE_5, NODE_12, NODE_13, NODE_7, NODE_14, NODE_2, NODE_17, NODE_23, NODE_27, NODE_3, NODE_8, NODE_11],
     },
+    // {
+    //   mode: 'spiral-order' as const,
+    //   expected: [NODE_5, NODE_12, NODE_13, NODE_2, NODE_14, NODE_7, NODE_17, NODE_23, NODE_27, NODE_3, NODE_8, NODE_11],
+    // },
   ];
 
   const handler = ({level, node, parent}: TraversalContext<number>) => ({

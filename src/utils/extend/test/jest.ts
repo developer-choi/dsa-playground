@@ -80,7 +80,7 @@ export function summarizeBinaryTree<D>(root: BinaryTreeNode<D> | undefined): Sum
     return [];
   }
 
-  return [...traverseAllNodes(root, 'breadth-first')].map(({node, level, parent}) => ({
+  return [...traverseAllNodes(root, 'level-order')].map(({node, level, parent}) => ({
     level,
     data: node.data,
     direction: parent?.direction,

@@ -1,7 +1,7 @@
-import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
-import {BinaryTreeDirection} from '@/data-structure/tree/binary/index';
+import {BinaryTreeDirection, BinaryTreeNode} from '@/data-structure/tree/binary/index';
 
-export type TraversalTreeType = DepthFirstTraversalType | 'breadth-first';
+export type TraversalTreeType = DepthFirstTraversalType | BreadthFirstTraversalType;
+export type BreadthFirstTraversalType = 'level-order' | 'spiral-order';
 export type DepthFirstTraversalType = 'inorder' | 'preorder' | 'postorder';
 
 export interface TraversalContext<D> {
@@ -28,8 +28,8 @@ export interface InternalIterationItem<D> {
  * @param traversal 순회 방법 (DFS, BFS)
  */
 export function* traverseAllNodes<D>(node: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType): Generator<TraversalContext<D>, void, undefined> {
-  if (traversal === 'breadth-first') {
-    yield* traverseBreadthFirst(node);
+  if (isBFS(traversal)) {
+    yield* traverseBreadthFirst(node, traversal);
   } else {
     yield* traverseDepthFirst(node, traversal);
   }
@@ -106,7 +106,7 @@ function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: 
  * Time Complexity: O(n) ==> 모든 노드 1번씩 순회하는데 전부 1번씩만 순회했음.
  * Auxiliary Space: O(n/2) ==> O(n), 가장 메모리를 많이 쓸 때는 Complete Binary Tree에서 가장 마지막 레벨 순회할 때, 이 때 노드갯수는 전체갯수의 약 1/2 임.
  */
-function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined): Generator<TraversalContext<D>, void, undefined> {
+function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, _: BreadthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
   if (!root) {
     return;
   }
@@ -136,4 +136,8 @@ function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined): Generato
     }
     level++;
   }
+}
+
+function isBFS(traversal: TraversalTreeType): traversal is BreadthFirstTraversalType {
+  return traversal === 'level-order' || traversal === 'spiral-order';
 }

@@ -20,7 +20,7 @@ export function isCompleteBinaryTree<D>(root: BinaryTreeNode<D> | undefined): bo
 
   let directionOfPreviousNode: BinaryTreeDirection | undefined = undefined;
 
-  for (const {parent} of traverseAllNodes(root, 'breadth-first')) {
+  for (const {parent} of traverseAllNodes(root, 'level-order')) {
     if (!parent) {
       continue;
     }
