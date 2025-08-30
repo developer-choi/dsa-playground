@@ -1,5 +1,5 @@
 import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
-import {getMiddleIndex, getMiddleItemOfArray} from '@/utils/extend/browser/math';
+import {getMiddleIndex, getMiddleItemOfArray} from '@/utils/math';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/sorted-array-to-balanced-bst/

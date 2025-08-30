@@ -4,7 +4,7 @@ import {
   traverseAllNodes
 } from '@/data-structure/tree/binary/traversal';
 import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
-import {compareFunctionsWithRandomInputs, summarizeBinaryTree, SummaryBinaryTree} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs, summarizeBinaryTree, SummaryBinaryTree} from '@/utils/jest';
 import {getRangeBinaryTree} from '@/data-structure/tree/binary/application';
 import {traverseBstInRange} from '@/data-structure/tree/binary/search/traversal';
 import {recursiveArrayToBST} from '@/data-structure/tree/binary/search/array-to-bst';

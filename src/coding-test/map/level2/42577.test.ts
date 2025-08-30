@@ -1,4 +1,4 @@
-import {testWithRandomCases} from '@/utils/extend/test/jest';
+import {testWithRandomCases} from '@/utils/jest';
 import {makeRandomString, range, shuffleArray} from '@forworkchoe/core/utils';
 import {solution42577} from '@/coding-test/map/level2/42577';
 

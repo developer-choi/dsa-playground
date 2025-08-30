@@ -1,4 +1,4 @@
-import {getMiddleIndex} from '@/utils/extend/browser/math';
+import {getMiddleIndex} from '@/utils/math';
 
 export type Callback = (value: number) => number;
 

@@ -2,7 +2,7 @@ import {
   iterativeArrayToBalancedTree,
   recursiveArrayToBalancedTree
 } from '@/data-structure/tree/binary/array-to-balanced-tree';
-import {summarizeBinaryTree} from '@/utils/extend/test/jest';
+import {summarizeBinaryTree} from '@/utils/jest';
 import {recursiveInorderIsBST} from '@/data-structure/tree/binary/search/is-bst';
 
 const algorithms = [

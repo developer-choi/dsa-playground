@@ -1,4 +1,4 @@
-import {getMiddleIndex} from '@/utils/extend/browser/math';
+import {getMiddleIndex} from '@/utils/math';
 
 /**
  * Doc: https://docs.google.com/document/d/1oryoLxF3hazneteLVUH8TAjlxVAkKZtTc-pUVzjuGKA/edit?tab=t.0

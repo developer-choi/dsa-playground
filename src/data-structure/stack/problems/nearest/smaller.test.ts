@@ -1,5 +1,5 @@
 import findNearestSmallerNumberOnLeftSide from '@/data-structure/stack/problems/nearest/smaller';
-import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs} from '@/utils/jest';
 import {randomInArray, randomNumericArray} from '@forworkchoe/core/utils';
 
 // yarn test src/data-structure/stack/problems/nearest/smaller.test.ts

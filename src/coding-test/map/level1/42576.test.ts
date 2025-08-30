@@ -1,6 +1,6 @@
 import {bruteForceProgrammers42576, mapSolutionProgrammers42576} from '@/coding-test/map/level1/42576';
 import {makeRandomString, randomNumber, range} from '@forworkchoe/core/utils';
-import {testWithRandomCases} from '@/utils/extend/test/jest';
+import {testWithRandomCases} from '@/utils/jest';
 
 const algorithms = [
   {name: 'Brute force', fn: bruteForceProgrammers42576},

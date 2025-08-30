@@ -1,5 +1,5 @@
 import {BinaryTreeNode} from '@/data-structure/tree/binary';
-import {summarizeBinaryTree} from '@/utils/extend/test/jest';
+import {summarizeBinaryTree} from '@/utils/jest';
 import {iterativeSearchBST, recursiveSearchBST} from '@/data-structure/tree/binary/search/search';
 import {iterativeInsertBST} from '@/data-structure/tree/binary/search/insertion';
 

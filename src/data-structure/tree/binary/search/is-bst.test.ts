@@ -4,7 +4,7 @@ import {
   recursiveInorderIsBST,
   recursiveMinMaxIsBST
 } from '@/data-structure/tree/binary/search/is-bst';
-import {compareFunctionsWithRandomInputs, updateRandomNodeData} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs, updateRandomNodeData} from '@/utils/jest';
 import {iterativeInsertBST} from '@/data-structure/tree/binary/search/insertion';
 import {randomNumericArray} from '@forworkchoe/core/utils';
 

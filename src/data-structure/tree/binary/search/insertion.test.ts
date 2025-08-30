@@ -1,6 +1,6 @@
 import {iterativeInsertBST, recursiveInsertBST} from '@/data-structure/tree/binary/search/insertion';
 import {BinaryTreeNode} from '@/data-structure/tree/binary';
-import {summarizeBinaryTree} from '@/utils/extend/test/jest';
+import {summarizeBinaryTree} from '@/utils/jest';
 
 const algorithms = [
   {name: 'Recursive', fn: recursiveInsertBST},

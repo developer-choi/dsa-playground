@@ -5,7 +5,7 @@ import selectionSort from '@/algorithm/sort/selection';
 import insertionSort from '@/algorithm/sort/insertion';
 import quickSort from '@/algorithm/sort/quick';
 import sortUsingStack from '@/data-structure/stack/problems/sort';
-import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs} from '@/utils/jest';
 
 // yarn test src/algorithm/sort/sort.test.ts
 const algorithms = [

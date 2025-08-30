@@ -2,7 +2,7 @@ import {
   bestLongestSubarrayDivisible,
   bruteForceLongestSubarrayDivisible
 } from '@/algorithm/math/longest-subarray-divisible';
-import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs} from '@/utils/jest';
 import {randomInArray, randomNumericArray} from '@forworkchoe/core/utils';
 
 const algorithms = [

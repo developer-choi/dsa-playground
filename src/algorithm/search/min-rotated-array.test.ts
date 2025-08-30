@@ -1,4 +1,4 @@
-import {randomRotatedNumberArray} from '@/utils/extend/test/generate-dummy';
+import {randomRotatedNumberArray} from '@/utils/generate-dummy';
 import findMinRotatedArray from '@/algorithm/search/min-rotated-array';
 
 // yarn test src/algorithm/search/min-rotated-array.test.ts

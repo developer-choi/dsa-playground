@@ -1,5 +1,5 @@
 import {stockSpanUsingLoop, stockSpanUsingStack} from '@/data-structure/stack/problems/nearest/stock-span';
-import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs} from '@/utils/jest';
 import {randomInArray, randomNumericArray} from '@forworkchoe/core/utils';
 
 const stockSpanAlgorithms = [

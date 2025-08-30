@@ -1,6 +1,6 @@
 import {officialDeleteBST, recursiveDeleteBST} from '@/data-structure/tree/binary/search/deletion';
 import {BinaryTreeNode} from '@/data-structure/tree/binary';
-import {compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/jest';
 import {recursiveArrayToBST} from '@/data-structure/tree/binary/search/array-to-bst';
 import {randomInArray, randomNumericArray} from '@forworkchoe/core/utils';
 

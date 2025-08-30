@@ -1,7 +1,7 @@
 import {randomNumber, randomNumericArray, removeDuplicatedItems} from '@forworkchoe/core/utils';
 import bruteForceAggressiveCows from '@/algorithm/search/aggressive-cows/brute-force';
 import binarySearchAggressiveCows from '@/algorithm/search/aggressive-cows/binary';
-import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
+import {compareFunctionsWithRandomInputs} from '@/utils/jest';
 
 const aggressiveCowsAlgorithms = [
   {name: 'bruteForceAggressiveCows', fn: bruteForceAggressiveCows},
