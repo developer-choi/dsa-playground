@@ -1,6 +1,4 @@
-import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {removeDuplicatedItems} from '@forworkchoe/core/utils';
-import {randomNumber} from '@/utils/extend/test/random';
+import {randomNumber, randomNumericArray, removeDuplicatedItems} from '@forworkchoe/core/utils';
 import bruteForceAggressiveCows from '@/algorithm/search/aggressive-cows/brute-force';
 import binarySearchAggressiveCows from '@/algorithm/search/aggressive-cows/binary';
 import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';

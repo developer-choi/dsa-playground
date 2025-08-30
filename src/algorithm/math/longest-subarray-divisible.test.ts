@@ -2,9 +2,8 @@ import {
   bestLongestSubarrayDivisible,
   bruteForceLongestSubarrayDivisible
 } from '@/algorithm/math/longest-subarray-divisible';
-import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {randomInArray} from '@/utils/extend/test/random';
 import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
+import {randomInArray, randomNumericArray} from '@forworkchoe/core/utils';
 
 const algorithms = [
   {name: 'Brute Force', fn: bruteForceLongestSubarrayDivisible},

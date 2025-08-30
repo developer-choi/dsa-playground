@@ -1,7 +1,5 @@
 import {bruteForceProgrammers42576, mapSolutionProgrammers42576} from '@/coding-test/map/level1/42576';
-import {randomNumber} from '@/utils/extend/test/random';
-import {makeRandomString} from '@/utils/extend/test/generate-dummy';
-import {range} from '@forworkchoe/core/utils';
+import {makeRandomString, randomNumber, range} from '@forworkchoe/core/utils';
 import {testWithRandomCases} from '@/utils/extend/test/jest';
 
 const algorithms = [

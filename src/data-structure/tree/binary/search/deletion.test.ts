@@ -1,9 +1,8 @@
 import {officialDeleteBST, recursiveDeleteBST} from '@/data-structure/tree/binary/search/deletion';
 import {BinaryTreeNode} from '@/data-structure/tree/binary';
 import {compareFunctionsWithRandomInputs, summarizeBinaryTree} from '@/utils/extend/test/jest';
-import {randomInArray} from '@/utils/extend/test/random';
-import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 import {recursiveArrayToBST} from '@/data-structure/tree/binary/search/array-to-bst';
+import {randomInArray, randomNumericArray} from '@forworkchoe/core/utils';
 
 const algorithms = [
   {name: 'Official', fn: officialDeleteBST},

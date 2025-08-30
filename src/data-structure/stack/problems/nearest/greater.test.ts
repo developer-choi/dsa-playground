@@ -1,7 +1,6 @@
 import findNearestGreaterNumberOnRightSide from '@/data-structure/stack/problems/nearest/greater';
-import {randomInArray} from '@/utils/extend/test/random';
-import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
 import {compareFunctionsWithRandomInputs} from '@/utils/extend/test/jest';
+import {randomInArray, randomNumericArray} from '@forworkchoe/core/utils';
 
 // yarn test src/data-structure/stack/problems/nearest/greater.test.ts
 describe('findNearestGreaterNumberOnRightSide()', () => {

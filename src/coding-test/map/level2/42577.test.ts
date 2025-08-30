@@ -1,7 +1,5 @@
 import {testWithRandomCases} from '@/utils/extend/test/jest';
-import {range} from '@forworkchoe/core/utils';
-import {makeRandomString} from '@/utils/extend/test/generate-dummy';
-import {shuffleArray} from '@/utils/extend/test/random';
+import {makeRandomString, range, shuffleArray} from '@forworkchoe/core/utils';
 import {solution42577} from '@/coding-test/map/level2/42577';
 
 // yarn test src/coding-test/map/level2/42577.test.ts

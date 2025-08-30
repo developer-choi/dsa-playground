@@ -1,5 +1,5 @@
 import {BinaryTreeDirection, BinaryTreeNode} from '@/data-structure/tree/binary';
-import {randomInArray} from '@/utils/extend/test/random';
+import {randomInArray} from '@forworkchoe/core/utils';
 import {traverseAllNodes} from '@/data-structure/tree/binary/traversal';
 
 export interface RandomCase<P extends unknown[], R> {

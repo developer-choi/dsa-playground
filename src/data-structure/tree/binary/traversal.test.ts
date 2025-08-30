@@ -6,10 +6,9 @@ import {
 import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
 import {compareFunctionsWithRandomInputs, summarizeBinaryTree, SummaryBinaryTree} from '@/utils/extend/test/jest';
 import {getRangeBinaryTree} from '@/data-structure/tree/binary/application';
-import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {randomNumber} from '@/utils/extend/test/random';
 import {traverseBstInRange} from '@/data-structure/tree/binary/search/traversal';
 import {recursiveArrayToBST} from '@/data-structure/tree/binary/search/array-to-bst';
+import {randomNumber, randomNumericArray} from '@forworkchoe/core/utils';
 
 // yarn test src/data-structure/tree/binary/traversal.test.ts
 describe('traversalTree', () => {

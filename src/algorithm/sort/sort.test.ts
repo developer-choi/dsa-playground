@@ -1,8 +1,6 @@
 import bubbleSort from '@/algorithm/sort/bubble';
-import {randomNumericArray} from '@/utils/extend/test/generate-dummy';
-import {randomInArray} from '@/utils/extend/test/random';
 import {SortParam} from '@/algorithm/sort/index';
-import {sortByNumber} from '@forworkchoe/core/utils';
+import {randomInArray, randomNumericArray, sortByNumber} from '@forworkchoe/core/utils';
 import selectionSort from '@/algorithm/sort/selection';
 import insertionSort from '@/algorithm/sort/insertion';
 import quickSort from '@/algorithm/sort/quick';
