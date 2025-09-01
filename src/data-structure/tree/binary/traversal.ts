@@ -112,16 +112,15 @@ function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, _: Breadt
   }
 
   // 탐색해야하는 노드들
-  const nextSearchQueue: InternalIterationItem<D>[] = [{node: root, parent: undefined}];
+  let nextSearchQueue: InternalIterationItem<D>[] = [{node: root, parent: undefined}];
   let level = 0;
   let index = 0;
 
   while (nextSearchQueue.length > 0) {
-    const iterativeCount = nextSearchQueue.length;
+    const iterating = [...nextSearchQueue];
+    nextSearchQueue = [];
 
-    for (let i = 0; i < iterativeCount; i++) {
-      const {node, parent} = nextSearchQueue.shift() as InternalIterationItem<D>;
-
+    for (const {node, parent} of iterating) {
       yield {node, parent, level, index};
       index++;
 
