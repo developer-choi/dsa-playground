@@ -3,25 +3,24 @@ import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
 /**
  * URL: https://www.geeksforgeeks.org/dsa/lowest-common-ancestor-binary-tree-set-1/#using-arrays-to-store-paths-of-nodes-from-root-on-time-and-on-space
  * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
- * Time Complexity: O(n^2)
+ * Time Complexity: O(n)
  * Auxiliary Space: O(n) (보조배열 2개)
  */
-export function comparePathFindLCA(root: BinaryTreeNode<number> | undefined, a: number, b: number): number | undefined {
+export function comparePathFindLCA<D>(root: BinaryTreeNode<D> | undefined, a: D, b: D): D | undefined {
   if (root === undefined) {
     return undefined;
   }
 
   const pathA = findPath(root, a);
   const pathB = findPath(root, b);
-  const smallerPath = pathA.length > pathB.length ? pathB : pathA;
-  const longerPath = pathA.length > pathB.length ? pathA : pathB;
+  const smallerPath = pathA.size > pathB.size ? pathB : pathA;
+  const longerPath = pathA.size > pathB.size ? pathA : pathB;
 
-  let result: number | undefined;
+  let result: D | undefined;
 
-  for (const data of smallerPath) {
-    // TODO 순회할 때마다 O(n)이 필요함. Array 라서. 일단 문제에서는 Array로 풀었으니 나도 Array로 풀거고, Set에 노드를 저장하는방식으로 하게되면 총 O(n)으로 개선이 가능 해보임.
-    if (longerPath.includes(data)) {
-      result = data;
+  for (const node of smallerPath) {
+    if (longerPath.has(node)) {
+      result = node.data;
     }
   }
 
@@ -32,15 +31,15 @@ export function comparePathFindLCA(root: BinaryTreeNode<number> | undefined, a: 
  * URL: https://www.geeksforgeeks.org/dsa/lowest-common-ancestor-binary-tree-set-1/#using-arrays-to-store-paths-of-nodes-from-root-on-time-and-on-space
  * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
  */
-export function findPath(root: BinaryTreeNode<number> | undefined, target: number): number[] {
-  let paths: number[] = [];
+export function findPath<D>(root: BinaryTreeNode<D> | undefined, target: D): Set<BinaryTreeNode<D>> {
+  let paths = new Set<BinaryTreeNode<D>>();
 
-  function preorder(node: BinaryTreeNode<number> | undefined): boolean {
+  function preorder(node: BinaryTreeNode<D> | undefined): boolean {
     if (node === undefined) {
       return false;
     }
 
-    paths.push(node.data);
+    paths.add(node);
 
     if (node.data === target) {
       return true;
@@ -49,7 +48,7 @@ export function findPath(root: BinaryTreeNode<number> | undefined, target: numbe
     const isFound = preorder(node.left) || preorder(node.right);
 
     if (!isFound) {
-      paths.pop();
+      paths.delete(node);
     }
 
     return isFound;
