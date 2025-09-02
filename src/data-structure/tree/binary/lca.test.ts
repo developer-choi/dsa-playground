@@ -1,38 +1,29 @@
+import {iterativeArrayToBalancedTree} from '@/data-structure/tree/binary/array-to-balanced-tree';
 import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
 import {comparePathFindLCA, findPath} from '@/data-structure/tree/binary/lca';
-import {range} from '@forworkchoe/core/utils';
 
 // yarn test src/data-structure/tree/binary/lca.test.ts
 describe('findPath()', () => {
   describe('General cases', () => {
     it('should find the correct path for every node in the tree.', () => {
-      const [node1, node2, node3, node4, node5, node6, node7] = range(1, 7).map(value => new BinaryTreeNode(value));
-
-      const root = node4;
-      root.left = node2;
-      root.left.left = node1;
-      root.left.right = node3;
-      root.right = node6;
-      root.right.left = node5;
-      root.right.right = node7;
-
-      expect(findPath(root, 1)).toEqual(new Set([node4, node2, node1]));
-      expect(findPath(root, 2)).toEqual(new Set([node4, node2]));
-      expect(findPath(root, 3)).toEqual(new Set([node4, node2, node3]));
-      expect(findPath(root, 4)).toEqual(new Set([node4]));
-      expect(findPath(root, 5)).toEqual(new Set([node4, node6, node5]));
-      expect(findPath(root, 6)).toEqual(new Set([node4, node6]));
-      expect(findPath(root, 7)).toEqual(new Set([node4, node6, node7]));
+      const root = iterativeArrayToBalancedTree([1, 2, 3, 4, 5, 6, 7]) as BinaryTreeNode<number>;
+      expect(findPath(root, 1)).toEqual([4, 2, 1]);
+      expect(findPath(root, 2)).toEqual([4, 2]);
+      expect(findPath(root, 3)).toEqual([4, 2, 3]);
+      expect(findPath(root, 4)).toEqual([4]);
+      expect(findPath(root, 5)).toEqual([4, 6, 5]);
+      expect(findPath(root, 6)).toEqual([4, 6]);
+      expect(findPath(root, 7)).toEqual([4, 6, 7]);
     });
   });
 
   describe('Boundary cases', () => {
     it('should return empty array when empty tree is passed', () => {
-      expect(findPath(undefined, 1)).toEqual(new Set());
+      expect(findPath(undefined, 1)).toEqual([]);
     });
 
     it('should return an empty array when the target cannot be found.', () => {
-      expect(findPath(new BinaryTreeNode(1), 9)).toEqual(new Set());
+      expect(findPath(new BinaryTreeNode(1), 9)).toEqual([]);
     });
   });
 });
