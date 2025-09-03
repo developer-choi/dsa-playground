@@ -1,4 +1,4 @@
-import {BinaryTreeDirection, BinaryTreeNode} from '@/data-structure/tree/binary/index';
+import {BinaryTreeDirection, BinaryTreeNode, invertDirection} from '@/data-structure/tree/binary/index';
 
 export type TraversalTreeType = DepthFirstTraversalType | BreadthFirstTraversalType;
 export type BreadthFirstTraversalType = 'level-order' | 'spiral-order';
@@ -106,13 +106,14 @@ function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: 
  * Time Complexity: O(n) ==> 모든 노드 1번씩 순회하는데 전부 1번씩만 순회했음.
  * Auxiliary Space: O(n/2) ==> O(n), 가장 메모리를 많이 쓸 때는 Complete Binary Tree에서 가장 마지막 레벨 순회할 때, 이 때 노드갯수는 전체갯수의 약 1/2 임.
  */
-function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, _: BreadthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
+function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal: BreadthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
   if (!root) {
     return;
   }
 
   // 탐색해야하는 노드들
   let nextSearchQueue: InternalIterationItem<D>[] = [{node: root, parent: undefined}];
+  let iteratingDirection: BinaryTreeDirection = traversal === 'level-order' ? 'right' : 'left';
   let level = 0;
   let index = 0;
 
@@ -120,20 +121,43 @@ function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, _: Breadt
     const iterating = [...nextSearchQueue];
     nextSearchQueue = [];
 
-    for (const {node, parent} of iterating) {
+    let i = iteratingDirection === 'right' ? 0 : iterating.length - 1;
+
+    while (iteratingDirection === 'right' ? i < iterating.length : i >= 0) {
+      const {node, parent} = iterating[i];
+
       yield {node, parent, level, index};
       index++;
 
-      // 다음 라벨에 또 순회해야하니 다음 레벨 노드들 저장
-      if (node.left) {
-        nextSearchQueue.push({node: node.left, parent: {node, direction: 'left'}});
-      }
+      const childDirections: BinaryTreeDirection[] = iteratingDirection === 'right' ? ['left', 'right'] : ['right', 'left'];
 
-      if (node.right) {
-        nextSearchQueue.push({node: node.right, parent: {node, direction: 'right'}});
+      // 다음 라벨에 또 순회해야하니 다음 레벨 노드들 저장
+      childDirections.forEach(direction => {
+        if (!node[direction]) {
+          return;
+        }
+
+        const item: InternalIterationItem<D> = {node: node[direction], parent: {node, direction}};
+
+        if (iteratingDirection === 'right') {
+          nextSearchQueue.push(item);
+        } else {
+          nextSearchQueue.unshift(item);
+        }
+      });
+
+      if (iteratingDirection === 'right') {
+        i++;
+      } else {
+        i--;
       }
     }
+
     level++;
+
+    if (traversal === 'spiral-order') {
+      iteratingDirection = invertDirection(iteratingDirection);
+    }
   }
 }
 
