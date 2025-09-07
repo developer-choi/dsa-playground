@@ -7,7 +7,7 @@ import {traverseAllNodes} from '@/data-structure/tree/binary/traversal';
  * Time Complexity: O(n^2) - 모든 노드를 한번 순회하는데 O(n), 노드 한번당 전체 노드 한번 싹 돌면서 높이를 구해야해서 또 O(n), 곱해서 O(n^2)
  * Auxiliary Space: O(h)
  */
-export function getHeightDiameter<D>(root: BinaryTreeNode<D> | undefined) {
+export function bruteForceDiameter<D>(root: BinaryTreeNode<D> | undefined) {
   let maxDiameter = 0;
 
   for (const {node} of traverseAllNodes(root, 'inorder')) {
@@ -40,4 +40,39 @@ export function getHeightOfNode(node: BinaryTreeNode<any> | undefined): number {
   }
 
   return recursive(node) - 1;
+}
+
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/diameter-of-a-binary-tree/#expected-approach-without-using-height-on-time-and-oh-space
+ * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0#heading=h.tv71ehud6a1w
+ * Time Complexity: O(n)
+ * Auxiliary Space: O(h)
+ * @description 함수 자체는 높이를 반환하지만, 순회하면서 diameter 계산도 같이 동시에 하기 때문에 Time Compleixty가 O(n)으로 줄어듬.
+ */
+export function expectedDiameter(root: BinaryTreeNode<any> | undefined): number {
+  if (root === undefined) {
+    return 0;
+  }
+
+  let maxDiameter = 0;
+
+  function recursive(node: BinaryTreeNode<any> | undefined): number {
+    if (node === undefined) {
+      return 0;
+    }
+
+    const leftHeight = recursive(node.left) + 1;
+    const rightHeight = recursive(node.right) + 1;
+
+    if (leftHeight + rightHeight > maxDiameter) {
+      maxDiameter = leftHeight + rightHeight;
+    }
+
+    return Math.max(leftHeight, rightHeight);
+  }
+
+  recursive(root);
+
+  // 왼쪽, 오른쪽 높이가 실제 높이보다 1씩 더 큰 상태라서 마지막에 반환 시 2를 뺌
+  return maxDiameter - 2;
 }
