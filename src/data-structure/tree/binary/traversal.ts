@@ -4,23 +4,20 @@ export type TraversalTreeType = DepthFirstTraversalType | BreadthFirstTraversalT
 export type BreadthFirstTraversalType = 'level-order' | 'spiral-order';
 export type DepthFirstTraversalType = 'inorder' | 'preorder' | 'postorder';
 
+export interface ParentBinaryTreeNode<D> {
+  node: BinaryTreeNode<D>;
+  direction: BinaryTreeDirection;
+}
+
 export interface TraversalContext<D> {
-  parent: undefined | {
-    node: BinaryTreeNode<D>;
-    direction: BinaryTreeDirection;
-  };
+  lastParent: undefined | ParentBinaryTreeNode<D>;
+  parents: ParentBinaryTreeNode<D>[];
   node: BinaryTreeNode<D>;
   level: number,
   index: number
 }
 
-export interface InternalIterationItem<D> {
-  parent: undefined | {
-    node: BinaryTreeNode<D>;
-    direction: BinaryTreeDirection;
-  };
-  node: BinaryTreeNode<D>;
-}
+export type InternalIterationItem<D> = Pick<TraversalContext<D>, 'node' | 'parents' | 'lastParent'>;
 
 /**
  * @description Binary Tree의 모든 노드를 순회합니다.
@@ -38,20 +35,20 @@ export function* traverseAllNodes<D>(node: BinaryTreeNode<D> | undefined, traver
 export function* reverseInorderTraverseAllNodes<D>(node: BinaryTreeNode<D> | undefined): Generator<TraversalContext<D>, void, undefined> {
   let index = 0;
 
-  function* recursive(node: BinaryTreeNode<D> | undefined, level: number, parent: InternalIterationItem<D>['parent']): Generator<TraversalContext<D>, void, undefined> {
+  function* recursive(node: BinaryTreeNode<D> | undefined, level: number, parents: InternalIterationItem<D>['parents']): Generator<TraversalContext<D>, void, undefined> {
     if (!node) {
       return node;
     }
 
-    yield* recursive(node.right, level + 1, {node, direction: 'right'});
+    yield* recursive(node.right, level + 1, parents.concat({node, direction: 'right'}));
 
-    yield {node, level, index, parent};
+    yield {node, level, index, parents, lastParent: parents[parents.length - 1]};
     index++;
 
-    yield* recursive(node.left, level + 1, {node, direction: 'left'});
+    yield* recursive(node.left, level + 1, parents.concat({node, direction: 'left'}));
   }
 
-  yield* recursive(node, 0, undefined);
+  yield* recursive(node, 0, []);
 }
 
 /*************************************************************************************************************
@@ -71,32 +68,34 @@ export function* reverseInorderTraverseAllNodes<D>(node: BinaryTreeNode<D> | und
 function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: DepthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
   let index = 0;
 
-  function* recursive(node: BinaryTreeNode<D> | undefined, level: number, parent: InternalIterationItem<D>['parent']): Generator<TraversalContext<D>, void, undefined> {
+  function* recursive(node: BinaryTreeNode<D> | undefined, level: number, parents: InternalIterationItem<D>['parents']): Generator<TraversalContext<D>, void, undefined> {
     if (!node) {
       return node;
     }
 
+    const context: TraversalContext<D> = {node, level, index, parents, lastParent: parents[parents.length - 1]};
+
     if (traversal === 'preorder') {
-      yield {node, level, index, parent};
+      yield context;
       index++;
     }
 
-    yield* recursive(node.left, level + 1, {node, direction: 'left'});
+    yield* recursive(node.left, level + 1, parents.concat({node, direction: 'left'}));
 
     if (traversal === 'inorder') {
-      yield {node, level, index, parent};
+      yield context;
       index++;
     }
 
-    yield* recursive(node.right, level + 1, {node, direction: 'right'});
+    yield* recursive(node.right, level + 1, parents.concat({node, direction: 'right'}));
 
     if (traversal === 'postorder') {
-      yield {node, level, index, parent};
+      yield context;
       index++;
     }
   }
 
-  yield* recursive(node, 0, undefined);
+  yield* recursive(node, 0, []);
 }
 
 /**
@@ -112,7 +111,7 @@ function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal
   }
 
   // 탐색해야하는 노드들
-  let nextSearchQueue: InternalIterationItem<D>[] = [{node: root, parent: undefined}];
+  let nextSearchQueue: InternalIterationItem<D>[] = [{node: root, parents: [], lastParent: undefined}];
   let iteratingDirection: BinaryTreeDirection = traversal === 'level-order' ? 'right' : 'left';
   let level = 0;
   let index = 0;
@@ -124,9 +123,9 @@ function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal
     let i = iteratingDirection === 'right' ? 0 : iterating.length - 1;
 
     while (iteratingDirection === 'right' ? i < iterating.length : i >= 0) {
-      const {node, parent} = iterating[i];
+      const {node, parents, lastParent} = iterating[i];
 
-      yield {node, parent, level, index};
+      yield {node, parents, lastParent, level, index};
       index++;
 
       const childDirections: BinaryTreeDirection[] = iteratingDirection === 'right' ? ['left', 'right'] : ['right', 'left'];
@@ -137,7 +136,8 @@ function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal
           return;
         }
 
-        const item: InternalIterationItem<D> = {node: node[direction], parent: {node, direction}};
+        const lastParent: ParentBinaryTreeNode<D> = {node, direction};
+        const item: InternalIterationItem<D> = {node: node[direction], parents: parents.concat({node, direction}), lastParent};
 
         if (iteratingDirection === 'right') {
           nextSearchQueue.push(item);

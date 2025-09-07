@@ -51,8 +51,8 @@ export class LinkedListBinaryTree<D> extends CompleteBinaryTree<D> {
     if (deletedNode && lastIterationItem) {
       deletedNode.data = lastIterationItem.node.data;
 
-      if (lastIterationItem.parent) {
-        lastIterationItem.parent.node[lastIterationItem.parent.direction] = undefined;
+      if (lastIterationItem.lastParent) {
+        lastIterationItem.lastParent.node[lastIterationItem.lastParent.direction] = undefined;
 
       } else {
         this.root = undefined;

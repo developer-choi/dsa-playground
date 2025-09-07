@@ -63,11 +63,11 @@ describe('traversalTree', () => {
     },
   ];
 
-  const handler = ({level, node, parent}: TraversalContext<number>) => ({
+  const handler = ({level, node, lastParent}: TraversalContext<number>) => ({
     level,
     data: node.data,
-    direction: parent?.direction,
-    parent: parent?.node.data,
+    direction: lastParent?.direction,
+    parent: lastParent?.node.data,
   });
 
   it.each(TRAVERSAL_CASES)('should return nodes in $mode order', ({mode, expected}) => {

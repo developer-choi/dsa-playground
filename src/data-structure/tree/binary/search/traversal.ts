@@ -19,12 +19,12 @@ export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: n
   const targets = target instanceof Array ? target : [target];
 
   let nextSearchNode: BinaryTreeNode<number> = root;
-  let parent: InternalIterationItem<number>['parent'] = undefined;
+  let parents: InternalIterationItem<number>['parents'] = [];
   let level: number = 0;
   let index = 0;
 
   while (true) {
-    yield {node: nextSearchNode, level, parent, index};
+    yield {node: nextSearchNode, level, parents, lastParent: parents[parents.length - 1], index};
     index++;
 
     if (targets.includes(nextSearchNode.data)) {
@@ -44,10 +44,10 @@ export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: n
 
     } else {
       level++;
-      parent = {
+      parents.push({
         node: nextSearchNode,
         direction
-      };
+      });
       nextSearchNode = nextSearchNode[direction];
     }
   }
@@ -62,24 +62,24 @@ export function* traverseBstInRange(root: BinaryTreeNode<number> | undefined, ra
   const min = range?.min ?? -Infinity;
   let index = 0;
 
-  function* recursive(node: BinaryTreeNode<number> | undefined, level: number, parent: InternalIterationItem<number>['parent']): Generator<TraversalContext<number>> {
+  function* recursive(node: BinaryTreeNode<number> | undefined, level: number, parents: InternalIterationItem<number>['parents']): Generator<TraversalContext<number>> {
     if (!node) {
       return;
     }
 
     if (min < node.data) {
-      yield* recursive(node.left, level + 1, {node, direction: 'left'});
+      yield* recursive(node.left, level + 1, parents.concat({node, direction: 'left'}));
     }
 
     if (min <= node.data && node.data <= max) {
-      yield {node, index, level, parent};
+      yield {node, index, level, parents, lastParent: parents[parents.length - 1]};
       index++;
     }
 
     if (node.data < max) {
-      yield* recursive(node.right, level + 1, {node, direction: 'right'});
+      yield* recursive(node.right, level + 1, parents.concat({node, direction: 'right'}));
     }
   }
 
-  yield* recursive(root, 0, undefined);
+  yield* recursive(root, 0, []);
 }
