@@ -8,7 +8,7 @@ import {traverseAllNodes} from '@/data-structure/tree/binary/traversal';
  * Auxiliary Space: O(h)
  */
 export function getHeightDiameter<D>(root: BinaryTreeNode<D> | undefined) {
-  let maxHeight = 0;
+  let maxDiameter = 0;
 
   for (const {node} of traverseAllNodes(root, 'inorder')) {
     // 자식 노드 높이 + 현재 노드와 자식노드 사이 거리 1만큼 보정
@@ -16,12 +16,12 @@ export function getHeightDiameter<D>(root: BinaryTreeNode<D> | undefined) {
     const rightHeight = getHeightOfNode(node.right) + (node.right ? 1 : 0);
     const height = leftHeight + rightHeight;
 
-    if (maxHeight < height) {
-      maxHeight = height;
+    if (maxDiameter < height) {
+      maxDiameter = height;
     }
   }
 
-  return maxHeight;
+  return maxDiameter;
 }
 
 export function getHeightOfNode(node: BinaryTreeNode<any> | undefined): number {
