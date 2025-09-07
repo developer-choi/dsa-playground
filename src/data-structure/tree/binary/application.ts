@@ -1,5 +1,5 @@
 import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
-import {ParentBinaryTreeNode, TraversalTreeType, traverseAllNodes} from '@/data-structure/tree/binary/traversal';
+import {TraversalTreeType, traverseAllNodes} from '@/data-structure/tree/binary/traversal';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/find-the-maximum-depth-or-height-of-a-tree/
@@ -105,20 +105,19 @@ export function sumOfLeafs(root: BinaryTreeNode<number> | undefined) {
 
   for (const {node, parents} of traverseAllNodes(root, 'level-order')) {
     if (node.isLeaf()) {
-      // concat에 left 전달한건 단순히 타입만 맞추려고 한거고, right 넣어도 상관없음.
-      sum += sumNodes(parents.concat({node, direction: 'left'}));
+      sum += sumNodes(parents.concat(node));
     }
   }
 
   return sum;
 }
 
-function sumNodes(nodes: ParentBinaryTreeNode<number>[]): number {
+function sumNodes(nodes: BinaryTreeNode<number>[]): number {
   let exponent = nodes.length - 1;
   let sum = 0;
 
   for (let i = 0; i < nodes.length && exponent >= 0; i++) {
-    sum += 10 ** exponent * nodes[i].node.data;
+    sum += 10 ** exponent * nodes[i].data;
     exponent--;
   }
 

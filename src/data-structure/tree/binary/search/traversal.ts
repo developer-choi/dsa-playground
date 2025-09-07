@@ -19,12 +19,13 @@ export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: n
   const targets = target instanceof Array ? target : [target];
 
   let nextSearchNode: BinaryTreeNode<number> = root;
-  let parents: InternalIterationItem<number>['parents'] = [];
+  let parents: BinaryTreeNode<number>[] = [];
+  let lastParent: InternalIterationItem<number>['lastParent'] = undefined;
   let level: number = 0;
   let index = 0;
 
   while (true) {
-    yield {node: nextSearchNode, level, parents, lastParent: parents[parents.length - 1], index};
+    yield {node: nextSearchNode, level, parents, lastParent, index};
     index++;
 
     if (targets.includes(nextSearchNode.data)) {
@@ -44,10 +45,11 @@ export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: n
 
     } else {
       level++;
-      parents.push({
+      parents = [...parents, nextSearchNode];
+      lastParent = {
         node: nextSearchNode,
         direction
-      });
+      };
       nextSearchNode = nextSearchNode[direction];
     }
   }
@@ -62,24 +64,42 @@ export function* traverseBstInRange(root: BinaryTreeNode<number> | undefined, ra
   const min = range?.min ?? -Infinity;
   let index = 0;
 
-  function* recursive(node: BinaryTreeNode<number> | undefined, level: number, parents: InternalIterationItem<number>['parents']): Generator<TraversalContext<number>> {
+  function* recursive(node: BinaryTreeNode<number> | undefined, meta: Pick<TraversalContext<number>, 'level' | 'parents' | 'lastParent'>): Generator<TraversalContext<number>> {
     if (!node) {
       return;
     }
 
     if (min < node.data) {
-      yield* recursive(node.left, level + 1, parents.concat({node, direction: 'left'}));
+      yield* recursive(node.left, {
+        level: meta.level + 1,
+        parents: meta.parents.concat(node),
+        lastParent: {
+          node,
+          direction: 'left'
+        },
+      });
     }
 
     if (min <= node.data && node.data <= max) {
-      yield {node, index, level, parents, lastParent: parents[parents.length - 1]};
+      yield {node, index, level: meta.level, parents: meta.parents, lastParent: meta.lastParent};
       index++;
     }
 
     if (node.data < max) {
-      yield* recursive(node.right, level + 1, parents.concat({node, direction: 'right'}));
+      yield* recursive(node.right, {
+        level: meta.level + 1,
+        parents: meta.parents.concat(node),
+        lastParent: {
+          node,
+          direction: 'right'
+        },
+      });
     }
   }
 
-  yield* recursive(root, 0, []);
+  yield* recursive(root, {
+    lastParent: undefined,
+    parents: [],
+    level: 0
+  });
 }
