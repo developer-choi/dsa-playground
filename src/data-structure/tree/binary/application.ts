@@ -1,5 +1,5 @@
 import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
-import {TraversalTreeType, traverseAllNodes} from '@/data-structure/tree/binary/traversal';
+import {ParentBinaryTreeNode, TraversalTreeType, traverseAllNodes} from '@/data-structure/tree/binary/traversal';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/find-the-maximum-depth-or-height-of-a-tree/
@@ -92,4 +92,35 @@ export function getRangeBinaryTree(root: BinaryTreeNode<number> | undefined, ran
   }
 
   return result;
+}
+
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/sum-numbers-formed-root-leaf-paths/#alternate-approach-using-iterative-method-on-time-and-oh-space
+ * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0
+ * Time Complexity: O(n)
+ * Auxiliary Space: O(h)
+ */
+export function sumOfLeafs(root: BinaryTreeNode<number> | undefined) {
+  let sum = 0;
+
+  for (const {node, parents} of traverseAllNodes(root, 'level-order')) {
+    if (node.isLeaf()) {
+      // concat에 left 전달한건 단순히 타입만 맞추려고 한거고, right 넣어도 상관없음.
+      sum += sumNodes(parents.concat({node, direction: 'left'}));
+    }
+  }
+
+  return sum;
+}
+
+function sumNodes(nodes: ParentBinaryTreeNode<number>[]): number {
+  let exponent = nodes.length - 1;
+  let sum = 0;
+
+  for (let i = 0; i < nodes.length && exponent >= 0; i++) {
+    sum += 10 ** exponent * nodes[i].node.data;
+    exponent--;
+  }
+
+  return sum;
 }

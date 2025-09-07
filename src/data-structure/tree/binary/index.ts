@@ -8,6 +8,10 @@ export class BinaryTreeNode<D> {
   constructor(data: D) {
     this.data = data;
   }
+
+  isLeaf() {
+    return this.left === undefined && this.right === undefined;
+  }
 }
 
 /**

@@ -2,7 +2,7 @@ import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
 import {
   getBoundary,
   getNodeCount,
-  getMaxDepthInTree, isSumTree
+  getMaxDepthInTree, isSumTree, sumOfLeafs
 } from '@/data-structure/tree/binary/application';
 import {iterativeBoundaryBST} from '@/data-structure/tree/binary/search/application';
 import {iterativeInsertBST} from '@/data-structure/tree/binary/search/insertion';
@@ -115,6 +115,43 @@ describe.each(algorithms)('Traverse Tree Algorithm > $name', (arg) => {
         root.left.left.data = 2;
         expect(isSumTree(root, arg.traversal)).toBe(false);
       }
+    });
+  });
+});
+
+describe('sumOfLeafs()', () => {
+  describe('General cases', () => {
+    it('should return the correct sum for the example tree', () => {
+      const root = new BinaryTreeNode(10);
+      root.left = new BinaryTreeNode(20);
+      root.right = new BinaryTreeNode(30);
+      root.left.left = new BinaryTreeNode(40);
+      root.left.right = new BinaryTreeNode(60);
+      expect(sumOfLeafs(root)).toBe(1240 + 1260 + 130);
+    });
+  });
+
+  describe('Edge cases', () => {
+    it('should handle nodes with a value of zero', () => {
+      const root = new BinaryTreeNode(1);
+      root.left = new BinaryTreeNode(0);
+      root.right = new BinaryTreeNode(5);
+      expect(sumOfLeafs(root)).toBe(10 + 15);
+    });
+
+    it('should work for a skewed tree', () => {
+      const root = new BinaryTreeNode(1);
+      root.right = new BinaryTreeNode(2);
+      root.right.right = new BinaryTreeNode(3);
+      expect(sumOfLeafs(root)).toBe(123);
+    });
+
+    it('should handle a single-node tree', () => {
+      expect(sumOfLeafs(new BinaryTreeNode(1))).toBe(1);
+    });
+
+    it('should handle an empty tree', () => {
+      expect(sumOfLeafs(undefined)).toBe(0);
     });
   });
 });
