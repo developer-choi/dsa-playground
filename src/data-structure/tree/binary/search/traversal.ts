@@ -46,7 +46,8 @@ export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: n
       level++;
       lastParent = {
         node: nextSearchNode,
-        direction
+        direction,
+        accumulatedValue: undefined
       };
       nextSearchNode = nextSearchNode[direction];
     }
@@ -72,7 +73,8 @@ export function* traverseBstInRange(root: BinaryTreeNode<number> | undefined, ra
         level: meta.level + 1,
         lastParent: {
           node,
-          direction: 'left'
+          direction: 'left',
+          accumulatedValue: undefined
         },
       });
     }
@@ -87,7 +89,8 @@ export function* traverseBstInRange(root: BinaryTreeNode<number> | undefined, ra
         level: meta.level + 1,
         lastParent: {
           node,
-          direction: 'right'
+          direction: 'right',
+          accumulatedValue: undefined
         },
       });
     }
