@@ -1,8 +1,4 @@
-import {
-  reverseInorderTraverseAllNodes,
-  TraversalContext,
-  traverseAllNodes
-} from '@/data-structure/tree/binary/traversal';
+import {TraversalContext, traverseAllNodes} from '@/data-structure/tree/binary/traversal';
 import {BinaryTreeNode} from '@/data-structure/tree/binary/index';
 import {compareFunctionsWithRandomInputs, summarizeBinaryTree, SummaryBinaryTree} from '@/utils/jest';
 import {getRangeBinaryTree} from '@/data-structure/tree/binary/application';
@@ -46,6 +42,10 @@ describe('traverse Binary Tree', () => {
       expected: INORDER_EXPECTED,
     },
     {
+      mode: 'reverse-inorder' as const,
+      expected: INORDER_EXPECTED.toReversed(),
+    },
+    {
       mode: 'preorder' as const,
       expected: [NODE_12, NODE_7, NODE_5, NODE_3, NODE_2, NODE_8, NODE_11, NODE_14, NODE_13, NODE_27, NODE_17, NODE_23],
     },
@@ -72,10 +72,6 @@ describe('traverse Binary Tree', () => {
 
   it.each(TRAVERSAL_CASES)('should return nodes in $mode order', ({mode, expected}) => {
     expect([...traverseAllNodes(root, mode)].map(handler)).toEqual(expected);
-  });
-
-  it('should perform reverse inorder traversal correctly', () => {
-    expect([...reverseInorderTraverseAllNodes(root)].map(handler)).toEqual(INORDER_EXPECTED.toReversed());
   });
 
   describe('Parent and LastParent Integrity', () => {

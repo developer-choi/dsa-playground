@@ -2,7 +2,7 @@ import {BinaryTreeDirection, BinaryTreeNode, invertDirection} from '@/data-struc
 
 export type TraversalTreeType = DepthFirstTraversalType | BreadthFirstTraversalType;
 export type BreadthFirstTraversalType = 'level-order' | 'spiral-order';
-export type DepthFirstTraversalType = 'inorder' | 'preorder' | 'postorder';
+export type DepthFirstTraversalType = 'inorder' | 'reverse-inorder' | 'preorder' | 'postorder';
 
 export interface TraversalContext<D> {
   lastParent: undefined | {
@@ -30,37 +30,6 @@ export function* traverseAllNodes<D>(node: BinaryTreeNode<D> | undefined, traver
   }
 }
 
-export function* reverseInorderTraverseAllNodes<D>(node: BinaryTreeNode<D> | undefined): Generator<TraversalContext<D>, void, undefined> {
-  let index = 0;
-
-  function* recursive(node: BinaryTreeNode<D> | undefined, meta: Pick<TraversalContext<D>, 'level' | 'parents' | 'lastParent'>): Generator<TraversalContext<D>, void, undefined> {
-    if (!node) {
-      return node;
-    }
-
-    yield* recursive(node.right, {
-      level: meta.level + 1,
-      parents: meta.parents.concat(node),
-      lastParent: {node, direction: 'right'}
-    });
-
-    yield {node, level: meta.level, index, parents: meta.parents, lastParent: meta.lastParent};
-    index++;
-
-    yield* recursive(node.left, {
-      level: meta.level + 1,
-      parents: meta.parents.concat(node),
-      lastParent: {node, direction: 'left'}
-    });
-  }
-
-  yield* recursive(node, {
-    level: 0,
-    parents: [],
-    lastParent: undefined
-  });
-}
-
 /*************************************************************************************************************
  * Non Export
  *************************************************************************************************************/
@@ -78,6 +47,10 @@ export function* reverseInorderTraverseAllNodes<D>(node: BinaryTreeNode<D> | und
 function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: DepthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
   let index = 0;
 
+  const isReversed = traversal.startsWith('reverse-');
+  const firstDirection: BinaryTreeDirection = isReversed ? 'right' : 'left';
+  const secondDirection: BinaryTreeDirection = isReversed ? 'left' : 'right';
+
   function* recursive(node: BinaryTreeNode<D> | undefined, meta: Pick<TraversalContext<D>, 'level' | 'parents' | 'lastParent'>): Generator<TraversalContext<D>, void, undefined> {
     if (!node) {
       return node;
@@ -90,21 +63,21 @@ function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: 
       index++;
     }
 
-    yield* recursive(node.left, {
+    yield* recursive(node[firstDirection], {
       level: meta.level + 1,
       parents: meta.parents.concat(node),
-      lastParent: {node, direction: 'left'}
+      lastParent: {node, direction: firstDirection}
     });
 
-    if (traversal === 'inorder') {
+    if (traversal.endsWith('inorder')) {
       yield context;
       index++;
     }
 
-    yield* recursive(node.right, {
+    yield* recursive(node[secondDirection], {
       level: meta.level + 1,
       parents: meta.parents.concat(node),
-      lastParent: {node, direction: 'right'}
+      lastParent: {node, direction: secondDirection}
     });
 
     if (traversal === 'postorder') {
