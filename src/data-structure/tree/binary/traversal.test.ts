@@ -79,20 +79,17 @@ describe('traverse Binary Tree', () => {
       const contexts = [...traverseAllNodes(root, mode)];
       const rootContext = contexts.find(context => context.node.data === 12);
       expect(rootContext).toBeDefined();
-      expect(rootContext?.parents).toEqual([]);
       expect(rootContext?.lastParent).toBeUndefined();
 
       const midNodeContext = contexts.find(context => context.node.data === 14);
       expect(midNodeContext).toBeDefined();
 
-      expect(midNodeContext?.parents.map(p => p.data)).toEqual([12]);
       expect(midNodeContext?.lastParent?.node.data).toBe(12);
       expect(midNodeContext?.lastParent?.direction).toBe('right');
 
       const leafNodeContext = contexts.find(context => context.node.data === 23);
       expect(leafNodeContext).toBeDefined();
 
-      expect(leafNodeContext?.parents.map(p => p.data)).toEqual([12, 14, 27, 17]);
       expect(leafNodeContext?.lastParent?.node.data).toBe(17);
       expect(leafNodeContext?.lastParent?.direction).toBe('right');
     });
@@ -168,18 +165,15 @@ describe('traverse Binary Search Tree', () => {
 
       const rootContext = contexts.find(context => context.node.data === 12);
       expect(rootContext).toBeDefined();
-      expect(rootContext?.parents).toEqual([]);
       expect(rootContext?.lastParent).toBeUndefined();
 
       const midNodeContext = contexts.find(context => context.node.data === 14);
       expect(midNodeContext).toBeDefined();
-      expect(midNodeContext?.parents.map(p => p.data)).toEqual([12]);
       expect(midNodeContext?.lastParent?.node.data).toBe(12);
       expect(midNodeContext?.lastParent?.direction).toBe('right');
 
       const leafNodeContext = contexts.find(context => context.node.data === 23);
       expect(leafNodeContext).toBeDefined();
-      expect(leafNodeContext?.parents.map(p => p.data)).toEqual([12, 14, 27, 17]);
       expect(leafNodeContext?.lastParent?.node.data).toBe(17);
       expect(leafNodeContext?.lastParent?.direction).toBe('right');
     });

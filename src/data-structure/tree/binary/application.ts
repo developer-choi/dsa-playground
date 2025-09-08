@@ -103,9 +103,9 @@ export function getRangeBinaryTree(root: BinaryTreeNode<number> | undefined, ran
 export function sumOfLeafs(root: BinaryTreeNode<number> | undefined) {
   let sum = 0;
 
-  for (const {node, parents} of traverseAllNodes(root, 'level-order')) {
+  for (const {node} of traverseAllNodes(root, 'level-order')) {
     if (node.isLeaf()) {
-      sum += sumNodes(parents.concat(node));
+      // TODO sum += sumNodes(parents.concat(node));
     }
   }
 

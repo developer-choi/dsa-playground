@@ -19,13 +19,12 @@ export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: n
   const targets = target instanceof Array ? target : [target];
 
   let nextSearchNode: BinaryTreeNode<number> = root;
-  let parents: BinaryTreeNode<number>[] = [];
   let lastParent: InternalIterationItem<number>['lastParent'] = undefined;
   let level: number = 0;
   let index = 0;
 
   while (true) {
-    yield {node: nextSearchNode, level, parents, lastParent, index};
+    yield {node: nextSearchNode, level, lastParent, index};
     index++;
 
     if (targets.includes(nextSearchNode.data)) {
@@ -45,7 +44,6 @@ export function* traverseBST(root: BinaryTreeNode<number> | undefined, target: n
 
     } else {
       level++;
-      parents = [...parents, nextSearchNode];
       lastParent = {
         node: nextSearchNode,
         direction
@@ -64,7 +62,7 @@ export function* traverseBstInRange(root: BinaryTreeNode<number> | undefined, ra
   const min = range?.min ?? -Infinity;
   let index = 0;
 
-  function* recursive(node: BinaryTreeNode<number> | undefined, meta: Pick<TraversalContext<number>, 'level' | 'parents' | 'lastParent'>): Generator<TraversalContext<number>> {
+  function* recursive(node: BinaryTreeNode<number> | undefined, meta: Pick<TraversalContext<number>, 'level' | 'lastParent'>): Generator<TraversalContext<number>> {
     if (!node) {
       return;
     }
@@ -72,7 +70,6 @@ export function* traverseBstInRange(root: BinaryTreeNode<number> | undefined, ra
     if (min < node.data) {
       yield* recursive(node.left, {
         level: meta.level + 1,
-        parents: meta.parents.concat(node),
         lastParent: {
           node,
           direction: 'left'
@@ -81,14 +78,13 @@ export function* traverseBstInRange(root: BinaryTreeNode<number> | undefined, ra
     }
 
     if (min <= node.data && node.data <= max) {
-      yield {node, index, level: meta.level, parents: meta.parents, lastParent: meta.lastParent};
+      yield {node, index, level: meta.level, lastParent: meta.lastParent};
       index++;
     }
 
     if (node.data < max) {
       yield* recursive(node.right, {
         level: meta.level + 1,
-        parents: meta.parents.concat(node),
         lastParent: {
           node,
           direction: 'right'
@@ -99,7 +95,6 @@ export function* traverseBstInRange(root: BinaryTreeNode<number> | undefined, ra
 
   yield* recursive(root, {
     lastParent: undefined,
-    parents: [],
     level: 0
   });
 }

@@ -4,29 +4,34 @@ export type TraversalTreeType = DepthFirstTraversalType | BreadthFirstTraversalT
 export type BreadthFirstTraversalType = 'level-order' | 'spiral-order';
 export type DepthFirstTraversalType = 'inorder' | 'reverse-inorder' | 'preorder' | 'postorder';
 
-export interface TraversalContext<D> {
+export interface TraversalContext<D> extends CoreTraversalContext<D> {
+  index: number;
+}
+
+interface CoreTraversalContext<D> {
   lastParent: undefined | {
     node: BinaryTreeNode<D>;
     direction: BinaryTreeDirection;
   };
-  parents: BinaryTreeNode<D>[];
   node: BinaryTreeNode<D>;
   level: number,
-  index: number
 }
 
-export type InternalIterationItem<D> = Pick<TraversalContext<D>, 'node' | 'parents' | 'lastParent'>;
+export type InternalIterationItem<D> = Pick<TraversalContext<D>, 'node' | 'lastParent'>;
 
-/**
- * @description Binary Tree의 모든 노드를 순회합니다.
- * @param node 순회할 노드들의 루트노드
- * @param traversal 순회 방법 (DFS, BFS)
- */
-export function* traverseAllNodes<D>(node: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType): Generator<TraversalContext<D>, void, undefined> {
-  if (isBFS(traversal)) {
-    yield* traverseBreadthFirst(node, traversal);
-  } else {
-    yield* traverseDepthFirst(node, traversal);
+export function* traverseAllNodes<D, R = TraversalContext<D>>(node: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType, enricher?: (context: TraversalContext<D>) => R): Generator<R, void, undefined> {
+  const traverse = isBFS(traversal) ? traverseBreadthFirst(node, traversal) : traverseDepthFirst(node, traversal);
+  const callback = enricher ?? ((context: TraversalContext<D>) => context as R);
+
+  let index = 0;
+
+  for (const context of traverse) {
+    yield callback({
+      ...context,
+      index,
+    });
+
+    index++;
   }
 }
 
@@ -44,51 +49,43 @@ export function* traverseAllNodes<D>(node: BinaryTreeNode<D> | undefined, traver
  *
  * @description inorder라고 해서 진짜 inorder 순으로 노드를 방문하는건 아님. 처음에 root에서 제일 작은노드로 찾아가는 과정은 당연히 있음;
  */
-function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: DepthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
-  let index = 0;
-
+function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: DepthFirstTraversalType): Generator<CoreTraversalContext<D>, void, undefined> {
   const isReversed = traversal.startsWith('reverse-');
   const firstDirection: BinaryTreeDirection = isReversed ? 'right' : 'left';
   const secondDirection: BinaryTreeDirection = isReversed ? 'left' : 'right';
 
-  function* recursive(node: BinaryTreeNode<D> | undefined, meta: Pick<TraversalContext<D>, 'level' | 'parents' | 'lastParent'>): Generator<TraversalContext<D>, void, undefined> {
+  function* recursive(node: BinaryTreeNode<D> | undefined, meta: Omit<CoreTraversalContext<D>, 'node'>): Generator<CoreTraversalContext<D>, void, undefined> {
     if (!node) {
       return node;
     }
 
-    const context: TraversalContext<D> = {node, level: meta.level, index, parents: meta.parents, lastParent: meta.lastParent};
+    const context: CoreTraversalContext<D> = {node, level: meta.level, lastParent: meta.lastParent};
 
     if (traversal === 'preorder') {
       yield context;
-      index++;
     }
 
     yield* recursive(node[firstDirection], {
       level: meta.level + 1,
-      parents: meta.parents.concat(node),
       lastParent: {node, direction: firstDirection}
     });
 
     if (traversal.endsWith('inorder')) {
       yield context;
-      index++;
     }
 
     yield* recursive(node[secondDirection], {
       level: meta.level + 1,
-      parents: meta.parents.concat(node),
       lastParent: {node, direction: secondDirection}
     });
 
     if (traversal === 'postorder') {
       yield context;
-      index++;
     }
   }
 
   yield* recursive(node, {
     level: 0,
-    parents: [],
     lastParent: undefined
   });
 }
@@ -100,16 +97,15 @@ function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: 
  * Time Complexity: O(n) ==> 모든 노드 1번씩 순회하는데 전부 1번씩만 순회했음.
  * Auxiliary Space: O(n/2) ==> O(n), 가장 메모리를 많이 쓸 때는 Complete Binary Tree에서 가장 마지막 레벨 순회할 때, 이 때 노드갯수는 전체갯수의 약 1/2 임.
  */
-function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal: BreadthFirstTraversalType): Generator<TraversalContext<D>, void, undefined> {
+function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal: BreadthFirstTraversalType): Generator<CoreTraversalContext<D>, void, undefined> {
   if (!root) {
     return;
   }
 
   // 탐색해야하는 노드들
-  let nextSearchQueue: InternalIterationItem<D>[] = [{node: root, parents: [], lastParent: undefined}];
+  let nextSearchQueue: InternalIterationItem<D>[] = [{node: root, lastParent: undefined}];
   let iteratingDirection: BinaryTreeDirection = traversal === 'level-order' ? 'right' : 'left';
   let level = 0;
-  let index = 0;
 
   while (nextSearchQueue.length > 0) {
     const iterating = [...nextSearchQueue];
@@ -118,10 +114,9 @@ function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal
     let i = iteratingDirection === 'right' ? 0 : iterating.length - 1;
 
     while (iteratingDirection === 'right' ? i < iterating.length : i >= 0) {
-      const {node, parents, lastParent} = iterating[i];
+      const {node, lastParent} = iterating[i];
 
-      yield {node, parents, lastParent, level, index};
-      index++;
+      yield {node, lastParent, level};
 
       const childDirections: BinaryTreeDirection[] = iteratingDirection === 'right' ? ['left', 'right'] : ['right', 'left'];
 
@@ -133,7 +128,6 @@ function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal
 
         const item: InternalIterationItem<D> = {
           node: node[direction],
-          parents: parents.concat(node),
           lastParent: {
             node,
             direction
