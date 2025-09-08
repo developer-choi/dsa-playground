@@ -100,26 +100,27 @@ export function getRangeBinaryTree(root: BinaryTreeNode<number> | undefined, ran
  * Time Complexity: O(n)
  * Auxiliary Space: O(h)
  */
-export function sumOfLeafs(root: BinaryTreeNode<number> | undefined) {
-  let sum = 0;
-
-  for (const {node} of traverseAllNodes(root, {traversal: 'level-order'})) {
-    if (node.isLeaf()) {
-      // TODO sum += sumNodes(parents.concat(node));
-    }
+export function sumOfLeafs(root: BinaryTreeNode<number> | undefined): number {
+  if (!root) {
+    return 0;
   }
 
-  return sum;
-}
+  let totalSum = 0;
 
-function sumNodes(nodes: BinaryTreeNode<number>[]): number {
-  let exponent = nodes.length - 1;
-  let sum = 0;
+  // Generator를 끝까지 실행하기 위한 Array.from() 문법
+  Array.from(traverseAllNodes<number, number>(root, {
+    traversal: 'preorder', // 부모를 먼저 방문하는 순회인 postorder, preoder면 가능
+    accumulator: (context) => {
+      const parentPathSum = context.lastParent?.accumulatedValue ?? 0;
+      const currentPathSum = parentPathSum * 10 + context.node.data;
 
-  for (let i = 0; i < nodes.length && exponent >= 0; i++) {
-    sum += 10 ** exponent * nodes[i].data;
-    exponent--;
-  }
+      if (context.node.isLeaf()) {
+        totalSum += currentPathSum;
+      }
 
-  return sum;
+      return currentPathSum;
+    },
+  }));
+
+  return totalSum;
 }
