@@ -71,12 +71,12 @@ describe('traverse Binary Tree', () => {
   });
 
   it.each(TRAVERSAL_CASES)('should return nodes in $mode order', ({mode, expected}) => {
-    expect([...traverseAllNodes(root, mode)].map(handler)).toEqual(expected);
+    expect([...traverseAllNodes(root, {traversal: mode})].map(handler)).toEqual(expected);
   });
 
   describe('Parent and LastParent Integrity', () => {
     it.each(TRAVERSAL_CASES)('should provide correct parent info during $mode traversal', ({mode}) => {
-      const contexts = [...traverseAllNodes(root, mode)];
+      const contexts = [...traverseAllNodes(root, {traversal: mode})];
       const rootContext = contexts.find(context => context.node.data === 12);
       expect(rootContext).toBeDefined();
       expect(rootContext?.lastParent).toBeUndefined();

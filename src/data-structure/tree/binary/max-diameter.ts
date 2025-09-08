@@ -10,7 +10,7 @@ import {traverseAllNodes} from '@/data-structure/tree/binary/traversal';
 export function bruteForceDiameter<D>(root: BinaryTreeNode<D> | undefined) {
   let maxDiameter = 0;
 
-  for (const {node} of traverseAllNodes(root, 'inorder')) {
+  for (const {node} of traverseAllNodes(root, {traversal: 'inorder'})) {
     // 자식 노드 높이 + 현재 노드와 자식노드 사이 거리 1만큼 보정
     const leftHeight = getHeightOfNode(node.left) + (node.left ? 1 : 0);
     const rightHeight = getHeightOfNode(node.right) + (node.right ? 1 : 0);

@@ -23,7 +23,7 @@ export function recoverBST(root: BinaryTreeNode<number> | undefined): BinaryTree
   let previousNode: BinaryTreeNode<number> | undefined = undefined;
   let invalidNodes = new Set<BinaryTreeNode<number>>();
 
-  for (const {node} of traverseAllNodes(root, 'inorder')) {
+  for (const {node} of traverseAllNodes(root, {traversal: 'inorder'})) {
     if (previousNode && previousNode.data > node.data) {
       // TODO 여기서 이전노드가 문제일까 현재노드가 문제일까? 무슨기준으로 판단할까?
       // invalidNodes.add(node);

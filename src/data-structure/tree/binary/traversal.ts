@@ -4,11 +4,15 @@ export type TraversalTreeType = DepthFirstTraversalType | BreadthFirstTraversalT
 export type BreadthFirstTraversalType = 'level-order' | 'spiral-order';
 export type DepthFirstTraversalType = 'inorder' | 'reverse-inorder' | 'preorder' | 'postorder';
 
-export interface TraversalContext<D> extends CoreTraversalContext<D> {
+// 어떤 방법으로 순회를 하더라도 공통적으로 주입할 수 있는 데이터
+export interface TraversalContext<D> extends InternalTraversalContext<D> {
   index: number;
 }
 
-interface CoreTraversalContext<D> {
+export type InternalIterationItem<D> = Pick<TraversalContext<D>, 'node' | 'lastParent'>;
+
+// 노드를 순회하는 방법에 따라 크게 달라지는 공통 핵심 데이터
+interface InternalTraversalContext<D> {
   lastParent: undefined | {
     node: BinaryTreeNode<D>;
     direction: BinaryTreeDirection;
@@ -17,10 +21,16 @@ interface CoreTraversalContext<D> {
   level: number,
 }
 
-export type InternalIterationItem<D> = Pick<TraversalContext<D>, 'node' | 'lastParent'>;
+export interface TraverseOptions<D, R = TraversalContext<D>> {
+  traversal: TraversalTreeType;
+  enricher?: (context: TraversalContext<D>) => R;
+}
 
-export function* traverseAllNodes<D, R = TraversalContext<D>>(node: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType, enricher?: (context: TraversalContext<D>) => R): Generator<R, void, undefined> {
-  const traverse = isBFS(traversal) ? traverseBreadthFirst(node, traversal) : traverseDepthFirst(node, traversal);
+type InternalTraverseOptions<D> = Omit<TraverseOptions<D>, 'enricher'>;
+
+export function* traverseAllNodes<D, R = TraversalContext<D>>(node: BinaryTreeNode<D> | undefined, options: TraverseOptions<D, R>): Generator<R, void, undefined> {
+  const {traversal, enricher} = options;
+  const traverse = isBFS(traversal) ? traverseBreadthFirst(node, options) : traverseDepthFirst(node, options);
   const callback = enricher ?? ((context: TraversalContext<D>) => context as R);
 
   let index = 0;
@@ -49,17 +59,18 @@ export function* traverseAllNodes<D, R = TraversalContext<D>>(node: BinaryTreeNo
  *
  * @description inorder라고 해서 진짜 inorder 순으로 노드를 방문하는건 아님. 처음에 root에서 제일 작은노드로 찾아가는 과정은 당연히 있음;
  */
-function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: DepthFirstTraversalType): Generator<CoreTraversalContext<D>, void, undefined> {
+function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, options: InternalTraverseOptions<D>): Generator<InternalTraversalContext<D>, void, undefined> {
+  const {traversal} = options;
   const isReversed = traversal.startsWith('reverse-');
   const firstDirection: BinaryTreeDirection = isReversed ? 'right' : 'left';
   const secondDirection: BinaryTreeDirection = isReversed ? 'left' : 'right';
 
-  function* recursive(node: BinaryTreeNode<D> | undefined, meta: Omit<CoreTraversalContext<D>, 'node'>): Generator<CoreTraversalContext<D>, void, undefined> {
+  function* recursive(node: BinaryTreeNode<D> | undefined, meta: Omit<InternalTraversalContext<D>, 'node'>): Generator<InternalTraversalContext<D>, void, undefined> {
     if (!node) {
       return node;
     }
 
-    const context: CoreTraversalContext<D> = {node, level: meta.level, lastParent: meta.lastParent};
+    const context: InternalTraversalContext<D> = {node, level: meta.level, lastParent: meta.lastParent};
 
     if (traversal === 'preorder') {
       yield context;
@@ -97,10 +108,12 @@ function* traverseDepthFirst<D>(node: BinaryTreeNode<D> | undefined, traversal: 
  * Time Complexity: O(n) ==> 모든 노드 1번씩 순회하는데 전부 1번씩만 순회했음.
  * Auxiliary Space: O(n/2) ==> O(n), 가장 메모리를 많이 쓸 때는 Complete Binary Tree에서 가장 마지막 레벨 순회할 때, 이 때 노드갯수는 전체갯수의 약 1/2 임.
  */
-function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, traversal: BreadthFirstTraversalType): Generator<CoreTraversalContext<D>, void, undefined> {
+function* traverseBreadthFirst<D>(root: BinaryTreeNode<D> | undefined, options: InternalTraverseOptions<D>): Generator<InternalTraversalContext<D>, void, undefined> {
   if (!root) {
     return;
   }
+
+  const {traversal} = options;
 
   // 탐색해야하는 노드들
   let nextSearchQueue: InternalIterationItem<D>[] = [{node: root, lastParent: undefined}];

@@ -8,7 +8,7 @@ import {TraversalTreeType, traverseAllNodes} from '@/data-structure/tree/binary/
 export function getMaxDepthInTree<D>(root: BinaryTreeNode<D> | undefined, traversal: TraversalTreeType): number | -1 {
   let maxDepth = -1;
 
-  for (const {level} of traverseAllNodes(root, traversal)) {
+  for (const {level} of traverseAllNodes(root, {traversal})) {
     if (maxDepth < level) {
       maxDepth = level;
     }
@@ -25,7 +25,7 @@ export function getNodeCount(root: BinaryTreeNode<any>, traversal: TraversalTree
   // return [...traverseTree(root, traversal)].length; 이렇게 하면 Auxiliary Space가 O(n)이 됨.
   let count = 0;
 
-  for (const _ of traverseAllNodes(root, traversal)) {
+  for (const _ of traverseAllNodes(root, {traversal})) {
     count++;
   }
 
@@ -47,7 +47,7 @@ export function getBoundary(root: BinaryTreeNode<number> | undefined, traversal:
   let min = Infinity;
   let max = -Infinity;
 
-  for (const {node: {data}} of traverseAllNodes(root, traversal)) {
+  for (const {node: {data}} of traverseAllNodes(root, {traversal})) {
     max = Math.max(data, max);
     min = Math.min(data, min);
   }
@@ -64,7 +64,7 @@ export function getBoundary(root: BinaryTreeNode<number> | undefined, traversal:
 export function isSumTree(root: BinaryTreeNode<number>, traversal: TraversalTreeType): boolean {
   let sum = 0;
 
-  for (const {node: {data}} of traverseAllNodes(root, traversal)) {
+  for (const {node: {data}} of traverseAllNodes(root, {traversal})) {
     sum += data;
   }
 
@@ -81,7 +81,7 @@ export function getRangeBinaryTree(root: BinaryTreeNode<number> | undefined, ran
     return [];
   }
 
-  for (const {node: {data}} of traverseAllNodes(root, 'inorder')) {
+  for (const {node: {data}} of traverseAllNodes(root, {traversal: 'inorder'})) {
     if (min <= data && data <= max) {
       result.push(data);
     }
@@ -103,7 +103,7 @@ export function getRangeBinaryTree(root: BinaryTreeNode<number> | undefined, ran
 export function sumOfLeafs(root: BinaryTreeNode<number> | undefined) {
   let sum = 0;
 
-  for (const {node} of traverseAllNodes(root, 'level-order')) {
+  for (const {node} of traverseAllNodes(root, {traversal: 'level-order'})) {
     if (node.isLeaf()) {
       // TODO sum += sumNodes(parents.concat(node));
     }

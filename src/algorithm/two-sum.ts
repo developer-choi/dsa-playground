@@ -51,7 +51,7 @@ export function twoPointersBSTTwoSum(root: BinaryTreeNode<number> | undefined, t
    * 이렇게 하면 노드를 한번 전체 순회 한 다음 다시 처음 요소부터 순회하며 로직이 실행된다는 단점이 있음.
    * 하지만 애초에 GFG 문제부터가 array로 변환 다음에 푸는거였음.
    */
-  return internalTwoPointer([...traverseAllNodes(root, 'inorder')], target, item => item.node.data);
+  return internalTwoPointer([...traverseAllNodes(root, {traversal: 'inorder'})], target, item => item.node.data);
 }
 
 /*************************************************************************************************************
@@ -76,7 +76,7 @@ export function setArrayTwoSum(array: number[], target: number): boolean {
  * @param target 체크할 2개를 더한 값
  */
 export function setBSTTwoSum(root: BinaryTreeNode<number> | undefined, target: number): boolean {
-  return internalSet(traverseAllNodes(root, 'inorder'), target, item => item.node.data);
+  return internalSet(traverseAllNodes(root, {traversal: 'inorder'}), target, item => item.node.data);
 }
 
 /*************************************************************************************************************

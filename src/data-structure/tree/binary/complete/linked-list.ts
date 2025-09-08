@@ -18,7 +18,7 @@ export class LinkedListBinaryTree<D> extends CompleteBinaryTree<D> {
       return;
     }
 
-    for (const {node} of traverseAllNodes(this.root, 'level-order')) {
+    for (const {node} of traverseAllNodes(this.root, {traversal: 'level-order'})) {
       if (!node.left) {
         node.left = new BinaryTreeNode<D>(data);
         return;
@@ -35,7 +35,7 @@ export class LinkedListBinaryTree<D> extends CompleteBinaryTree<D> {
     let deletedNode: BinaryTreeNode<D> | undefined;
     let lastIterationItem: InternalIterationItem<D> | undefined;
 
-    for (const item of traverseAllNodes(this.root, 'level-order')) {
+    for (const item of traverseAllNodes(this.root, {traversal: 'level-order'})) {
       // 최초로 데이터가 똑같은 경우에만 할당
       if (item.node.data === data && !deletedNode) {
         deletedNode = item.node;
@@ -63,7 +63,7 @@ export class LinkedListBinaryTree<D> extends CompleteBinaryTree<D> {
   }
 
   public* [Symbol.iterator](): Generator<{data: D, level: number, index: number}, void, undefined> {
-    for (const {node, level, index} of traverseAllNodes(this.root, 'level-order')) {
+    for (const {node, level, index} of traverseAllNodes(this.root, {traversal: 'level-order'})) {
       yield {data: node.data, level, index};
     }
   }

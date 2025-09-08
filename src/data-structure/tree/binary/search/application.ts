@@ -47,7 +47,7 @@ export function sumKSmallestBST(root: BinaryTreeNode<number> | undefined, k: num
    * 2. 다 세면 중간에 바로 break 해서 더 안세기 때문에
    * O(n)이 아님.
    */
-  for (const {node: {data}} of traverseAllNodes(root, 'inorder')) {
+  for (const {node: {data}} of traverseAllNodes(root, {traversal: 'inorder'})) {
     sum += data;
     count++;
 
