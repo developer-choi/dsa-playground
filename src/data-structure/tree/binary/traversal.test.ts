@@ -10,56 +10,56 @@ import {traverseBstInRange} from '@/data-structure/tree/binary/search/traversal'
 import {recursiveArrayToBST} from '@/data-structure/tree/binary/search/array-to-bst';
 import {randomNumber, randomNumericArray} from '@forworkchoe/core/utils';
 
+const root = new BinaryTreeNode(12);
+root.left = new BinaryTreeNode(7);
+root.right = new BinaryTreeNode(14);
+root.left.left = new BinaryTreeNode(5);
+root.left.right = new BinaryTreeNode(8);
+root.right.left = new BinaryTreeNode(13);
+root.right.right = new BinaryTreeNode(27);
+root.left.left.left = new BinaryTreeNode(3);
+root.left.right.right = new BinaryTreeNode(11);
+root.right.right.left = new BinaryTreeNode(17);
+root.left.left.left.left = new BinaryTreeNode(2);
+root.right.right.left.right = new BinaryTreeNode(23);
+
+const NODE_2: SummaryBinaryTree<number> = {level: 4, data: 2, direction: 'left', parent: 3};
+const NODE_3: SummaryBinaryTree<number> = {level: 3, data: 3, direction: 'left', parent: 5};
+const NODE_5: SummaryBinaryTree<number> = {level: 2, data: 5, direction: 'left', parent: 7};
+const NODE_7: SummaryBinaryTree<number> = {level: 1, data: 7, direction: 'left', parent: 12};
+const NODE_8: SummaryBinaryTree<number> = {level: 2, data: 8, direction: 'right', parent: 7};
+const NODE_11: SummaryBinaryTree<number> = {level: 3, data: 11, direction: 'right', parent: 8};
+const NODE_12: SummaryBinaryTree<number> = {level: 0, data: 12, direction: undefined, parent: undefined};
+const NODE_13: SummaryBinaryTree<number> = {level: 2, data: 13, direction: 'left', parent: 14};
+const NODE_14: SummaryBinaryTree<number> = {level: 1, data: 14, direction: 'right', parent: 12};
+const NODE_17: SummaryBinaryTree<number> = {level: 3, data: 17, direction: 'left', parent: 27};
+const NODE_23: SummaryBinaryTree<number> = {level: 4, data: 23, direction: 'right', parent: 17};
+const NODE_27: SummaryBinaryTree<number> = {level: 2, data: 27, direction: 'right', parent: 14};
+
+const INORDER_EXPECTED = [NODE_2, NODE_3, NODE_5, NODE_7, NODE_8, NODE_11, NODE_12, NODE_13, NODE_14, NODE_17, NODE_23, NODE_27];
+
 // yarn test src/data-structure/tree/binary/traversal.test.ts
-describe('traversalTree', () => {
-  const root = new BinaryTreeNode(5);
-  root.left = new BinaryTreeNode(12);
-  root.right = new BinaryTreeNode(13);
-  root.left.left = new BinaryTreeNode(7);
-  root.left.right = new BinaryTreeNode(14);
-  root.right.right = new BinaryTreeNode(2);
-  root.left.left.left = new BinaryTreeNode(17);
-  root.left.left.right = new BinaryTreeNode(23);
-  root.left.right.left = new BinaryTreeNode(27);
-  root.left.right.right = new BinaryTreeNode(3);
-  root.right.right.left = new BinaryTreeNode(8);
-  root.right.right.right = new BinaryTreeNode(11);
-
-  const NODE_17: SummaryBinaryTree<number> = {level: 3, data: 17, direction: 'left', parent: 7};
-  const NODE_7: SummaryBinaryTree<number> = {level: 2, data: 7, direction: 'left', parent: 12};
-  const NODE_23: SummaryBinaryTree<number> = {level: 3, data: 23, direction: 'right', parent: 7};
-  const NODE_12: SummaryBinaryTree<number> = {level: 1, data: 12, direction: 'left', parent: 5};
-  const NODE_27: SummaryBinaryTree<number> = {level: 3, data: 27, direction: 'left', parent: 14};
-  const NODE_14: SummaryBinaryTree<number> = {level: 2, data: 14, direction: 'right', parent: 12};
-  const NODE_3: SummaryBinaryTree<number> = {level: 3, data: 3, direction: 'right', parent: 14};
-  const NODE_5: SummaryBinaryTree<number> = {level: 0, data: 5, direction: undefined, parent: undefined};
-  const NODE_13: SummaryBinaryTree<number> = {level: 1, data: 13, direction: 'right', parent: 5};
-  const NODE_8: SummaryBinaryTree<number> = {level: 3, data: 8, direction: 'left', parent: 2};
-  const NODE_2: SummaryBinaryTree<number> = {level: 2, data: 2, direction: 'right', parent: 13};
-  const NODE_11: SummaryBinaryTree<number> = {level: 3, data: 11, direction: 'right', parent: 2};
-
-  const INORDER_EXPECTED = [NODE_17, NODE_7, NODE_23, NODE_12, NODE_27, NODE_14, NODE_3, NODE_5, NODE_13, NODE_8, NODE_2, NODE_11];
-
+describe('traverse Binary Tree', () => {
   const TRAVERSAL_CASES = [
     {
       mode: 'inorder' as const,
-      expected: INORDER_EXPECTED
+      expected: INORDER_EXPECTED,
     },
     {
       mode: 'preorder' as const,
-      expected: [NODE_5, NODE_12, NODE_7, NODE_17, NODE_23, NODE_14, NODE_27, NODE_3, NODE_13, NODE_2, NODE_8, NODE_11],
+      expected: [NODE_12, NODE_7, NODE_5, NODE_3, NODE_2, NODE_8, NODE_11, NODE_14, NODE_13, NODE_27, NODE_17, NODE_23],
     },
     {
       mode: 'postorder' as const,
-      expected: [NODE_17, NODE_23, NODE_7, NODE_27, NODE_3, NODE_14, NODE_12, NODE_8, NODE_11, NODE_2, NODE_13, NODE_5],
+      expected: [NODE_2, NODE_3, NODE_5, NODE_11, NODE_8, NODE_7, NODE_13, NODE_23, NODE_17, NODE_27, NODE_14, NODE_12],
     },
     {
       mode: 'level-order' as const,
-      expected: [NODE_5, NODE_12, NODE_13, NODE_7, NODE_14, NODE_2, NODE_17, NODE_23, NODE_27, NODE_3, NODE_8, NODE_11],
+      expected: [NODE_12, NODE_7, NODE_14, NODE_5, NODE_8, NODE_13, NODE_27, NODE_3, NODE_11, NODE_17, NODE_2, NODE_23],
     },
     {
       mode: 'spiral-order' as const,
-      expected: [NODE_5, NODE_12, NODE_13, NODE_2, NODE_14, NODE_7, NODE_17, NODE_23, NODE_27, NODE_3, NODE_8, NODE_11],
+      expected: [NODE_12, NODE_7, NODE_14, NODE_27, NODE_13, NODE_8, NODE_5, NODE_3, NODE_11, NODE_17, NODE_23, NODE_2],
     },
   ];
 
@@ -86,15 +86,17 @@ describe('traverse Binary Search Tree', () => {
   ];
 
   describe.each(algorithms)('Range Traversal Algorithms > $name', ({fn}) => {
-    const root = new BinaryTreeNode(22);
-    root.left = new BinaryTreeNode(12);
-    root.right = new BinaryTreeNode(30);
-    root.left.left = new BinaryTreeNode(8);
-    root.left.right = new BinaryTreeNode(20);
-
     describe('General cases', () => {
       it('should return nodes within the specified range', () => {
-        expect(fn(root, {min: 10, max: 22})).toEqual([12, 20, 22]);
+        expect(fn(root, {min: 8, max: 14})).toEqual([8, 11, 12, 13, 14]);
+      });
+
+      it('should return only the minimum value when range is a single point', () => {
+        expect(fn(root, {min: 17, max: 17})).toEqual([17]);
+      });
+
+      it('should handle ranges that include the root node', () => {
+        expect(fn(root, {min: 5, max: 13})).toEqual([5, 7, 8, 11, 12, 13]);
       });
     });
 
