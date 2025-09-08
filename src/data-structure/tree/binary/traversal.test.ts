@@ -77,6 +77,30 @@ describe('traverse Binary Tree', () => {
   it('should perform reverse inorder traversal correctly', () => {
     expect([...reverseInorderTraverseAllNodes(root)].map(handler)).toEqual(INORDER_EXPECTED.toReversed());
   });
+
+  describe('Parent and LastParent Integrity', () => {
+    it.each(TRAVERSAL_CASES)('should provide correct parent info during $mode traversal', ({mode}) => {
+      const contexts = [...traverseAllNodes(root, mode)];
+      const rootContext = contexts.find(context => context.node.data === 12);
+      expect(rootContext).toBeDefined();
+      expect(rootContext?.parents).toEqual([]);
+      expect(rootContext?.lastParent).toBeUndefined();
+
+      const midNodeContext = contexts.find(context => context.node.data === 14);
+      expect(midNodeContext).toBeDefined();
+
+      expect(midNodeContext?.parents.map(p => p.data)).toEqual([12]);
+      expect(midNodeContext?.lastParent?.node.data).toBe(12);
+      expect(midNodeContext?.lastParent?.direction).toBe('right');
+
+      const leafNodeContext = contexts.find(context => context.node.data === 23);
+      expect(leafNodeContext).toBeDefined();
+
+      expect(leafNodeContext?.parents.map(p => p.data)).toEqual([12, 14, 27, 17]);
+      expect(leafNodeContext?.lastParent?.node.data).toBe(17);
+      expect(leafNodeContext?.lastParent?.direction).toBe('right');
+    });
+  });
 });
 
 describe('traverse Binary Search Tree', () => {
@@ -139,6 +163,29 @@ describe('traverse Binary Search Tree', () => {
           });
         }
       });
+    });
+  });
+
+  describe('Parent Integrity in BST Traversal', () => {
+    it('should provide correct parent info during BST traversal', () => {
+      const contexts = [...traverseBstInRange(root)];
+
+      const rootContext = contexts.find(context => context.node.data === 12);
+      expect(rootContext).toBeDefined();
+      expect(rootContext?.parents).toEqual([]);
+      expect(rootContext?.lastParent).toBeUndefined();
+
+      const midNodeContext = contexts.find(context => context.node.data === 14);
+      expect(midNodeContext).toBeDefined();
+      expect(midNodeContext?.parents.map(p => p.data)).toEqual([12]);
+      expect(midNodeContext?.lastParent?.node.data).toBe(12);
+      expect(midNodeContext?.lastParent?.direction).toBe('right');
+
+      const leafNodeContext = contexts.find(context => context.node.data === 23);
+      expect(leafNodeContext).toBeDefined();
+      expect(leafNodeContext?.parents.map(p => p.data)).toEqual([12, 14, 27, 17]);
+      expect(leafNodeContext?.lastParent?.node.data).toBe(17);
+      expect(leafNodeContext?.lastParent?.direction).toBe('right');
     });
   });
 
