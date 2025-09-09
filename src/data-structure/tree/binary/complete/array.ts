@@ -1,11 +1,24 @@
 import {CompleteBinaryTree} from '@/data-structure/tree/binary/complete/index';
 
 export class ArrayBinaryTree<D> extends CompleteBinaryTree<D> {
-  readonly array: D[];
+  protected readonly array: D[];
 
   constructor() {
     super();
     this.array = [];
+  }
+
+  /**
+   * URL: https://www.geeksforgeeks.org/dsa/binary-heap/
+   * Doc: https://docs.google.com/document/d/1dUt9mYfzFzZBdQBK-qvHiyi2_6nEScqxEQd0IdvJs8c/edit?tab=t.0
+   * parent는 index가 0이면 -1로 응답됨.
+   */
+  protected getFamilyIndex(index: number) {
+    return {
+      left: 2 * index + 1,
+      right: 2 * index + 2,
+      parent: Math.floor((index - 1) / 2),
+    };
   }
 
   /**
