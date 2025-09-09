@@ -10,10 +10,10 @@ export class ArrayBinaryTree<D> extends CompleteBinaryTree<D> {
 
   /**
    * URL: https://www.geeksforgeeks.org/dsa/binary-heap/
-   * Doc: https://docs.google.com/document/d/1dUt9mYfzFzZBdQBK-qvHiyi2_6nEScqxEQd0IdvJs8c/edit?tab=t.0
-   * parent는 index가 0이면 -1로 응답됨.
+   * Doc: https://docs.google.com/document/d/1HUHbm0GTjutNvsWu4imZIXkQUTt18yy7IzldOHtQtDc/edit?tab=t.0
+   * @return parent index가 0이면 -1로 응답됨.
    */
-  protected getFamilyIndex(index: number) {
+  protected getFamilyIndexes(index: number) {
     return {
       left: 2 * index + 1,
       right: 2 * index + 2,

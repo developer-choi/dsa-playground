@@ -13,12 +13,12 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     super.add(data);
 
     let i = this.array.length - 1;
-    while (i > 0 && this.array[this.getFamilyIndex(i).parent] > this.array[i]) {
-      const parentIndex = this.getFamilyIndex(i).parent;
+    while (i > 0 && this.array[this.getFamilyIndexes(i).parent] > this.array[i]) {
+      const parentIndex = this.getFamilyIndexes(i).parent;
 
       [this.array[parentIndex], this.array[i]] = [this.array[i], this.array[parentIndex]];
 
-      i = this.getFamilyIndex(i).parent;
+      i = this.getFamilyIndexes(i).parent;
     }
   }
 }
