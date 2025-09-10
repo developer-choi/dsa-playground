@@ -22,3 +22,5 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     }
   }
 }
+
+export type HeapType = 'min' | 'max';
