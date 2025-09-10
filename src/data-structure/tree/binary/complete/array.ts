@@ -8,17 +8,8 @@ export class ArrayBinaryTree<D> extends CompleteBinaryTree<D> {
     this.array = [];
   }
 
-  /**
-   * URL: https://www.geeksforgeeks.org/dsa/binary-heap/
-   * Doc: https://docs.google.com/document/d/1HUHbm0GTjutNvsWu4imZIXkQUTt18yy7IzldOHtQtDc/edit?tab=t.0
-   * @return parent index가 0이면 -1로 응답됨.
-   */
-  protected getFamilyIndexes(index: number) {
-    return {
-      left: 2 * index + 1,
-      right: 2 * index + 2,
-      parent: Math.floor((index - 1) / 2),
-    };
+  getFamilyIndexes(index: number) {
+    return getFamilyIndexesFromCompleteBinaryTree(this.array, index);
   }
 
   /**
@@ -69,4 +60,19 @@ export class ArrayBinaryTree<D> extends CompleteBinaryTree<D> {
       yield {data, level, index: i};
     }
   }
+}
+
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/binary-heap/
+ * Doc: https://docs.google.com/document/d/1HUHbm0GTjutNvsWu4imZIXkQUTt18yy7IzldOHtQtDc/edit?tab=t.0
+ * @return parent, left, right index가 array의 범위를 벗어나는 경우, -1이 응답됨.
+ */
+export function getFamilyIndexesFromCompleteBinaryTree(array: unknown[], index: number) {
+  const isExceed = array.length <= index;
+
+  return {
+    left: isExceed ? -1 : 2 * index + 1,
+    right: isExceed ? -1 : 2 * index + 2,
+    parent: isExceed || index <= 0 ? -1 : Math.floor((index - 1) / 2),
+  };
 }
