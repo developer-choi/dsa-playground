@@ -64,6 +64,23 @@ describe('Heap', () => {
         expect([...heap].map(item => item.data)).toEqual(expected.array);
       });
     });
+
+    it('should correctly delete keys from various positions (root, middle, leaf)', () => {
+      const heap = new MinHeap();
+      heap.add(13);
+      heap.add(16);
+      heap.add(31);
+      heap.add(41);
+      heap.add(51);
+      heap.add(100);
+
+      heap.deleteKey(0);
+      expect([...heap].map(item => item.data)).toEqual([16, 41, 31, 100, 51]);
+      heap.deleteKey(heap.length - 1);
+      expect([...heap].map(item => item.data)).toEqual([16, 41, 31, 100]);
+      heap.deleteKey(2);
+      expect([...heap].map(item => item.data)).toEqual([16, 41, 100]);
+    });
   });
 
   describe('Edge cases', () => {

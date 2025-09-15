@@ -9,6 +9,23 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     super();
   }
 
+  getMin(): number | undefined {
+    return this.array[0];
+  }
+
+  deleteKey(index: number) {
+    const min = this.getMin();
+
+    if (min === undefined) {
+      return;
+    }
+
+    // index의 값을 힙에서 제일 작은값으로 만듬
+    this.decreaseKey(index, min - 1);
+
+    this.extractMin();
+  }
+
   add(data: number) {
     super.add(data);
     this.bubbleUp(this.array.length - 1);
