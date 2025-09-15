@@ -12,5 +12,16 @@ describe('Heap', () => {
         expect(iterativeIsHeap('min', heap.toArray().flat())).toBe(true);
       });
     });
+
+    it('예제는 만족해야한다', () => {
+      const heap = new MinHeap();
+      heap.add(10);
+      heap.add(15);
+      heap.add(20);
+      heap.add(30);
+      heap.add(40);
+      heap.decreaseKey(3, 5);
+      expect([...heap].map(item => item.data)).toEqual([5, 10, 20, 15, 40]);
+    });
   });
 });

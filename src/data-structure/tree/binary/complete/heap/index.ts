@@ -11,14 +11,27 @@ export default class MinHeap extends ArrayBinaryTree<number> {
 
   add(data: number) {
     super.add(data);
+    this.bubbleUp(this.array.length - 1);
+  }
 
-    let i = this.array.length - 1;
-    while (i > 0 && this.array[this.getFamilyIndexes(i).parent] > this.array[i]) {
-      const parentIndex = this.getFamilyIndexes(i).parent;
+  decreaseKey(index: number, value: number) {
+    if (this.array[index] < value) {
+      throw new TypeError(`${this.array[index]} 보다 작은 값을 value로 전달해야합니다.\n기존값=${this.array[index]}\n전달된 값=${value}`);
+    }
 
-      [this.array[parentIndex], this.array[i]] = [this.array[i], this.array[parentIndex]];
+    this.array[index] = value;
+    this.bubbleUp(index);
+  }
 
-      i = this.getFamilyIndexes(i).parent;
+  private bubbleUp(initialIndex: number) {
+    let currentIndex = initialIndex;
+    let parentIndex = this.getFamilyIndexes(currentIndex).parent;
+
+    while (currentIndex > 0 && this.array[parentIndex] > this.array[currentIndex]) {
+      [this.array[parentIndex], this.array[currentIndex]] = [this.array[currentIndex], this.array[parentIndex]];
+
+      currentIndex = parentIndex;
+      parentIndex = this.getFamilyIndexes(currentIndex).parent;
     }
   }
 }
