@@ -2,7 +2,7 @@
  * Doc: https://docs.google.com/document/d/1hmQ93jf-hPjph7pKNf1hPJkwa-THOQS3iI7lYYnExTM/edit?tab=t.0#heading=h.tv71ehud6a1w
  */
 export abstract class CompleteBinaryTree<D> {
-  private _length: number;
+  protected _length: number;
 
   constructor() {
     this._length = 0;

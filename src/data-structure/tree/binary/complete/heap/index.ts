@@ -31,6 +31,7 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     const result = this.array[0];
     this.array[0] = this.array[this.array.length - 1];
     this.array.pop();
+    this._length--;
     this.bubbleDown(0);
     return result;
   }

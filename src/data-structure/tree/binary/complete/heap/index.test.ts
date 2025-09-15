@@ -31,18 +31,38 @@ describe('Heap', () => {
       heap.add(10);
       heap.add(4);
       heap.add(5);
-      expect(heap.extractMin()).toBe(2);
-      expect([...heap].map(item => item.data)).toEqual([3, 4, 10, 5]);
-      expect(heap.extractMin()).toBe(3);
-      expect([...heap].map(item => item.data)).toEqual([4, 5, 10]);
-      expect(heap.extractMin()).toBe(4);
-      expect([...heap].map(item => item.data)).toEqual([5, 10]);
-      expect(heap.extractMin()).toBe(5);
-      expect([...heap].map(item => item.data)).toEqual([10]);
-      expect(heap.extractMin()).toBe(10);
-      expect([...heap].map(item => item.data)).toEqual([]);
-      expect(heap.extractMin()).toBe(undefined);
-      expect([...heap].map(item => item.data)).toEqual([]);
+      const expecteds = [
+        {
+          min: 2,
+          array: [3, 4, 10, 5]
+        },
+        {
+          min: 3,
+          array: [4, 5, 10]
+        },
+        {
+          min: 4,
+          array: [5, 10]
+        },
+        {
+          min: 5,
+          array: [10]
+        },
+        {
+          min: 10,
+          array: []
+        },
+        {
+          min: undefined,
+          array: []
+        },
+      ];
+
+      expecteds.forEach(expected => {
+        expect(heap.extractMin()).toBe(expected.min);
+        expect(heap.length).toBe(expected.array.length);
+        expect([...heap].map(item => item.data)).toEqual(expected.array);
+      });
     });
   });
 
