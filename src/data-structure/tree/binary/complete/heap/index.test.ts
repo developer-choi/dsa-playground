@@ -23,6 +23,27 @@ describe('Heap', () => {
       heap.decreaseKey(3, 5);
       expect([...heap].map(item => item.data)).toEqual([5, 10, 20, 15, 40]);
     });
+
+    it('should return sorted values when extractMin is called repeatedly', () => {
+      const heap = new MinHeap();
+      heap.add(2);
+      heap.add(3);
+      heap.add(10);
+      heap.add(4);
+      heap.add(5);
+      expect(heap.extractMin()).toBe(2);
+      expect([...heap].map(item => item.data)).toEqual([3, 4, 10, 5]);
+      expect(heap.extractMin()).toBe(3);
+      expect([...heap].map(item => item.data)).toEqual([4, 5, 10]);
+      expect(heap.extractMin()).toBe(4);
+      expect([...heap].map(item => item.data)).toEqual([5, 10]);
+      expect(heap.extractMin()).toBe(5);
+      expect([...heap].map(item => item.data)).toEqual([10]);
+      expect(heap.extractMin()).toBe(10);
+      expect([...heap].map(item => item.data)).toEqual([]);
+      expect(heap.extractMin()).toBe(undefined);
+      expect([...heap].map(item => item.data)).toEqual([]);
+    });
   });
 
   describe('Edge cases', () => {
