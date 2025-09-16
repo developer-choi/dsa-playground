@@ -34,7 +34,3 @@ export function findSecondLargestElement(array: number[]): number | null {
 
   return secondLargest;
 }
-
-// Expected: 34
-console.log(findSecondLargestElement([12, 35, 35, 1, 10, 34, 1]));
-console.log(findSecondLargestElement([-10, -5, -2]));
