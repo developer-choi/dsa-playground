@@ -141,6 +141,10 @@ export class MinHeap extends Heap {
 }
 
 export class MaxHeap extends Heap {
+  constructor() {
+    super();
+  }
+
   protected shouldSwap(parentItem: number, childrenItem: number): boolean {
     return parentItem < childrenItem;
   }
