@@ -1,3 +1,5 @@
+import {Heap, MaxHeap, MinHeap} from '@/data-structure/tree/binary/complete/heap';
+
 /**
  * Doc: https://docs.google.com/document/d/1kPMKSQSaUhiVBOv7nfBv-ah8zsnPXWUA-q0L6hVsqNo/edit?tab=t.0#heading=h.tovxn9cedrmb
  * Official: https://www.geeksforgeeks.org/dsa/find-second-largest-element-array/
@@ -34,3 +36,33 @@ export function findSecondLargestElement(array: number[]): number | null {
 
   return secondLargest;
 }
+
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/kth-smallest-largest-element-in-unsorted-array/
+ * URL: https://www.geeksforgeeks.org/dsa/kth-largest-element-in-an-array/
+ * Doc: https://docs.google.com/document/d/17pni-XHnVVrQ7ofF0dbzfwOM2db3_JKHIevc8vrkUtA/edit?tab=t.0
+ * GFG 스펙처럼, 중복을 허용함. [1, 1, 2, 2] 에서 2번째로 큰값을 구하려고 하면 1이 아니라 2가 반환됨.
+ * Time Complexity: O(n * log(k)) - 순회하는데 O(n), Heap에 추가하는거랑 extractRoot() 하는거랑 둘 다 O(h) = O(log(k)), 두개를 곱해서 이렇게됨.
+ * 이걸 전체 한번 정렬해서 하는 방법은 O(nlogn)인데, 비교하면 log n이랑 log k 크기 차이만큼 효율차이가 발생함.
+ */
+export function findKthOrderValue(array: number[], order: number, type: 'smallest' | 'largest') {
+  const HeapClass = HEAP_CLASSES[type];
+  const heap = new HeapClass();
+
+  for (const data of array) {
+    heap.add(data);
+
+    if (heap.length > order) {
+      heap.extractRoot();
+    }
+  }
+
+  return heap.peek();
+}
+
+export type OrderType = 'smallest' | 'largest';
+
+const HEAP_CLASSES: Record<OrderType, new () => Heap> = {
+  smallest: MaxHeap,
+  largest: MinHeap,
+};
