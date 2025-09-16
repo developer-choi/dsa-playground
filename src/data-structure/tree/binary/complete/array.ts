@@ -68,11 +68,13 @@ export class ArrayBinaryTree<D> extends CompleteBinaryTree<D> {
  * @return parent, left, right index가 array의 범위를 벗어나는 경우, -1이 응답됨.
  */
 export function getFamilyIndexesFromCompleteBinaryTree(array: unknown[], index: number) {
-  const isExceed = array.length <= index;
+  const left = 2 * index + 1;
+  const right = 2 * index + 2;
+  const parent = Math.floor((index - 1) / 2);
 
   return {
-    left: isExceed ? -1 : 2 * index + 1,
-    right: isExceed ? -1 : 2 * index + 2,
-    parent: isExceed || index <= 0 ? -1 : Math.floor((index - 1) / 2),
+    left: left >= array.length ? -1 : left,
+    right: right >= array.length ? -1 : right,
+    parent: parent < 0 ? -1 : parent,
   };
 }
