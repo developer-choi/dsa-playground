@@ -9,6 +9,10 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     super();
   }
 
+  /**
+   * min 값을 얻는데 Time Complexity가 O(1) 이라는게 가장 큰 장점임.
+   * array는 O(n)인데.
+   */
   getMin(): number | undefined {
     return this.array[0];
   }
