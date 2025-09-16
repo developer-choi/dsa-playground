@@ -14,14 +14,18 @@ export default class MinHeap extends ArrayBinaryTree<number> {
   }
 
   deleteKey(index: number) {
+    if (index < 0 || index >= this.array.length) {
+      throw new RangeError('Index out of bounds');
+    }
+
     const min = this.getMin();
 
     if (min === undefined) {
       return;
     }
 
-    // index의 값을 힙에서 제일 작은값으로 만듬
-    this.decreaseKey(index, min - 1);
+    // this.decreaseKey(index, min - 1); 도 괜찮음.
+    this.decreaseKey(index, Number.MIN_SAFE_INTEGER);
 
     this.extractMin();
   }
