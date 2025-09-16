@@ -13,6 +13,9 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     return this.array[0];
   }
 
+  /**
+   * Time Complexity: O(h) - decreaseKey() 랑 extractMin() 때문에.
+   */
   deleteKey(index: number) {
     if (index < 0 || index >= this.array.length) {
       throw new RangeError('Index out of bounds');
@@ -30,11 +33,17 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     this.extractMin();
   }
 
+  /**
+   * Time Complexity: O(h) - bubbleUp() 때문에.
+   */
   add(data: number) {
     super.add(data);
     this.bubbleUp(this.array.length - 1);
   }
 
+  /**
+   * Time Complexity: O(h) - bubbleUp() 때문에.
+   */
   decreaseKey(index: number, value: number) {
     if (this.array[index] < value) {
       throw new TypeError(`${this.array[index]} 보다 작은 값을 value로 전달해야합니다.\n기존값=${this.array[index]}\n전달된 값=${value}`);
@@ -44,6 +53,9 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     this.bubbleUp(index);
   }
 
+  /**
+   * Time Complexity: O(h) - bubbleDown() 때문에.
+   */
   extractMin(): number | undefined {
     if (this.array.length === 0) {
       return undefined;
@@ -57,7 +69,10 @@ export default class MinHeap extends ArrayBinaryTree<number> {
     return result;
   }
 
-  // GFG 링크에서 insert() 예제에서 스왑하는 부분만 코드로 분리했음
+  /**
+   * GFG 링크에서 insert() 예제에서 스왑하는 부분만 코드로 분리했음
+   * Time Complexity: O(h) - 트리 높이만큼만 순회함.
+   */
   private bubbleUp(targetIndex: number) {
     let currentIndex = targetIndex;
     let parentIndex = this.getFamilyIndexes(currentIndex).parent;
@@ -73,6 +88,7 @@ export default class MinHeap extends ArrayBinaryTree<number> {
   /**
    * targetIndex를 제외한 나머지 index는 heap 조건을 만족한다고 가정 (GFG와 동일)
    * GFG 링크에서 MinHeapify() 메소드를 이름 바꿔서 구현했음.
+   * Time Complexity: O(h) - 트리 높이만큼만 순회함.
    */
   private bubbleDown(targetIndex: number) {
     let smallestIndex = this.getSmallestIndex(targetIndex);
@@ -95,7 +111,6 @@ export default class MinHeap extends ArrayBinaryTree<number> {
 
     return smallestIndex;
   }
-
 }
 
 export type HeapType = 'min' | 'max';
