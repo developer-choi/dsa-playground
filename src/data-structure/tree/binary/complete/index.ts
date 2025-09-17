@@ -32,7 +32,7 @@ export abstract class CompleteBinaryTree<D> {
 
   protected abstract _add(data: D): void;
 
-  toArray(): D[][] {
+  toArrayByLevel(): D[][] {
     const result: D[][] = [];
 
     for (const {data, level} of this) {

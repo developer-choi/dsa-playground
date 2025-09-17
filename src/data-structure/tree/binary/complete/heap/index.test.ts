@@ -22,7 +22,7 @@ describe.each(implementations)('$name', ({HeapClass, type}) => {
       const heap = new HeapClass();
       range(60, 1).forEach(value => {
         heap.add(value);
-        expect(iterativeIsHeap(type, heap.toArray().flat())).toBe(true);
+        expect(iterativeIsHeap(type, heap.toArrayByLevel().flat())).toBe(true);
       });
     });
 
