@@ -12,7 +12,10 @@ export abstract class CompleteBinaryTree<D> {
     return this._length;
   }
 
-  // URL: https://www.geeksforgeeks.org/dsa/find-the-maximum-depth-or-height-of-a-tree/
+  /**
+   * URL: https://www.geeksforgeeks.org/dsa/find-the-maximum-depth-or-height-of-a-tree/
+   * URL: https://www.geeksforgeeks.org/dsa/height-complete-binary-tree-heap-n-nodes/
+   */
   get height(): number | -1 {
     if (this._length === 0) {
       return -1;
