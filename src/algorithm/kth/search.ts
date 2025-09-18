@@ -66,3 +66,22 @@ const HEAP_CLASSES: Record<OrderType, new () => Heap> = {
   smallest: MaxHeap,
   largest: MinHeap,
 };
+
+export function findKthOrderValues(array: number[], order: number, type: 'smallest' | 'largest'): number[] {
+  const heap = new HEAP_CLASSES[type]();
+
+  for (const data of array) {
+    heap.add(data);
+    if (heap.length > order) {
+      heap.extractRoot();
+    }
+  }
+
+  const result: number[] = [];
+
+  while (heap.length) {
+    result.unshift(heap.extractRoot() as number);
+  }
+
+  return result;
+}

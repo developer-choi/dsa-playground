@@ -1,4 +1,4 @@
-import {findKthOrderValue, OrderType} from '@/algorithm/kth/search';
+import {findKthOrderValue, findKthOrderValues, OrderType} from '@/algorithm/kth/search';
 
 // yarn test src/algorithm/kth/search.test.ts
 describe('findKthOrderValue()', () => {
@@ -31,5 +31,20 @@ describe('findKthOrderValue()', () => {
       expect(findKthOrderValue([], 1, 'largest')).toBe(undefined);
       expect(findKthOrderValue([], 1, 'smallest')).toBe(undefined);
     });
+  });
+});
+
+describe('findKthOrderValues()', () => {
+  describe('General cases', () => {
+    it('예제는 만족해야한다.', () => {
+      expect(findKthOrderValues([1, 23, 12, 9, 30, 2, 50], 3, 'largest')).toEqual([50, 30, 23]);
+      expect(findKthOrderValues([11, 5, 12, 9, 44, 17, 2], 2, 'largest')).toEqual([44, 17]);
+    });
+  });
+
+  describe('Boundary cases', () => {
+  });
+
+  describe('Edge cases', () => {
   });
 });
