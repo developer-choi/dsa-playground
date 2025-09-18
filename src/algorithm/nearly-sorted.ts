@@ -9,14 +9,6 @@ export function nearlySorted(array: number[], nearlyDistance: number): number[] 
     throw new TypeError('array.length가 nearlyDistance 대비 작습니다.');
   }
 
-  /**
-   * heap 사이즈가 최소 2는 되야 이 알고리즘의 의미가 있음.
-   * nearlyDistance 이 0이면 해당 배열은 이미 정렬되어있어야함.
-   */
-  if (nearlyDistance < 1) {
-    return array;
-  }
-
   const heap = new MinHeap();
   const result: number[] = [];
 
