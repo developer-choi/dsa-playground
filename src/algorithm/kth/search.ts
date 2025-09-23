@@ -21,7 +21,7 @@ export function findSecondLargestElement(array: number[]): number | null {
    * largest에 있던걸 secondLargest에 넣고
    * largest에 그걸 넣기
    */
-  for(let i = 1 ; i < array.length ; i++) {
+  for (let i = 1; i < array.length; i++) {
     const value = array[i];
 
     if (value > largest) {
@@ -45,7 +45,11 @@ export function findSecondLargestElement(array: number[]): number | null {
  * Time Complexity: O(n * log(k)) - 순회하는데 O(n), Heap에 추가하는거랑 extractRoot() 하는거랑 둘 다 O(h) = O(log(k)), 두개를 곱해서 이렇게됨.
  * 이걸 전체 한번 정렬해서 하는 방법은 O(nlogn)인데, 비교하면 log n이랑 log k 크기 차이만큼 효율차이가 발생함.
  */
-export function findKthOrderValue(array: number[], order: number, type: 'smallest' | 'largest') {
+export function findKthOrderValue(array: number[], order: number, type: 'smallest' | 'largest'): number | undefined {
+  if (array.length < order) {
+    throw new TypeError('array의 length보다 order가 더 클 수 없습니다.');
+  }
+
   const HeapClass = HEAP_CLASSES[type];
   const heap = new HeapClass();
 
@@ -66,3 +70,29 @@ const HEAP_CLASSES: Record<OrderType, new () => Heap> = {
   smallest: MaxHeap,
   largest: MinHeap,
 };
+
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/k-largestor-smallest-elements-in-an-array/
+ * Doc: https://docs.google.com/document/d/1dUt9mYfzFzZBdQBK-qvHiyi2_6nEScqxEQd0IdvJs8c/edit?tab=t.0
+ * Time Complexity: O(n * log o + o^2) 이긴 한데 o가 절대적으로 작다면 O(n * log o)
+ */
+export function findKthOrderValues(array: number[], order: number, type: 'smallest' | 'largest'): number[] {
+  const heap = new HEAP_CLASSES[type]();
+
+  // 총합 O(n * log o)
+  for (const data of array) { // 순회 하는데 O(n)
+    heap.add(data); // O(log o)
+    if (heap.length > order) {
+      heap.extractRoot(); // O(log o)
+    }
+  }
+
+  const result: number[] = [];
+
+  // 총합 O(o^2)
+  while (heap.length) { // 순회하는데 O(o)
+    result.unshift(heap.extractRoot() as number); // O(o) + O(log o)
+  }
+
+  return result;
+}

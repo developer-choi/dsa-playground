@@ -1,4 +1,5 @@
-import {findKthOrderValue, OrderType} from '@/algorithm/kth/search';
+import {findKthOrderValue, findKthOrderValues, OrderType} from '@/algorithm/kth/search';
+import {sortByNumber} from '@forworkchoe/core/utils';
 
 // yarn test src/algorithm/kth/search.test.ts
 describe('findKthOrderValue()', () => {
@@ -21,15 +22,33 @@ describe('findKthOrderValue()', () => {
     });
   });
 
-  describe('Edge cases', () => {
+  describe('Boundary cases', () => {
     it('should return the sole element for a single-element array', () => {
       expect(findKthOrderValue([100], 1, 'largest')).toBe(100);
       expect(findKthOrderValue([100], 1, 'smallest')).toBe(100);
     });
+  });
 
-    it('should return undefined for an empty array', () => {
-      expect(findKthOrderValue([], 1, 'largest')).toBe(undefined);
-      expect(findKthOrderValue([], 1, 'smallest')).toBe(undefined);
+  describe('Edge cases', () => {
+    it('array.length 보다 order가 더 큰 경우 에러가 던져져야한다.', () => {
+      expect(() => findKthOrderValue([100], 2, 'largest')).toThrow(TypeError);
+    });
+  });
+});
+
+describe('findKthOrderValues()', () => {
+  describe('General cases', () => {
+    it('예제는 만족해야한다.', () => {
+      expect(findKthOrderValues([1, 23, 12, 9, 30, 2, 50], 3, 'largest')).toEqual([50, 30, 23]);
+      expect(findKthOrderValues([11, 5, 12, 9, 44, 17, 2], 2, 'largest')).toEqual([44, 17]);
+    });
+  });
+
+  describe('Edge cases', () => {
+    it('배열 길이보다 order가 더 크면 그 배열 원본과 같아야 한다.', () => {
+      const array = [1, 2, 3, 4, 5];
+      expect(findKthOrderValues(array, array.length + 1, 'largest')).toEqual(sortByNumber('desc', array, value => value));
+      expect(findKthOrderValues(array, array.length + 1, 'smallest')).toEqual(sortByNumber('asc', array, value => value));
     });
   });
 });
