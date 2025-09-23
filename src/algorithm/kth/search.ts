@@ -74,7 +74,7 @@ const HEAP_CLASSES: Record<OrderType, new () => Heap> = {
 /**
  * URL: https://www.geeksforgeeks.org/dsa/k-largestor-smallest-elements-in-an-array/
  * Doc: https://docs.google.com/document/d/1dUt9mYfzFzZBdQBK-qvHiyi2_6nEScqxEQd0IdvJs8c/edit?tab=t.0
- * Time Complexity: O(n * log o + o^2) 이긴 한데 o가 절대적으로 작다면 O(n * log o)
+ * Time Complexity: O(n * log o + o * log o) 이긴 한데 o가 절대적으로 작다면 O(n * log o)
  */
 export function findKthOrderValues(array: number[], order: number, type: 'smallest' | 'largest'): number[] {
   const heap = new HEAP_CLASSES[type]();
@@ -89,10 +89,11 @@ export function findKthOrderValues(array: number[], order: number, type: 'smalle
 
   const result: number[] = [];
 
-  // 총합 O(o^2)
+  // 총합 O(o * log o)
   while (heap.length) { // 순회하는데 O(o)
-    result.unshift(heap.extractRoot() as number); // O(o) + O(log o)
+    result.push(heap.extractRoot() as number); // O(log o)
   }
 
-  return result;
+  // O(o)
+  return result.toReversed();
 }
