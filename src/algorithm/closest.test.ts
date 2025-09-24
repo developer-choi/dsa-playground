@@ -1,8 +1,13 @@
-import {closestElementsUsingSort, myClosestElements} from '@/algorithm/closest';
+import {
+  closestElementsUsingLinearSearchTwoPointers,
+  closestElementsUsingSort,
+  myClosestElements
+} from '@/algorithm/closest';
 
 const algorithms = [
   {name: '내 로직', fn: myClosestElements},
   {name: '정렬 풀이법을 이용한 로직', fn: closestElementsUsingSort},
+  {name: 'Linear Search + Two Pointers', fn: closestElementsUsingLinearSearchTwoPointers},
 ];
 
 // yarn test src/algorithm/closest.test.ts
