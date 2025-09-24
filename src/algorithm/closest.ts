@@ -93,18 +93,27 @@ export function closestElementsUsingSort(array: number[], count: number, target:
  * Two pointers 풀이법
  *************************************************************************************************************/
 
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/find-k-closest-elements-given-value/#better-approach-using-linear-search-on-time-and-ok-space
+ * Doc: https://docs.google.com/document/d/1SnWr7qFcj2BbSY3u6ADiHrWtPJXDilBDvofuFDeAcWg/edit?tab=t.0
+ * Time Complexity: O(c + n) - 선형탐색 때문에.
+ */
 export function closestElementsUsingLinearSearchTwoPointers(array: number[], count: number, target: number): number[] {
   return closestElementsUsingTwoPointers(array, count, target, getTargetIndexUsingLinearSearch);
 }
 
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/find-k-closest-elements-given-value/#-2
+ * Doc: https://docs.google.com/document/d/1SnWr7qFcj2BbSY3u6ADiHrWtPJXDilBDvofuFDeAcWg/edit?tab=t.0
+ * Time Complexity: O(c + log n) - 이진 탐색 떄문에.
+ */
 export function closestElementsUsingBinarySearchTwoPointers(array: number[], count: number, target: number): number[] {
   return closestElementsUsingTwoPointers(array, count, target, getTargetIndexUsingBinarySearch);
 }
 
 /**
- * URL: https://www.geeksforgeeks.org/dsa/find-k-closest-elements-given-value/#better-approach-using-linear-search-on-time-and-ok-space
  * Doc: https://docs.google.com/document/d/1SnWr7qFcj2BbSY3u6ADiHrWtPJXDilBDvofuFDeAcWg/edit?tab=t.0
- * Time Complexity: O(n + c)
+ * Time Complexity: O(c) + getTargetIndex() 만큼
  */
 function closestElementsUsingTwoPointers(array: number[], count: number, target: number, getTargetIndex: (array: number[], target: number) => number): number[] {
   let leftIndex = getTargetIndex(array, target) - 1;
