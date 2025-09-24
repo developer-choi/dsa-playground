@@ -9,6 +9,9 @@ interface InternalItem {
 /**
  * URL: https://www.geeksforgeeks.org/dsa/find-k-closest-elements-given-value/
  * Doc: https://docs.google.com/document/d/1SnWr7qFcj2BbSY3u6ADiHrWtPJXDilBDvofuFDeAcWg/edit?tab=t.0
+ * @param array
+ * @param count target과 가장 가까운 요소 몇개를 반환할지
+ * @param target 반드시 array에 있어야함.
  * Time Complexity: O(n * log n)
  */
 export function myClosestElements(array: number[], count: number, target: number): number[] {
@@ -83,6 +86,7 @@ export function closestElementsUsingSort(array: number[], count: number, target:
 
   return result;
 }
+
 /*************************************************************************************************************
  * Two pointers 풀이법
  *************************************************************************************************************/
@@ -93,12 +97,8 @@ export function closestElementsUsingSort(array: number[], count: number, target:
  * Time Complexity: O(n + c)
  */
 export function closestElementsUsingLinearSearchTwoPointers(array: number[], count: number, target: number): number[] {
-  let leftIndex = getClosestIndexUsingLinearSearch(array, target);
-  let rightIndex = leftIndex === array.length - 1 ? leftIndex : leftIndex + 1;
-
-  if (array[leftIndex] === target) {
-    leftIndex--;
-  }
+  let leftIndex = getTargetIndexUsingLinearSearch(array, target) - 1;
+  let rightIndex = leftIndex === array.length - 1 ? leftIndex + 1 : leftIndex + 2;
 
   const result: number[] = [];
 
@@ -145,28 +145,6 @@ export function closestElementsUsingLinearSearchTwoPointers(array: number[], cou
  * Doc: https://docs.google.com/document/d/1SnWr7qFcj2BbSY3u6ADiHrWtPJXDilBDvofuFDeAcWg/edit?tab=t.0
  * Time Complexity: O(n)
  */
-function getClosestIndexUsingLinearSearch(array: number[], target: number): number {
-  let item = {
-    value: Number.MIN_SAFE_INTEGER,
-    index: -1,
-    diff: Number.MAX_SAFE_INTEGER
-  };
-
-  for (let i = 0 ; i < array.length ; i++) {
-    const value = array[i];
-    const diff = Math.abs(value - target);
-
-    const isCloser = diff < item.diff;
-    const isSameDiffAndGreaterValue = diff === item.diff && value > item.value;
-
-    if (isCloser || isSameDiffAndGreaterValue) {
-      item = {
-        value,
-        index: i,
-        diff
-      };
-    }
-  }
-
-  return item.index;
+function getTargetIndexUsingLinearSearch(array: number[], target: number): number {
+  return array.findIndex(item => item === target);
 }
