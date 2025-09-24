@@ -30,8 +30,16 @@ export function myClosestElements(array: number[], count: number, target: number
 
   const result: number[] = [];
 
-  for (let i = 0; i < count; i++) {
-    result.push(items[i].value);
+  for (const {value} of items) {
+    if (value === target) {
+      continue;
+    }
+
+    result.push(value);
+
+    if (result.length === count) {
+      break;
+    }
   }
 
   return result;
@@ -49,9 +57,16 @@ export function closestElementsUsingSort(array: number[], count: number, target:
 
   const result: number[] = [];
 
-  // target이 items의 0번째 인덱스에 존재하기 때문에 제외해야해서 1부터 시작하고 count + 1까지 순회함
-  for (let i = 1; i < count + 1; i++) {
-    result.push(items[i]);
+  for (const value of items) {
+    if (value === target) {
+      continue;
+    }
+
+    result.push(value);
+
+    if (result.length === count) {
+      break;
+    }
   }
 
   return result;
