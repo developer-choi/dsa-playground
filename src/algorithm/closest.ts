@@ -174,7 +174,7 @@ function getTargetIndexUsingBinarySearch(array: number[], target: number): numbe
   let startIndex = 0;
   let endIndex = array.length - 1;
 
-  while (array[middleIndex] !== target) {
+  while (array[middleIndex] !== target && startIndex <= endIndex) {
     if (array[middleIndex] < target) {
       startIndex = middleIndex + 1;
     } else {
