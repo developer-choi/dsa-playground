@@ -116,8 +116,9 @@ export function closestElementsUsingBinarySearchTwoPointers(array: number[], cou
  * Time Complexity: O(c) + getTargetIndex() 만큼
  */
 function closestElementsUsingTwoPointers(array: number[], count: number, target: number, getTargetIndex: (array: number[], target: number) => number): number[] {
-  let leftIndex = getTargetIndex(array, target) - 1;
-  let rightIndex = leftIndex === array.length - 1 ? leftIndex + 1 : leftIndex + 2;
+  let targetIndex = getTargetIndex(array, target);
+  let leftIndex = targetIndex - 1;
+  let rightIndex = targetIndex + 1;
 
   const result: number[] = [];
 
