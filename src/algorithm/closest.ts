@@ -1,3 +1,5 @@
+import {getMiddleIndex} from '@/utils/math';
+
 /*************************************************************************************************************
  * Sorting 풀이법
  *************************************************************************************************************/
@@ -91,13 +93,21 @@ export function closestElementsUsingSort(array: number[], count: number, target:
  * Two pointers 풀이법
  *************************************************************************************************************/
 
+export function closestElementsUsingLinearSearchTwoPointers(array: number[], count: number, target: number): number[] {
+  return closestElementsUsingTwoPointers(array, count, target, getTargetIndexUsingLinearSearch);
+}
+
+export function closestElementsUsingBinarySearchTwoPointers(array: number[], count: number, target: number): number[] {
+  return closestElementsUsingTwoPointers(array, count, target, getTargetIndexUsingBinarySearch);
+}
+
 /**
  * URL: https://www.geeksforgeeks.org/dsa/find-k-closest-elements-given-value/#better-approach-using-linear-search-on-time-and-ok-space
  * Doc: https://docs.google.com/document/d/1SnWr7qFcj2BbSY3u6ADiHrWtPJXDilBDvofuFDeAcWg/edit?tab=t.0
  * Time Complexity: O(n + c)
  */
-export function closestElementsUsingLinearSearchTwoPointers(array: number[], count: number, target: number): number[] {
-  let leftIndex = getTargetIndexUsingLinearSearch(array, target) - 1;
+function closestElementsUsingTwoPointers(array: number[], count: number, target: number, getTargetIndex: (array: number[], target: number) => number): number[] {
+  let leftIndex = getTargetIndex(array, target) - 1;
   let rightIndex = leftIndex === array.length - 1 ? leftIndex + 1 : leftIndex + 2;
 
   const result: number[] = [];
@@ -147,4 +157,22 @@ export function closestElementsUsingLinearSearchTwoPointers(array: number[], cou
  */
 function getTargetIndexUsingLinearSearch(array: number[], target: number): number {
   return array.findIndex(item => item === target);
+}
+
+function getTargetIndexUsingBinarySearch(array: number[], target: number): number {
+  let middleIndex = getMiddleIndex(0, array.length - 1);
+  let startIndex = 0;
+  let endIndex = array.length - 1;
+
+  while (array[middleIndex] !== target) {
+    if (array[middleIndex] < target) {
+      startIndex = middleIndex + 1;
+    } else {
+      endIndex = middleIndex - 1;
+    }
+
+    middleIndex = getMiddleIndex(startIndex, endIndex);
+  }
+
+  return middleIndex;
 }
