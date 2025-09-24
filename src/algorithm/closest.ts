@@ -135,14 +135,16 @@ function closestElementsUsingTwoPointers(array: number[], count: number, target:
       result.push(rightValue);
       rightIndex++;
 
+    } else {
       // 왼쪽 오른쪽 크기가 모두 같다면 둘중 더 큰쪽으로
-    } else if (leftValue < rightValue) {
-      result.push(rightValue);
-      rightIndex++;
+      if (leftValue < rightValue) {
+        result.push(rightValue);
+        rightIndex++;
 
-    } else if (leftValue > rightValue) {
-      result.push(leftValue);
-      leftIndex--;
+      } else if (leftValue > rightValue) {
+        result.push(leftValue);
+        leftIndex--;
+      }
     }
   }
 
