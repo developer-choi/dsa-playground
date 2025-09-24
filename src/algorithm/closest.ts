@@ -1,5 +1,3 @@
-import {sortByNumber} from '@forworkchoe/core/utils';
-
 interface InternalItem {
   diff: number;
   value: number;
@@ -22,11 +20,14 @@ export function myClosestElements(array: number[], count: number, target: number
     }
   }
 
-  if (items.length === count) {
-    throw new TypeError(`${array}에 ${target}이 존재하지않아서 closet elements를 계산할 수 없습니다.`);
-  }
+  items.sort((a, b) => {
+    if (a.diff !== b.diff) {
+      return a.diff - b.diff;
 
-  items = sortByNumber('asc', items, item => item.diff);
+    } else {
+      return b.value - a.value; // GFG 문제에서 차이가 똑같으면 둘중 더 큰값으로 하라고 했음
+    }
+  });
 
   const result: number[] = [];
 
@@ -52,7 +53,15 @@ export function myClosestElements(array: number[], count: number, target: number
  */
 export function closestElementsUsingSort(array: number[], count: number, target: number): number[] {
   const items = array.toSorted((a, b) => {
-    return Math.abs(target - a) - Math.abs(target - b);
+    const diffA = Math.abs(target - a)
+    const diffB = Math.abs(target - b);
+
+    if (diffA !== diffB) {
+      return diffA - diffB;
+
+    } else {
+      return b - a; // GFG 문제에서 차이가 똑같으면 둘중 더 큰값으로 하라고 했음
+    }
   });
 
   const result: number[] = [];
