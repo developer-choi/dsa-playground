@@ -3,6 +3,7 @@ import {Heap, MaxHeap, MinHeap} from '@/data-structure/tree/binary/complete/heap
 /**
  * URL: https://www.geeksforgeeks.org/dsa/kth-largest-element-in-a-stream/
  * Doc: https://docs.google.com/document/d/1dUt9mYfzFzZBdQBK-qvHiyi2_6nEScqxEQd0IdvJs8c/edit?tab=t.0
+ * Time Complexity: O(n * log o)
  */
 export function findKthOrderValuesInStream(array: number[], order: number, type: 'smallest' | 'largest'): (number | -1)[] {
   if (array.length < order) {
@@ -12,13 +13,16 @@ export function findKthOrderValuesInStream(array: number[], order: number, type:
   const heap = new HEAP_CLASSES[type]();
   const result: number[] = [];
 
-  for (const data of array) {
-    if (heap.length < order) {
-      heap.add(data);
-    }
+  for (const data of array) { // O(n)
+    heap.add(data); // O(log o)
 
     if (heap.length === order) {
-      result.push(heap.extractRoot() as number);
+      result.push(heap.peek() as number); // O(log o)
+
+    } else if (heap.length > order) {
+      heap.extractRoot(); // O(log o)
+      result.push(heap.peek() as number); // O(log o)
+
     } else {
       result.push(-1);
     }
