@@ -45,7 +45,7 @@ export function findSecondLargestElement(array: number[]): number | null {
  * Time Complexity: O(n * log(k)) - 순회하는데 O(n), Heap에 추가하는거랑 extractRoot() 하는거랑 둘 다 O(h) = O(log(k)), 두개를 곱해서 이렇게됨.
  * 이걸 전체 한번 정렬해서 하는 방법은 O(nlogn)인데, 비교하면 log n이랑 log k 크기 차이만큼 효율차이가 발생함.
  */
-export function findKthOrderValue(array: number[], order: number, type: 'smallest' | 'largest'): number | undefined {
+export function findKthElement(array: number[], order: number, type: 'smallest' | 'largest'): number | undefined {
   if (array.length < order) {
     throw new TypeError('array의 length보다 order가 더 클 수 없습니다.');
   }
@@ -76,7 +76,7 @@ const HEAP_CLASSES: Record<OrderType, new () => Heap> = {
  * Doc: https://docs.google.com/document/d/1dUt9mYfzFzZBdQBK-qvHiyi2_6nEScqxEQd0IdvJs8c/edit?tab=t.0
  * Time Complexity: O(n * log o + o * log o) 이긴 한데 o가 절대적으로 작다면 O(n * log o)
  */
-export function findKthOrderValues(array: number[], order: number, type: 'smallest' | 'largest'): number[] {
+export function findKthElements(array: number[], order: number, type: 'smallest' | 'largest'): number[] {
   const heap = new HEAP_CLASSES[type]();
 
   // 총합 O(n * log o)

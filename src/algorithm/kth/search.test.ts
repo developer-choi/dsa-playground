@@ -1,8 +1,8 @@
-import {findKthOrderValue, findKthOrderValues, OrderType} from '@/algorithm/kth/search';
+import {findKthElement, findKthElements, OrderType} from '@/algorithm/kth/search';
 import {sortByNumber} from '@forworkchoe/core/utils';
 
 // yarn test src/algorithm/kth/search.test.ts
-describe('findKthOrderValue()', () => {
+describe('findKthElement()', () => {
   describe('General cases', () => {
     const testCases = [
       // k-th Largest
@@ -18,37 +18,37 @@ describe('findKthOrderValue()', () => {
     ];
 
     it.each(testCases)('should return $expected for k=$k ($type) in array [$array]', ({array, k, type, expected}) => {
-      expect(findKthOrderValue(array, k, type)).toBe(expected);
+      expect(findKthElement(array, k, type)).toBe(expected);
     });
   });
 
   describe('Boundary cases', () => {
     it('should return the sole element for a single-element array', () => {
-      expect(findKthOrderValue([100], 1, 'largest')).toBe(100);
-      expect(findKthOrderValue([100], 1, 'smallest')).toBe(100);
+      expect(findKthElement([100], 1, 'largest')).toBe(100);
+      expect(findKthElement([100], 1, 'smallest')).toBe(100);
     });
   });
 
   describe('Edge cases', () => {
     it('should throw a TypeError if the order is greater than the array length', () => {
-      expect(() => findKthOrderValue([100], 2, 'largest')).toThrow(TypeError);
+      expect(() => findKthElement([100], 2, 'largest')).toThrow(TypeError);
     });
   });
 });
 
-describe('findKthOrderValues()', () => {
+describe('findKthElements()', () => {
   describe('General cases', () => {
     it('should return the k largest elements for the given examples', () => {
-      expect(findKthOrderValues([1, 23, 12, 9, 30, 2, 50], 3, 'largest')).toEqual([50, 30, 23]);
-      expect(findKthOrderValues([11, 5, 12, 9, 44, 17, 2], 2, 'largest')).toEqual([44, 17]);
+      expect(findKthElements([1, 23, 12, 9, 30, 2, 50], 3, 'largest')).toEqual([50, 30, 23]);
+      expect(findKthElements([11, 5, 12, 9, 44, 17, 2], 2, 'largest')).toEqual([44, 17]);
     });
   });
 
   describe('Edge cases', () => {
     it('should return the entire sorted array if order is greater than the array length', () => {
       const array = [1, 2, 3, 4, 5];
-      expect(findKthOrderValues(array, array.length + 1, 'largest')).toEqual(sortByNumber('desc', array, value => value));
-      expect(findKthOrderValues(array, array.length + 1, 'smallest')).toEqual(sortByNumber('asc', array, value => value));
+      expect(findKthElements(array, array.length + 1, 'largest')).toEqual(sortByNumber('desc', array, value => value));
+      expect(findKthElements(array, array.length + 1, 'smallest')).toEqual(sortByNumber('asc', array, value => value));
     });
   });
 });
