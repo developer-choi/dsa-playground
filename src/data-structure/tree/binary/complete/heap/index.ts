@@ -8,8 +8,8 @@ import {ArrayBinaryTree, getFamilyIndexesFromCompleteBinaryTree} from '@/data-st
  */
 
 // Heap은 직접 만들면 안되고 자식으로만 만들어야하니 abstract 키워드가 맞음.
-export abstract class Heap extends ArrayBinaryTree<number> {
-  constructor() {
+export abstract class Heap<D> extends ArrayBinaryTree<D> {
+  protected constructor() {
     super();
   }
 
@@ -17,14 +17,14 @@ export abstract class Heap extends ArrayBinaryTree<number> {
    * min / max 값을 얻는데 Time Complexity가 O(1) 이라는게 가장 큰 장점임.
    * array는 O(n)인데.
    */
-  peek(): number | undefined {
+  peek(): D | undefined {
     return this.array[0];
   }
 
   /**
    * Time Complexity: O(h) - heapifyDown() 때문에.
    */
-  extractRoot(): number | undefined {
+  extractRoot(): D | undefined {
     if (this.array.length === 0) {
       return undefined;
     }
@@ -40,7 +40,7 @@ export abstract class Heap extends ArrayBinaryTree<number> {
   /**
    * Time Complexity: O(h) - heapifyUp() 때문에.
    */
-  add(data: number) {
+  add(data: D) {
     super.add(data);
     this.heapifyUp(this.array.length - 1);
   }
@@ -68,7 +68,7 @@ export abstract class Heap extends ArrayBinaryTree<number> {
   protected abstract promoteToRoot(index: number): void;
 
   // heapifyUp() 에서 사용하기 위해 반드시 오버라이딩 해야함.
-  protected abstract shouldSwap(parentItem: number, childrenItem: number): boolean;
+  protected abstract shouldSwap(parentItem: D, childrenItem: D): boolean;
 
   /**
    * GFG 링크에서 insert() 예제에서 스왑하는 부분만 코드로 분리했음
@@ -114,12 +114,12 @@ export abstract class Heap extends ArrayBinaryTree<number> {
   }
 }
 
-export class MinHeap extends Heap {
+export class MinHeap<D> extends Heap<D> {
   constructor() {
     super();
   }
 
-  protected shouldSwap(parentItem: number, childrenItem: number): boolean {
+  protected shouldSwap(parentItem: D, childrenItem: D): boolean {
     return parentItem > childrenItem;
   }
 
@@ -130,7 +130,7 @@ export class MinHeap extends Heap {
   /**
    * Time Complexity: O(h) - bubbleUp() 때문에.
    */
-  decreaseKey(index: number, value: number) {
+  decreaseKey(index: number, value: D) {
     if (this.array[index] < value) {
       throw new TypeError(`${this.array[index]} 보다 작은 값을 value로 전달해야합니다.\n기존값=${this.array[index]}\n전달된 값=${value}`);
     }
@@ -140,12 +140,12 @@ export class MinHeap extends Heap {
   }
 }
 
-export class MaxHeap extends Heap {
+export class MaxHeap<D> extends Heap<D> {
   constructor() {
     super();
   }
 
-  protected shouldSwap(parentItem: number, childrenItem: number): boolean {
+  protected shouldSwap(parentItem: D, childrenItem: D): boolean {
     return parentItem < childrenItem;
   }
 
@@ -153,7 +153,7 @@ export class MaxHeap extends Heap {
     this.increaseKey(index, Number.MAX_SAFE_INTEGER);
   }
 
-  increaseKey(index: number, value: number) {
+  increaseKey(index: number, value: D) {
     if (this.array[index] > value) {
       throw new TypeError(`${this.array[index]} 보다 큰 값을 value로 전달해야합니다.\n기존값=${this.array[index]}\n전달된 값=${value}`);
     }
