@@ -33,15 +33,6 @@ export function getMostFrequentElementsUsingMap(array: number[], count: number):
     return b[0] - a[0];
   });
 
-  const result: number[] = [];
-
-  for (const item of sorted) { // O(c)
-    if (result.length < count) {
-      result.push(item[0]);
-    } else {
-      break;
-    }
-  }
-
-  return result;
+  // O(c)
+  return sorted.slice(0, count).map(item => item[0]);
 }
