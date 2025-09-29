@@ -32,16 +32,12 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
       return undefined;
     }
 
-    const root = this.array[0];
-    const lastElement = this.array.pop();
+    const result = this.array[0];
+    this.array[0] = this.array[this.array.length - 1];
+    this.array.pop();
     this._length--;
-
-    if (this.array.length > 0 && lastElement !== undefined) {
-      this.array[0] = lastElement;
-      this.heapifyDown(0);
-    }
-
-    return root;
+    this.heapifyDown(0);
+    return result;
   }
 
   /**
@@ -112,12 +108,11 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
     const {left, right} = getFamilyIndexesFromCompleteBinaryTree(this.array, targetIndex);
     let extremeIndex = targetIndex;
 
-    if (left !== -1 && this.shouldSwap(this.array[extremeIndex], this.array[left])) {
-      extremeIndex = left;
-    }
-    if (right !== -1 && this.shouldSwap(this.array[extremeIndex], this.array[right])) {
-      extremeIndex = right;
-    }
+    [left, right].forEach(index => {
+      if (index !== -1 && this.shouldSwap(this.array[extremeIndex], this.array[index])) {
+        extremeIndex = index;
+      }
+    });
 
     return extremeIndex;
   }
