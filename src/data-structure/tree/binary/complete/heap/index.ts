@@ -1,4 +1,4 @@
-import {ArrayBinaryTree, getFamilyIndexesFromCompleteBinaryTree} from '@/data-structure/tree/binary/complete/array';
+import {ArrayBinaryTree} from '@/data-structure/tree/binary/complete/array';
 
 /**
  * URL: https://www.geeksforgeeks.org/dsa/binary-heap/
@@ -9,11 +9,11 @@ import {ArrayBinaryTree, getFamilyIndexesFromCompleteBinaryTree} from '@/data-st
 
 // Heap은 직접 만들면 안되고 자식으로만 만들어야하니 abstract 키워드가 맞음.
 export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
-  protected readonly extractValue: (item: T) => number;
+  protected readonly comparator: Comparator<T>;
 
-  protected constructor(extractValue?: (item: T) => number) {
+  protected constructor(comparator?: Comparator<T>) {
     super();
-    this.extractValue = extractValue ?? ((item: T) => item as number);
+    this.comparator = comparator ?? ((a: T, b: T) => (a as number) - (b as number));
   }
 
   /**
@@ -32,11 +32,15 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
       return undefined;
     }
 
-    const result = this.array[0];
-    this.array[0] = this.array[this.array.length - 1];
-    this.array.pop();
+    const lastIndex = this.length - 1;
+    this.swap(0, lastIndex);
+    const result = this.array.pop();
     this._length--;
-    this.heapifyDown(0);
+
+    if (this.length > 0) {
+      this.heapifyDown(0);
+    }
+
     return result;
   }
 
@@ -51,19 +55,27 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
   /**
    * Time Complexity: O(h) - decreaseKey() 랑 extractMin() 때문에.
    */
-  deleteKey(index: number) {
+  deleteKey(index: number): void {
     if (index < 0 || index >= this.array.length) {
       throw new RangeError('Index out of bounds');
     }
 
-    const lastIndex = this.array.length - 1;
-    [this.array[index], this.array[lastIndex]] = [this.array[lastIndex], this.array[index]];
+    if (this.length === 1) {
+      this.array.pop();
+      this._length--;
+      return;
+    }
+
+    const lastIndex = this.length - 1;
+    this.swap(index, lastIndex);
     this.array.pop();
     this._length--;
 
-    if (this.array.length > 0 && index < this.array.length) {
+    if (this.length > 0 && index < this.length) {
+      const itemToAdjust = this.array[index];
       const parentIndex = this.getFamilyIndexes(index).parent;
-      if (parentIndex >= 0 && this.shouldSwap(this.array[parentIndex], this.array[index])) {
+
+      if (index > 0 && this.shouldSwap(this.array[parentIndex], itemToAdjust)) {
         this.heapifyUp(index);
       } else {
         this.heapifyDown(index);
@@ -71,73 +83,79 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
     }
   }
 
-  // heapifyUp() 에서 사용하기 위해 반드시 오버라이딩 해야함.
+  // heapifyUp/Down 에서 사용하기 위해 반드시 오버라이딩 해야함.
   protected abstract shouldSwap(parentItem: T, childrenItem: T): boolean;
 
   /**
-   * GFG 링크에서 insert() 예제에서 스왑하는 부분만 코드로 분리했음
-   * Time Complexity: O(h) - 트리 높이만큼만 순회함.
+   * Time Complexity: O(log n)
    */
   protected heapifyUp(targetIndex: number) {
     let currentIndex = targetIndex;
     let parentIndex = this.getFamilyIndexes(currentIndex).parent;
 
     while (currentIndex > 0 && this.shouldSwap(this.array[parentIndex], this.array[currentIndex])) {
-      [this.array[parentIndex], this.array[currentIndex]] = [this.array[currentIndex], this.array[parentIndex]];
-
+      this.swap(parentIndex, currentIndex);
       currentIndex = parentIndex;
       parentIndex = this.getFamilyIndexes(currentIndex).parent;
     }
   }
 
   /**
-   * targetIndex를 제외한 나머지 index는 heap 조건을 만족한다고 가정 (GFG와 동일)
-   * GFG 링크에서 MinHeapify() 메소드를 이름 바꿔서 구현했음.
-   * Time Complexity: O(h) - 트리 높이만큼만 순회함.
+   * Time Complexity: O(log n)
    */
   protected heapifyDown(targetIndex: number): void {
-    let extremeIndex = this.getExtremeIndex(targetIndex);
+    let currentIndex = targetIndex;
 
-    if (extremeIndex !== targetIndex) {
-      [this.array[targetIndex], this.array[extremeIndex]] = [this.array[extremeIndex], this.array[targetIndex]];
-      this.heapifyDown(extremeIndex);
+    while (true) {
+      const {left, right} = this.getFamilyIndexes(currentIndex);
+      let extremeIndex = currentIndex;
+
+      if (left !== -1 && this.shouldSwap(this.array[extremeIndex], this.array[left])) {
+        extremeIndex = left;
+      }
+
+      if (right !== -1 && this.shouldSwap(this.array[extremeIndex], this.array[right])) {
+        extremeIndex = right;
+      }
+
+      if (extremeIndex === currentIndex) {
+        break;
+      }
+
+      this.swap(currentIndex, extremeIndex);
+      currentIndex = extremeIndex;
     }
   }
 
-  private getExtremeIndex(targetIndex: number) {
-    const {left, right} = getFamilyIndexesFromCompleteBinaryTree(this.array, targetIndex);
-    let extremeIndex = targetIndex;
-
-    [left, right].forEach(index => {
-      if (index !== -1 && this.shouldSwap(this.array[extremeIndex], this.array[index])) {
-        extremeIndex = index;
-      }
-    });
-
-    return extremeIndex;
+  protected swap(i: number, j: number): void {
+    [this.array[i], this.array[j]] = [this.array[j], this.array[i]];
   }
 }
 
 export class MinHeap<T = number> extends Heap<T> {
-  constructor(extractValue?: (item: T) => number) {
-    super(extractValue);
+  constructor(comparator?: Comparator<T>) {
+    super(comparator);
   }
 
   protected shouldSwap(parentItem: T, childrenItem: T): boolean {
-    const parentValue = this.extractValue(parentItem);
-    const childrenValue = this.extractValue(childrenItem);
-    return parentValue > childrenValue;
+    // comparator 결과가 양수이면 (parent > child), 스왑한다.
+    return this.comparator(parentItem, childrenItem) > 0;
   }
 
   /**
-   * Time Complexity: O(h) - bubbleUp() 때문에.
+   * 특정 인덱스의 키(값)를 감소시킵니다.
+   * `heapifyUp`을 사용하여 힙 속성을 복원합니다.
+   * Time Complexity: O(log n)
    */
   decreaseKey(index: number, newItem: T): void {
-    const oldValue = this.extractValue(this.array[index]);
-    const newValue = this.extractValue(newItem);
+    if (index < 0 || index >= this.length) {
+      throw new RangeError('Index out of bounds');
+    }
 
-    if (newValue > oldValue) {
-      throw new TypeError(`새로운 키 값(${newValue})은 기존 키 값(${oldValue})보다 작아야 합니다.`);
+    const currentItem = this.array[index];
+    // comparator(newItem, currentItem) > 0 이면 newItem이 더 큰 것이므로 에러
+    if (this.comparator(newItem, currentItem) > 0) {
+      throw new Error('New item must be smaller than or equal to the current item.');
     }
 
     this.array[index] = newItem;
@@ -146,27 +164,43 @@ export class MinHeap<T = number> extends Heap<T> {
 }
 
 export class MaxHeap<T = number> extends Heap<T> {
-  constructor(extractValue?: (item: T) => number) {
-    super(extractValue);
+  constructor(comparator?: Comparator<T>) {
+    super(comparator);
   }
 
   protected shouldSwap(parentItem: T, childrenItem: T): boolean {
-    const parentValue = this.extractValue(parentItem);
-    const childrenValue = this.extractValue(childrenItem);
-    return parentValue < childrenValue;
+    // comparator 결과가 음수이면 (parent < child), 스왑한다.
+    return this.comparator(parentItem, childrenItem) < 0;
   }
 
+  /**
+   * 특정 인덱스의 키(값)를 증가시킵니다.
+   * `heapifyDown`을 사용하여 힙 속성을 복원합니다.
+   * Time Complexity: O(log n)
+   */
   increaseKey(index: number, newItem: T): void {
-    const oldValue = this.extractValue(this.array[index]);
-    const newValue = this.extractValue(newItem);
+    if (index < 0 || index >= this.length) {
+      throw new RangeError('Index out of bounds');
+    }
 
-    if (newValue < oldValue) {
-      throw new TypeError(`새로운 키 값(${newValue})은 기존 키 값(${oldValue})보다 커야 합니다.`);
+    const currentItem = this.array[index];
+    // comparator(newItem, currentItem) < 0 이면 newItem이 더 작은 것이므로 에러
+    if (this.comparator(newItem, currentItem) < 0) {
+      throw new Error('New item must be larger than or equal to the current item.');
     }
 
     this.array[index] = newItem;
-    this.heapifyUp(index);
+    this.heapifyDown(index);
   }
 }
 
 export type HeapType = 'min' | 'max';
+
+/**
+ * 비교 함수의 타입 정의.
+ * @returns {number}
+ * - 음수: a가 b보다 작음
+ * - 0: a와 b가 같음
+ * - 양수: a가 b보다 큼
+ */
+export type Comparator<T> = (a: T, b: T) => number;
