@@ -36,6 +36,12 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
     this.array[0] = this.array[this.array.length - 1];
     this.array.pop();
     this._length--;
+
+    /**
+     * heapifyUp()이 아닌 heapifyDown()을 해야하는 이유는
+     * heap의 규칙을 깨뜨린 요소가 제일 위에 있기 때문에,
+     * 아래로 내려가면서 규칙을 재확인 해야하기 때문.
+     */
     this.heapifyDown(0);
     return result;
   }
@@ -45,6 +51,12 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
    */
   add(data: T): void {
     super.add(data);
+
+    /**
+     * heapifyDown()이 아닌 heapifyUp()을 해야하는 이유는
+     * heap의 규칙을 깨뜨린 요소가 제일 뒤에 있기 때문에,
+     * 위로 올라가면서 규칙을 재확인 해야하기 때문.
+     */
     this.heapifyUp(this.array.length - 1);
   }
 
