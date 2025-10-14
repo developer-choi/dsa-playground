@@ -44,7 +44,15 @@ export function getMostFrequentElementsUsingHeap(array: number[], count: number)
 
   // O(n)
   const map = toHashmap(array);
-  const heap = new MinHeap<{value: number, count: number}>(item => item.count);
+  const heap = new MinHeap<{value: number, count: number}>((a, b) => {
+    const diff = a.count - b.count;
+
+    if (diff !== 0) {
+      return diff;
+    }
+
+    return a.value - b.value;
+  });
 
   // O(d)
   for (const [distinctValue, distinctCount] of map) {

@@ -7,15 +7,12 @@ const algorithms = [
 ];
 
 // yarn test src/algorithm/most-frequent.test.ts
-describe.each(algorithms)('Most Frequent Algorithm > $name', ({fn, name}) => {
+describe.each(algorithms)('Most Frequent Algorithm > $name', ({fn}) => {
   describe('General cases', () => {
-    // TODO Heap에서 중복케이스 대응을 하직 못했음.
-    if (!name.includes('Heap')) {
-      it('should sort by frequency, then by value in descending order', () => {
-        const original = range(1, 4);
-        expect(fn([...original, ...original], original.length)).toEqual(original.toReversed());
-      });
-    }
+    it('should sort by frequency, then by value in descending order', () => {
+      const original = range(1, 4);
+      expect(fn([...original, ...original], original.length)).toEqual(original.toReversed());
+    });
 
     it('should return the most frequent elements in order', () => {
       expect(fn([1, 2, 2, 3, 3, 3, 4, 4, 4, 4], 4)).toEqual([4, 3, 2, 1]);
