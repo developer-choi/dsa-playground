@@ -5,6 +5,7 @@ import {ArrayBinaryTree, getFamilyIndexesFromCompleteBinaryTree} from '@/data-st
  * URL: https://www.geeksforgeeks.org/javascript/min-heap-in-javascript/
  * URL: https://www.geeksforgeeks.org/javascript/max-heap-in-javascript/
  * Doc: https://docs.google.com/document/d/1dUt9mYfzFzZBdQBK-qvHiyi2_6nEScqxEQd0IdvJs8c/edit?tab=t.0
+ * TODO 메소드별로 URL 링크 추가하기
  */
 
 // Heap은 직접 만들면 안되고 자식으로만 만들어야하니 abstract 키워드가 맞음.
@@ -116,6 +117,7 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
     }
   }
 
+  // TODO 이 메소드 목적이 뭐지? 왜쓰는거야, 왜 left에서 index 찾아도 right도 찾아서 덮어쓰는거야?
   private getExtremeIndex(targetIndex: number) {
     const {left, right} = getFamilyIndexesFromCompleteBinaryTree(this.array, targetIndex);
     let extremeIndex = targetIndex;
