@@ -26,6 +26,7 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
 
   /**
    * Time Complexity: O(h) - heapifyDown() 때문에.
+   * History > https://www.geeksforgeeks.org/dsa/binary-heap/ 의 extractMin()
    */
   extractRoot(): T | undefined {
     if (this.array.length === 0) {
@@ -48,6 +49,7 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
 
   /**
    * Time Complexity: O(h) - heapifyUp() 때문에.
+   * History > https://www.geeksforgeeks.org/dsa/binary-heap/ 의 insert()
    */
   add(data: T): void {
     super.add(data);
@@ -62,6 +64,10 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
 
   /**
    * Time Complexity: O(h) - decreaseKey() 랑 extractMin() 때문에.
+   *
+   * History > https://www.geeksforgeeks.org/dsa/binary-heap/ deleteKey() 보고 만들었다가,
+   * 1. Maxheap도 동시에 지원해야했어서 promoteToRoot()로 내부구현을 바꿨고,
+   * 2. 제네릭을 지원해야해서 promoteToRoot() 대신 0번째 / 마지막 번째 요소 서로 바꾸고 재배열 하는걸로 바꿨음.
    */
   deleteKey(index: number) {
     if (index < 0 || index >= this.array.length) {
@@ -89,6 +95,7 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
   /**
    * GFG 링크에서 insert() 예제에서 스왑하는 부분만 코드로 분리했음
    * Time Complexity: O(h) - 트리 높이만큼만 순회함.
+   * History > https://www.geeksforgeeks.org/dsa/binary-heap/ 의 insert() 에서 코드만 분리헀음.
    */
   protected heapifyUp(targetIndex: number) {
     let currentIndex = targetIndex;
@@ -106,6 +113,7 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
    * targetIndex를 제외한 나머지 index는 heap 조건을 만족한다고 가정 (GFG와 동일)
    * GFG 링크에서 MinHeapify() 메소드를 이름 바꿔서 구현했음.
    * Time Complexity: O(h) - 트리 높이만큼만 순회함.
+   * History > https://www.geeksforgeeks.org/dsa/binary-heap/ 에서 MinHeapify()
    */
   protected heapifyDown(targetIndex: number): void {
     let extremeIndex = this.getExtremeIndex(targetIndex);
@@ -116,6 +124,12 @@ export abstract class Heap<T = number> extends ArrayBinaryTree<T> {
     }
   }
 
+  /**
+   * @description 부모, 왼쪽자식, 오른쪽 자식 3개중 가장 우선순위가 높은 인덱스 찾기
+   * MinHeap이면 가장 작은값 찾기
+   * MaxHeap이면 가장 큰 값 찾기
+   * History > https://www.geeksforgeeks.org/dsa/binary-heap/ 에서 MinHeapify() 에서 그냥 코드만 분리한거
+   */
   private getExtremeIndex(targetIndex: number) {
     const {left, right} = getFamilyIndexesFromCompleteBinaryTree(this.array, targetIndex);
     let extremeIndex = targetIndex;
