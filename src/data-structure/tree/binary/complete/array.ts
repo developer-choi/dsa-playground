@@ -8,6 +8,14 @@ export class ArrayBinaryTree<D> extends CompleteBinaryTree<D> {
     this.array = [];
   }
 
+  get length(): number {
+    if (this.array.length !== this._length) {
+      throw new TypeError('Internal error, this.array.length와 this.length가 서로 값이 다릅니다. 이 2개의 값은 서로 동일하도록 각 메소드에서 this.length를 잘 증감해야합니다.');
+    }
+
+    return this._length;
+  }
+
   getFamilyIndexes(index: number) {
     return getFamilyIndexesFromCompleteBinaryTree(this.array, index);
   }
@@ -24,7 +32,7 @@ export class ArrayBinaryTree<D> extends CompleteBinaryTree<D> {
     }
 
     const deletedData: D | undefined = this.array[targetIndex];
-    const lastIndex = this.length - 1;
+    const lastIndex = this.array.length - 1;
 
     if (targetIndex !== lastIndex) {
       this.array[targetIndex] = this.array[lastIndex];
@@ -78,3 +86,5 @@ export function getFamilyIndexesFromCompleteBinaryTree(array: unknown[], index: 
     parent: parent < 0 ? -1 : parent,
   };
 }
+
+console.log(new ArrayBinaryTree().length);
