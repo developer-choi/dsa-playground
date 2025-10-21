@@ -6,12 +6,12 @@ import {MinHeap} from '@/data-structure/tree/binary/complete/heap';
  */
 export function heapScoville(scovilles: number[], k: number): number | -1 {
   // k보다 커서 힙에서 가장 최근에 버려진 스코빌지수값
-  let latestScovileGreaterThanK: number | undefined = undefined;
+  let latestScovilleGreaterThanK: number | undefined = undefined;
   const minHeap = new MinHeap();
 
   for(const scoville of scovilles) {
     if (scoville >= k) {
-      latestScovileGreaterThanK = scoville;
+      latestScovilleGreaterThanK = scoville;
     } else {
       minHeap.add(scoville);
     }
@@ -26,7 +26,7 @@ export function heapScoville(scovilles: number[], k: number): number | -1 {
     count++; // 일단 섞었으니까 +1
 
     if (sumScovile >= k) {
-      latestScovileGreaterThanK = sumScovile;
+      latestScovilleGreaterThanK = sumScovile;
     } else {
       minHeap.add(sumScovile);
     }
@@ -42,13 +42,13 @@ export function heapScoville(scovilles: number[], k: number): number | -1 {
   // else > 길이가 1이다 = 섞어도 스코빌지수가 k보다 작았다
 
   // 마지막으로 남은 스코빌 지수가 k보다 작았지만, 직전에 남아있던 다른 스코빌지수와 섞어서 k보다 커질 수 있음.
-  if (latestScovileGreaterThanK !== undefined) {
+  if (latestScovilleGreaterThanK !== undefined) {
     return count + 1;
   }
 
   /**
    * 죄다 섞어봤지만 k보다 작은 케이스임.
-   * latestScovileGreaterThanK 도 없었고,
+   * latestScovilleGreaterThanK 도 없었고,
    * 마지막으로 힙에 남은 스코빌 지수 조차도 k보다 작으니까.
    */
   return -1;
