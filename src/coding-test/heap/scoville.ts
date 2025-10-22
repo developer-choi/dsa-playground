@@ -3,12 +3,14 @@ import {MinHeap} from '@/data-structure/tree/binary/complete/heap';
 /**
  * URL: https://school.programmers.co.kr/learn/courses/30/lessons/42626
  * Doc: https://docs.google.com/document/d/1dUt9mYfzFzZBdQBK-qvHiyi2_6nEScqxEQd0IdvJs8c/edit?tab=t.0#heading=h.czr7uv2uqstm
+ * Time Complexity: O(n * logn)
  */
 export function heapScoville(scovilles: number[], k: number): number | -1 {
   // k보다 커서 힙에서 가장 최근에 버려진 스코빌지수값
   let latestScovilleGreaterThanK: number | undefined = undefined;
   const minHeap = new MinHeap();
 
+  // O(n * logn)
   for(const scoville of scovilles) {
     if (scoville >= k) {
       latestScovilleGreaterThanK = scoville;
@@ -19,6 +21,11 @@ export function heapScoville(scovilles: number[], k: number): number | -1 {
 
   let count = 0;
 
+  /**
+   * O(n * log n)
+   * 최대 n번 반복하긴 함 (k보다 큰건 배열에 안넣긴하는데...)
+   * extractRoot()랑 add()가 둘 다 log n임.
+   */
   while (minHeap.length >= 2) {
     const minimum = minHeap.extractRoot() as number;
     const second = minHeap.extractRoot() as number;
