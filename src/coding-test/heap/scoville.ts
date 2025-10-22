@@ -6,7 +6,10 @@ import {MinHeap} from '@/data-structure/tree/binary/complete/heap';
  * Time Complexity: O(n * logn)
  */
 export function myHeapScoville(scovilles: number[], k: number): number | -1 {
-  // k보다 커서 힙에서 가장 최근에 버려진 스코빌지수값
+  /**
+   * 의미 = k보다 커서 힙에서 가장 최근에 버려진 스코빌지수값
+   * 의도 = heap에 k보다 작은값만 저장해서 성능을 올리기 위해 문제 (한글) 설명과 좀 다른 구조의 풀이법이 되었음.
+   */
   let latestScovilleGreaterThanK: number | undefined = undefined;
   const minHeap = new MinHeap();
 
@@ -74,13 +77,14 @@ export function otherHeapScoville(scovilles: number[], k: number): number | -1 {
    * k보다 큰값도 들어가는게 찝찝하긴하지만, scoville에 k보다 작은것만 잔뜩있는 엣지케이스 생각하면 어쩔수없음
    * scoville 길이가 0,1,2,3 처럼 좀 작을 때도 걸리고
    */
-  // O(n * log n)
+  // O(n * log n) 인데, 내 코드는 k보다 작은값만 넣기 때문에 add() (log n) 연산이 덜 일어난다는 차이가 있음.
   for (const scoville of scovilles) {
     minHeap.add(scoville);
   }
 
   // O(n * log n)
   while (minHeap.length >= 2 && (minHeap.peek() as number) < k) {
+    // loop 한번의 비용이 내 코드가 더 저렴함. heap 사이즈가 k보다 작은값만 유지하기 때문에.
     const root = minHeap.extractRoot() as number;
     const second = minHeap.extractRoot() as number;
 
@@ -90,6 +94,7 @@ export function otherHeapScoville(scovilles: number[], k: number): number | -1 {
 
   const root = minHeap.extractRoot();
 
+  // 하지만 코드구조가 문제 (한글) 설명이랑 똑같기 때문에, 이해하기에는 내 코드보다 이 풀이가 더 좋음.
   if (root === undefined || root >= k) {
     return count;
   }
