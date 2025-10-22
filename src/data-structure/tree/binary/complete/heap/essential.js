@@ -1,4 +1,4 @@
-export class EssentialMinHeap {
+class EssentialMinHeap {
   constructor(comparator) {
     this.array = [];
     this._length = 0;
@@ -114,7 +114,7 @@ export class EssentialMinHeap {
   }
 }
 
-export class EssentialMaxHeap {
+class EssentialMaxHeap {
   constructor(comparator) {
     this.array = [];
     this._length = 0;
