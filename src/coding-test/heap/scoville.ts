@@ -60,3 +60,27 @@ export function heapScoville(scovilles: number[], k: number): number | -1 {
    */
   return -1;
 }
+
+// 타인이 작성한 풀이법
+export function otherHeapScoville(scovilles: number[], k: number): number | -1 {
+  /**
+   * 일단 scoville을 전부 heap에 넣어야함.
+   * k보다 큰값도 들어가는게 찝찝하긴하지만, scoville에 k보다 작은것만 잔뜩있는 엣지케이스 생각하면 어쩔수없음
+   * scoville 길이가 0,1,2,3 처럼 좀 작을 때도 걸리고
+   *
+   * count = 0으로 초기화함
+   */
+
+  /**
+   * heap의 root값이 k보다 작을 때 && heap.length가 2이상일 때까지만 반복해야함.
+   *
+   * root를 2번 꺼내서 합친다음 일단 heap에 넣음.
+   * count++
+   */
+
+  /**
+   * 0번째 값이 k이상 크면 return count - 0일때도 같이 커버함
+   * 0번째 값이 k보다 작으면 return -1
+   */
+  return 1;
+}
