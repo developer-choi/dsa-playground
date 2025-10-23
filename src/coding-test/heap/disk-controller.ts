@@ -14,7 +14,16 @@ export function diskController(jobs: DiskControllerJob[]): number {
   let accumulatedTime = 0;
   let accumulatedDurationTime = 0;
 
-  const remainJobs = new MinHeap<DiskControllerJob>((a, b) => {
+  /**
+   * Set으로 만든 이유는,
+   * remainJobs 에서 조건에 맞는 job을 waitingQueue에 넣고 && remainJobs에서는 삭제를 하기 위해
+   * 아닌 job은 remainJob에 다시 넣기 위해서임.
+   *
+   * 이걸 Array로 개발하게되면 Array.prototype.splice()를 쓰던, Array.prototype.filter()를 쓰던, 시간복잡도는 결국 O(n)이 됨.
+   */
+  const remainJobs = new Set(jobs);
+
+  const waitingQueue = new MinHeap<DiskControllerJob>((a, b) => {
     if (a[1] !== b[1]) {
       return a[1] - b[1];
     }
@@ -22,15 +31,19 @@ export function diskController(jobs: DiskControllerJob[]): number {
     return a[0] - b[0];
   });
 
-  for (const job of jobs) {
-    remainJobs.add(job);
-  }
-
   let processingJob: DiskControllerJob | undefined = undefined;
 
-  while (remainJobs.length > 0 || processingJob !== undefined) {
-    if (processingJob === undefined && (remainJobs.peek() as DiskControllerJob)[0] <= accumulatedTime) {
-      processingJob = remainJobs.extractRoot() as DiskControllerJob;
+  while (remainJobs.size > 0 || waitingQueue.length > 0 || processingJob !== undefined) {
+    // job의 요청시각이 내림차순이나 오름차순이라는 언급이 없어서 반복문 돌릴 떄마다 매번 전체 remainJob을 순회할 수밖에 없었음.
+    for (const job of remainJobs) {
+      if (job[0] <= accumulatedTime) {
+        waitingQueue.add(job);
+        remainJobs.delete(job);
+      }
+    }
+
+    if (processingJob === undefined) {
+      processingJob = waitingQueue.extractRoot();
     }
 
     if (processingJob && processingJob[1] >= 1) {
