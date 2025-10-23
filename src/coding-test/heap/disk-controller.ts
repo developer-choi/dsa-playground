@@ -50,7 +50,7 @@ export function diskController(jobs: DiskControllerJob[]): number {
       processingJob[1]--;
     }
 
-    accumulatedTime++;
+    accumulatedTime++; // TODO 매번 이 값을 1씩 더하는것 보다, 여러값을 한번에 더해서 점프하는 방식으로 수정 후 타인 풀이와 비교 해야함
 
     if (processingJob && processingJob[1] === 0) {
       accumulatedDurationTime += (accumulatedTime - processingJob[0]);
