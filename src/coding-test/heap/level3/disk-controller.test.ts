@@ -1,6 +1,6 @@
-import {diskController} from '@/coding-test/heap/disk-controller';
+import {diskController} from '@/coding-test/heap/level3/disk-controller';
 
-// yarn test src/coding-test/heap/disk-controller.test.ts
+// yarn test src/coding-test/heap/level3/disk-controller.test.ts
 describe('diskController()', () => {
   describe('General cases', () => {
     it('예제는 만족해야한다', () => {

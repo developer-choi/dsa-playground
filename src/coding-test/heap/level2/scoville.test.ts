@@ -1,11 +1,11 @@
-import {myHeapScoville, otherHeapScoville} from '@/coding-test/heap/scoville';
+import {myHeapScoville, otherHeapScoville} from '@/coding-test/heap/level2/scoville';
 
 const algorithms = [
   {name: '나의 Heap 풀이', fn: myHeapScoville},
   {name: '타인 Heap 풀이', fn: otherHeapScoville},
 ];
 
-// yarn test src/coding-test/heap/scoville.test.ts
+// yarn test src/coding-test/heap/level2/scoville.test.ts
 describe.each(algorithms)('Scoville Algorithm > $name', ({fn}) => {
   describe('General cases', () => {
     it('should return 2 for the example case', () => {
