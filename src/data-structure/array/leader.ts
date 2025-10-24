@@ -11,8 +11,8 @@ export function leadersInArrayUsingBruteForce(array: number[]): number[] {
   for (let i = 0; i < array.length; i++) {
     let isLeader = true;
 
-    for (let j = i; j < array.length; j++) {
-      if(array[i] < array[j]) {
+    for (let j = i + 1; j < array.length; j++) {
+      if(array[i] <= array[j]) {
         isLeader = false;
         break;
       }
@@ -29,18 +29,18 @@ export function leadersInArrayUsingBruteForce(array: number[]): number[] {
 // Time Complexity: O(n log n)
 export function leadersInArrayUsingHeap(array: number[]): number[] {
   const maxHeap = new MaxHeap();
-  const result: number[] = [];
+  const result = new Set<number>();
 
   for (let i = array.length - 1; i >= 0; i--) {
     const item = array[i];
     maxHeap.add(item);
 
     if (item === maxHeap.peek()) {
-      result.unshift(item);
+      result.add(item);
     }
   }
 
-  return result;
+  return [...result].toReversed();
 }
 
 // Time Complexity: O(n)
