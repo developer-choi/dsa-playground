@@ -20,8 +20,20 @@ describe.each(algorithms)('Leaders in an array Algorithm > $name', ({fn}) => {
   });
 
   describe('Boundary cases', () => {
+    it('배열 요소가 1개인 경우 그걸 그대로 반환해야한다.', () => {
+      const value = 1;
+      expect(fn([value])).toEqual([value]);
+    });
+
+    it('빈 배열인 경우, 빈 배열을 반황해야한다.', () => {
+      expect(fn([])).toEqual([]);
+    });
   });
 
   describe('Edge cases', () => {
+    it('배열 요소가 모두 같은 값인 경우 하나만 반환해야한다.', () => {
+      const value = 2;
+      expect(fn([value, value, value])).toEqual([value]);
+    });
   });
 });
