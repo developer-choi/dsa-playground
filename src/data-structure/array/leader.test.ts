@@ -1,7 +1,11 @@
-import {leadersInArrayUsingBruteForce} from '@/data-structure/array/leader';
+import {
+  leadersInArrayUsingBruteForce,
+  leadersInArrayUsingHeap,
+} from '@/data-structure/array/leader';
 
 const algorithms = [
   {name: 'Brute Force', fn: leadersInArrayUsingBruteForce},
+  {name: 'Max Heap', fn: leadersInArrayUsingHeap},
 ];
 
 // yarn test src/data-structure/array/leader.test.ts
