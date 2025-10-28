@@ -1,11 +1,13 @@
 import {
   leadersInArrayUsingBruteForce,
   leadersInArrayUsingHeap,
+  leadersInArrayUsingReverseTraverse
 } from '@/data-structure/array/leader';
 
 const algorithms = [
   {name: 'Brute Force', fn: leadersInArrayUsingBruteForce},
   {name: 'Max Heap', fn: leadersInArrayUsingHeap},
+  {name: 'Reverse traverse', fn: leadersInArrayUsingReverseTraverse},
 ];
 
 // yarn test src/data-structure/array/leader.test.ts

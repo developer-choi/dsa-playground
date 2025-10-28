@@ -42,3 +42,22 @@ export function leadersInArrayUsingHeap(array: number[]): number[] {
 
   return [...result].toReversed();
 }
+
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/leaders-in-an-array/#expected-approach-using-suffix-maximum-on-time-and-o1-space
+ * Time Complexity: O(n)
+ */
+export function leadersInArrayUsingReverseTraverse(array: number[]): number[] {
+  let max = array[array.length - 1];
+  const result = [max];
+
+  for (let i = array.length - 2; i >= 0; i--) {
+    if (array[i] > max) {
+      // 여기서 unshift()를 하면 O(n^2)가 되서 안했음.
+      result.push(array[i]);
+      max = array[i];
+    }
+  }
+
+  return result.toReversed();
+}
