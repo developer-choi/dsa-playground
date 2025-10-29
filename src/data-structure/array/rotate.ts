@@ -24,7 +24,7 @@ export function rotateArrayUsingOneByOne(array: number[], distance: number, dire
 /**
  * URL: https://www.geeksforgeeks.org/dsa/complete-guide-on-array-rotations/#2-using-temporary-array
  * Doc: https://docs.google.com/document/d/1x11Iyb-uSmG4Jr30_8Cn2IMsXneM7y11zCaq0VmW4kA/edit?tab=t.0
- * Time Complexity: O(n) - splice()는 O(n) 이라서
+ * Time Complexity: O(n)
  */
 export function rotateArrayUsingTemporary(array: number[], distance: number, direction: 'left' | 'right'): number[] {
   const optimizedDistance = distance % array.length;
