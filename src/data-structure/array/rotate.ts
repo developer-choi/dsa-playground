@@ -27,16 +27,11 @@ export function rotateArrayUsingOneByOne(array: number[], distance: number, dire
  * Time Complexity: O(n) - splice()는 O(n) 이라서
  */
 export function rotateArrayUsingTemporary(array: number[], distance: number, direction: 'left' | 'right'): number[] {
-  const result: number[] = [];
   const optimizedDistance = distance % array.length;
 
   if (direction === 'left') {
-    result.splice(0, 0, ...array.slice(0, optimizedDistance));
-    result.splice(0, 0, ...array.slice(optimizedDistance, array.length));
+    return array.slice(optimizedDistance, array.length).concat(array.slice(0, optimizedDistance));
   } else {
-    result.splice(0, 0, ...array.slice(array.length - optimizedDistance, array.length));
-    result.splice(optimizedDistance, 0, ...array.slice(0, array.length - optimizedDistance));
+    return array.slice(array.length - optimizedDistance, array.length).concat(array.slice(0, array.length - optimizedDistance));
   }
-
-  return result;
 }
