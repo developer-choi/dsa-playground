@@ -1,6 +1,8 @@
 import {SortParam} from '@/algorithm/sort';
 
 /**
+ * URL: https://www.geeksforgeeks.org/dsa/program-check-array-sorted-not-iterative-recursive/#iterative-approach-on-time-and-o1-space
+ * Doc: https://docs.google.com/document/d/1x11Iyb-uSmG4Jr30_8Cn2IMsXneM7y11zCaq0VmW4kA/edit?tab=t.0
  * Time Complexity: O(n)
  */
 export function checkArrayIsSortedUsingIterative({value, order}: SortParam): boolean {
@@ -22,6 +24,8 @@ export function checkArrayIsSortedUsingIterative({value, order}: SortParam): boo
 }
 
 /**
+ * URL: https://www.geeksforgeeks.org/dsa/program-check-array-sorted-not-iterative-recursive/#recursive-approach-on-time-and-on-space-1
+ * Doc: https://docs.google.com/document/d/1x11Iyb-uSmG4Jr30_8Cn2IMsXneM7y11zCaq0VmW4kA/edit?tab=t.0
  * Time Complexity: O(n)
  */
 export function checkArrayIsSortedUsingRecursive({value, order}: SortParam): boolean {
