@@ -1,7 +1,8 @@
-import {rotateArrayUsingOneByOne} from '@/data-structure/array/rotate';
+import {rotateArrayUsingOneByOne, rotateArrayUsingTemporary} from '@/data-structure/array/rotate';
 
 const algorithms = [
   {name: 'One by one', fn: rotateArrayUsingOneByOne},
+  {name: 'Temporary', fn: rotateArrayUsingTemporary},
 ];
 
 // yarn test src/data-structure/array/rotate.test.ts
