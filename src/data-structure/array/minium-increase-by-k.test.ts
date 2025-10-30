@@ -1,20 +1,32 @@
-import {miniumIncreaseByK} from '@/data-structure/array/minium-increase-by-k';
+import {minimumIncreaseByK} from '@/data-structure/array/minium-increase-by-k';
 
 // yarn test src/data-structure/array/minium-increase-by-k.test.ts
-describe('miniumIncreaseByK()', () => {
+describe('minimumIncreaseByK()', () => {
   describe('General cases', () => {
-    it('예제는 만족해야한다', () => {
-      expect(miniumIncreaseByK([4, 7, 19, 16], 3)).toBe(10);
+    it('should return the minimum number of operations', () => {
+      expect(minimumIncreaseByK([4, 7, 19, 16], 3)).toBe(10);
     });
 
-    it('조건을 만족시킬 수 없는 경우 -1을 반환해야 한다', () => {
-      expect(miniumIncreaseByK([4, 2, 6, 8], 3)).toBe(-1);
+    it('should return -1 if it is impossible to make all elements equal', () => {
+      expect(minimumIncreaseByK([4, 2, 6, 8], 3)).toBe(-1);
     });
   });
 
   describe('Edge cases', () => {
-    it('배열의 모든 요소가 같은 경우 0을 반환해야 한다', () => {
-      expect(miniumIncreaseByK([4, 4, 4, 4], 3)).toBe(0);
+    it('should return 0 when all elements are already equal', () => {
+      expect(minimumIncreaseByK([4, 4, 4, 4], 3)).toBe(0);
+    });
+
+    it('should return 0 for an empty array', () => {
+      expect(minimumIncreaseByK([], 5)).toBe(0);
+    });
+
+    it('should return 0 for a single-element array', () => {
+      expect(minimumIncreaseByK([100], 5)).toBe(0);
+    });
+
+    it('should return the sum of differences when k is 1', () => {
+      expect(minimumIncreaseByK([1, 2, 3, 10], 1)).toBe(24);
     });
   });
 });

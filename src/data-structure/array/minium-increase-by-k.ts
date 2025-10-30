@@ -1,8 +1,13 @@
 /**
  * URL: https://www.geeksforgeeks.org/dsa/minimum-increment-k-operations-make-elements-equal/
  * Doc: https://docs.google.com/document/d/1x11Iyb-uSmG4Jr30_8Cn2IMsXneM7y11zCaq0VmW4kA/edit?tab=t.0
+ * Time Complexity: O(n)
  */
-export function miniumIncreaseByK(array: number[], k: number): number | -1 {
+export function minimumIncreaseByK(array: number[], k: number): number | -1 {
+  if (array.length === 0) {
+    return 0;
+  }
+
   const max = Math.max(...array);
   let sum = 0;
 
