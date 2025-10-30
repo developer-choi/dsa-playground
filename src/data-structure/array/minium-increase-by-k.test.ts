@@ -4,7 +4,7 @@ import {miniumIncreaseByK} from '@/data-structure/array/minium-increase-by-k';
 describe('miniumIncreaseByK()', () => {
   describe('General cases', () => {
     it('예제는 만족해야한다', () => {
-      expect(miniumIncreaseByK([4, 7, 19, 16], 3)).toBe(3);
+      expect(miniumIncreaseByK([4, 7, 19, 16], 3)).toBe(10);
     });
 
     it('조건을 만족시킬 수 없는 경우 -1을 반환해야 한다', () => {
