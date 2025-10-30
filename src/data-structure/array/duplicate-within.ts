@@ -4,7 +4,7 @@
  * Time Complexity: O(n * d)
  */
 export function duplicateWithinUsingBruteForce(array: number[], distance: number): boolean {
-  for (let i = 0; i < array.length - distance; i++) {
+  for (let i = 0; i < array.length; i++) {
     for (let j = i + 1; j <= i + distance; j++) {
       if (array[j] === array[i]) {
         return true;
