@@ -14,3 +14,26 @@ export function duplicateWithinUsingBruteForce(array: number[], distance: number
 
   return false;
 }
+
+/**
+ * URL: https://www.geeksforgeeks.org/dsa/check-given-array-contains-duplicate-elements-within-k-distance/
+ * Doc: https://docs.google.com/document/d/1JvljjsXl5iYjEGn9QCp-hKgioaxNZSI9S4-MHLpci7c/edit?tab=t.0
+ * Time Complexity: O(n)
+ */
+export function duplicateWithinUsingSlidingWindow(array: number[], distance: number): boolean {
+  const set = new Set<number>();
+
+  for (let i = 0; i < array.length; i++) {
+    if (set.has(array[i])) {
+      return true;
+    }
+
+    set.add(array[i]);
+
+    if (set.size > distance) {
+      set.delete(array[i - distance]);
+    }
+  }
+
+  return false;
+}

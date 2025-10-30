@@ -1,7 +1,8 @@
-import {duplicateWithinUsingBruteForce} from '@/data-structure/array/duplicate-within';
+import {duplicateWithinUsingBruteForce, duplicateWithinUsingSlidingWindow} from '@/data-structure/array/duplicate-within';
 
 const algorithms = [
   {name: 'Brute Force', fn: duplicateWithinUsingBruteForce},
+  {name: 'Sliding Window', fn: duplicateWithinUsingSlidingWindow},
 ];
 
 // yarn test src/data-structure/array/duplicate-within.test.ts
