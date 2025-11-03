@@ -4,8 +4,10 @@
  * Time Complexity: O(n * MAX_CHAR)
  */
 export function pangramUsingBruteForce(value: string): boolean {
+  const lowerCase = value.toLowerCase();
+
   for (const alphabet of ALPHABETS) {
-    if (!value.includes(alphabet)) {
+    if (!lowerCase.includes(alphabet.toLowerCase())) {
       return false;
     }
   }
@@ -19,10 +21,10 @@ export function pangramUsingBruteForce(value: string): boolean {
  * Time Complexity: O(n + MAX_CHAR)
  */
 export function pangramUsingSet(value: string): boolean {
-  const set = new Set(value);
+  const set = new Set(value.toLowerCase());
 
   for (const alphabet of ALPHABETS) {
-    if (!set.has(alphabet)) {
+    if (!set.has(alphabet.toLowerCase())) {
       return false;
     }
   }
