@@ -8,17 +8,17 @@ const algorithms = [
 // yarn test src/data-structure/string/pangram.test.ts
 describe.each(algorithms)('Pangram Algorithm > $name', ({fn}) => {
   describe('General cases', () => {
-    it('문자 사이에 공백이나 dot등 다른 앒파벳이 있어도 만족해야한다.', () => {
+    it('should return true even if there are spaces or other non-alphabetic characters between letters.', () => {
       expect(fn('The quick brown fox jumps over the lazy dog.')).toBe(true);
     });
 
-    it('a부터 z까지 문자중 일부가 없는 경우 false가 반환되야한다.', () => {
+    it('should return false if some characters from a to z are missing.', () => {
       expect(fn('The quick brown fox jumps over the dog')).toBe(false);
     });
   });
 
   describe('Edge cases', () => {
-    it('대소문자 구분없이 체크되야한다.', () => {
+    it('should be case-insensitive.', () => {
       expect(fn('The quick Brown fox jumps over the lazy dog')).toBe(true);
     });
   });
