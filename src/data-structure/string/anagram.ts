@@ -4,6 +4,10 @@
  * Time Complexity: O(n) - 순회가 text 2개의 길이 + 유일한 문자갯수 만큼만 발생함, 그래서 결국 O(n)임
  */
 export function anagramUsingHashmap(text1: string, text2: string): boolean {
+  if (text1.length !== text2.length) {
+    return false;
+  }
+
   const map = new Map<string, number>();
 
   for (const char of text1) {
@@ -11,7 +15,13 @@ export function anagramUsingHashmap(text1: string, text2: string): boolean {
   }
 
   for (const char of text2) {
-    map.set(char, (map.get(char) ?? 0) - 1);
+    const count = map.get(char);
+
+    if (count === undefined) {
+      return false;
+    }
+
+    map.set(char, count - 1);
   }
 
   for (const [, value] of map) {
