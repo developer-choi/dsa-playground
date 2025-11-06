@@ -4,14 +4,13 @@
  * Time Complexity: O(n) - original의 길이만큼
  */
 export function subsequenceUsingIterative(sequence: string, original: string): boolean {
-  const sequenceArray = sequence.split('');
   let sequenceIndex = 0;
 
-  for(let i = 0; i < original.length && sequenceIndex < sequence.length; i++) {
-    if(original[i] === sequenceArray[sequenceIndex]) {
+  for (let i = 0; i < original.length && sequenceIndex < sequence.length; i++) {
+    if (original[i] === sequence[sequenceIndex]) {
       sequenceIndex++;
     }
   }
 
-  return sequenceIndex >= sequence.length;
+  return sequenceIndex === sequence.length;
 }

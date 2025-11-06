@@ -3,29 +3,36 @@ import {subsequenceUsingIterative} from '@/data-structure/string/subsequence';
 // yarn test src/data-structure/string/subsequence.test.ts
 describe('subsequenceUsingIterative()', () => {
   describe('General cases', () => {
-    it('s1의 모든 문자가 s2에 같은 순서로 있으면 true를 반환해야 합니다.', () => {
+    it('should return true if all characters of s1 are present in s2 in the same order', () => {
       expect(subsequenceUsingIterative('AXY', 'ADXCPY')).toBe(true);
     });
 
-    it('모든 문자가 존재하지만 순서가 다르면 false를 반환해야 합니다.', () => {
+    it('should return false if all characters are present but not in the same order', () => {
       expect(subsequenceUsingIterative('AXY', 'YADXCP')).toBe(false);
     });
   });
 
   describe('Boundary cases', () => {
-    it('sequence가 빈문자열인 경우 true를 반환해야한다.', () => {
+    it('should return true when the sequence is an empty string', () => {
       expect(subsequenceUsingIterative('', 'ADXCPY')).toBe(true);
     });
 
-    it('original이 빈문자열 이면서 sequence가 빈문자열이 아닌 경우 false를 반환해야한다.', () => {
+    it('should return false when the original string is empty and the sequence is not', () => {
       expect(subsequenceUsingIterative('AXY', '')).toBe(false);
     });
 
-    it('original이 빈문자열 이면서 sequence가 빈문자열인 경우 true를 반환해야한다.', () => {
+    it('should return true when both the original string and the sequence are empty strings', () => {
       expect(subsequenceUsingIterative('', '')).toBe(true);
     });
   });
 
   describe('Edge cases', () => {
+    it('should return true for identical strings', () => {
+      expect(subsequenceUsingIterative('ABC', 'ABC')).toBe(true);
+    });
+
+    it('should return false if the sequence is longer than the original string', () => {
+      expect(subsequenceUsingIterative('ABC', 'AB')).toBe(false);
+    });
   });
 });
