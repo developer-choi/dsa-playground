@@ -10,6 +10,20 @@
 1. 반드시 CJS가 아닌 ESM 문법으로 작성해주세요.
 2. 제가 따로 요청하지않았다면 절대로 주석을 작성하지 말아주세요.
 
+### 테스트 코드 스타일
+테스트 코드를 작성할 때, 변수를 선언하여 `expect` 함수에 넘기는 대신, 값 리터럴을 직접 `expect` 함수에 전달하는 것을 선호합니다.
+
+예시:
+```typescript
+// 선호하는 스타일
+expect(anagramUsingHashmap('listen', 'lists')).toBe(false);
+
+// 선호하지 않는 스타일
+const s1 = "listen";
+const s2 = "lists";
+expect(anagramUsingHashmap(s1, s2)).toBe(false);
+```
+
 ## 코딩테스트
 ### js 변환방법
 Programmers 처럼 typescript를 지원하지않는 코딩테스트 사이트가 있습니다.
