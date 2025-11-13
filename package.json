@@ -17,6 +17,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@forworkchoe/ai-contexts": "^0.0.7",
     "@forworkchoe/core": "0.0.29"
   },
   "packageManager": "yarn@4.10.3"

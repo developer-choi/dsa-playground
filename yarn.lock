@@ -421,6 +421,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@forworkchoe/ai-contexts@npm:^0.0.7":
+  version: 0.0.7
+  resolution: "@forworkchoe/ai-contexts@npm:0.0.7"
+  checksum: 10c0/b59dca2098ed95737d0020a82178d3f1bd7790aff840fa47049f4a74a6fcd9429bdd585a38f7d0913d7605bf09983e70c370313081a515a77a7f885a53bf64ab
+  languageName: node
+  linkType: hard
+
 "@forworkchoe/core@npm:0.0.29":
   version: 0.0.29
   resolution: "@forworkchoe/core@npm:0.0.29"
@@ -1676,6 +1683,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "dsa-playground@workspace:."
   dependencies:
+    "@forworkchoe/ai-contexts": "npm:^0.0.7"
     "@forworkchoe/core": "npm:0.0.29"
     "@types/jest": "npm:^29.5.14"
     jest: "npm:^30.0.0"
