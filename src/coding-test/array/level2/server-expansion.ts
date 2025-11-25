@@ -11,8 +11,8 @@ export function serverExpansionSolution(players: number[], maxUserLimit: number,
    * const isExceed = boolean 으로 계산 하고, boolean에는 현재 서버갯수와 maxUserLimit으로 계산.
    *
    * if(isExceed) 이면
-   * 서버댓수 + 1
-   * 누적서버증설횟수 + 1
+   * 서버댓수 + n
+   * 누적서버증설횟수 + n
    *
    * 운영중인 서버들 중 operatingTime을 지난 서버들은 모두 종료처리
    */
