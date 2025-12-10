@@ -1,8 +1,9 @@
-import {solution} from './solution';
+import {bruteForceVideoRanking} from './solution';
 
+// yarn test src/coding-test/sort/video-ranking/solution.test.ts
 describe('Video Ranking', () => {
   test('example case', () => {
-    expect(solution([1000, 500, 750, 500])).toEqual([
+    expect(bruteForceVideoRanking([1000, 500, 750, 500])).toEqual([
       {views: 1000, rank: 1},
       {views: 500, rank: 3},
       {views: 750, rank: 2},

@@ -3,6 +3,6 @@ export interface VideoRank {
   rank: number;
 }
 
-export function solution(views: number[]): VideoRank[] {
+export function bruteForceVideoRanking(views: number[]): VideoRank[] {
   return [];
 }
