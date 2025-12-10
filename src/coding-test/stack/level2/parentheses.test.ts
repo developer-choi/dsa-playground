@@ -1,6 +1,6 @@
 import parenthesesUsingStack from '@/coding-test/stack/level2/parentheses';
 
-// yarn test src/data-structure/stack/problems/parentheses.test.ts
+// yarn test src/coding-test/stack/level2/parentheses.test.ts
 describe('parenthesesUsingStack()', () => {
   describe('General cases', () => {
     it('should return true for balanced expressions and false otherwise', () => {
