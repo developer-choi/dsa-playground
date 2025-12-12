@@ -13,7 +13,12 @@ export function bruteForceDivisorsAndMultiples(array: number[]): number[] {
 
   const countRecord: Record<number, number | undefined> = {};
 
-  for (let value = 1; value <= max; ++value) {
+  for (let value = 1; value <= max; value++) {
+    /** 컨셉
+     * 배수를 찾으면서 약수를 같이 찾기. (약수찾으면서 배수찾기가 아님)
+     * value = 기준
+     * multiple = 그 기준의 배수값
+     */
     for (let multiple = value; multiple <= max; multiple += value) {
 
       const frequencyOfMultiple = frequencyRecord[multiple] ?? 0;
