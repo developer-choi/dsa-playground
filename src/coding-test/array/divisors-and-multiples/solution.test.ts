@@ -1,4 +1,6 @@
-import {bestDivisorsAndMultiples, bruteForceDivisorsAndMultiples} from './solution';
+import {bestDivisorsAndMultiples, bruteForceDivisorsAndMultiples, originalDivisorsAndMultiples} from './solution';
+import {compareFunctionsWithRandomInputs} from '@/utils/jest';
+import {randomNumber, randomNumericArray} from '@forworkchoe/core/utils';
 
 const algorithms = [
   {name: 'Brute Force', fn: bruteForceDivisorsAndMultiples},
@@ -26,6 +28,21 @@ describe.each(algorithms)('Divisors and Multiples > $name', ({fn}) => {
   describe('Edge cases', () => {
     it('빈 배열이 입력되면 빈 배열을 반환해야 한다', () => {
       expect(fn([])).toEqual([]);
+    });
+  });
+});
+
+describe('Best 알고리즘 랜덤 테스트', () => {
+  it('정답지와 같은 입력이 들어가면 같은 출력이 나와야 한다.', () => {
+    compareFunctionsWithRandomInputs({
+      targetFunction: bestDivisorsAndMultiples,
+      answerFunction: originalDivisorsAndMultiples,
+      generateInput: () => {
+        const length = randomNumber(1, 50)
+        const array = randomNumericArray(length);
+        return [array] as const;
+      },
+      iterationCount: 100,
     });
   });
 });

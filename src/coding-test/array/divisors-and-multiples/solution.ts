@@ -69,3 +69,34 @@ export function bestDivisorsAndMultiples(array: number[]): number[] {
 
   return array.map((num) => countRecord[num] ?? 0);
 }
+
+export function originalDivisorsAndMultiples(A: number[]): number[] {
+  const N = A.length;
+  const MAX = Math.max(...A);
+  const freq: number[] = new Array(MAX + 1).fill(0);
+
+  for (let i = 0; i < N; i++) {
+    freq[A[i]]++;
+  }
+
+  const res: number[] = new Array(MAX + 1).fill(0);
+
+  for (let i = 1; i <= MAX; ++i) {
+    for (let j = i; j <= MAX; j += i) {
+
+      if (i === j) {
+        res[i] += (freq[j] - 1);
+      } else {
+        res[i] += freq[j];
+        res[j] += freq[i];
+      }
+    }
+  }
+
+  const result: number[] = new Array(N);
+  for (let i = 0; i < N; i++) {
+    result[i] = res[A[i]];
+  }
+
+  return result;
+}
