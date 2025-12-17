@@ -5,7 +5,7 @@
  * - N은 playerCount
  * - K는 serverOperatingTime
  */
-export function getAccumulatedServerIncreasementCount(playerCounts: number[], playerCapacityOfServer: number, serverOperatingTime: number): number {
+export function getAccumulatedServerIncrementCount(playerCounts: number[], playerCapacityOfServer: number, serverOperatingTime: number): number {
   if (playerCapacityOfServer < 1) {
     throw new TypeError('서버 1대가 감당할 수 있는 사용자의 명수는 최소 1 이상이어야 합니다.');
   }
@@ -14,7 +14,7 @@ export function getAccumulatedServerIncreasementCount(playerCounts: number[], pl
     throw new TypeError('서버 1대의 운영시간은 최소 1 이상이어야 합니다.');
   }
 
-  let accumulatedServerIncreasementCount = 0;
+  let accumulatedServerIncrementCount = 0;
   let operatingServers: {count: number, expiredAt: number}[] = [];
 
   for (let i = 0; i < playerCounts.length; i++) {
@@ -22,7 +22,7 @@ export function getAccumulatedServerIncreasementCount(playerCounts: number[], pl
     const operatingServerCount = operatingServers.reduce((a, b) => a + b.count, 0);
     const maxPlayerCapacity = (operatingServerCount + 1) * playerCapacityOfServer - 1;
     const needServerCount = maxPlayerCapacity > playerCount ? 0 : Math.ceil((playerCount - maxPlayerCapacity) / playerCapacityOfServer);
-    accumulatedServerIncreasementCount += needServerCount;
+    accumulatedServerIncrementCount += needServerCount;
 
     if (needServerCount) {
       operatingServers.push({count: needServerCount, expiredAt: i + serverOperatingTime});
@@ -35,5 +35,5 @@ export function getAccumulatedServerIncreasementCount(playerCounts: number[], pl
     operatingServers = operatingServers.filter((({expiredAt}) => i < expiredAt - 1));
   }
 
-  return accumulatedServerIncreasementCount;
+  return accumulatedServerIncrementCount;
 }
