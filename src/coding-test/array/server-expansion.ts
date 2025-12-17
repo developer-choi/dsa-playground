@@ -1,6 +1,9 @@
 /**
  * URL: https://school.programmers.co.kr/learn/courses/30/lessons/389479
  * Doc: https://docs.google.com/document/d/1x11Iyb-uSmG4Jr30_8Cn2IMsXneM7y11zCaq0VmW4kA/edit?tab=t.0
+ * Time Complexity: O(N * K)
+ * - N은 playerCount
+ * - K는 serverOperatingTime
  */
 export function getAccumulatedServerIncreasementCount(playerCounts: number[], playerCapacityOfServer: number, serverOperatingTime: number): number {
   let accumulatedServerIncreasementCount = 0;
@@ -17,6 +20,10 @@ export function getAccumulatedServerIncreasementCount(playerCounts: number[], pl
       operatingServers.push({count: needServerCount, increasedTime: i});
     }
 
+    /**
+     * operatingServers.length는 절대 serverOperatingTime 값을 넘을 수 없음.
+     * increasedTime 랑 serverOperatingTime 값 비교해서 오래된 서버는 배열에서 삭제를 하기 때문.
+     */
     operatingServers = operatingServers.filter((({increasedTime}) => (i - increasedTime) < serverOperatingTime - 1));
   }
 
