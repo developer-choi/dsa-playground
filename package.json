@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@forworkchoe/ai-contexts": "^0.0.10",
     "@types/jest": "^29.5.14",
     "jest": "^30.0.0",
     "ts-jest": "^29.3.4",
