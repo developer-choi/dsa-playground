@@ -6,6 +6,14 @@
  * - K는 serverOperatingTime
  */
 export function getAccumulatedServerIncreasementCount(playerCounts: number[], playerCapacityOfServer: number, serverOperatingTime: number): number {
+  if (playerCapacityOfServer < 1) {
+    throw new TypeError('서버 1대가 감당할 수 있는 사용자의 명수는 최소 1 이상이어야 합니다.');
+  }
+
+  if (serverOperatingTime < 1) {
+    throw new TypeError('서버 1대의 운영시간은 최소 1 이상이어야 합니다.');
+  }
+
   let accumulatedServerIncreasementCount = 0;
   let operatingServers: {count: number, increasedTime: number}[] = [];
 

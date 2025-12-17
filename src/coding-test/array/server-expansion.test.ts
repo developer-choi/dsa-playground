@@ -17,8 +17,18 @@ describe('getAccumulatedServerIncreasementCount()', () => {
   });
 
   describe('Boundary cases', () => {
+    it('should return 0 when playerCounts is empty', () => {
+      expect(getAccumulatedServerIncreasementCount([], 3, 5)).toBe(0);
+    });
   });
 
   describe('Edge cases', () => {
+    it('should throw error when playerCapacityOfServer is 0', () => {
+      expect(() => getAccumulatedServerIncreasementCount([1], 0, 5)).toThrow(TypeError);
+    });
+
+    it('should throw error when serverOperatingTime is 0', () => {
+      expect(() => getAccumulatedServerIncreasementCount([1], 3, 0)).toThrow(TypeError);
+    });
   });
 });
