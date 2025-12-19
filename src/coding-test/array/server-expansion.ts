@@ -15,9 +15,9 @@ export function getAccumulatedServerIncreasementCount(playerCounts: number[], pl
   }
 
   let accumulatedServerIncreasementCount = 0;
-  let operatingServers: {count: number, increasedTime: number}[] = [];
+  let operatingServers: {count: number, expiredAt: number}[] = [];
 
-  for(let i = 0; i < playerCounts.length; i++) {
+  for (let i = 0; i < playerCounts.length; i++) {
     const playerCount = playerCounts[i];
     const operatingServerCount = operatingServers.reduce((a, b) => a + b.count, 0);
     const maxPlayerCapacity = (operatingServerCount + 1) * playerCapacityOfServer - 1;
@@ -25,14 +25,14 @@ export function getAccumulatedServerIncreasementCount(playerCounts: number[], pl
     accumulatedServerIncreasementCount += needServerCount;
 
     if (needServerCount) {
-      operatingServers.push({count: needServerCount, increasedTime: i});
+      operatingServers.push({count: needServerCount, expiredAt: i + serverOperatingTime});
     }
 
     /**
      * operatingServers.length는 절대 serverOperatingTime 값을 넘을 수 없음.
      * increasedTime 랑 serverOperatingTime 값 비교해서 오래된 서버는 배열에서 삭제를 하기 때문.
      */
-    operatingServers = operatingServers.filter((({increasedTime}) => (i - increasedTime) < serverOperatingTime - 1));
+    operatingServers = operatingServers.filter((({expiredAt}) => i < expiredAt - 1));
   }
 
   return accumulatedServerIncreasementCount;
