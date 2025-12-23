@@ -11,15 +11,15 @@
 ### Step 1. 설계 및 테스트 케이스 작성
 * 코드를 작성하기 전, 해결 로직을 한글(의사 코드)로 먼저 정리합니다.
 * 테스트 케이스를 먼저 작성합니다.
-* 👉 [한글 로직 설계 및 테스트 코드 작성](https://github.com/developer-choi/dsa-playground/commit/a0efd8551dbc5a9e3f8b6e2d00cf303f5e85eb15)
+* 👉 [한글 로직 설계 및 테스트 코드 작성](https://github.com/developer-choi/dsa-playground/commit/3f3e069fa5785cb46decd4bfc431663f18966190)
 
 ### Step 2. 구현
 * 정리된 로직을 바탕으로 실제 동작하는 TypeScript 코드로 변환합니다.
-* 👉 [로직 구현](https://github.com/developer-choi/dsa-playground/commit/70e85051a5570e86cf631dd23d83872f08e1165e)
+* 👉 [로직 구현](https://github.com/developer-choi/dsa-playground/commit/f1e2971d6783699c45380f55c9280c0887e5c6cd)
 
 ### Step 3. AI 리뷰 반영
 * AI를 활용하여 리뷰를받습니다.
-* 👉 [AI 피드백 반영](https://github.com/developer-choi/dsa-playground/commit/87ab88c4189c14ad6f133c17bbd36c03ecf75fa7)
+* 👉 [AI 피드백 반영](https://github.com/developer-choi/dsa-playground/commit/fe0aa9501cee9a08ebaf0508cb43c69ec51cc737)
 
 ---
 
