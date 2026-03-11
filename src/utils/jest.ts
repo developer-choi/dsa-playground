@@ -1,7 +1,3 @@
-import {BinaryTreeDirection, BinaryTreeNode} from '@/data-structure/tree/binary';
-import {randomInArray} from '@forworkchoe/core/utils';
-import {traverseAllNodes} from '@/data-structure/tree/binary/traversal';
-
 export interface RandomCase<P extends unknown[], R> {
   inputs: P;
   expected: R;
@@ -61,47 +57,5 @@ export function compareFunctionsWithRandomInputs<P extends unknown[], R>(options
       }
       throw error;
     }
-  }
-}
-
-export interface SummaryBinaryTree<D> {
-  level: number;
-  data: D;
-  parent: D | undefined;
-  direction: BinaryTreeDirection | undefined;
-}
-
-/**
- * @description 테스트코드에서 쓰기 위해 level, data만 따로 요약하는 함수
- * @return BFS 기준으로 순회해서 배열을 만들어서 level, data만 따로 추출하여 반환
- */
-export function summarizeBinaryTree<D>(root: BinaryTreeNode<D> | undefined): SummaryBinaryTree<D>[] {
-  if (!root) {
-    return [];
-  }
-
-  return [...traverseAllNodes(root, {traversal: 'level-order'})].map(({node, level, lastParent}) => ({
-    level,
-    data: node.data,
-    direction: lastParent?.direction,
-    parent: lastParent?.node.data
-  }));
-}
-
-/**
- * @description root로 접근해서 임의의 node.data를 data로 수정하는 함수
- */
-export function updateRandomNodeData(root: BinaryTreeNode<number>, newData: number) {
-  let current: BinaryTreeNode<number> = root;
-
-  while (true) {
-    const direction = randomInArray(['left', 'left', 'right', 'right', 'current'] as const)[0];
-
-    if (direction === 'current' || !current[direction]) {
-      current.data = newData;
-      return;
-    }
-
-    current = current[direction];
   }
 }
