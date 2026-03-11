@@ -20,13 +20,3 @@
 ### Step 3. AI 리뷰 반영
 * AI를 활용하여 리뷰를받습니다.
 * 👉 [AI 피드백 반영](https://github.com/developer-choi/dsa-playground/commit/fe0aa9501cee9a08ebaf0508cb43c69ec51cc737)
-
----
-
-## Project Structure
-
-```text
-.
-├── algorithm/          # 알고리즘 문제 풀이 (Sorting, Searching, etc.)
-├── data-structure/     # 자료구조 구현 (LinkedList, Stack, Queue, etc.)
-├── coding-test/        # 코딩테스트 문제 풀이 (Programmers, etc.)
