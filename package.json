@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --no-coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "strip": "node scripts/strip-types.mjs"
   },
   "author": "",
   "license": "ISC",
