@@ -23,17 +23,17 @@ import { compareFunctionsWithRandomInputs } from '@/utils/jest';
 
 // yarn test src/problems/greedy/boj-11047.test.ts
 const solutions = [
-  {name: 'Greedy', fn: greedy},
+  {name: 'greedy', fn: greedy},
 ];
 
 describe.each(solutions)('동전 0 > $name', ({fn}) => {
-  describe('Success', () => {
+  describe('General cases', () => {
   });
 
-  describe('Boundary', () => {
+  describe('Boundary cases', () => {
   });
 
-  describe('Edge', () => {
+  describe('Edge cases', () => {
   });
 
   describe('Random', () => {

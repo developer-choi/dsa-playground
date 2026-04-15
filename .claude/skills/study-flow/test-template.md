@@ -7,16 +7,16 @@ const solutions = [
 ];
 
 describe.each(solutions)('{문제 제목} > $name', ({fn}) => {
-  describe('Success', () => {
-    // TODO
+  describe('General cases', () => {
+    // 문제에서 제시한 예시를 코드로 작성. 없으면 비워두기
   });
 
-  describe('Boundary', () => {
-    // TODO
+  describe('Boundary cases', () => {
+    // 문제에서 제시한 예시를 코드로 작성. 없으면 비워두기
   });
 
-  describe('Edge', () => {
-    // TODO
+  describe('Edge cases', () => {
+    // 문제에서 제시한 예시를 코드로 작성. 없으면 비워두기
   });
 });
 ```

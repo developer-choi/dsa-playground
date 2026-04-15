@@ -47,3 +47,67 @@ data-structure/        # 코테용 구현체 (필요할 때 하나씩 생성)
 
 utils/                 # 테스트 유틸리티
 ```
+
+## 테스트 컨벤션
+
+### 풀이 함수 설계 원칙
+
+- **Pure Function**: 같은 입력 → 같은 출력, side effect 없음
+- **Single Responsibility**: 한 함수가 하나의 일만
+
+### 테스트 구조
+
+- `General cases / Boundary cases / Edge cases` 3개 describe로 분리
+- `describe.each`로 여러 풀이 함수를 동시에 순회
+
+```typescript
+const solutions = [
+  {name: 'stack', fn: stack},
+  {name: 'bruteForce', fn: bruteForce},
+];
+
+describe.each(solutions)('문제 제목 > $name', ({fn}) => {
+  describe('General cases', () => {
+    it('각 탑이 레이저를 수신하는 탑 번호를 반환한다', () => {
+      expect(fn([6, 9, 5, 7, 4])).toEqual([0, 0, 2, 2, 4]);
+    });
+  });
+
+  describe('Boundary cases', () => {
+    // TODO
+  });
+
+  describe('Edge cases', () => {
+    // TODO
+  });
+});
+```
+
+### 데이터 처리
+
+같은 값이 반복되거나 변환이 포함되면 로컬 변수로 추출한다.
+
+```typescript
+// before
+expect(fn([1, 2, 3])).toEqual([1, 2, 3]);
+expect(fn([1, 2, 3])).toHaveLength(3);
+
+// after
+const input = [1, 2, 3];
+expect(fn(input)).toEqual([1, 2, 3]);
+expect(fn(input)).toHaveLength(input.length);
+```
+
+반복 assertion은 데이터 기반 반복문으로 처리한다.
+
+```typescript
+// before
+expect(fn(1)).toBe(true);
+expect(fn(2)).toBe(true);
+expect(fn(3)).toBe(true);
+
+// after
+[1, 2, 3].forEach((n) => {
+  expect(fn(n)).toBe(true);
+});
+```
