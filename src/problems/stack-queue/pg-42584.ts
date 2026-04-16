@@ -7,24 +7,24 @@ export function stack(prices: number[]): number[] {
     return [];
   }
 
-  const priceAscIndexes: number[] = [];
+  const priceAscStack: {value: number, index: number}[] = [];
   const answer: number[] = [];
 
   for (let i = 0; i < prices.length; i++) {
     const price = prices[i];
 
-    if (priceAscIndexes.length === 0) {
-      priceAscIndexes.push(i);
+    if (priceAscStack.length === 0) {
+      priceAscStack.push({index: i, value: price});
       continue;
     }
 
     let initial = 1;
-    for(let j = i ; j > 0 ; j--) {
-      const top = prices[priceAscIndexes.length - 1];
+    for(let j = i ; j > 0 && priceAscStack.length ; j--) {
+      const top = priceAscStack[priceAscStack.length - 1].value;
 
       if (top > price) {
         answer[j - 1] = initial;
-        priceAscIndexes.pop();
+        priceAscStack.pop();
       } else {
         break;
       }
@@ -32,10 +32,10 @@ export function stack(prices: number[]): number[] {
       initial++;
     }
 
-    priceAscIndexes.push(i);
+    priceAscStack.push({value: price, index: i});
   }
 
-  for(const index of priceAscIndexes) {
+  for(const {index} of priceAscStack) {
     answer[index] = prices.length - index - 1;
   }
 
