@@ -8,11 +8,15 @@ argument-hint: "[문제 URL]"
 ## 컨벤션
 
 - 파일명·카테고리: `.claude/contexts/convention.md` 참고
-- 커밋 scope: 카테고리 폴더명과 동일 (예: `stack-queue`, `greedy`)
+- 커밋 메시지 패턴:
+  - 문제 풀이 준비: `feat(stack-queue): pg-42584 문제 풀이 준비`
+  - 접근법 작성: `feat(stack-queue): pg-42584 접근법 작성`
+  - 버그 테스트 추가: `test(stack-queue): pg-42584 다중 pop 미처리 버그 케이스 추가`
+  - 풀이 완료: `feat(stack-queue): pg-42584 풀이 작성`
 
 ## 절차
 
-### 1단계: 스캐폴딩
+### 1단계: 문제 풀이 준비
 - `./scaffold.md`의 절차에 따라 풀이 파일과 테스트 파일 생성
 - $ARGUMENTS로 전달된 URL 사용
 
