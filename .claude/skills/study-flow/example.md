@@ -21,7 +21,6 @@ export function greedy(coins: number[], k: number): number {
 import { greedy } from './boj-11047';
 import { compareFunctionsWithRandomInputs } from '@/utils/jest';
 
-// yarn test src/problems/greedy/boj-11047.test.ts
 const solutions = [
   {name: 'greedy', fn: greedy},
 ];
