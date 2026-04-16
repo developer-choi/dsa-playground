@@ -18,14 +18,18 @@ export function stack(prices: number[]): number[] {
       continue;
     }
 
-    const top = prices[priceAscIndexes[priceAscIndexes.length - 1]];
+    let initial = 1;
+    for(let j = i ; j > 0 ; j--) {
+      const top = prices[priceAscIndexes.length - 1];
 
-    if (top > price) {
-      answer[i - 1] = 1;
-
-      while (prices[priceAscIndexes[priceAscIndexes.length - 1]] > price) {
+      if (top > price) {
+        answer[j - 1] = initial;
         priceAscIndexes.pop();
+      } else {
+        break;
       }
+
+      initial++;
     }
 
     priceAscIndexes.push(i);
@@ -35,6 +39,5 @@ export function stack(prices: number[]): number[] {
     answer[index] = prices.length - index - 1;
   }
 
-  answer[prices.length - 1] = 0;
   return answer;
 }
