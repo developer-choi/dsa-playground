@@ -18,6 +18,9 @@ describe.each(solutions)('주식가격 > $name', ({ fn }) => {
     it('내림차순 입력이면 마지막을 제외하고 모두 1을 반환한다', () => {
       expect(fn([5, 4, 3, 2, 1])).toEqual([1, 1, 1, 1, 0]);
     });
+    it('한 번에 여러 가격이 동시에 떨어지면 각각의 유지 기간을 올바르게 반환한다', () => {
+      expect(fn([3, 4, 2])).toEqual([2, 1, 0]);
+    });
   });
 
   describe('Edge cases', () => {
