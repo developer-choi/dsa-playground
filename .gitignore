@@ -1,2 +1,5 @@
 /docs/gemini/
+
+# Claude Code local settings
+.claude/
 /solution.js
