@@ -1,4 +1,5 @@
 import { stack } from './pg-42584';
+import { compareFunctionsWithRandomInputs } from '@/utils/jest';
 
 const solutions = [
   { name: 'stack', fn: stack },
@@ -32,6 +33,30 @@ describe.each(solutions)('주식가격 > $name', ({ fn }) => {
   describe('Edge cases', () => {
     it('빈 배열이면 빈 배열을 반환한다', () => {
       expect(fn([])).toEqual([]);
+    });
+  });
+
+  describe('Random', () => {
+    test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
+      compareFunctionsWithRandomInputs({
+        targetFunction: fn,
+        answerFunction: (prices: number[]) => {
+          const answer = new Array(prices.length).fill(0);
+          for (let i = 0; i < prices.length; i++) {
+            for (let j = i + 1; j < prices.length; j++) {
+              answer[i]++;
+              if (prices[j] < prices[i]) break;
+            }
+          }
+          return answer;
+        },
+        generateInput: () => {
+          const length = Math.floor(Math.random() * 41) + 10; // 10~50
+          const prices = Array.from({length}, () => Math.floor(Math.random() * 10000) + 1);
+          return [prices] as [number[]];
+        },
+        iterationCount: 1000,
+      });
     });
   });
 });
