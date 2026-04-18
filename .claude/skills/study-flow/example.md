@@ -40,7 +40,7 @@ describe.each(solutions)('동전 0 > $name', ({fn}) => {
       compareFunctionsWithRandomInputs({
         targetFunction: ([coins, k]) => fn(coins, k),
         answerFunction: ([coins, k]) => {
-          // brute force: 큰 동전부터 나누기
+          // 큰 동전부터 나누기
           let count = 0;
           for (let i = coins.length - 1; i >= 0; i--) {
             count += Math.floor(k / coins[i]);
