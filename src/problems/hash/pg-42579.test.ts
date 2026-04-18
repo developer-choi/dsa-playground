@@ -1,4 +1,5 @@
 import { hash } from './pg-42579';
+import { compareFunctionsWithRandomInputs } from '@/utils/jest';
 
 const solutions = [
   { name: 'hash', fn: hash },
@@ -58,6 +59,54 @@ describe.each(solutions)('베스트앨범 > $name', ({ fn }) => {
 
     it('genres와 plays의 길이가 다르면 TypeError를 던진다', () => {
       expect(() => fn(['A', 'B'], [10])).toThrow(TypeError);
+    });
+  });
+
+  describe('Random', () => {
+    test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
+      compareFunctionsWithRandomInputs({
+        targetFunction: fn,
+        answerFunction: (genres: string[], plays: number[]) => {
+          if (genres.length !== plays.length) throw new TypeError();
+          const genreSum: Record<string, number> = {};
+          for (let i = 0; i < genres.length; i++) {
+            genreSum[genres[i]] = (genreSum[genres[i]] ?? 0) + plays[i];
+          }
+          const songs = genres.map((g, i) => ({ genre: g, play: plays[i], index: i }));
+          songs.sort((a, b) => {
+            if (genreSum[a.genre] !== genreSum[b.genre]) return genreSum[b.genre] - genreSum[a.genre];
+            if (a.play !== b.play) return b.play - a.play;
+            return a.index - b.index;
+          });
+          const count: Record<string, number> = {};
+          const result: number[] = [];
+          for (const s of songs) {
+            count[s.genre] = (count[s.genre] ?? 0) + 1;
+            if (count[s.genre] <= 2) result.push(s.index);
+          }
+          return result;
+        },
+        generateInput: () => {
+          // 문제 제약: 장르 합은 서로 달라야 함. 동률이면 재생성.
+          while (true) {
+            const length = Math.floor(Math.random() * 41) + 10;
+            const genreNames = ['A', 'B', 'C', 'D', 'E'];
+            const genreCount = Math.floor(Math.random() * 5) + 1;
+            const pool = genreNames.slice(0, genreCount);
+            const genres = Array.from({length}, () => pool[Math.floor(Math.random() * genreCount)]);
+            const plays = Array.from({length}, () => Math.floor(Math.random() * 100));
+            const sum: Record<string, number> = {};
+            for (let i = 0; i < genres.length; i++) {
+              sum[genres[i]] = (sum[genres[i]] ?? 0) + plays[i];
+            }
+            const sums = Object.values(sum);
+            if (new Set(sums).size === sums.length) {
+              return [genres, plays] as [string[], number[]];
+            }
+          }
+        },
+        iterationCount: 1000,
+      });
     });
   });
 });
