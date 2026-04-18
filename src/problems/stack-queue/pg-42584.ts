@@ -2,26 +2,33 @@
  * URL: https://school.programmers.co.kr/learn/courses/30/lessons/42584
  */
 
-// expect(fn([1, 2, 3, 2, 3])).toEqual([4, 3, 1, 1, 0]);
 export function stack(prices: number[]): number[] {
-  /**
-   * 오름차순 가격스택 (가격값, 가격인덱스)
-   * 정답배열 선언
-   *
-   * prices 순회하면서 {
-   * top vs prices 비교해만셔
-   *
-   * 일단 스택 빈배열이면 가격스택에 넣고  continue;
-   *
-   * 1. top < price ==> 스택에 저장
-   * 2. while(top >= price) {
-   * 일단 stack pop부터.
-   * answer의 top index에는 top index와 price index의 차이만큼 구해서 넣기.
-   * }
-   * 그렇게 while 끝나면 stack에 price 넣기
-   * }
-   */
+  if (prices.length === 0) {
+    return [];
+  }
 
-  // stack 순회하면서, price 전체 길이와 stack에 저장된 그 인덱스를 뺀만큼 answer에 저장 후 반환
-  return [];
+  const priceAscStack: {index: number, value: number;}[] = [{index: 0, value: prices[0]}];
+  const answer: number[] = [];
+
+  for (let i = 1; i < prices.length; i++) {
+    const price = prices[i];
+
+    if (priceAscStack[priceAscStack.length - 1].value <= price) {
+      priceAscStack.push({index: i, value: price});
+      continue;
+    }
+
+    while (priceAscStack.length > 0 && priceAscStack[priceAscStack.length - 1].value > price) {
+      const currentStackIndex = priceAscStack[priceAscStack.length - 1].index;
+      answer[currentStackIndex] = i - currentStackIndex;
+      priceAscStack.pop();
+    }
+    priceAscStack.push({index: i, value: price});
+  }
+
+  for(const {index} of priceAscStack) {
+    answer[index] = prices.length - index - 1;
+  }
+
+  return answer;
 }
