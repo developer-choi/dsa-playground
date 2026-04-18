@@ -1,4 +1,5 @@
 import { stack } from './pg-12909';
+import { compareFunctionsWithRandomInputs } from '@/utils/jest';
 
 const solutions = [
   { name: 'stack', fn: stack },
@@ -44,6 +45,32 @@ describe.each(solutions)('올바른 괄호 > $name', ({ fn }) => {
   describe('Edge cases', () => {
     it('빈 문자열이면 true를 반환한다', () => {
       expect(fn('')).toBe(true);
+    });
+  });
+
+  describe('Random', () => {
+    test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
+      compareFunctionsWithRandomInputs({
+        targetFunction: fn,
+        answerFunction: (text: string) => {
+          let count = 0;
+          for (const c of text) {
+            if (c === '(') count++;
+            else if (c === ')') {
+              count--;
+              if (count < 0) return false;
+            }
+          }
+          return count === 0;
+        },
+        generateInput: () => {
+          const length = Math.floor(Math.random() * 30) + 1;
+          const chars = '()abc';
+          const text = Array.from({length}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+          return [text] as [string];
+        },
+        iterationCount: 1000,
+      });
     });
   });
 });
