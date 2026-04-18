@@ -25,6 +25,7 @@ description: 문제 URL이나 정보를 받아 적절한 폴더에 풀이 파일
 
 - 함수명: 풀이 기법 기반 (예: `bruteForce`, `greedy`, `bfs`, `stack`, `dp`)
 - 템플릿: `./example.md` 참조
+- 타입 에러 방지를 위해 반환 타입에 맞는 기본값을 리턴한다 (예: `return []`, `return 0`, `return false`)
 
 ### 테스트 파일
 

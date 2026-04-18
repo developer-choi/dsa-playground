@@ -12,6 +12,7 @@
 
 export function greedy(coins: number[], k: number): number {
   // TODO
+  return 0;
 }
 ```
 
@@ -36,7 +37,7 @@ describe.each(solutions)('동전 0 > $name', ({fn}) => {
   });
 
   describe('Random', () => {
-    it('랜덤 입력 검증', () => {
+    test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
       compareFunctionsWithRandomInputs({
         targetFunction: ([coins, k]) => fn(coins, k),
         answerFunction: ([coins, k]) => {
