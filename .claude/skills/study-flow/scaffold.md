@@ -31,7 +31,7 @@ description: 문제 URL이나 정보를 받아 적절한 폴더에 풀이 파일
 
 `src/problems/{카테고리}/{출처}-{번호}.test.ts`
 
-- 템플릿: `./test-template.md` 참조
+- 템플릿: `./test-template.md` 참조 (test-template.md에 있는 import만 작성한다. `compareFunctionsWithRandomInputs`는 2단계 Random 블록 추가 시점에 넣는다 — 초기 스캐폴딩엔 미포함)
 - 문제 페이지의 예제 입력/출력을 `General cases` 블록에 채운다
 - it 설명은 함수 동작/조건 기반으로 서술한다 (예: `'각 탑이 레이저를 수신하는 탑 번호를 반환한다'`). 입력값을 문구에 박지 않는다. 입력이 길면 로컬 변수로 분리한다 (`convention.md` 참고)
 - `Boundary cases`, `Edge cases`는 비워둔다

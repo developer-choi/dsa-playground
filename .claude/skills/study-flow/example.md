@@ -2,6 +2,8 @@
 
 `/scaffold https://www.acmicpc.net/problem/11047` 실행 시 생성되는 파일들.
 
+**주의**: 아래 테스트 파일의 `Random` 블록과 `compareFunctionsWithRandomInputs` import는 2단계(접근법/테스트케이스 작성)에서 추가되는 **완성 상태** 예시다. 초기 스캐폴딩 시점에는 포함하지 않는다 — 풀이 함수 import 하나만.
+
 ## src/problems/greedy/boj-11047.ts
 
 ```typescript
