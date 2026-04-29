@@ -3,7 +3,7 @@
  * Description: 음식 주문 분석 — 가장 많은 종류의 음식을 주문한 유저 목록을 오름차순 반환
  */
 
-export function hash(orders: string[]): string[] {
+export function solution(orders: string[]): string[] {
   const orderRecord: Record<string, Set<string>> = {};
 
   for (const order of orders) {
@@ -16,17 +16,16 @@ export function hash(orders: string[]): string[] {
     }
   }
 
-  const countRecord: Record<string, number> = {};
+  let maxCount = -Infinity;
 
   for (const name in orderRecord) {
-    countRecord[name] = orderRecord[name].size;
+    maxCount = Math.max(orderRecord[name].size, maxCount);
   }
 
-  const maxCount = Math.max(...Object.values(countRecord));
   const mostUsers: string[] = [];
 
-  for (const name in countRecord) {
-    if (countRecord[name] === maxCount) mostUsers.push(name);
+  for (const name in orderRecord) {
+    if (orderRecord[name].size === maxCount) mostUsers.push(name);
   }
 
   return mostUsers.toSorted();

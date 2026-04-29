@@ -1,7 +1,7 @@
-import { hash } from './wf-2';
+import { solution } from './wf-2';
 
 const solutions = [
-  { name: 'hash', fn: hash },
+  { name: 'hash', fn: solution },
 ];
 
 describe.each(solutions)('음식 주문 분석 > $name', ({ fn }) => {
