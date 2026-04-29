@@ -5,17 +5,21 @@
 type Day = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export function solution(day: Day, k: number): number[] {
-  let sum = 0;
-  const accumulatedDateCountOfMonth = [...DATE_COUNT_OF_MONTH];
+  const accumulatedDateCountOfMonth = [0];
 
-  for (let i = 0; i < accumulatedDateCountOfMonth.length; i++) {
-    accumulatedDateCountOfMonth[i] += sum;
-    sum += DATE_COUNT_OF_MONTH[i];
+  for (let i = 1; i <= DATE_COUNT_OF_MONTH.length; i++) {
+    accumulatedDateCountOfMonth[i] = accumulatedDateCountOfMonth[i - 1] + DATE_COUNT_OF_MONTH[i - 1];
   }
 
-  return [0, ...accumulatedDateCountOfMonth]
-    .map(daysBeforeMonth => getKthDayWeekday(day, daysBeforeMonth, k))
-    .map(weekday => (weekday === 5 || weekday === 6 ? 1 : 0));
+  return accumulatedDateCountOfMonth.map(daysBeforeMonth => {
+    const kthDay = getKthDayWeekday(day, daysBeforeMonth, k);
+
+    if (kthDay === 5 || kthDay === 6) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 }
 
 /**
