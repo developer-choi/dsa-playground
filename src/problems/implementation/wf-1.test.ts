@@ -1,7 +1,7 @@
-import { simulation } from './wf-1';
+import { solution } from './wf-1';
 
 const solutions = [
-  { name: 'simulation', fn: simulation },
+  { name: 'simulation', fn: solution },
 ];
 
 describe.each(solutions)('아파트 관리비 > $name', ({ fn }) => {
