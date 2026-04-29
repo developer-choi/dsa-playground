@@ -1,7 +1,7 @@
-import { sort } from './wf-3';
+import { solution } from './wf-3';
 
 const solutions = [
-  { name: 'sort', fn: sort },
+  { name: 'sort', fn: solution },
 ];
 
 describe.each(solutions)('등수 매기기 > $name', ({ fn }) => {

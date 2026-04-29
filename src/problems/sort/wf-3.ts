@@ -1,9 +1,4 @@
-/**
- * Docs: docs/company-test/wf-3.md
- * Description: 등수 매기기 — 각 학생의 등수를 배열로 반환 (동점자 동일 등수)
- */
-
-export function sort(grade: number[]): number[] {
+export function solution(grade: number[]): number[] {
   const gradeUsers: { index: number; grade: number; level: number }[] = grade.map((value, index) => ({
     level: -1,
     index,
