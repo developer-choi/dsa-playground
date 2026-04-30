@@ -52,6 +52,7 @@
     | `arr.flat()` | O(N) | **O(N²)** |
     | `{...obj}`, `Object.assign({}, obj)` | O(K) | **O(N×K)** |
     | `arr.shift()`, `arr.unshift(x)` | **O(N)** (앞쪽 조작은 전부 밂) | **O(N²)** |
+    | `new Set(arr)`, `new Map(entries)` | O(N) | **O(N²)** |
   - 공통 패턴: **"복사" 또는 "앞쪽 조작"**이 들어간 모든 연산.
   - BFS 큐 함정: `arr.shift()` 쓰지 말 것 → `let head = 0; queue[head++]` 인덱스 방식.
   - React에서 spread가 멀쩡한 이유: 이벤트당 1회 호출(경계에서 한 번)이라 단독 O(N)으로 끝남. 코테 함정은 **핫 루프 안에 박힌 경우**.
