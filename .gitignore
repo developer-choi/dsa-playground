@@ -4,3 +4,12 @@
 .claude/settings.json
 .claude/settings.local.json
 /solution.js
+
+# IDE
+.idea/
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
