@@ -4,6 +4,8 @@
 .claude/settings.json
 .claude/settings.local.json
 /solution.js
+.agents/
+AGENTS.md
 
 # IDE
 .idea/
