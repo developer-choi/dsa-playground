@@ -1,7 +1,8 @@
-import { solution } from './wf-3';
+import { sort } from './wf-3';
+import { compareFunctionsWithRandomInputs } from '@/utils/jest';
 
 const solutions = [
-  { name: 'sort', fn: solution },
+  { name: 'sort', fn: sort },
 ];
 
 describe.each(solutions)('등수 매기기 > $name', ({ fn }) => {
@@ -16,5 +17,21 @@ describe.each(solutions)('등수 매기기 > $name', ({ fn }) => {
   });
 
   describe('Edge cases', () => {
+  });
+
+  describe('Random', () => {
+    test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
+      compareFunctionsWithRandomInputs({
+        targetFunction: ([grades]) => fn(grades),
+        answerFunction: ([grades]) =>
+          grades.map(g => grades.filter(other => other > g).length + 1),
+        generateInput: () => {
+          const n = Math.floor(Math.random() * 40) + 10;
+          const grades = Array.from({ length: n }, () => Math.floor(Math.random() * 10) + 1);
+          return [[grades]] as const;
+        },
+        iterationCount: 1000,
+      });
+    });
   });
 });

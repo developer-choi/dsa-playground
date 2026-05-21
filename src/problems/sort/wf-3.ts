@@ -1,27 +1,25 @@
-export function solution(grade: number[]): number[] {
-  const gradeUsers: { index: number; grade: number; level: number }[] = grade.map((value, index) => ({
-    level: -1,
-    index,
-    grade: value,
-  }));
+export function sort(grades: number[]): number[] {
+  const scoreRecord: Record<number, {count: number, upper: number;}> = {};
 
-  gradeUsers.sort((a, b) => b.grade - a.grade);
+  for (const grade of grades) {
+    if (grade in scoreRecord) {
+      scoreRecord[grade].count++;
 
-  let previous = { grade: 0, level: 0 };
-
-  for (let i = 0; i < gradeUsers.length; i++) {
-    const user = gradeUsers[i];
-
-    if (user.grade !== previous.grade) {
-      user.level = i + 1;
-      previous.grade = user.grade;
-      previous.level = user.level;
     } else {
-      user.level = previous.level;
+      scoreRecord[grade] = {
+        count: 1,
+        upper: 0
+      };
     }
   }
 
-  gradeUsers.sort((a, b) => a.index - b.index);
+  const sorted = Object.entries(scoreRecord).sort((a, b) => Number(a[0]) - Number(b[0]));
+  let acc = 0;
 
-  return gradeUsers.map(({ level }) => level);
+  for(const [, value] of sorted) {
+    value.upper = grades.length - acc - value.count;
+    acc += value.count;
+  }
+
+  return grades.map(grade => scoreRecord[grade].upper + 1);
 }
