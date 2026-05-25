@@ -1,23 +1,14 @@
 export function sort(grades: number[]): number[] {
-  /**
-   * 등수 = 나보다 점수 높은사람의 인원수 + 1
-   * [2,3,1,2] ==> 3: 나보다 점수 높은사람 0명 = 1등
-   *
-   * 나보다 점수 높은 사람 구하는 방법
-   * 1. 순회 하면서 또 0부터 전체를 비교해가며 순회하는 방법 ==> O(n^2)라서 안됨.
-   * 2. 점수별 몇명인지 구하기 ==> 그 점수표를 오름차순하면 나보다 높은 점수 몇명인지 계산 가능.
-   * 3. 그냥 점수를 내림차순 하면 인덱스가 곧 등수를 뜻함.
-   *
-   * 그러므로 grades를 내림차순 정렬할거임.
-   *
-   * [5, 5, 4, 4, 3, 1] 이라고했을 떄 같은 점수인 5점끼리는 등수가 같아야함.
-   * 따라서 점수별로 처음으로 등장하는걸 인덱스로 저장할거임.
-   * const indexByGrade = {
-   *   5: x번쨰 인덱스에서 첫등장
-   *   3: y번째 인덱스에서 첫등장
-   * }
-   *
-   * 그 다음 원본배열 순회하면서 저 record에서 값 꺼내서 반환하면됨.
-   */
-  return [];
+  const sorted = [...grades].sort((a, b) => b - a);
+  const indexByGrade: Record<number, number> = {};
+
+  for (let i = 0; i < sorted.length; i++) {
+    if (sorted[i] in indexByGrade) {
+      continue;
+    }
+
+    indexByGrade[sorted[i]] = i;
+  }
+
+  return grades.map(grade => indexByGrade[grade] + 1);
 }
