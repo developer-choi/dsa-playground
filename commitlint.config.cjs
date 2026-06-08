@@ -6,31 +6,10 @@ module.exports = {
       2,
       'always',
       [
-        // problems/
-        'implementation',
-        'greedy',
-        'dynamic-programming',
-        'binary-search',
-        'dfs-bfs',
-        'backtracking',
-        'shortest-path',
-        'sort',
-        'two-pointer',
-        'sliding-window',
-        'stack-queue',
-        'heap',
-        'hash',
-        'tree',
-        'graph',
-        'string',
-        'math',
-        // docs/
+        'problem',
         'docs',
-        // data-structure/
         'data-structure',
-        // config
         'config',
-        // skills
         'skill',
       ],
     ],
