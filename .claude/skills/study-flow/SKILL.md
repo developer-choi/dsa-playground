@@ -1,4 +1,5 @@
 ---
+name: study-flow
 description: 문제 풀이 학습 플로우. 스캐폴딩 → 접근법 → 풀이 → 검증까지 단계별 진행.
 argument-hint: "[문제 URL]"
 ---

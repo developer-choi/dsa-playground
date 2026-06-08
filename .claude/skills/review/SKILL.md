@@ -1,4 +1,5 @@
 ---
+name: review
 description: 커밋 로그 기반으로 복습할 문제를 뽑아 라이브 코딩 면접을 시뮬레이션한다.
 argument-hint: "[day|week|숫자]"
 ---
