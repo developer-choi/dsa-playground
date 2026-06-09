@@ -6,11 +6,11 @@ description: 문제 URL이나 정보를 받아 적절한 폴더에 풀이 파일
 
 ## 컨벤션 참조
 
-- `.claude/contexts/convention.md` — 파일명·카테고리·테스트 작성 컨벤션
+- `local/contexts/convention.md` — 파일명·카테고리·테스트 작성 컨벤션
 
 ## 절차
 
-1. `.claude/contexts/convention.md` 읽기
+1. `local/contexts/convention.md` 읽기
 2. URL 또는 정보에서 출처(boj/pg/gfg)와 문제 번호를 파싱
 3. 이미 존재하는지 grep으로 확인 → 있으면 알려주고 중단
 4. 문제 페이지를 읽고 최적 풀이 기법을 판단하여 카테고리 폴더 결정

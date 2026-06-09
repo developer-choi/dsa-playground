@@ -22,7 +22,7 @@ argument-hint: "[문제 URL]"
 
 ## 컨벤션
 
-- 파일명·카테고리: `.claude/contexts/convention.md` 참고
+- 파일명·카테고리: `local/contexts/convention.md` 참고
 - 커밋 메시지 패턴:
   - 접근법 작성 (스캐폴딩 + 테스트케이스 변환 포함): `feat(stack-queue): pg-42584 접근법 작성`
   - 버그 테스트 추가: `test(stack-queue): pg-42584 다중 pop 미처리 버그 케이스 추가`
@@ -160,7 +160,7 @@ argument-hint: "[문제 URL]"
 - 파일을 읽은 뒤 커밋
 
 ### 4단계: 검증
-- `.claude/skills/review/SKILL.md`의 검증, 분석 절차를 따른다
+- `local/skills/review/SKILL.md`의 검증, 분석 절차를 따른다
 - **개선점 발견 시 처리 방식**
   - **사소한 개선(오타, 불필요한 재대입, 데드 코드, 미사용 변수 등 린트 수준)**: 리뷰어가 즉시 수정 후 별도 커밋
   - **설계 판단이 필요한 개선(알고리즘 교체, 시간·공간 복잡도 변경, 자료구조 변경 등)**: 피드백만 하고 사용자가 결정
@@ -199,4 +199,4 @@ argument-hint: "[문제 URL]"
 
 ## 태도
 
-- `.claude/skills/review/SKILL.md`의 태도 섹션을 따른다
+- `local/skills/review/SKILL.md`의 태도 섹션을 따른다

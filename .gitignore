@@ -1,10 +1,9 @@
 /docs/gemini/
 
-# Claude Code local settings
-.claude/settings.json
-.claude/settings.local.json
-/solution.js
+# Claude/Codex 배포 산출물 (소스는 local/, 트래킹 안 함)
+.claude/
 .agents/
+/solution.js
 AGENTS.md
 
 # IDE
