@@ -99,28 +99,23 @@ return parts.join('');
 - 공통 패턴: **"복사" 또는 "앞쪽 조작"**이 들어간 모든 연산.
 - BFS 큐 함정: `arr.shift()` 쓰지 말 것 → `let head = 0; queue[head++]` 인덱스 방식.
 - React에서 spread가 멀쩡한 이유: 이벤트당 1회 호출(경계에서 한 번)이라 단독 O(N)으로 끝남. 코테 함정은 **핫 루프 안에 박힌 경우**.
+- push vs concat 참고: https://github.com/developer-choi/dsa-playground/commit/3ba114024da742aef2d284098663e3d7e5d9c535
 
-## 배열 spread `[x, ...arr]`는 O(N) — 반복문 안에 두면 O(N²) 폭발
+### spread 심화 — `[x, ...arr]`은 안 보이는 for 루프
 
-`...arr`은 참조 복사가 아니라 **arr의 모든 원소를 새 배열에 하나씩 복사**하는 연산. arr 길이가 N이면 N번의 쓰기. 즉 `[x, ...arr]`은 `for (const e of arr) newArr.push(e)`의 단축 표기일 뿐, 가벼운 문법이 아님. 반복문 안에서 누적 배열에 spread 쓰면 노드 N개 × 평균 깊이 D = **O(N×D)**, 사슬 트리 최악에서 O(N²).
-
-### 배드 — 트리 DFS 중 조상 체인 들고 다니기
-
-```ts
-parents[child] = [node, ...parents[node]];  // 깊이 D만큼 복사
-```
-
-### 굿 — 누적값을 숫자 하나로 압축
+`...arr`은 참조 복사가 아니라 arr의 모든 원소를 새 배열에 하나씩 복사하는 연산(`for (const e of arr) newArr.push(e)`의 단축 표기). 반복문 안에서 누적 배열에 쓰면 노드 N개 × 평균 깊이 D = **O(N×D)**, 사슬 트리 최악 O(N²).
 
 ```ts
-stack.push([child, len + 1 + dirname[child - 1].length]);  // O(1)
+// 배드: 트리 DFS 중 조상 체인 들고 다니기 → 깊이 D만큼 복사
+parents[child] = [node, ...parents[node]];
 ```
 
-### 메모
+```ts
+// 굿: 누적값을 숫자 하나로 압축 → O(1)
+stack.push([child, len + 1 + dirname[child - 1].length]);
+```
 
-- 같은 함정 일가: `[...arr, x]`, `arr.slice()`, `Array.from(arr)`, `{...obj}`, `Object.assign({}, obj)` — 모두 원소 수에 비례.
-- 멘탈 모델: **"`...`는 안 보이는 for 루프"**. 새 배열/객체를 만드는 모든 연산은 거의 다 O(N)이라고 보고, 반복문 안에 두기 전에 한 번 더 의심.
-- 핵심 격언: **"방문 시 들고 다닐 정보를 최소 단위(숫자)로 압축하라."** 조상 명단 대신 누적 길이만 들고 가면 O(D) → O(1).
+멘탈 모델: **"`...`는 안 보이는 for 루프"** + **"방문 시 들고 다닐 정보를 최소 단위(숫자)로 압축하라."** 조상 명단 대신 누적 길이만 들고 가면 O(D) → O(1).
 
 ## reverse() 구현
 
