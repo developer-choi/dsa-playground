@@ -18,8 +18,36 @@ const { outputText } = transpileModule(source, {
   },
 });
 
-const formatted = outputText.replace(/^( {4})+/gm, m => ' '.repeat(m.length / 2));
+// 4-space → 2-space
+const indentFixed = outputText.replace(/^( {4})+/gm, m => ' '.repeat(m.length / 2));
+
+// 원본의 빈 줄 위치를 출력에 재삽입
+function reinsertBlankLines(orig, out) {
+  const origLines = orig.split('\n');
+  const outLines = out.trimEnd().split('\n');
+
+  let outIdx = 0;
+  const result = [];
+
+  for (const origLine of origLines) {
+    if (origLine.trim() === '') {
+      result.push('');
+    } else {
+      if (outIdx < outLines.length) {
+        result.push(outLines[outIdx++]);
+      }
+    }
+  }
+
+  while (outIdx < outLines.length) {
+    result.push(outLines[outIdx++]);
+  }
+
+  return result.join('\n') + '\n';
+}
+
+const output = reinsertBlankLines(source, indentFixed);
 
 const outPath = resolve(process.cwd(), 'solution.js');
-writeFileSync(outPath, formatted);
+writeFileSync(outPath, output);
 console.log(`→ ${outPath}`);
