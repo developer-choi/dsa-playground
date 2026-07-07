@@ -1,12 +1,12 @@
 ---
 name: archive-company-problems
-description: 기업 채용 코딩테스트에서 직접 접한 문제를 DP 연결 백로그(ai-contexts-backlog/projects/dsa-playground)에 problem1.md, problem2.md 등으로 저장·보존한다. 이미지·사진 형태의 코테 문제를 md로 변환하거나, 기억 속 코테 문제를 문서화한다. "코테 봤어", "문제 사진 있어", "이미지 정리해줘", "백로그에 저장·정리해줘", "problemN.md로 만들어줘" 같이 말하면 반드시 이 스킬을 사용할 것.
+description: 기업 채용 코딩테스트에서 직접 접한 문제를 DP 연결 백로그(`backlog` 레포 projects/dsa-playground)에 problem1.md, problem2.md 등으로 저장·보존한다. 이미지·사진 형태의 코테 문제를 md로 변환하거나, 기억 속 코테 문제를 문서화한다. "코테 봤어", "문제 사진 있어", "이미지 정리해줘", "백로그에 저장·정리해줘", "problemN.md로 만들어줘" 같이 말하면 반드시 이 스킬을 사용할 것.
 argument-hint: "[이미지 경로 또는 문제 설명]"
 ---
 
 기업 코딩테스트 문제를 **DP 연결 백로그** 아래에 md로 문서화하라.
 
-- **저장 위치**: `../ai-contexts-backlog/backlog/projects/dsa-playground/active/docs/company-test/` (DP 프로젝트 루트 기준 상대경로). DP 레포가 아니라 백로그 레포(`ai-contexts-backlog`)에 저장한다.
+- **저장 위치**: `../backlog/projects/dsa-playground/active/docs/company-test/` (DP 프로젝트 루트 기준 상대경로). DP 레포가 아니라 별도 `backlog` 레포에 저장한다.
 - 아래에서 이 경로를 `{저장위치}`로 지칭한다.
 
 ## 모드 결정
@@ -73,4 +73,4 @@ argument-hint: "[이미지 경로 또는 문제 설명]"
 3. `{저장위치}`를 Glob으로 확인해 다음 번호 N을 결정한다.
 4. 문제가 여러 개면 각각 별도 파일로 생성한다.
 5. **(full md 모드만) 생성한 md를 원본 이미지와 1:1로 대조한다. 문제 설명·제한사항·입출력 예의 글자가 이미지와 정확히 일치하는지 확인하고, 다르면 수정한다. 누락·의역·오타 0개가 될 때까지 반복한다.**
-6. 파일 생성 후 백로그 레포(`ai-contexts-backlog`, `backlog` 브랜치)에서 커밋한다. 커밋 메시지: `docs(backlog): {문제 제목} 문서 추가`
+6. 파일 생성 후 `backlog` 레포에서 커밋한다(post-commit이 origin으로 자동 push). 커밋 메시지: `docs(backlog): {문제 제목} 문서 추가`
