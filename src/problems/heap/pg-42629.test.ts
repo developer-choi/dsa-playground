@@ -1,5 +1,5 @@
 import { solution } from './pg-42629';
-import { compareFunctionsWithRandomInputs } from '../../utils/jest';
+import { compareFunctionsWithRandomInputs } from '../../utils/vitest';
 
 const solutions = [
   {name: 'solution', fn: solution},

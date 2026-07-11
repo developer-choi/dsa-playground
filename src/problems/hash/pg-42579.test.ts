@@ -1,5 +1,5 @@
 import { hash } from './pg-42579';
-import { compareFunctionsWithRandomInputs } from '@/utils/jest';
+import { compareFunctionsWithRandomInputs } from '@/utils/vitest';
 
 const solutions = [
   { name: 'hash', fn: hash },

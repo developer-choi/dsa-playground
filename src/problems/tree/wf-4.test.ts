@@ -11,10 +11,4 @@ describe.each(solutions)('디렉토리 경로 > $name', ({ fn }) => {
       expect(fn(7, [[1,2],[2,3],[3,4],[4,5],[1,6],[6,7]], ['root','a','b','c','d','efghij','k'])).toBe(13);
     });
   });
-
-  describe('Boundary cases', () => {
-  });
-
-  describe('Edge cases', () => {
-  });
 });

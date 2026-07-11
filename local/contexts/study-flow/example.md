@@ -32,7 +32,7 @@ export function greedy(coins: number[], k: number): number {
 
 ```typescript
 import { greedy } from './boj-11047';
-import { compareFunctionsWithRandomInputs } from '@/utils/jest';
+import { compareFunctionsWithRandomInputs } from '@/utils/vitest';
 
 const solutions = [
   {name: 'greedy', fn: greedy},

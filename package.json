@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --no-coverage",
+    "test": "vitest run",
     "prepare": "git config core.hooksPath .githooks",
     "strip": "node scripts/strip-types.mjs"
   },
@@ -14,11 +14,9 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
-    "@types/jest": "^29.5.14",
-    "jest": "^30.0.0",
-    "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^4.0.17"
   },
   "dependencies": {
     "@forworkchoe/core": "0.0.29"

@@ -14,10 +14,4 @@ describe.each(solutions)('음식 주문 분석 > $name', ({ fn }) => {
       expect(fn(orders2)).toEqual(['bob']);
     });
   });
-
-  describe('Boundary cases', () => {
-  });
-
-  describe('Edge cases', () => {
-  });
 });

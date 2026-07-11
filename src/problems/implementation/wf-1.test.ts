@@ -1,5 +1,5 @@
 import { simulation } from './wf-1';
-import { compareFunctionsWithRandomInputs } from '@/utils/jest';
+import { compareFunctionsWithRandomInputs } from '@/utils/vitest';
 
 const solutions = [
   { name: 'simulation', fn: simulation },
@@ -32,9 +32,6 @@ describe.each(solutions)('아파트 관리비 > $name', ({ fn }) => {
     it('k가 경계값인 28인 경우에도 주말 여부를 잘 반환해야 한다', () => {
       expect(fn(3, 28)).toEqual(answer(3, 28));
     });
-  });
-
-  describe('Edge cases', () => {
   });
 
   describe('Random', () => {

@@ -1,5 +1,5 @@
 import {sort} from './wf-3';
-import {compareFunctionsWithRandomInputs} from '@/utils/jest';
+import {compareFunctionsWithRandomInputs} from '@/utils/vitest';
 
 
 const solutions = [

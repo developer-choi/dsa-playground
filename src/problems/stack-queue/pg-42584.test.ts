@@ -1,5 +1,5 @@
 import { stack } from './pg-42584';
-import { compareFunctionsWithRandomInputs } from '@/utils/jest';
+import { compareFunctionsWithRandomInputs } from '@/utils/vitest';
 
 const solutions = [
   { name: 'stack', fn: stack },
