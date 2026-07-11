@@ -1,0 +1,16 @@
+{
+  "groups": [
+    {
+      "name": "study-flow 스킬 ↔ 참조 컨텍스트·리뷰 스킬",
+      "files": [
+        "local/skills/study-flow/SKILL.md",
+        "local/skills/review/SKILL.md",
+        "local/contexts/convention.md",
+        "local/contexts/study-flow/scaffold.md",
+        "local/contexts/study-flow/example.md",
+        "local/contexts/study-flow/test-template.md"
+      ],
+      "note": "study-flow/SKILL.md와 scaffold.md는 서로·convention.md·example.md·test-template.md·review/SKILL.md의 경로를 본문에 하드코딩해 참조한다 — 이 중 하나를 개명·이동하면 참조하는 쪽이 조용히 깨진다. 또 스캐폴딩 템플릿(example.md·test-template.md의 import·블록 구조)이나 파일명·카테고리 컨벤션(convention.md)을 바꾸면, 그 절차를 서술한 study-flow·scaffold의 해당 단계 설명도 함께 갱신한다. 정확한 짝은 편집한 파일이 경로로 호명하거나 자신을 호명하는 문서다 — 직접 열어 확인한다."
+    }
+  ]
+}
