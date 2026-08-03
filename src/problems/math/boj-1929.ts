@@ -6,8 +6,10 @@ export function sieve(n: number): number[] {
     if (!composites[i]) {
       primes.push(i);
 
-      for (let j = i * 2 ; j <= n; j += i) {
-        composites[j] = true;
+      if (i * i <= n) {
+        for (let j = i * i ; j <= n; j += i) {
+          composites[j] = true;
+        }
       }
     }
   }

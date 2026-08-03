@@ -29,6 +29,11 @@ describe.each(solutions)('소수 구하기 > $name', ({fn}) => {
     it('가장 작은 소수인 2를 포함한다', () => {
       expect(fn(2)).toEqual([2]);
     });
+
+    it('제곱수(?)의 약수를 포함한다.', () => {
+      expect(fn(4)).toEqual([2, 3]);
+      expect(fn(25)).toEqual([2, 3, 5, 7, 11, 13, 17, 19, 23]);
+    });
   });
 
   describe('Edge cases', () => {
