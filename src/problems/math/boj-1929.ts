@@ -1,29 +1,16 @@
 export function sieve(n: number): number[] {
-  const result: number[] = [];
+  const composites: boolean[] = new Array(n + 1).fill(false);
+  const primes: number[] = [];
 
-  for (let i = 1; i <= n; i++) {
-    if (isSoSoo(i)) {
-      result.push(i);
+  for (let i = 2; i <= n; i++) {
+    if (!composites[i]) {
+      primes.push(i);
+
+      for (let j = i * 2 ; j <= n; j += i) {
+        composites[j] = true;
+      }
     }
   }
 
-  return result;
-}
-
-function isSoSoo(value: number): boolean {
-  if (value === 2) {
-    return true;
-  }
-
-  if (value === 1 || value % 2 === 0) {
-    return false;
-  }
-
-  for (let i = 3; i < value; i++) {
-    if (value % i === 0) {
-      return false;
-    }
-  }
-
-  return true;
+  return primes;
 }
