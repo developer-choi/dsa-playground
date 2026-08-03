@@ -6,7 +6,6 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
-    "prepare": "git config core.hooksPath .githooks",
     "strip": "node scripts/strip-types.mjs"
   },
   "author": "",
