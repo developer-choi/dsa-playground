@@ -1,5 +1,17 @@
 # Stack / Queue
 
+## 구현 (Array 기반 Stack)
+
+배열의 끝(마지막 인덱스)을 "맨 위"로 쓴다. 앞쪽을 맨 위로 잡으면 push/pop마다 나머지 요소를 밀어야 해서 O(n)이 된다.
+
+```js
+const stack = [];
+
+stack.push(value);
+stack.pop();
+stack[stack.length - 1];
+```
+
 ## 사례
 
 ### [pg-42584 주식가격](../src/problems/stack-queue/pg-42584.ts)
