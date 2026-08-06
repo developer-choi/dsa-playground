@@ -4,6 +4,12 @@ description: 기업 채용 코딩테스트에서 직접 접한 문제를 DP 연�
 argument-hint: "[이미지 경로 또는 문제 설명]"
 ---
 
+## 목적
+
+실제 코딩테스트에서 본 문제를 나중에 학습하기 위해 저장한다.
+
+## 문서화
+
 기업 코딩테스트 문제를 **DP 연결 백로그** 아래에 md로 문서화하라.
 
 - **저장 위치**: `../backlog/projects/dsa-playground/active/docs/company-test/` (DP 프로젝트 루트 기준 상대경로). DP 레포가 아니라 별도 `backlog` 레포에 저장한다.
