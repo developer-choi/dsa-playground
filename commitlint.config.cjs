@@ -20,7 +20,7 @@ module.exports = {
         'docs',
         'data-structure',
         'config',
-        'skill',
+        'skills',
       ],
     ],
     'scope-empty': [2, 'never'],
