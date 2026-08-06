@@ -196,6 +196,13 @@ stack.push([next, acc + name.length]);   // 노드 + 그 경로의 누적값
 스택 구현에서는 "언제 되돌아 나왔는지"를 알 수 없어 이 되돌리기가 매우 까다롭다.
 함께 담으면 넣는 순간 그 노드의 몫이 확정되므로 되돌릴 것이 없다.
 
+담을 값이 여럿이면 객체로 묶는다 ([`withState`](../src/problems/dfs-bfs/basic/traversal-variants.ts)).
+분기에서 자식마다 새 객체를 만들어 넣으므로 갈래별 값이 저절로 갈라진다 —
+부모를 별도 자료구조로 추적할 이유가 없어진다.
+
+단, **경로 전체를 담으면 노드마다 O(깊이) 복사가 붙는다.** 필요한 게 길이뿐이면 숫자 하나로 압축한다
+([algorithm-tips.md](./algorithm-tips.md)).
+
 ## 사례
 
 ### [pg-43165 타겟 넘버](../src/problems/dfs-bfs/pg-43165.ts)
@@ -206,9 +213,12 @@ stack.push([next, acc + name.length]);   // 노드 + 그 경로의 누적값
 
 `visited` 가 없는 쪽이다. 모든 경로를 다 세는 게 목적이라 걸러낼 것이 없다.
 
-### [같은 그림, 두 가지 순회](../src/problems/dfs-bfs/basic/traversal-variants.ts)
+### [같은 그림, 세 가지 순회](../src/problems/dfs-bfs/basic/traversal-variants.ts)
 
 같은 트리를 자식 방향으로만 적으면 두 원인 다 없어 `bare` 로 끝나고,
 양방향으로 적으면 원인 1이 생겨 `visited` 가 필요해진다.
 
 **결과는 둘이 똑같다.** 1번에서 시작하면 양쪽 다 `1, 9, 10, 5, 8, 6, 7, 2, 3, 4`.
+
+`withState` 는 `bare` 와 같은 골격에 담는 것만 바꾼 것이다. 방문 순서는 그대로고,
+꺼낸 자리에서 부모·깊이·경로를 알 수 있다.
