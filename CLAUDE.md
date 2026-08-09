@@ -29,7 +29,7 @@ src/
 - 카테고리: implementation, greedy, dynamic-programming, binary-search, dfs-bfs, backtracking, shortest-path, sort, two-pointer, sliding-window, stack-queue, heap, hash, tree, graph, string, math
 - 파일명: `출처-번호.ts` (boj: 백준, pg: 프로그래머스, gfg: GeeksForGeeks)
 - 테스트: `출처-번호.test.ts` (분리)
-- 알고리즘·자료구조 필기는 이 프로젝트의 `docs/` 에 저장 (주제별 파일)
+- 알고리즘·자료구조 필기는 이 프로젝트의 `docs/` 에 저장 (주제 폴더 밑 개념별 파일, 색인은 `docs/README.md`)
 
 ## 필기 커밋 전 검증
 
