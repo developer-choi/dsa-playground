@@ -19,9 +19,11 @@
 
 ---
 
-## 동점자 ranking — 정렬된 배열의 "첫 등장 인덱스" = 등수 - 1
+## 사례
 
-### 사고 흐름
+### [wf-3 동점자 ranking](../../src/problems/sort/wf-3.ts)
+
+정렬된 배열의 **"첫 등장 인덱스" = 등수 - 1**.
 
 **문제 정의**: 각 원소에 대해 "나보다 큰 값의 개수 + 1" 을 구한다.
 
@@ -40,13 +42,13 @@
 
 **원본 순서 복원**: `Map<값, 등수>` 만들어두고 마지막에 `input.map(v => map.get(v))`. 결과값이 입력값의 함수일 때(같은 값 → 같은 결과) 일반화 가능 — 등수·백분위·빈도순위·좌표 압축이 모두 이 형태.
 
-### 갈림길 — frequency map으로 도망가지 마라
+**갈림길 — frequency map으로 도망가지 마라.**
 
 핵심 관찰 단계에서 "동점자 그룹별 처리" 쪽으로 점프하면 frequency map부터 만들게 된다. 그 순간 정렬은 "그룹화의 부산물"이 되고, 답은 그룹 단위 누적 산식으로 우회된다 (자료구조 2개, 루프 3개, mutation 발생).
 
 frequency map은 **"정렬해도 인덱스에 답이 안 보일 때"** 꺼내는 두 번째 도구다. 이번 문제처럼 인덱스 자체가 답이면 첫 번째 도구만으로 끝.
 
-### 코드
+**코드.**
 
 ```ts
 const sorted = [...grade].sort((a, b) => b - a);
@@ -56,5 +58,3 @@ for (let i = 0; i < sorted.length; i++) {
 }
 return grade.map((g) => rankByGrade.get(g)!);
 ```
-
-참고: [src/problems/sort/wf-3.ts](../../src/problems/sort/wf-3.ts)
