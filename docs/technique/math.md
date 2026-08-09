@@ -2,7 +2,7 @@
 
 ## 사례
 
-### [boj-1929 소수 구하기](../src/problems/math/boj-1929.ts)
+### [boj-1929 소수 구하기](../../src/problems/math/boj-1929.ts)
 
 #### 목표
 

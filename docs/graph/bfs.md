@@ -2,7 +2,7 @@
 
 갈라진 갈래를 한 단계씩 고르게 넓혀 나간다.
 DFS와의 비교(공간·최단 경로·시간)는 [dfs-bfs.md](./dfs-bfs.md)에 모아 두었다.
-그래프 자체와 종류 이름은 [graph.md](./graph.md), 큐 자체는 [stack-queue.md](./stack-queue.md).
+그래프 자체와 종류 이름은 [graph.md](./graph.md), 큐 자체는 [stack-queue.md](../data-structure/stack-queue.md).
 
 DFS가 스택을 쓰는 자리에 **큐**를 쓴다. 먼저 넣은 것을 먼저 꺼내므로 한 단계를 다 본 뒤 다음 단계로 넘어간다.
 

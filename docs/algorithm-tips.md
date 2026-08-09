@@ -1,8 +1,6 @@
+[//]: # (TODO 일단 어디 특정한곳에 속하지를 않아서 여기에 몰아뒀는데, 특정 주제로 보낼 수 있음 좋아.)
+
 # Algorithm Tips
-
-## 중앙값 공식
-
-`Math.floor((start + end) / 2)` — Binary Search, Quick Sort 등에서 사용.
 
 ## 시간 복잡도 & 공간 복잡도 줄이기
 
@@ -19,6 +17,29 @@ return Math.max(...lengths);
 // ✅ 순회하며 틈틈히 갱신, 배열 자체가 없어짐
 maxLength = Math.max(maxLength, pathLength);
 return maxLength;
+```
+
+### 순회 목표 — 1회·절반·제자리
+
+1. 선형순환을 1번만 하는 것 (2회 이상 순회하지 않도록)
+2. 절반만 순회하면 더 좋음
+3. 기왕이면 Auxiliary Space 쓰지 않기
+
+### 순회 1회로 max + 후보 동시 수집
+
+"max 구하기 → 같은 값 필터링" 두 번 순회를 한 번으로 합치는 패턴. 새 max 발견 시 **후보 배열을 새 배열로 리셋**, 동률이면 push. 핵심은 "새 최대 등장 = 기존 후보 무효화" 라는 발상.
+
+```ts
+let maxCount = -Infinity;
+let candidates: string[] = [];
+for (const item of items) {
+  if (item.value > maxCount) {
+    maxCount = item.value;
+    candidates = [item.id];   // 새 max → 후보 리셋
+  } else if (item.value === maxCount) {
+    candidates.push(item.id); // 동률 → 후보 추가
+  }
+}
 ```
 
 ## Math.max() / Math.min() 함정
@@ -95,7 +116,7 @@ K번 되풀이해 만든다.** ✅ 쪽은 부모가 계산해둔 값을 물려�
 
 ## JS 배열/객체 연산 3카테고리 — "새 컬렉션을 만드나?" 자문 습관
 
-메서드를 비용 기준 3그룹으로 분류해 머릿속에 두고, 쓸 때마다 0.5초 자문: **"이 한 줄이 새 컬렉션을 만드나? 기존 걸 바꾸나? 그냥 읽고 지나가나?"**
+**"이 한 줄이 새 컬렉션을 만드나? 기존 걸 바꾸나? 그냥 읽고 지나가나?"**
 
 ### 그룹 1 — 순회만 (안전)
 
@@ -106,8 +127,6 @@ K번 되풀이해 만든다.** ✅ 쪽은 부모가 계산해둔 값을 물려�
 `push` O(1), `pop` O(1), `arr[i]=x` O(1), `sort` O(N log N), `reverse` O(N), `splice` O(N). 누적은 무조건 `push`.
 
 ### 그룹 3 — 새 컬렉션 생성 (반복문 안에서 폭탄) ★
-
-외워야 할 명단:
 
 | 연산 | 단독 | 반복문 안 |
 |---|---|---|
@@ -141,33 +160,3 @@ stack.push([child, len + 1 + dirname[child - 1].length]);
 
 멘탈 모델: **"`...`는 안 보이는 for 루프"** + **"방문 시 들고 다닐 정보를 최소 단위(숫자)로 압축하라."** 조상 명단 대신 누적 길이만 들고 가면 O(D) → O(1).
 
-## reverse() 구현
-
-스왑을 통해 절반만 순회해서 구현 가능.
-
-## Linear Search 목표
-
-1. 선형순환을 1번만 하는 것 (2회 이상 순회하지 않도록)
-2. 절반만 순회하면 더 좋음
-3. 기왕이면 Auxiliary Space 쓰지 않기
-
-## 순회 1회로 max + 후보 동시 수집
-
-"max 구하기 → 같은 값 필터링" 두 번 순회를 한 번으로 합치는 패턴. 새 max 발견 시 **후보 배열을 새 배열로 리셋**, 동률이면 push. 핵심은 "새 최대 등장 = 기존 후보 무효화" 라는 발상.
-
-```ts
-let maxCount = -Infinity;
-let candidates: string[] = [];
-for (const item of items) {
-  if (item.value > maxCount) {
-    maxCount = item.value;
-    candidates = [item.id];   // 새 max → 후보 리셋
-  } else if (item.value === maxCount) {
-    candidates.push(item.id); // 동률 → 후보 추가
-  }
-}
-```
-
-## Binary Search 범위 설정 팁
-
-최소·최대값 결정할 때 연산을 해서라도 최대한 구체적으로 잡을 필요가 없다. 그 구간 안에 정답이 포함만 되면 된다는 마인드로 하면 됨. "log n"은 정말 엄청나게 빠르기 때문.

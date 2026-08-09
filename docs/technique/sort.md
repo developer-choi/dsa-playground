@@ -57,4 +57,4 @@ for (let i = 0; i < sorted.length; i++) {
 return grade.map((g) => rankByGrade.get(g)!);
 ```
 
-참고: [src/problems/sort/wf-3.ts](../src/problems/sort/wf-3.ts)
+참고: [src/problems/sort/wf-3.ts](../../src/problems/sort/wf-3.ts)

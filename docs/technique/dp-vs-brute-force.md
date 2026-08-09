@@ -1,8 +1,8 @@
 # 완전탐색 vs DP
 
 학습 기반:
-- [pg-43165 타겟 넘버](../src/problems/dfs-bfs/pg-43165.ts) — 경우의 수 세기
-- [pg-42629 라면공장](../src/problems/heap/pg-42629.ts) — 최소 공급 횟수
+- [pg-43165 타겟 넘버](../../src/problems/dfs-bfs/pg-43165.ts) — 경우의 수 세기
+- [pg-42629 라면공장](../../src/problems/heap/pg-42629.ts) — 최소 공급 횟수
 
 두 도구 모두 "모든 경우를 본다". 차이는 **중복된 중간 계산을 재사용하는가**.
 
