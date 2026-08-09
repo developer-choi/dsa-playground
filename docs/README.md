@@ -13,16 +13,15 @@
 
 ## 자료구조
 
-- [data-structure/array.md](./data-structure/array.md)
+- [data-structure/array.md](./data-structure/array.md) — 배열·객체 연산이 새 컬렉션을 만드는지
 - [data-structure/stack-queue.md](./data-structure/stack-queue.md)
 - [data-structure/heap.md](./data-structure/heap.md)
 - [data-structure/hash.md](./data-structure/hash.md)
 
 ## 풀이 기법
 
-- [technique/implementation.md](./technique/implementation.md)
 - [technique/sort.md](./technique/sort.md)
-- [technique/string.md](./technique/string.md)
+- [technique/string.md](./technique/string.md) — 숫자↔문자열 변환 함정, 문자열 연산 비용
 - [technique/math.md](./technique/math.md)
 - [technique/binary-search.md](./technique/binary-search.md) — 중앙값 공식, 탐색 범위 잡기
 - [technique/dp-vs-brute-force.md](./technique/dp-vs-brute-force.md)
@@ -30,4 +29,4 @@
 
 ## 그 외
 
-- [algorithm-tips.md](./algorithm-tips.md)
+- [algorithm-tips.md](./algorithm-tips.md) — 어느 한 주제에도 안 속하는 팁

@@ -1,8 +1,12 @@
-[//]: # (TODO 일단 어디 특정한곳에 속하지를 않아서 여기에 몰아뒀는데, 특정 주제로 보낼 수 있음 좋아.)
-
 # Algorithm Tips
 
 ## 시간 복잡도 & 공간 복잡도 줄이기
+
+### 얼마나 줄여야 하나 — 1억이 기준
+
+**데이터 크기 × 알고리즘의 n값이 1억을 넘으면 TLE.**
+데이터 크기가 10만이면 O(n²)는 100억이라 안 된다.
+O(n log n) / O(n) / O(log n) / O(1) 로 풀어야 한다.
 
 ### 최대값을 구할 때 굳이 중간배열을 안만들어도 됨
 
@@ -59,104 +63,7 @@ for (const item of items) {
 
 > 멘탈 모델: **"배열을 인자로 펼치는 모든 연산은 N이 크면 위험"**.
 
-## 문자열은 immutable — "새 문자열 만드는 모든 연산"이 루프
+## `||` / `&&` 단락평가
 
-JS에서 문자열은 변경 불가. `s += x`, `s.concat(t)`, `` `${a}${b}` ``, `arr.join('/')` 등 **새 문자열을 산출하는 연산은 결과 글자 수 L만큼 도는 루프**가 내부에서 돈다. 즉 길이 L 새 문자열 만들기 = O(L) 시간. 반복문 안에 누적하면 O(N²) 폭발.
-
-### 고전 함정 — 루프 안 문자열 누적
-
-```ts
-// ❌ 매 += 마다 result 길이만큼 복사 → 1+2+...+N = O(N²)
-let result = '';
-for (const w of words) result += w;
-```
-
-```ts
-// ✅ push는 O(1), 마지막 join 한 번만 O(N)
-const parts = [];
-for (const w of words) parts.push(w);
-return parts.join('');
-```
-
-### 연산별 시간복잡도
-
-| 연산 | 시간 | 메모 |
-|---|---|---|
-| `str.length` | O(1) | 저장된 값 읽기 |
-| `str[i]`, `str.charAt(i)` | O(1) | 인덱스 접근 |
-| `str.charCodeAt(i)` | O(1) | |
-| `s1 === s2` | **O(min(L1,L2))** | 글자별 비교 (최악) |
-| `str + x`, `str.concat(x)` | **O(L)** | 새 문자열 생성 |
-| `arr.join(sep)` | **O(L)** L=총 글자 수 | 글자 단위 복사 |
-| `str.slice(a,b)` | **O(b-a)** | 부분 복사 |
-| `str.split(sep)` | **O(L)** | 글자 순회 + 새 배열 |
-| `str.replace(...)` | **O(L)** | 새 문자열 |
-| `str.repeat(N)` | **O(N×L)** | N번 복사 |
-| `str.indexOf(sub)` | **O(L×M)** 최악 | 엔진 최적화 있지만 보장 X |
-| `[...str]`, `Array.from(str)` | **O(L)** | 글자 단위 새 배열 |
-
-### 핵심 격언
-
-**"길이만 필요하면 길이만 들고 다녀라. 문자열을 만들지 마라."** 결과 문자열을 안 만들면 join 단계의 O(L) 루프가 통째로 사라짐. 트리/그래프에서 누적값으로 숫자만 들고 다니는 패턴이 이거.
-
-```ts
-// ❌ 경로를 실제로 조립하고 나서 길이만 씀 — 리프 K개 × 경로 길이 L
-nodes.map(node => dirname[node - 1]).join('/').length
-
-// ✅ 내려가면서 길이만 더함 — 조상이 만든 값을 그대로 물려받으니 O(1)
-currentLength + '/'.length + dirname[child - 1].length
-```
-
-❌ 쪽이 비싼 이유가 하나 더 있다. 리프마다 루트부터 다시 조립하므로 **형제들이 공유하는 앞부분을
-K번 되풀이해 만든다.** ✅ 쪽은 부모가 계산해둔 값을 물려받아 그 일이 아예 없다.
-
-### 루프 안에서 의심해야 할 것
-
-`+=`, 템플릿 리터럴 누적, `arr.push(str.slice(...))`, `result.replace(...)` 반복.
-
-## JS 배열/객체 연산 3카테고리 — "새 컬렉션을 만드나?" 자문 습관
-
-**"이 한 줄이 새 컬렉션을 만드나? 기존 걸 바꾸나? 그냥 읽고 지나가나?"**
-
-### 그룹 1 — 순회만 (안전)
-
-`for`, `for...of`, `forEach`, `map`, `filter`, `reduce`, `some`, `every`, `find`, `findIndex`, `indexOf`, `includes`. 단독 O(N), 반복문 안에서도 합리적 사용은 OK.
-
-### 그룹 2 — 제자리 변경 (대부분 안전)
-
-`push` O(1), `pop` O(1), `arr[i]=x` O(1), `sort` O(N log N), `reverse` O(N), `splice` O(N). 누적은 무조건 `push`.
-
-### 그룹 3 — 새 컬렉션 생성 (반복문 안에서 폭탄) ★
-
-| 연산 | 단독 | 반복문 안 |
-|---|---|---|
-| `[x, ...arr]`, `[...arr, x]` | O(N) | **O(N²)** |
-| `arr.slice()` | O(N) | **O(N²)** |
-| `arr.concat(other)` | O(N) | **O(N²)** |
-| `Array.from(arr)` | O(N) | **O(N²)** |
-| `arr.flat()` | O(N) | **O(N²)** |
-| `{...obj}`, `Object.assign({}, obj)` | O(K) | **O(N×K)** |
-| `arr.shift()`, `arr.unshift(x)` | **O(N)** (앞쪽 조작은 전부 밂) | **O(N²)** |
-| `new Set(arr)`, `new Map(entries)` | O(N) | **O(N²)** |
-
-- 공통 패턴: **"복사" 또는 "앞쪽 조작"**이 들어간 모든 연산.
-- BFS 큐 함정: `arr.shift()` 쓰지 말 것 → `let head = 0; queue[head++]` 인덱스 방식.
-- React에서 spread가 멀쩡한 이유: 이벤트당 1회 호출(경계에서 한 번)이라 단독 O(N)으로 끝남. 코테 함정은 **핫 루프 안에 박힌 경우**.
-- push vs concat 참고: https://github.com/developer-choi/dsa-playground/commit/3ba114024da742aef2d284098663e3d7e5d9c535
-
-### spread 심화 — `[x, ...arr]`은 안 보이는 for 루프
-
-`...arr`은 참조 복사가 아니라 arr의 모든 원소를 새 배열에 하나씩 복사하는 연산(`for (const e of arr) newArr.push(e)`의 단축 표기). 반복문 안에서 누적 배열에 쓰면 노드 N개 × 평균 깊이 D = **O(N×D)**, 사슬 트리 최악 O(N²).
-
-```ts
-// ❌ 트리 DFS 중 조상 체인 들고 다니기 → 깊이 D만큼 복사
-parents[child] = [node, ...parents[node]];
-```
-
-```ts
-// ✅ 누적값을 숫자 하나로 압축 → O(1)
-stack.push([child, len + 1 + dirname[child - 1].length]);
-```
-
-멘탈 모델: **"`...`는 안 보이는 for 루프"** + **"방문 시 들고 다닐 정보를 최소 단위(숫자)로 압축하라."** 조상 명단 대신 누적 길이만 들고 가면 O(D) → O(1).
-
+좌측값에 따라 우측이 실행되지 않을 수 있다.
+조건문을 짤 때 우측 식에 부수효과(함수 호출 등)가 있다면 주의.
