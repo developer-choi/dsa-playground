@@ -40,7 +40,7 @@ for (let i = 0; i < pathA.length && i < pathB.length; i++) {
 | `new Set(arr)`, `new Map(entries)` | O(N) | **O(N²)** |
 
 - 공통 패턴: **"복사" 또는 "앞쪽 조작"**이 들어간 모든 연산.
-- BFS 큐 함정: `arr.shift()` 쓰지 말 것 → `let head = 0; queue[head++]` 인덱스 방식.
+- BFS 큐 함정: 이 표의 `arr.shift()` 행 때문에 큐를 배열 앞에서 꺼내면 안 된다 → [stack-queue.md](./stack-queue.md)의 「구현 (Array 기반 Queue)」.
 - React에서 spread가 멀쩡한 이유: 이벤트당 1회 호출(경계에서 한 번)이라 단독 O(N)으로 끝남. 코테 함정은 **핫 루프 안에 박힌 경우**.
 - push vs concat 참고: https://github.com/developer-choi/dsa-playground/commit/3ba114024da742aef2d284098663e3d7e5d9c535
 
@@ -59,3 +59,5 @@ stack.push([child, len + 1 + dirname[child - 1].length]);
 ```
 
 멘탈 모델: **"`...`는 안 보이는 for 루프"** + **"방문 시 들고 다닐 정보를 최소 단위(숫자)로 압축하라."** 조상 명단 대신 누적 길이만 들고 가면 O(D) → O(1).
+
+같은 코드를 문자열 쪽에서 본 이야기는 [string.md](../technique/string.md)의 「핵심 격언」에 있다. 여기가 "복사 연산이 루프다"라면, 그쪽은 "형제들이 공유하는 앞부분을 K번 되풀이해 만든다"는 다른 각도다.

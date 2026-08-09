@@ -11,6 +11,14 @@
         "local/contexts/study-flow/test-template.md"
       ],
       "note": "study-flow/SKILL.md와 scaffold.md는 서로·convention.md·example.md·test-template.md·review/SKILL.md의 경로를 본문에 하드코딩해 참조한다 — 이 중 하나를 개명·이동하면 참조하는 쪽이 조용히 깨진다. 또 스캐폴딩 템플릿(example.md·test-template.md의 import·블록 구조)이나 파일명·카테고리 컨벤션(convention.md)을 바꾸면, 그 절차를 서술한 study-flow·scaffold의 해당 단계 설명도 함께 갱신한다. 정확한 짝은 편집한 파일이 경로로 호명하거나 자신을 호명하는 문서다 — 직접 열어 확인한다."
+    },
+    {
+      "name": "그래프 필기 ↔ 색인",
+      "files": [
+        "docs/graph/*.md",
+        "docs/README.md"
+      ],
+      "note": "docs/graph/ 문서들은 읽는 순서가 있어 서로를 상대경로로 가리키고, 본문 링크뿐 아니라 상대 문서의 절 이름까지 이름으로 인용한다(예: graph.md가 dfs.md의 「서로 다른 노드가 같은 노드를 가리킨다」를, adjacency-matrix-vs-list.md가 dfs.md를). README.md는 이들 전부를 링크하고 한 줄 설명까지 달고 있다. 파일을 개명·이동하거나 절 제목을 바꾸면 가리키는 쪽이 조용히 깨지므로, 그럴 때는 짝꿍 문서의 링크와 인용된 절 이름을 함께 고친다. 본문 서술만 손봤으면 넘어간다."
     }
   ]
 }

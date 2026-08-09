@@ -65,6 +65,8 @@ currentLength + '/'.length + dirname[child - 1].length
 ❌ 쪽이 비싼 이유가 하나 더 있다. 리프마다 루트부터 다시 조립하므로 **형제들이 공유하는 앞부분을
 K번 되풀이해 만든다.** ✅ 쪽은 부모가 계산해둔 값을 물려받아 그 일이 아예 없다.
 
+같은 코드를 배열 쪽에서 본 이야기는 [array.md](../data-structure/array.md)의 「spread 심화」에 있다. 그쪽은 `...` 복사 자체가 숨은 루프라는 각도다.
+
 ### 루프 안에서 의심해야 할 것
 
 `+=`, 템플릿 리터럴 누적, `arr.push(str.slice(...))`, `result.replace(...)` 반복.
