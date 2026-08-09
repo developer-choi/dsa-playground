@@ -1,0 +1,10 @@
+{
+  "hooks": [
+    {
+      "file": "surface-docs-verification.mjs",
+      "event": "PreToolUse",
+      "on": "bash",
+      "msg": "Checking docs note verification..."
+    }
+  ]
+}
