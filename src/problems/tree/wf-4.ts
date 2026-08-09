@@ -4,17 +4,39 @@
  */
 
 export function dfs(N: number, relation: [number, number][], dirname: string[]): number {
-  /**
-   * 임시 최대길이 변수값을 0으로 초기화 하고
-   *
-   * 폴더는 트리구조로 표현할 수 있음. 문제에서 주어진 relation은 인접리스트 형태로 표현할 수 있음.
-   * 그래서 트리를 순회하면서 디렉토리 이름 길이 + '/'의 길이 1을 매번 누적해가며 순회함.
-   * - 현재 노드의 dirname의 길이 + '/'의 길이 1만큼을 더해서 다음 노드의 [부모노드의 길이값] 자리에 저장해서 순회를 돌리면 누적가능
-   * 리프노드에 도착하면 그 누적값이랑 최대길이변수값이랑 비교해서 크면 업데이트.
-   * 그렇게 모든 트리를 순회를 다 한 경우
-   * 임시 최대값을 반환.
-   *
-   * 인접행렬은 안배워봐서 모름.
-   */
-  return 0;
+  let maxLength = 0;
+  const graph: Record<number, number[] | undefined> = {};
+
+  for(const [parent, child] of relation) {
+    if (!graph[parent]) {
+      graph[parent] = [child];
+    } else {
+      graph[parent].push(child);
+    }
+  }
+
+  const nextTraversingList: {id: number, previousLength: number}[] = [{id: 1, previousLength: 0}];
+
+  while (nextTraversingList.length) {
+    const node = nextTraversingList.pop()!;
+    const nodeDirectoryNameLength = node.previousLength + dirname[node.id - 1].length;
+    const childrenNodes = graph[node.id];
+    const isLeafNode = childrenNodes === undefined;
+
+    if (isLeafNode) {
+      maxLength = Math.max(maxLength, nodeDirectoryNameLength);
+
+    } else {
+      for (const nextNode of childrenNodes) {
+        nextTraversingList.push({
+          id: nextNode,
+          previousLength: nodeDirectoryNameLength + DIRECTORY_SYMBOL_LENGTH
+        });
+      }
+    }
+  }
+
+  return maxLength;
 }
+
+const DIRECTORY_SYMBOL_LENGTH = '/'.length;
