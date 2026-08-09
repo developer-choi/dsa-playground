@@ -37,7 +37,10 @@ const undirectedTree = {
 };
 
 // withVisited 만 되돌아가는 길을 감당한다.
-// bare · withState 는 visited 가 없어서 무방향 그래프에 돌리면 무한 루프라 테스트로 잡을 수 없다.
+// bare · withState 를 무방향 그래프에 돌리면 visited 가 없어서 같은 노드를 끝없이 다시 담는다.
+// 다만 끝없이 도는 게 아니라 각자 다른 방식으로 죽는다 —
+// bare 는 3초쯤 뒤 결과 배열이 배열 최대 길이를 넘어 RangeError 를 던지고,
+// withState 는 프레임 객체가 힙을 채워 프로세스째 죽는다(그래서 withState 만 테스트로 잡을 수 없다).
 const coversDirected = [
   {name: 'bare', fn: bare},
   {name: 'withVisited', fn: withVisited},
