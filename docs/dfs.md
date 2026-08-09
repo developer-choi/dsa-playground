@@ -226,3 +226,27 @@ stack.push([next, acc + name.length]);   // 노드 + 그 경로의 누적값
 
 `withState` 는 `bare` 와 같은 골격에 담는 것만 바꾼 것이다. 방문 순서는 그대로고,
 꺼낸 자리에서 부모·깊이·경로를 알 수 있다.
+
+### [wf-4 디렉토리 경로](../src/problems/tree/wf-4.ts)
+
+루트에서 리프까지 절대 경로 중 가장 긴 것의 글자 수를 구해야 한다.
+답이 한 노드의 값이 아니라 **루트부터 그 노드까지 이어진 길**에서 정해지므로,
+노드를 훑는 게 아니라 길을 따라 내려가야 한다.
+
+`relation` 이 `[상위, 하위]` 로 방향을 주니 한쪽만 적어 `bare` 로 간다
+([graph.md](./graph.md)의 「어느 쪽으로 만들지는 입력이 알려준다」).
+
+담을 것은 노드 번호와 **거기까지의 누적 글자 수** 둘이다. 경로 문자열을 만들지 않는 이유,
+조상 명단을 들고 다니지 않는 이유는 위 「스택에 무엇을 담나」 그대로다.
+
+```ts
+// ❌ 조상 명단을 들고 다니다 노드마다 깊이만큼 복사 → O(N²)
+parents[child] = [node, ...parents[node]];
+const length = parents[leaf].map(n => dirname[n - 1]).join('/').length;
+
+// ✅ 누적 글자 수 하나만 물려줌 → O(1)
+stack.push({ id: child, previousLength: currentLength + '/'.length });
+```
+
+방문 순서가 답을 바꾸지 않아 BFS로 바꿔도 똑같이 풀린다
+([dfs-bfs.md](./dfs-bfs.md)의 「아무거나 써도 되는 경우」).

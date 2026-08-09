@@ -4,9 +4,22 @@
 
 `Math.floor((start + end) / 2)` — Binary Search, Quick Sort 등에서 사용.
 
-## Auxiliary Space 줄이기
+## 시간 복잡도 & 공간 복잡도 줄이기
 
-배열 대신 index/count 변수 사용. 굳이 배열을 통해 계산할 필요 없이 변수로 대체하면 공간 절약.
+### 최대값을 구할 때 굳이 중간배열을 안만들어도 됨
+
+순회하면서 나온 값을 배열에 다 모았다가 마지막에 `Math.max`·`reduce`·`sort`로 **하나만 뽑아 쓰는** 모양이면, 순회 도중 변수 하나를 갱신하는게 더 좋다.
+
+```ts
+// ❌ 리프마다 길이를 모아놨다가 마지막에 하나만 씀
+const lengths: number[] = [];
+lengths.push(pathLength);
+return Math.max(...lengths);
+
+// ✅ 순회하며 틈틈히 갱신, 배열 자체가 없어짐
+maxLength = Math.max(maxLength, pathLength);
+return maxLength;
+```
 
 ## Math.max() / Math.min() 함정
 
@@ -32,13 +45,13 @@ JS에서 문자열은 변경 불가. `s += x`, `s.concat(t)`, `` `${a}${b}` ``, 
 ### 고전 함정 — 루프 안 문자열 누적
 
 ```ts
-// 배드: 매 += 마다 result 길이만큼 복사 → 1+2+...+N = O(N²)
+// ❌ 매 += 마다 result 길이만큼 복사 → 1+2+...+N = O(N²)
 let result = '';
 for (const w of words) result += w;
 ```
 
 ```ts
-// 굿: push는 O(1), 마지막 join 한 번만 O(N)
+// ✅ push는 O(1), 마지막 join 한 번만 O(N)
 const parts = [];
 for (const w of words) parts.push(w);
 return parts.join('');
@@ -64,6 +77,17 @@ return parts.join('');
 ### 핵심 격언
 
 **"길이만 필요하면 길이만 들고 다녀라. 문자열을 만들지 마라."** 결과 문자열을 안 만들면 join 단계의 O(L) 루프가 통째로 사라짐. 트리/그래프에서 누적값으로 숫자만 들고 다니는 패턴이 이거.
+
+```ts
+// ❌ 경로를 실제로 조립하고 나서 길이만 씀 — 리프 K개 × 경로 길이 L
+nodes.map(node => dirname[node - 1]).join('/').length
+
+// ✅ 내려가면서 길이만 더함 — 조상이 만든 값을 그대로 물려받으니 O(1)
+currentLength + '/'.length + dirname[child - 1].length
+```
+
+❌ 쪽이 비싼 이유가 하나 더 있다. 리프마다 루트부터 다시 조립하므로 **형제들이 공유하는 앞부분을
+K번 되풀이해 만든다.** ✅ 쪽은 부모가 계산해둔 값을 물려받아 그 일이 아예 없다.
 
 ### 루프 안에서 의심해야 할 것
 
@@ -106,12 +130,12 @@ return parts.join('');
 `...arr`은 참조 복사가 아니라 arr의 모든 원소를 새 배열에 하나씩 복사하는 연산(`for (const e of arr) newArr.push(e)`의 단축 표기). 반복문 안에서 누적 배열에 쓰면 노드 N개 × 평균 깊이 D = **O(N×D)**, 사슬 트리 최악 O(N²).
 
 ```ts
-// 배드: 트리 DFS 중 조상 체인 들고 다니기 → 깊이 D만큼 복사
+// ❌ 트리 DFS 중 조상 체인 들고 다니기 → 깊이 D만큼 복사
 parents[child] = [node, ...parents[node]];
 ```
 
 ```ts
-// 굿: 누적값을 숫자 하나로 압축 → O(1)
+// ✅ 누적값을 숫자 하나로 압축 → O(1)
 stack.push([child, len + 1 + dirname[child - 1].length]);
 ```
 
