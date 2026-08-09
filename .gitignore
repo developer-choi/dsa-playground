@@ -2,6 +2,7 @@
 
 # Claude/Codex 배포 산출물 (소스는 local/, 트래킹 안 함)
 .claude/
+.codex/
 .agents/
 /solution.js
 AGENTS.md
