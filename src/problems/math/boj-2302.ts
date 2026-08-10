@@ -4,18 +4,49 @@
  */
 
 export function dp(seatCount: number, vipSeatArray: number[]): number {
-  /**
-   * [핵심 아이디어]
-   * vip 떼고, 일반석만 봤을 때
-   * [1,2,3,4,N-1,N] N개의 좌석이 있다고 가정하면, 여기서 경우의 수는 f(n) = f(n-1) + f(n-2)임.
-   *
-   * 그러므로, vip seat 기준으로 배열을 짜르고,
-   * 그 배열마다 배열의 길이를 모두 구해서 모두 곱하면됨. (단, vip seat이 딱붙어서 그 사이 일반석이 없으면 1개로 침)
-   *
-   * [1,2,3,4], [5], [6,7,8,9], [10], [11,12,13] 이러면
-   * 5x5x1x2 이렇게.
-   *
-   * 근데, 배열이 굳이 필요없기 때문에 위 규칙을 숫자 계산으로 충분히 가능.
-   */
-  return 0;
+  if (seatCount <= 1) {
+    return 1;
+  }
+
+  if (vipSeatArray.length === 0) {
+    return fibonaci(seatCount);
+  }
+
+  let totalSwappableSeatCase: number = 1;
+  let previousSeat = vipSeatArray[0];
+
+  if (vipSeatArray[0] !== 1) {
+    totalSwappableSeatCase *= fibonaci(vipSeatArray[0] - 1);
+  }
+
+  for (let i = 1 ; i < vipSeatArray.length ; i++) {
+    const vipSeat = vipSeatArray[i];
+    const vipSeatsAreStick = vipSeat === previousSeat + 1
+
+    if (!vipSeatsAreStick) {
+      totalSwappableSeatCase *= fibonaci(vipSeat - previousSeat - 1);
+    }
+
+    previousSeat = vipSeat;
+  }
+
+  const lastVipSeat = vipSeatArray[vipSeatArray.length - 1];
+
+  if (lastVipSeat < seatCount) {
+    totalSwappableSeatCase *= fibonaci(seatCount - lastVipSeat);
+  }
+
+  return totalSwappableSeatCase;
+}
+
+function fibonaci(value: number): number {
+  if (value === 1) {
+    return 1;
+  }
+
+  if (value === 2) {
+    return 2;
+  }
+
+  return fibonaci(value - 1) + fibonaci(value - 2);
 }
