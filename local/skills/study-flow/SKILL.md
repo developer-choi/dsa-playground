@@ -67,7 +67,7 @@ argument-hint: "[문제 URL]"
   - `generateInput`의 입력 길이는 10~50 수준이면 엣지 조합이 빠르게 등장
   - `iterationCount: 1000`
   - 단일 케이스 서술이 아닌 검증 루틴이므로 `it()` 대신 `test()`를 쓰고, 문구는 `'랜덤 입력으로 정답과 동일한지 검증한다'`로 통일
-  - 참고 예시: `local/contexts/study-flow/example.md:38-60` (boj-11047)
+  - 참고 예시: `local/contexts/study-flow/example.md` 의 boj-11047 테스트 파일
 - 빠진 케이스 보완
 - `it.todo(...)`를 입력·기댓값을 채운 `it(...)`로 변환 (todo 제목은 그대로 it 문구로 쓴다)
 - 위 모든 것을 스캐폴딩 파일과 함께 **한 번에** 커밋한다

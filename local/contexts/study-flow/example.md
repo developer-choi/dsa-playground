@@ -52,22 +52,27 @@ describe.each(solutions)('동전 0 > $name', ({fn}) => {
     test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
       compareFunctionsWithRandomInputs({
         targetFunction: ([coins, k]) => fn(coins, k),
-        answerFunction: ([coins, k]) => {
-          // 큰 동전부터 나누기
-          let count = 0;
-          for (let i = coins.length - 1; i >= 0; i--) {
-            count += Math.floor(k / coins[i]);
-            k %= coins[i];
-          }
-          return count;
-        },
-        generateInput: () => {
-          const coins = [1, 5, 10, 50, 100, 500, 1000];
-          const k = Math.floor(Math.random() * 10000) + 1;
-          return [[coins, k]] as const;
-        },
+        answerFunction: naiveCoinCount,
+        generateInput: randomCoinsAndK,
+        iterationCount: 1000,
       });
     });
   });
 });
+
+function randomCoinsAndK(): [[number[], number]] {
+  const coins = [1, 5, 10, 50, 100, 500, 1000];
+  const k = Math.floor(Math.random() * 10000) + 1;
+  return [[coins, k]];
+}
+
+function naiveCoinCount([coins, k]: [number[], number]): number {
+  // 큰 동전부터 나누기
+  let count = 0;
+  for (let i = coins.length - 1; i >= 0; i--) {
+    count += Math.floor(k / coins[i]);
+    k %= coins[i];
+  }
+  return count;
+}
 ```
