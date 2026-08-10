@@ -33,15 +33,20 @@ describe.each(solutions)('등수 매기기 > $name', ({fn}) => {
     test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
       compareFunctionsWithRandomInputs({
         targetFunction: ([grades]) => fn(grades),
-        answerFunction: ([grades]) =>
-          grades.map(g => grades.filter(other => other > g).length + 1),
-        generateInput: () => {
-          const n = Math.floor(Math.random() * 40) + 10;
-          const grades = Array.from({length: n}, () => Math.floor(Math.random() * 10) + 1);
-          return [[grades]] as const;
-        },
+        answerFunction: naiveRanks,
+        generateInput: randomGrades,
         iterationCount: 1000,
       });
     });
   });
 });
+
+function randomGrades(): [[number[]]] {
+  const n = Math.floor(Math.random() * 40) + 10;
+  const grades = Array.from({length: n}, () => Math.floor(Math.random() * 10) + 1);
+  return [[grades]];
+}
+
+function naiveRanks([grades]: [number[]]): number[] {
+  return grades.map(g => grades.filter(other => other > g).length + 1);
+}

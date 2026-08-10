@@ -40,23 +40,27 @@ describe.each(solutions)('주식가격 > $name', ({ fn }) => {
     test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
       compareFunctionsWithRandomInputs({
         targetFunction: fn,
-        answerFunction: (prices: number[]) => {
-          const answer = new Array(prices.length).fill(0);
-          for (let i = 0; i < prices.length; i++) {
-            for (let j = i + 1; j < prices.length; j++) {
-              answer[i]++;
-              if (prices[j] < prices[i]) break;
-            }
-          }
-          return answer;
-        },
-        generateInput: () => {
-          const length = Math.floor(Math.random() * 41) + 10; // 10~50
-          const prices = Array.from({length}, () => Math.floor(Math.random() * 10000) + 1);
-          return [prices] as [number[]];
-        },
+        answerFunction: naivePriceDurations,
+        generateInput: randomPrices,
         iterationCount: 1000,
       });
     });
   });
 });
+
+function randomPrices(): [number[]] {
+  const length = Math.floor(Math.random() * 41) + 10; // 10~50
+  const prices = Array.from({length}, () => Math.floor(Math.random() * 10000) + 1);
+  return [prices];
+}
+
+function naivePriceDurations(prices: number[]): number[] {
+  const answer = new Array(prices.length).fill(0);
+  for (let i = 0; i < prices.length; i++) {
+    for (let j = i + 1; j < prices.length; j++) {
+      answer[i]++;
+      if (prices[j] < prices[i]) break;
+    }
+  }
+  return answer;
+}

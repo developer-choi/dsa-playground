@@ -39,16 +39,18 @@ describe.each(solutions)('아파트 관리비 > $name', ({ fn }) => {
       compareFunctionsWithRandomInputs({
         targetFunction: (day, k) => fn(day, k),
         answerFunction: (day, k) => answer(day, k),
-        generateInput: () => {
-          const day = Math.floor(Math.random() * 7); // 0 ~ 6
-          const k = Math.floor(Math.random() * 28) + 1; // 1 ~ 28
-          return [day, k] as const;
-        },
+        generateInput: randomDayAndK,
         iterationCount: 1000,
       });
     });
   });
 });
+
+function randomDayAndK(): [number, number] {
+  const day = Math.floor(Math.random() * 7); // 0 ~ 6
+  const k = Math.floor(Math.random() * 28) + 1; // 1 ~ 28
+  return [day, k];
+}
 
 function answer(day: number, k: number): number[] {
   const months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

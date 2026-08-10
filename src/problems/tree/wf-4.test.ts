@@ -29,46 +29,50 @@ describe.each(solutions)('디렉토리 경로 > $name', ({ fn }) => {
     test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
       compareFunctionsWithRandomInputs({
         targetFunction: ([N, relation, dirname]) => fn(N, relation, dirname),
-        answerFunction: ([N, relation, dirname]) => {
-          const children: number[][] = Array.from({ length: N + 1 }, () => []);
-          for (const [p, c] of relation) children[p].push(c);
-          let maxLen = 0;
-          const stack: { node: number; len: number }[] = [{ node: 1, len: dirname[0].length }];
-          while (stack.length) {
-            const { node, len } = stack.pop()!;
-            if (len > maxLen) maxLen = len;
-            for (const c of children[node]) {
-              stack.push({ node: c, len: len + 1 + dirname[c - 1].length });
-            }
-          }
-          return maxLen;
-        },
-        generateInput: () => {
-          const N = Math.floor(Math.random() * 30) + 5;
-          const relation: [number, number][] = [];
-          for (let i = 2; i <= N; i++) {
-            const parent = Math.floor(Math.random() * (i - 1)) + 1;
-            relation.push([parent, i]);
-          }
-          for (let i = relation.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [relation[i], relation[j]] = [relation[j], relation[i]];
-          }
-          const dirname: string[] = ['root'];
-          const chars = 'abcdefghijklmnopqrstuvwxyz';
-          for (let i = 2; i <= N; i++) {
-            const len = Math.floor(Math.random() * 10) + 1;
-            let name = '';
-            for (let k = 0; k < len; k++) {
-              name += chars[Math.floor(Math.random() * chars.length)];
-            }
-            dirname.push(name);
-          }
-          return [[N, relation, dirname]] as const;
-        },
+        answerFunction: naiveLongestPath,
+        generateInput: randomTree,
         iterationCount: 1000,
       });
     });
   });
 });
+
+function randomTree(): [[number, [number, number][], string[]]] {
+  const N = Math.floor(Math.random() * 30) + 5;
+  const relation: [number, number][] = [];
+  for (let i = 2; i <= N; i++) {
+    const parent = Math.floor(Math.random() * (i - 1)) + 1;
+    relation.push([parent, i]);
+  }
+  for (let i = relation.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [relation[i], relation[j]] = [relation[j], relation[i]];
+  }
+  const dirname: string[] = ['root'];
+  const chars = 'abcdefghijklmnopqrstuvwxyz';
+  for (let i = 2; i <= N; i++) {
+    const len = Math.floor(Math.random() * 10) + 1;
+    let name = '';
+    for (let k = 0; k < len; k++) {
+      name += chars[Math.floor(Math.random() * chars.length)];
+    }
+    dirname.push(name);
+  }
+  return [[N, relation, dirname]];
+}
+
+function naiveLongestPath([N, relation, dirname]: [number, [number, number][], string[]]): number {
+  const children: number[][] = Array.from({ length: N + 1 }, () => []);
+  for (const [p, c] of relation) children[p].push(c);
+  let maxLen = 0;
+  const stack: { node: number; len: number }[] = [{ node: 1, len: dirname[0].length }];
+  while (stack.length) {
+    const { node, len } = stack.pop()!;
+    if (len > maxLen) maxLen = len;
+    for (const c of children[node]) {
+      stack.push({ node: c, len: len + 1 + dirname[c - 1].length });
+    }
+  }
+  return maxLen;
+}
 
