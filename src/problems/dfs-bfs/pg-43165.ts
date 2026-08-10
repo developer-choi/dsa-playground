@@ -15,14 +15,12 @@ export function recursive(numbers: number[], target: number): number {
     }
 
     if (index >= numbers.length) {
-      const result = value === target ? 1 : 0;
-      cache[`${value}-${index}`] = result;
-      return result;
+      return value === target ? 1 : 0;
     }
 
     const left = internal(value + numbers[index], index + 1);
     const right = internal(value - numbers[index], index + 1);
-
+    cache[`${value}-${index}`] = left + right;
     return left + right;
   }
 
