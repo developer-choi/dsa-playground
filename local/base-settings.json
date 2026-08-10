@@ -5,6 +5,12 @@
       "event": "PreToolUse",
       "on": "bash",
       "msg": "Checking docs note verification..."
+    },
+    {
+      "file": "surface-data-structure-test.mjs",
+      "event": "PreToolUse",
+      "on": "bash",
+      "msg": "Checking data structure paired tests..."
     }
   ]
 }
