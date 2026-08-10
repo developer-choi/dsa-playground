@@ -4,10 +4,8 @@
 
 export function recursive(numbers: number[], target: number): number {
   const cache: Record<`${number}-${number}`, number | undefined> = {};
-  let callCount = 0;
 
   function internal(value: number, index: number): number {
-    callCount++;
     const dataInCache = cache[`${value}-${index}`];
 
     if (dataInCache !== undefined) {
@@ -24,7 +22,5 @@ export function recursive(numbers: number[], target: number): number {
     return left + right;
   }
 
-  const result = internal(0, 0);
-  console.log(`callCount=${callCount}`);
-  return result;
+  return internal(0, 0);
 }
