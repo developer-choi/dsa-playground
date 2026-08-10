@@ -9,14 +9,14 @@ export function dp(seatCount: number, vipSeatArray: number[]): number {
   }
 
   if (vipSeatArray.length === 0) {
-    return fibonaci(seatCount);
+    return fibonacci(seatCount);
   }
 
   let totalSwappableSeatCase: number = 1;
   let previousSeat = vipSeatArray[0];
 
   if (vipSeatArray[0] !== 1) {
-    totalSwappableSeatCase *= fibonaci(vipSeatArray[0] - 1);
+    totalSwappableSeatCase *= fibonacci(vipSeatArray[0] - 1);
   }
 
   for (let i = 1 ; i < vipSeatArray.length ; i++) {
@@ -24,7 +24,7 @@ export function dp(seatCount: number, vipSeatArray: number[]): number {
     const vipSeatsAreStick = vipSeat === previousSeat + 1
 
     if (!vipSeatsAreStick) {
-      totalSwappableSeatCase *= fibonaci(vipSeat - previousSeat - 1);
+      totalSwappableSeatCase *= fibonacci(vipSeat - previousSeat - 1);
     }
 
     previousSeat = vipSeat;
@@ -33,20 +33,34 @@ export function dp(seatCount: number, vipSeatArray: number[]): number {
   const lastVipSeat = vipSeatArray[vipSeatArray.length - 1];
 
   if (lastVipSeat < seatCount) {
-    totalSwappableSeatCase *= fibonaci(seatCount - lastVipSeat);
+    totalSwappableSeatCase *= fibonacci(seatCount - lastVipSeat);
   }
 
   return totalSwappableSeatCase;
 }
 
-function fibonaci(value: number): number {
-  if (value === 1) {
-    return 1;
+function fibonacci(value: number) {
+  const cache: Record<`${number},${number}`, number | undefined> = {};
+
+  function internal(value: number): number {
+    if (value === 1) {
+      return 1;
+    }
+
+    if (value === 2) {
+      return 2;
+    }
+
+    const dataInCache = cache[`${value - 1},${value - 2}`];
+
+    if (dataInCache) {
+      return dataInCache;
+    }
+
+    const result = internal(value - 1) + internal(value - 2);
+    cache[`${value - 1},${value - 2}`] = result;
+    return result;
   }
 
-  if (value === 2) {
-    return 2;
-  }
-
-  return fibonaci(value - 1) + fibonaci(value - 2);
+  return internal(value);
 }
