@@ -1,3 +1,5 @@
+import {reportSmallestFailure} from './random-failure-report';
+
 export interface RandomCase<P extends unknown[], R> {
   inputs: P;
   expected: R;
@@ -54,6 +56,7 @@ export function compareFunctionsWithRandomInputs<P extends unknown[], R>(options
         handleError({input, output, expected});
       } else {
         console.dir({input, output, expected}, {depth: 10});
+        reportSmallestFailure(input, targetFunction, answerFunction);
       }
       throw error;
     }
