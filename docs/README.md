@@ -24,8 +24,8 @@
 - [technique/string.md](./technique/string.md) — 숫자↔문자열 변환 함정, 문자열 연산 비용
 - [technique/math.md](./technique/math.md)
 - [technique/binary-search.md](./technique/binary-search.md) — 중앙값 공식, 탐색 범위 잡기
-- [technique/dp-vs-brute-force.md](./technique/dp-vs-brute-force.md)
-- [technique/recursion-vs-greedy.md](./technique/recursion-vs-greedy.md)
+- [technique/dp.md](./technique/dp.md) — DP 자체. 입력이 무엇인지, 점화식 세우기
+- [technique/brute-force-dp-greedy.md](./technique/brute-force-dp-greedy.md) — 셋 중 무엇으로 풀지 고르기
 
 ## 그 외
 
