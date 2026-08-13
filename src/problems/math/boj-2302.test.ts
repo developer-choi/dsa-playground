@@ -56,7 +56,7 @@ describe.each(solutions)('극장 좌석 > $name', ({fn}) => {
 });
 
 function randomSeatInput(): [number, number[]] {
-  const seatCount = Math.floor(Math.random() * 20) + 1;
+  const seatCount = Math.floor(Math.random() * 40) + 1;
   const vipCount = Math.floor(Math.random() * (seatCount + 1));
   const available = Array.from({length: seatCount}, (_, k) => k + 1);
   const vipSeats: number[] = [];
