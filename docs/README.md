@@ -20,6 +20,7 @@
 
 ## 풀이 기법
 
+- [technique/what-to-try.md](./technique/what-to-try.md) — 기법이 안 떠오를 때 순서대로 대볼 목록
 - [technique/sort.md](./technique/sort.md)
 - [technique/string.md](./technique/string.md) — 숫자↔문자열 변환 함정, 문자열 연산 비용
 - [technique/math.md](./technique/math.md)
