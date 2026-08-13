@@ -40,7 +40,7 @@ export function dp(seatCount: number, vipSeatArray: number[]): number {
 }
 
 function fibonacci(value: number) {
-  const cache: Record<`${number},${number}`, number | undefined> = {};
+  const cache: Record<number, number | undefined> = {};
 
   function internal(value: number): number {
     if (value === 1) {
@@ -51,14 +51,14 @@ function fibonacci(value: number) {
       return 2;
     }
 
-    const dataInCache = cache[`${value - 1},${value - 2}`];
+    const dataInCache = cache[value];
 
-    if (dataInCache) {
+    if (dataInCache !== undefined) {
       return dataInCache;
     }
 
     const result = internal(value - 1) + internal(value - 2);
-    cache[`${value - 1},${value - 2}`] = result;
+    cache[value] = result;
     return result;
   }
 
