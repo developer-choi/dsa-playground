@@ -39,18 +39,9 @@
 
 ## 파일 구조
 
-```
-src/
-  data-structure/    # 코테용 구현체 (필요할 때 생성)
-  utils/             # 테스트 유틸리티
-  problems/          # 문제 풀이 (최적 풀이 기법 기준 분류)
-```
+`src/` 하위 폴더구조·파일명·함수명·테스트 규약은 [local/contexts/convention.md](local/contexts/convention.md)를 따른다.
 
-- `problems/` 하위에 최적 풀이 기법 기준 폴더 (인강 진도에 맞춰 생성)
-- 카테고리: implementation, greedy, dynamic-programming, binary-search, dfs-bfs, backtracking, shortest-path, sort, two-pointer, sliding-window, stack-queue, heap, hash, tree, graph, string, math
-- 파일명: `출처-번호.ts` (boj: 백준, pg: 프로그래머스, gfg: GeeksForGeeks)
-- 테스트: `출처-번호.test.ts` (분리)
-- 알고리즘·자료구조 필기는 이 프로젝트의 `docs/` 에 저장 (주제 폴더 밑 개념별 파일, 색인은 `docs/README.md`)
+알고리즘·자료구조 필기는 이 프로젝트의 `docs/`에 저장한다 (주제 폴더 밑 개념별 파일, 색인은 `docs/README.md`).
 
 ## 필기 커밋 전 검증
 

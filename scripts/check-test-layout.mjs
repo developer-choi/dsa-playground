@@ -16,6 +16,8 @@ import { readFileSync, globSync } from 'node:fs';
 
 const HOISTED_KEYS = ['answerFunction', 'generateInput'];
 const RANDOM_UTIL = 'compareFunctionsWithRandomInputs';
+const RANDOM_TITLE = '랜덤 입력으로 정답과 동일한지 검증한다';
+const RANDOM_ITERATIONS = 1000;
 
 /** 허용 형태: `answer` / `(a, b) => answer(a, b)` — 즉 아래 선언을 부르기만 하는 얇은 껍데기 */
 function isThinDelegate(node) {
@@ -72,6 +74,45 @@ function lineOf(sourceFile, node) {
   return sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile)).line + 1;
 }
 
+/**
+ * Random 블록 안의 검증 케이스가 정해진 모양인지 본다.
+ * 단일 케이스 서술이 아니라 반복 검증 루틴이므로 `it` 이 아니라 `test` 로 쓰고, 문구는 파일마다
+ * 달라질 이유가 없으므로 하나로 고정한다. 반복 횟수도 같은 이유로 고정이다.
+ */
+function randomCaseViolations(sourceFile, randomBlock) {
+  const found = [];
+
+  function visit(node) {
+    if (isCallExpression(node) && isIdentifier(node.expression) && (node.expression.text === 'it' || node.expression.text === 'test')) {
+      const [title] = node.arguments;
+
+      if (subtreeHas(node, isRandomUtilCall)) {
+        if (node.expression.text === 'it') {
+          found.push({ line: lineOf(sourceFile, node), message: '랜덤 대조는 단일 케이스가 아니라 검증 루틴입니다. it 대신 test 를 쓰세요' });
+        }
+
+        if (title !== undefined && isStringLiteral(title) && title.text !== RANDOM_TITLE) {
+          found.push({ line: lineOf(sourceFile, title), message: `랜덤 대조 문구는 '${RANDOM_TITLE}' 로 통일합니다` });
+        }
+      }
+    }
+
+    if (isPropertyAssignment(node) && isIdentifier(node.name) && node.name.text === 'iterationCount') {
+      const literal = node.initializer.getText(sourceFile);
+
+      if (literal !== String(RANDOM_ITERATIONS)) {
+        found.push({ line: lineOf(sourceFile, node), message: `iterationCount 는 ${RANDOM_ITERATIONS} 입니다` });
+      }
+    }
+
+    forEachChild(node, visit);
+  }
+
+  visit(randomBlock);
+
+  return found;
+}
+
 export function violationsOf(filePath, code) {
   const sourceFile = createSourceFile(filePath, code, ScriptTarget.ESNext, true);
   const violations = [];
@@ -99,6 +140,11 @@ export function violationsOf(filePath, code) {
         line: lineOf(sourceFile, node),
         message: `Random 블록이 ${RANDOM_UTIL} 를 쓰지 않습니다. 직접 for 루프를 돌리면 실패한 입력·출력·기댓값이 안 찍힙니다`,
       });
+    }
+
+    // 규칙 5. 랜덤 블록의 검증 케이스는 test() + 고정 문구 + 정해진 반복 횟수
+    if (isRandomBlock(node)) {
+      violations.push(...randomCaseViolations(sourceFile, node));
     }
 
     forEachChild(node, visit);
