@@ -2,7 +2,9 @@
 
 노드와 간선으로 "무엇과 무엇이 연결되어 있는가"를 나타낸 자료구조.
 이 문서는 **그래프가 무엇인가**만 다룬다. 코드로 옮기는 방법은 [adjacency-matrix-vs-list.md](./adjacency-matrix-vs-list.md),
-순회하는 방법은 [dfs.md](./dfs.md), [bfs.md](./bfs.md), 둘 중 무엇을 쓸지는 [dfs-bfs.md](./dfs-bfs.md).
+순회하는 방법은 [dfs.md](./dfs.md), [bfs.md](./bfs.md), 둘 중 무엇을 쓸지는 [dfs-vs-bfs.md](./dfs-vs-bfs.md).
+
+이 폴더는 처음 읽을 때의 순서가 있다. 이 문서 → [adjacency-matrix-vs-list.md](./adjacency-matrix-vs-list.md) → [dfs-vs-bfs.md](./dfs-vs-bfs.md) → [dfs.md](./dfs.md) → [dfs-visited.md](./dfs-visited.md) → [bfs.md](./bfs.md).
 
 ## 용어
 

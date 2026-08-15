@@ -1,7 +1,7 @@
 # DFS
 
 한 갈래를 끝까지 파고든 뒤, 막히면 돌아와 다음 갈래로 간다.
-BFS와의 비교는 [dfs-bfs.md](./dfs-bfs.md), 그래프 자체와 종류 이름은 [graph.md](./graph.md).
+BFS와의 비교는 [dfs-vs-bfs.md](./dfs-vs-bfs.md), 그래프 자체와 종류 이름은 [graph.md](./graph.md).
 
 외울 것은 **순회 방법 두 가지뿐이다.** 갈리는 지점은 `visited` 를 두느냐 마느냐 하나다.
 이 문서는 **언제 그 `visited` 가 필요한가**를 다룬다.
@@ -249,4 +249,4 @@ stack.push({ id: child, previousLength: currentLength + '/'.length });
 ```
 
 방문 순서가 답을 바꾸지 않아 BFS로 바꿔도 똑같이 풀린다
-([dfs-bfs.md](./dfs-bfs.md)의 「아무거나 써도 되는 경우」).
+([dfs-vs-bfs.md](./dfs-vs-bfs.md)의 「아무거나 써도 되는 경우」).
