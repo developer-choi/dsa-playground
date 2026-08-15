@@ -15,9 +15,15 @@ description: 문제 URL이나 정보를 받아 적절한 폴더에 풀이 파일
 3. 이미 존재하는지 grep으로 확인 → 있으면 알려주고 중단
 4. 문제 페이지를 읽고 최적 풀이 기법을 판단하여 카테고리 폴더 결정
 5. 카테고리 폴더가 없으면 생성
-6. 풀이 파일과 테스트 파일 생성
+6. 아래 파일 생성
 
 ## 생성 파일
+
+### 문제 파일 (원문이 웹에 없는 문제만)
+
+`src/problems/{카테고리}/{출처}-{번호}.md`
+
+기업 코딩테스트처럼 링크로 돌아갈 곳이 없는 문제는 원문을 옮겨 둔다. 복습 시 문제를 다시 읽을 방법이 이 파일뿐이다. URL이 있는 문제(boj/pg/gfg)는 만들지 않는다.
 
 ### 풀이 파일
 
@@ -26,7 +32,7 @@ description: 문제 URL이나 정보를 받아 적절한 폴더에 풀이 파일
 - 함수명: 풀이 기법 기반 (예: `bruteForce`, `greedy`, `bfs`, `stack`, `dp`)
 - 템플릿: `local/contexts/study-flow/example.md` 참조
 - 타입 에러 방지를 위해 반환 타입에 맞는 기본값을 리턴한다 (예: `return []`, `return 0`, `return false`)
-- 함수 본문 최상단에 2단계 접근법 템플릿을 블록 주석으로 미리 박아둔다 (사용자가 채울 수 있도록):
+- 함수 본문 최상단에 3단계 접근법 템플릿을 블록 주석으로 미리 박아둔다 (사용자가 채울 수 있도록):
   ```
   /*
    * 접근법 — 목적/방법의 연쇄로 순서대로 서술.
@@ -43,8 +49,8 @@ description: 문제 URL이나 정보를 받아 적절한 폴더에 풀이 파일
 
 `src/problems/{카테고리}/{출처}-{번호}.test.ts`
 
-- 템플릿: `local/contexts/study-flow/test-template.md` 참조 (`local/contexts/study-flow/test-template.md`에 있는 import만 작성한다. `compareFunctionsWithRandomInputs`는 3단계 Random 블록 추가 시점에 넣는다 — 초기 스캐폴딩엔 미포함)
-- 문제 페이지의 예제 입력/출력을 `General cases` 블록에 채운다
+- 템플릿: `local/contexts/study-flow/test-template.md` 참조 (`local/contexts/study-flow/test-template.md`에 있는 import만 작성한다. `compareFunctionsWithRandomInputs`는 4단계 Random 블록 추가 시점에 넣는다 — 초기 스캐폴딩엔 미포함)
+- 문제의 예제 입력/출력을 `General cases` 블록에 `it.todo('...', () => { expect(...) })` 형태로 채운다. 이 시점의 풀이는 스텁이라 케이스가 실행되면 실패하는데, Vitest는 `it.todo`의 콜백을 실행하지 않아 스캐폴딩만으로도 커밋이 통과한다. `it`으로의 전환은 4단계에서 한다
 - it 설명은 함수 동작/조건 기반으로 서술한다 (예: `'각 탑이 레이저를 수신하는 탑 번호를 반환한다'`). 입력값을 문구에 박지 않는다. 입력이 길면 로컬 변수로 분리한다 (`convention.md` 참고)
 - `Boundary cases`, `Edge cases`는 비워둔다
 
