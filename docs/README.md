@@ -1,33 +1,28 @@
-# 필기 색인
+# 필기
 
-## 그래프 · 탐색
+## 접근법
 
-읽는 순서가 있다. 위에서부터 읽는다.
+무엇으로 풀지 정하는 게 제일 어렵다. 이게 안 정해지면 문제를 시작조차 못 하므로, 안 떠오를 때 순서대로 대본다.
 
-- [graph/graph.md](./graph/graph.md) — 그래프 자체. 용어와 종류, 헷갈리는 말 가리기
-- [graph/adjacency-matrix-vs-list.md](./graph/adjacency-matrix-vs-list.md) — 코드로 옮기기. 인접 행렬 vs 인접 리스트
-- [graph/dfs-bfs.md](./graph/dfs-bfs.md) — 완전 탐색이 왜 필요한지, DFS와 BFS 중 무엇을 쓸지
-- [graph/dfs.md](./graph/dfs.md) — DFS 코드 두 모양과 `visited` 가 필요한지 판정하기
-- [graph/dfs-visited.md](./graph/dfs-visited.md) — `visited` 를 쓰기로 정한 뒤
-- [graph/bfs.md](./graph/bfs.md) — BFS
+1. 구하는 게 **가짓수**인가 → 그리디는 못 쓴다. 한 줄기만 타므로 나머지 경로를 셀 방법이 없다.
+2. 구하는 게 **최소·최대**인가 → "매번 제일 좋아 보이는 걸 고르면 전체도 최선이다"가 머릿속에서 성립하는가. 성립하면 **그리디**.
+3. 성립 안 하면 → 앞을 하나 확정했을 때 남은 것이 **크기만 줄어든 같은 문제**가 되는가. 그러면 **DP**.
+4. 셋 다 아니면 완전탐색으로 시작하고, 느리면 어디가 겹치는지 다시 본다.
 
-## 자료구조
+셋이 어떻게 다른지는 [technique/brute-force-vs-dp-vs-greedy.md](./technique/brute-force-vs-dp-vs-greedy.md).
 
-- [data-structure/array.md](./data-structure/array.md) — 배열·객체 연산이 새 컬렉션을 만드는지
-- [data-structure/stack-queue.md](./data-structure/stack-queue.md)
-- [data-structure/heap.md](./data-structure/heap.md)
-- [data-structure/hash.md](./data-structure/hash.md)
+### DP 같으면 점화식부터 세우지 않는다
 
-## 풀이 기법
+DP 같다는 감이 오면 곧장 `f(n)` 과 `f(n-1)` 의 관계를 적으려 든다. 그러면 직전 상태를 한 칸 전 하나로 고정하게 되고, 한 번에 여러 칸을 건너뛰는 문제에서 거기서 막힌다.
 
-- [technique/what-to-try.md](./technique/what-to-try.md) — 기법이 안 떠오를 때 순서대로 대볼 목록
-- [technique/sort.md](./technique/sort.md)
-- [technique/string.md](./technique/string.md) — 숫자↔문자열 변환 함정, 문자열 연산 비용
-- [technique/math.md](./technique/math.md)
-- [technique/binary-search.md](./technique/binary-search.md) — 중앙값 공식, 탐색 범위 잡기
-- [technique/dp.md](./technique/dp.md) — DP 자체. 입력이 무엇인지, 점화식 세우기
-- [technique/brute-force-dp-greedy.md](./technique/brute-force-dp-greedy.md) — 셋 중 무엇으로 풀지 고르기
+먼저 할 일은 **마지막 한 번의 선택을 갈래대로 전부 여는 것**이다. 갈래가 여럿이면 직전 상태도 `f(n-1)` 하나가 아니라 `f(n-k)` 여럿이다. 그 갈래들이 저마다 같은 하위 문제로 떨어지는 것을 확인한 게 겹치는 부분 문제고, 점화식은 그것들을 `+` 나 `min`·`max` 로 합친 **결과**다 ([technique/dp.md](./technique/dp.md)).
 
-## 그 외
+DP로 가기로 했으면 코드 치기 전에 **칸 수를 곱해본다.** 1,000만을 넘으면 DP를 접는다.
 
-- [algorithm-tips.md](./algorithm-tips.md) — 어느 한 주제에도 안 속하는 팁
+### DFS냐 BFS냐는 대개 안 갈린다
+
+방문 순서가 답에 관여하지 않으면 어느 쪽을 써도 같은 답이 나온다. 어느 쪽인지 붙들고 있는 시간은 그대로 손해다 ([graph/dfs-vs-bfs.md](./graph/dfs-vs-bfs.md)의 「아무거나 써도 되는 경우」).
+
+---
+
+개념별 필기는 `graph/` · `data-structure/` · `technique/` 폴더에 있다. 그래프는 [graph/graph.md](./graph/graph.md)부터 순서대로 읽는다. 어느 주제에도 안 속하는 것은 [algorithm-tips.md](./algorithm-tips.md).
