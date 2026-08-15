@@ -73,7 +73,7 @@ DP를 잘 구현했는지 알아내는 방법은, 호출 수를 세보면 된다
 
 이 질문을 그대로 코드로 옮기면 `cache[3]` 이다.
 
-[boj-2302 극장 좌석](../../src/problems/math/boj-2302.ts)로 예시를 들면,
+[boj-2302 극장 좌석](../../src/problems/dynamic-programming/boj-2302.ts)로 예시를 들면,
 
 ```ts
 // ❌
@@ -136,7 +136,7 @@ dp[value][index] = dp[value + numbers[index]][index + 1]
 
 **둘을 합칠 때 쓰는 기호는 무엇을 구하냐가 정한다.** 가짓수를 세면 `+`, 최대·최소를 구하면 `max`·`min`. 「뭘 구하는 문제냐」는 DP를 쓸지 정하는 질문이 아니라 여기서 무슨 기호를 쓸지 정하는 질문이다.
 
-[boj-2302 극장 좌석](../../src/problems/math/boj-2302.ts)
+[boj-2302 극장 좌석](../../src/problems/dynamic-programming/boj-2302.ts)
 
 좌석에 사람이 규칙에 맞게 앉을 수 있는 경우의 수를 빠짐없이 세는 문제다.
 
