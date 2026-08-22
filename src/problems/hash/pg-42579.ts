@@ -1,5 +1,6 @@
 /**
  * URL: https://school.programmers.co.kr/learn/courses/30/lessons/42579
+ * Description: 베스트앨범 — 장르별 재생수 합이 큰 장르부터, 장르 내 재생수 높은 곡 2개씩의 인덱스를 반환
  */
 
 export function hash(genres: string[], plays: number[]): number[] {

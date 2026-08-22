@@ -1,3 +1,8 @@
+/**
+ * URL: src/problems/hash/wf-2.md
+ * Description: 음식 주문 분석 — 가장 많은 종류의 음식을 주문한 유저의 아이디를 알파벳순으로 반환
+ */
+
 export function solution(orders: string[]): string[] {
   const orderRecord: Record<string, Set<string>> = {};
 

@@ -1,5 +1,6 @@
 /**
  * URL: https://school.programmers.co.kr/learn/courses/30/lessons/12909
+ * Description: 올바른 괄호 — 괄호 문자열의 짝이 맞는지 여부를 반환
  */
 
 export function stack(text: string): boolean {

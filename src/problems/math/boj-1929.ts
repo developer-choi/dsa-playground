@@ -1,3 +1,8 @@
+/**
+ * URL: https://www.acmicpc.net/problem/1929
+ * Description: 소수 구하기 — n 이하의 소수를 오름차순으로 담은 배열을 반환
+ */
+
 export function sieve(n: number): number[] {
   const composites: boolean[] = new Array(n + 1).fill(false);
   const primes: number[] = [];

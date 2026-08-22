@@ -7,15 +7,15 @@ const solutions = [
 
 describe.each(solutions)('{문제 제목} > $name', ({fn}) => {
   describe('General cases', () => {
-    // 문제에서 제시한 예시를 코드로 작성. 없으면 비워두기
+    // 문제의 예제를 it.todo 로 채운다. 예제가 없으면 비워두기
   });
 
   describe('Boundary cases', () => {
-    // 문제에서 제시한 예시를 코드로 작성. 없으면 비워두기
+    // 비워둔다
   });
 
   describe('Edge cases', () => {
-    // 문제에서 제시한 예시를 코드로 작성. 없으면 비워두기
+    // 비워둔다
   });
 });
 ```

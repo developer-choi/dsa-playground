@@ -1,6 +1,6 @@
 # scaffold 결과물 예시
 
-`/scaffold https://www.acmicpc.net/problem/11047` 실행 시 생성되는 파일들.
+`scaffold.md` 절차로 https://www.acmicpc.net/problem/11047 을 셋업했을 때 생성되는 파일들.
 
 **주의**: 아래 테스트 파일의 `Random` 블록과 `compareFunctionsWithRandomInputs` import는 4단계(풀이 작성)에서 추가되는 **완성 상태** 예시다. 초기 스캐폴딩 시점에는 포함하지 않는다 — 풀이 함수 import 하나만.
 
@@ -52,7 +52,7 @@ describe.each(solutions)('동전 0 > $name', ({fn}) => {
     test('랜덤 입력으로 정답과 동일한지 검증한다', () => {
       compareFunctionsWithRandomInputs({
         targetFunction: ([coins, k]) => fn(coins, k),
-        answerFunction: naiveCoinCount,
+        answerFunction: minCoinCountByDp,
         generateInput: randomCoinsAndK,
         iterationCount: 1000,
       });
@@ -60,19 +60,29 @@ describe.each(solutions)('동전 0 > $name', ({fn}) => {
   });
 });
 
+// K 상한은 1억인데 DP 정답 함수가 O(K)라 감당하지 못한다. 2,000까지만 덮었다.
 function randomCoinsAndK(): [[number[], number]] {
-  const coins = [1, 5, 10, 50, 100, 500, 1000];
-  const k = Math.floor(Math.random() * 10000) + 1;
-  return [[coins, k]];
+  const coins = [1];
+
+  while (coins.length < 6 && Math.random() < 0.8) {
+    coins.push(coins.at(-1)! * (Math.floor(Math.random() * 3) + 2));
+  }
+
+  return [[coins, Math.floor(Math.random() * 2000) + 1]];
 }
 
-function naiveCoinCount([coins, k]: [number[], number]): number {
-  // 큰 동전부터 나누기
-  let count = 0;
-  for (let i = coins.length - 1; i >= 0; i--) {
-    count += Math.floor(k / coins[i]);
-    k %= coins[i];
+function minCoinCountByDp([coins, k]: [number[], number]): number {
+  const counts = new Array<number>(k + 1).fill(Infinity);
+  counts[0] = 0;
+
+  for (let amount = 1; amount <= k; amount++) {
+    for (const coin of coins) {
+      if (coin <= amount) {
+        counts[amount] = Math.min(counts[amount], counts[amount - coin] + 1);
+      }
+    }
   }
-  return count;
+
+  return counts[k];
 }
 ```

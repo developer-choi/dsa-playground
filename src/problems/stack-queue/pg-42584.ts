@@ -1,5 +1,6 @@
 /**
  * URL: https://school.programmers.co.kr/learn/courses/30/lessons/42584
+ * Description: 주식가격 — 각 가격에서 가격이 떨어지지 않은 기간을 반환
  */
 
 export function stack(prices: number[]): number[] {
