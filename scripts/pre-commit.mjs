@@ -10,11 +10,12 @@ import { spawnSync, execFileSync } from 'node:child_process';
 const TSC = 'node_modules/typescript/bin/tsc';
 const VITEST = 'node_modules/vitest/vitest.mjs';
 const CHECK_TEST_LAYOUT = 'scripts/check-test-layout.mjs';
+const CHECK_PATH_CONVENTION = 'scripts/check-path-convention.mjs';
 
 function stagedFiles() {
   const output = execFileSync('git', ['diff', '--cached', '--name-only', '--diff-filter=ACM'], { encoding: 'utf8' });
 
-  return output.split('\n').map(line => line.trim()).filter(line => line.endsWith('.ts'));
+  return output.split('\n').map(line => line.trim()).filter(Boolean);
 }
 
 /** 실패하면 그 자리에서 커밋을 막는다 — 뒤 검사를 더 돌려봐야 고칠 곳만 늘어난다 */
@@ -27,7 +28,15 @@ function run(label, args) {
   }
 }
 
-const staged = stagedFiles();
+const stagedAll = stagedFiles();
+// 문제 파일은 md 도 이름 규칙을 따른다 — 원문을 옮겨 둔 기업 코테 문제가 그렇다
+const stagedProblems = stagedAll.filter(file => file.startsWith('src/problems/') && /\.(ts|md)$/.test(file));
+
+if (stagedProblems.length > 0) {
+  run('경로 컨벤션 검사', [CHECK_PATH_CONVENTION, ...stagedProblems]);
+}
+
+const staged = stagedAll.filter(file => file.endsWith('.ts'));
 
 if (staged.length === 0) {
   process.exit(0);
