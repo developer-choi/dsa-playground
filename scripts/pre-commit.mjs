@@ -11,6 +11,7 @@ const TSC = 'node_modules/typescript/bin/tsc';
 const VITEST = 'node_modules/vitest/vitest.mjs';
 const CHECK_TEST_LAYOUT = 'scripts/check-test-layout.mjs';
 const CHECK_PATH_CONVENTION = 'scripts/check-path-convention.mjs';
+const CHECK_COMMIT_HASH = 'scripts/check-commit-hash.mjs';
 
 function stagedFiles() {
   const output = execFileSync('git', ['diff', '--cached', '--name-only', '--diff-filter=ACM'], { encoding: 'utf8' });
@@ -34,6 +35,14 @@ const stagedProblems = stagedAll.filter(file => file.startsWith('src/problems/')
 
 if (stagedProblems.length > 0) {
   run('경로 컨벤션 검사', [CHECK_PATH_CONVENTION, ...stagedProblems]);
+}
+
+// 필기가 커밋을 해시로 가리키면 rebase 후 그 자리가 사라진다. docs/ 는 여기 말고는
+// 어떤 검사도 안 거치므로 이 게이트가 유일한 그물이다.
+const stagedDocs = stagedAll.filter(file => file.startsWith('docs/') && file.endsWith('.md'));
+
+if (stagedDocs.length > 0) {
+  run('필기 커밋 참조 검사', [CHECK_COMMIT_HASH, ...stagedDocs]);
 }
 
 const staged = stagedAll.filter(file => file.endsWith('.ts'));

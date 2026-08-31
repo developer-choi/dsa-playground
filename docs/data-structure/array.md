@@ -42,7 +42,7 @@ for (let i = 0; i < pathA.length && i < pathB.length; i++) {
 - 공통 패턴: **"복사" 또는 "앞쪽 조작"**이 들어간 모든 연산.
 - BFS 큐 함정: 이 표의 `arr.shift()` 행 때문에 큐를 배열 앞에서 꺼내면 안 된다 → [stack-queue.md](./stack-queue.md)의 「구현 (Array 기반 Queue)」.
 - React에서 spread가 멀쩡한 이유: 이벤트당 1회 호출(경계에서 한 번)이라 단독 O(N)으로 끝남. 코테 함정은 **핫 루프 안에 박힌 경우**.
-- push vs concat 참고: https://github.com/developer-choi/dsa-playground/commit/3ba114024da742aef2d284098663e3d7e5d9c535
+- push vs concat 참고: `git log --grep="그룹 단어 찾기"`
 
 ### spread 심화 — `[x, ...arr]`은 안 보이는 for 루프
 
