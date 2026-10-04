@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // 필기(`docs/`)가 커밋을 해시로 가리키는지 본다.
 //
-// 이 파일이 존재하는 이유: `CLAUDE.md` 「필기」가 *"해시로 적지 않는다. rebase 하면 해시가
-// 바뀌어 가리키던 자리가 사라진다"*고 정해뒀는데, 그 규칙에 닿는 검사가 없었다. pre-commit은
+// 이 파일이 존재하는 이유: `CLAUDE.md` 「실제로 빠졌던 오해는 남긴다」가 파일 경로·커밋 해시로
+// 가리키지 말고 추상화해 적으라고 정해뒀는데, 그 규칙에 닿는 검사가 없었다. pre-commit은
 // `src/problems/**`의 경로 컨벤션과 `.ts`의 tsc·vitest만 보고 **`docs/`는 어떤 검사도 안 거친다.**
 //
 // 그리고 이 위반은 조용하고 늦게 터진다 — 해시를 적은 순간에는 링크가 멀쩡히 열리고, rebase로
@@ -52,6 +52,5 @@ for (const { file, lineNo, sha, line } of hits) {
   console.error(`    ${line.slice(0, 120)}`);
 }
 console.error('');
-console.error('커밋 메시지의 한 조각으로 찾게 적는다 — 브랜치를 정리해도 계속 닿는다.');
-console.error('  예: `git log --grep="호출 수 계측"`');
+console.error('커밋을 가리키지 말고 무엇을 잘못 봤는지를 추상화해 적는다 — 틀린 식·구조의 모양과 새는 입력.');
 process.exit(1);
