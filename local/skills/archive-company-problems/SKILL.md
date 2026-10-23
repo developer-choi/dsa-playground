@@ -18,7 +18,7 @@ argument-hint: "[이미지 경로 또는 문제 설명]"
 
 기업 코딩테스트 문제를 **DP 연결 백로그** 아래에 md로 문서화하라.
 
-- **저장 위치**: `../backlog/projects/dsa-playground/active/docs/company-test/` (DP 프로젝트 루트 기준 상대경로). DP 레포가 아니라 별도 `backlog` 레포에 저장한다.
+- **저장 위치**: `../backlog/projects/dsa-playground/dev-active/docs/company-test/` (DP 프로젝트 루트 기준 상대경로). DP 레포가 아니라 별도 `backlog` 레포에 저장한다.
 - 아래에서 이 경로를 `{저장위치}`로 지칭한다.
 
 ## 모드 결정
