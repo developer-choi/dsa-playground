@@ -11,6 +11,8 @@ module.exports = {
     },
   ],
   rules: {
+    // 커밋 본문 끝의 Backlog trailer는 백로그 항목 경로를 통째로 담아 100자를 넘는다(knowledge-archive와 같은 한도).
+    'body-max-line-length': [2, 'always', 200],
     'type-enum': [2, 'always', ['feat', 'fix', 'refactor', 'test']],
     'scope-enum': [
       2,
