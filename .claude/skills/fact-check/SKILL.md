@@ -24,7 +24,7 @@ argument-hint: "<문서 경로 | 설명 대상 코드 경로>"
 
 ## 절차
 
-[CRITICAL] 에이전트 구성은 전역 `{{contexts}}/team-agent.md`를 따른다.
+[CRITICAL] 에이전트 구성은 전역 `~/WebstormProjects/main/ai-contexts/plugins/ac/contexts/team-agent.md`를 따른다.
 
 메인은 표와 측정 기록을 나르고 마지막에 보고만 한다. 문서를 읽고 판단하는 일은 전부 에이전트가 맡는다 — 메인이 주장을 손에 쥐면 그 주장이 측정 지시로 새기 때문이다.
 

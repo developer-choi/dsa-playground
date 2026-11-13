@@ -80,7 +80,7 @@ argument-hint: "[이미지 경로 또는 문제 설명]"
 
 옮긴 쪽은 자기가 무엇을 적으려 했는지 알기 때문에 적힌 것과 적으려던 것을 구분하지 못한다. 중첩 배열처럼 훑고 넘기는 자리에서 어긋난 값이 그대로 살아남는 이유가 이것이다. 그래서 판정은 옮기지 않은 쪽이 맡는다.
 
-[CRITICAL] 에이전트 구성은 전역 `{{contexts}}/team-agent.md`를 따른다.
+[CRITICAL] 에이전트 구성은 전역 `~/WebstormProjects/main/ai-contexts/plugins/ac/contexts/team-agent.md`를 따른다.
 
 ### 돌려서 재는 것
 
