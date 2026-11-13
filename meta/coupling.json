@@ -3,8 +3,8 @@
     {
       "name": "study-flow 스킬 ↔ 참조 컨텍스트·리뷰 스킬",
       "files": [
-        "local/skills/study-flow/SKILL.md",
-        "local/skills/review/SKILL.md",
+        ".claude/skills/study-flow/SKILL.md",
+        ".claude/skills/review/SKILL.md",
         "local/contexts/convention.md",
         "local/contexts/study-flow/scaffold.md",
         "local/contexts/study-flow/example.md",
@@ -25,7 +25,7 @@
       "files": [
         "docs/README.md",
         "CLAUDE.md",
-        "local/skills/study-flow/SKILL.md"
+        ".claude/skills/study-flow/SKILL.md"
       ],
       "note": "CLAUDE.md 「파일 구조」와 study-flow 4단계 「접근법 정리」가 필기를 어디에 어떤 단위로 두는지를 산문으로 서술하고, docs/README.md가 실제 배치의 색인이다. 필기를 폴더로 나누거나 옮기면 그 산문 두 곳이 조용히 낡는다 — 2026-08-09 실측: docs/를 주제 폴더로 나눈 뒤에도 CLAUDE.md는 '주제별 파일'로 남아 있었다. 폴더를 신설·개명·이동했으면 두 문장을 열어 현재 배치와 맞는지 본다. 문서 하나를 추가·수정만 했으면 README 색인만 보고 넘어간다."
     }

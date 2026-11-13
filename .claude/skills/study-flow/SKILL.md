@@ -185,7 +185,7 @@ argument-hint: "[문제 URL]"
 - 풀이 파일과 테스트 파일을 함께 커밋
 
 ### 5단계: 검증
-- `local/skills/review/SKILL.md`의 검증, 분석 절차를 따른다
+- `.claude/skills/review/SKILL.md`의 검증, 분석 절차를 따른다
 - **개선점 발견 시 처리 방식**
   - **사소한 개선(오타, 불필요한 재대입, 데드 코드, 미사용 변수 등 린트 수준)**: 리뷰어가 즉시 수정 후 별도 커밋
   - **설계 판단이 필요한 개선(알고리즘 교체, 시간·공간 복잡도 변경, 자료구조 변경 등)**: 피드백만 하고 사용자가 결정
@@ -226,4 +226,4 @@ argument-hint: "[문제 URL]"
 
 ## 태도
 
-- `local/skills/review/SKILL.md`의 태도 섹션을 따른다
+- `.claude/skills/review/SKILL.md`의 태도 섹션을 따른다
