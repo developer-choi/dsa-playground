@@ -18,8 +18,8 @@
 // (커밋 정책 훅이 이 형태를 경로 지정으로 인정해 통과시키므로 실제로 가능한 형태다). 그리고
 // 레포 전용 훅 배포는 Bash 매처만 지원해 PowerShell·Monitor tool로 돌린 커밋에는 안 걸린다.
 //
-// 이 파일은 local/hooks/의 원본이며 sync:local-system이 .claude/hooks/로 배포한다.
-// 산출물을 직접 수정하지 말 것. self-contained I/O (공용 hook-utils 없음).
+// 이 파일은 커밋한 원본이고, `.claude/settings.json`의 등록을 Claude Code가 그대로 읽는다.
+// self-contained I/O (공용 hook-utils 없음).
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 

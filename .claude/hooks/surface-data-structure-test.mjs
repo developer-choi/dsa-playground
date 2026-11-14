@@ -9,8 +9,8 @@
 // 판정은 커밋 명령에 적힌 경로와 디스크만 본다. 짝 테스트가 이미 커밋돼 있으면 이번 커밋에
 // 없어도 통과다 — 파일이 있느냐만 보기 때문이다.
 //
-// 이 파일은 local/hooks/의 원본이며 sync:local-system이 .claude/hooks/로 배포한다.
-// 산출물을 직접 수정하지 말 것. self-contained I/O (공용 hook-utils 없음).
+// 이 파일은 커밋한 원본이고, `.claude/settings.json`의 등록을 Claude Code가 그대로 읽는다.
+// self-contained I/O (공용 hook-utils 없음).
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/surface-docs-verification.mjs\"",
+            "statusMessage": "Checking docs note verification..."
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/surface-data-structure-test.mjs\"",
+            "statusMessage": "Checking data structure paired tests..."
+          }
+        ]
+      }
+    ]
+  }
+}
